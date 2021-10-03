@@ -19,6 +19,11 @@ Get them from [lbry.com/get](https://lbry.com/get).
 
 You must also have the [lbrytools](https://github.com/belikor/lbrytools/lbrytools)
 library (the internal `lbrytools/` directory that has the `__init__.py`).
+You can download that repository manually, or you can clone this repository
+with an option to download submodules:
+```sh
+git clone --recurse-submodules https://github.com/belikor/lbrydseed
+```
 
 Copy the `lbrytools` directory (the one with an `__init__.py`)
 and the [`lbseed`](./lbseed) directory (also with an `__init__.py`),
