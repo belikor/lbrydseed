@@ -64,7 +64,7 @@ It uses standard modules such as `importlib`, `os`, `random`, `requests`,
 
 You can run the `dseed.py` program where it is, or place it wherever you want.
 If you want to keep everything contained, make sure `dseed.py`
-is always next to `lbrytools` and `lbdseed`.
+is always next to `lbrytools` and `lbseed`.
 ```
 toplevel/
     dseed.py
