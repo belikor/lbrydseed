@@ -42,6 +42,15 @@ class Application(ttk.Frame):
 
     def setup_widgets(self, parent):
         self.ftmono = tk.font.Font(family="monospace", size=10)
+        note = ttk.Notebook(parent)
+        page1 = ttk.Frame(note)
+        page2 = ttk.Frame(note)
+        note.add(page1, text="Download")
+        note.add(page2, text="List")
+        self.setup_page1(page1)
+        note.pack()
+
+    def setup_page1(self, parent):
         self.setup_top(parent)
         self.setup_textbox(parent)
 
