@@ -26,6 +26,7 @@
 """Methods to resolve and download claims of channels."""
 import importlib
 import requests
+import tempfile
 
 try:
     import lbrytools as lbryt
@@ -130,4 +131,22 @@ def download_ch(channels, numbers, info,
                                                   ddir=ddir, own_dir=own_dir,
                                                   save_file=save_file,
                                                   server=server)
+
+
+def print_claims(cid=True, blobs=True, show_channel=False,
+                 name=True, channel=None,
+                 server="http://localhost:5279"):
+    """Print all downloaded claims to a temporary file and read that file."""
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        lbryt.print_summary(show="all",
+                            title=False, typ=False, path=False,
+                            cid=cid, blobs=blobs, ch=show_channel,
+                            ch_online=False,
+                            name=name,
+                            start=1, end=0, channel=channel, invalid=False,
+                            file=fp.name, fdate=False, sep=";",
+                            server=server)
+        fp.seek(0)
+        content = fp.read()
+    return content
 

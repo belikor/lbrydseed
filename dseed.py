@@ -211,6 +211,7 @@ class Application(ttk.Frame):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
         self.setup_grid_top2(frame, start=0)
+        self.setup_grid_low2(frame, start=3)
 
     def setup_grid_top2(self, parent, start=0):
         _width = 26
@@ -229,6 +230,35 @@ class Application(ttk.Frame):
         le = ttk.Label(parent,
                        text="Filter by channel name")
         le.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+
+    def setup_grid_low2(self, parent, start=0):
+        self.check_cid = tk.BooleanVar()
+        self.check_cid.set(False)
+        chck_cid = ttk.Checkbutton(parent,
+                                   variable=self.check_cid,
+                                   text="Show 'claim_id'")
+        chck_cid.grid(row=start, column=1, sticky=tk.W)
+
+        self.check_blobs = tk.BooleanVar()
+        self.check_blobs.set(True)
+        chck_blobs = ttk.Checkbutton(parent,
+                                     variable=self.check_blobs,
+                                     text="Show number of blobs")
+        chck_blobs.grid(row=start+1, column=1, sticky=tk.W)
+
+        self.show_ch = tk.BooleanVar()
+        self.show_ch.set(True)
+        chck_ch = ttk.Checkbutton(parent,
+                                  variable=self.show_ch,
+                                  text="Show channel of the claim")
+        chck_ch.grid(row=start+2, column=1, sticky=tk.W)
+
+        self.check_name = tk.BooleanVar()
+        self.check_name.set(True)
+        chck_name = ttk.Checkbutton(parent,
+                                    variable=self.check_name,
+                                    text="Show 'claim_name'")
+        chck_name.grid(row=start+3, column=1, sticky=tk.W)
 
     def setup_textbox2(self, parent):
         hsrl2 = ttk.Scrollbar(parent, orient="horizontal")
@@ -254,11 +284,14 @@ class Application(ttk.Frame):
             return False
 
         if self.entry_chan.get():
-            channel = self.entry_chan.get()
-            content = f"List, filter: {channel}"
-        else:
-            channel = None
-            content = "List all"
+            self.show_ch.set(True)
+
+        content = rs.print_claims(cid=self.check_cid.get(),
+                                  blobs=self.check_blobs.get(),
+                                  show_channel=self.show_ch.get(),
+                                  channel=self.entry_chan.get(),
+                                  name=self.check_name.get(),
+                                  server=self.server_var.get())
 
         self.textbox2.replace("1.0", tk.END, content)
         print(40 * "-")
