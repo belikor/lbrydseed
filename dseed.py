@@ -48,6 +48,7 @@ class Application(ttk.Frame):
         note.add(page1, text="Download")
         note.add(page2, text="List")
         self.setup_page1(page1)
+        self.setup_page2(page2)
         note.pack()
 
     def setup_page1(self, parent):
@@ -199,6 +200,67 @@ class Application(ttk.Frame):
                        proceed=True,
                        server=self.server_var.get())
 
+        print(40 * "-")
+        print("Done")
+
+    def setup_page2(self, parent):
+        self.setup_top2(parent)
+        self.setup_textbox2(parent)
+
+    def setup_top2(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top2(frame, start=0)
+
+    def setup_grid_top2(self, parent, start=0):
+        _width = 26
+        b_list = ttk.Button(parent, text="List claims",
+                            width=_width,
+                            command=self.list_claims)
+        b_list.grid(row=start, column=0)
+        llist = ttk.Label(parent,
+                          text="List all locally downloaded claims")
+        llist.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+        self.entry_chan = tk.StringVar()
+        entry = ttk.Entry(parent, textvariable=self.entry_chan,
+                          font=self.ftmono)
+        entry.grid(row=start+1, column=0, sticky=tk.W + tk.E)
+        le = ttk.Label(parent,
+                       text="Filter by channel name")
+        le.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+
+    def setup_textbox2(self, parent):
+        hsrl2 = ttk.Scrollbar(parent, orient="horizontal")
+        hsrl2.pack(side=tk.BOTTOM, fill=tk.X)
+        vsrl2 = ttk.Scrollbar(parent)
+        vsrl2.pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.textbox2 = tk.Text(parent,
+                                xscrollcommand=hsrl2.set,
+                                yscrollcommand=vsrl2.set,
+                                font="monospace 8",
+                                width=60, height=10,
+                                wrap=tk.NONE)
+        self.textbox2.bind("<Tab>", self.focus_next_widget)
+
+        self.textbox2.pack(side="top", fill="both", expand=True)
+
+        hsrl2.config(command=self.textbox2.xview)
+        vsrl2.config(command=self.textbox2.yview)
+
+    def list_claims(self):
+        if not rs.server_exists(server=self.server_var.get()):
+            return False
+
+        if self.entry_chan.get():
+            channel = self.entry_chan.get()
+            content = f"List, filter: {channel}"
+        else:
+            channel = None
+            content = "List all"
+
+        self.textbox2.replace("1.0", tk.END, content)
         print(40 * "-")
         print("Done")
 
