@@ -45,10 +45,13 @@ class Application(ttk.Frame):
         note = ttk.Notebook(parent)
         page1 = ttk.Frame(note)
         page2 = ttk.Frame(note)
+        page3 = ttk.Frame(note)
         note.add(page1, text="Download")
         note.add(page2, text="List")
+        note.add(page3, text="Delete")
         self.setup_page1(page1)
         self.setup_page2(page2)
+        self.setup_page3(page3)
         note.pack()
 
     def setup_page1(self, parent):
@@ -296,6 +299,91 @@ class Application(ttk.Frame):
         self.textbox2.replace("1.0", tk.END, content)
         print(40 * "-")
         print("Done")
+
+    def setup_page3(self, parent):
+        self.setup_top3(parent)
+        self.setup_textbox3(parent)
+        
+    def setup_top3(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top3(frame, start=0)
+        self.setup_grid_low3(frame, start=2)
+        self.setup_info3(frame, start=5)
+
+    def setup_grid_top3(self, parent, start=0):
+        _width = 26
+        b_resolve3 = ttk.Button(parent, text="Resolve online",
+                                width=_width,
+                                command=self.resolve_claims)
+        b_resolve3.grid(row=start, column=0)
+        lr3 = ttk.Label(parent,
+                        text="Confirm that the claims exist")
+        lr3.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+        b_del = ttk.Button(parent, text="Delete claims", 
+                           width=_width, 
+                           command=self.del_claims)
+        b_del.grid(row=start+1, column=0)
+        ldel = ttk.Label(parent,
+                         text="Delete locally downloaded claims")
+        ldel.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+
+    def setup_grid_low3(self, parent, start=0):
+        self.del_what_var = tk.StringVar()
+        self.del_what_var.set("media")
+
+        media = ttk.Radiobutton(parent,
+                                text="Delete media (keep seeding the claim)",
+                                variable=self.del_what_var, value="media")
+        blobs = ttk.Radiobutton(parent,
+                                text="Delete blobs (keep media in download directory)",
+                                variable=self.del_what_var, value="blobs")
+        both = ttk.Radiobutton(parent,
+                               text="Delete both (completely remove the claim)",
+                               variable=self.del_what_var, value="both")
+        media.grid(row=start, column=1, sticky=tk.W)
+        blobs.grid(row=start+1, column=1, sticky=tk.W)
+        both.grid(row=start+2, column=1, sticky=tk.W)
+
+    def setup_info3(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("Add one claim per row; this should be "
+                               "a 'claim_name' or a 'claim_id' "
+                               "(40-character string)"))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox3(self, parent):
+        hsrl3 = ttk.Scrollbar(parent, orient="horizontal")
+        hsrl3.pack(side=tk.BOTTOM, fill=tk.X)
+        vsrl3 = ttk.Scrollbar(parent)
+        vsrl3.pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.textbox3 = tk.Text(parent,
+                                xscrollcommand=hsrl3.set,
+                                yscrollcommand=vsrl3.set,
+                                font="monospace",
+                                width=60, height=10,
+                                wrap=tk.NONE)
+        self.textbox3.bind("<Tab>", self.focus_next_widget)
+
+        self.textbox3.pack(side="top", fill="both", expand=True)
+
+        hsrl3.config(command=self.textbox3.xview)
+        vsrl3.config(command=self.textbox3.yview)
+
+        claims = ["some-claim-name",
+                  "this-is-a-fake-claim",
+                  "abcd0000efgh0000ijkl0000mopq0000rstu0000"]
+        claims = "\n".join(claims)
+
+        self.textbox3.insert("1.0", claims)
+
+    def resolve_claims(self):
+        print("Resolve claims")
+
+    def del_claims(self):
+        print("Delete claims")
 
 
 def main(argv=None):
