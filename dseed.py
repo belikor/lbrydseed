@@ -379,8 +379,14 @@ class Application(ttk.Frame):
 
         self.textbox3.insert("1.0", claims)
 
-    def resolve_claims(self):
-        print("Resolve claims")
+    def resolve_claims(self, print_msg=True):
+        if not rs.server_exists(server=self.server_var.get()):
+            return False
+
+        text = self.textbox3.get("1.0", tk.END)
+        claims = rs.resolve_claims(text, print_msg=print_msg,
+                                   server=self.server_var.get())
+        return claims
 
     def del_claims(self):
         print("Delete claims")

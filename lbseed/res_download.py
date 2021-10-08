@@ -150,3 +150,43 @@ def print_claims(cid=True, blobs=True, show_channel=False,
         content = fp.read()
     return content
 
+
+def resolve_claims(text, print_msg=True,
+                   server="http://localhost:5279"):
+    """Resolve claims to see if they actually exist."""
+    split_lines = text.splitlines()
+    lines = []
+
+    for line in split_lines:
+        item = line.strip()
+        if " " in item:
+            item = item.replace(" ", "")
+        if not item:
+            continue
+        lines.append(item)
+
+    claims = []
+    out = []
+
+    for num, line in enumerate(lines, start=1):
+        result = lbryt.search_item(line, print_error=False,
+                                   server=server)
+
+        info = ""
+        if not result:
+            result = lbryt.search_item(cid=line, print_error=False,
+                                       server=server)
+
+        if not result:
+            info = "No claim found"
+
+        line = f'"{line}"'
+        out += [f'{num:2d}: item={line:42s}  {info}']
+        claims.append(result)
+
+    if print_msg:
+        print("Resolve claims")
+        print(80 * "-")
+        print("\n".join(out))
+    return claims
+
