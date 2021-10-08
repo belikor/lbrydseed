@@ -106,21 +106,18 @@ class Application(ttk.Frame):
         self.own_dir_var = tk.BooleanVar()
         self.own_dir_var.set(True)
         chk_owndir = ttk.Checkbutton(parent,
-                                     variable=self.own_dir_var)
-        chk_owndir.grid(row=start+3, column=0, sticky=tk.E)
-        lchk = ttk.Label(parent,
-                         text="Place the downloaded file inside a subdirectory")
-        lchk.grid(row=start+3, column=1, sticky=tk.W, padx=2)
+                                     variable=self.own_dir_var,
+                                     text=("Place the downloaded file "
+                                           "inside a subdirectory"))
+        chk_owndir.grid(row=start+3, column=1, sticky=tk.W)
 
         self.save_var = tk.BooleanVar()
         self.save_var.set(True)
         chk_save = ttk.Checkbutton(parent,
-                                   variable=self.save_var)
-        chk_save.grid(row=start+4, column=0, sticky=tk.E)
-        lchk_save = ttk.Label(parent,
-                              text=("Save media and its blobs; "
-                                    "otherwise only the first blob"))
-        lchk_save.grid(row=start+4, column=1, sticky=tk.W, padx=2)
+                                   variable=self.save_var,
+                                   text=("Save media and its blobs; "
+                                         "otherwise only the first blob"))
+        chk_save.grid(row=start+4, column=1, sticky=tk.W)
 
     def setup_info(self, parent, start):
         info = ttk.Label(parent,
@@ -143,16 +140,17 @@ class Application(ttk.Frame):
                                wrap=tk.NONE)
         self.textbox.bind("<Tab>", self.focus_next_widget)
 
+        self.textbox.pack(side="top", fill="both", expand=True)
+
+        hsrl.config(command=self.textbox.xview)
+        vsrl.config(command=self.textbox.yview)
+
         channels = ["@my-favorite-channel, 5",
                     "@OdyseeHelp#b, 2",
                     "@lbry:3f, 4"]
         channels = "\n".join(channels)
 
         self.textbox.insert("1.0", channels)
-        self.textbox.pack(side="top", fill="both", expand=True)
-
-        hsrl.config(command=self.textbox.xview)
-        vsrl.config(command=self.textbox.yview)
 
     def focus_next_widget(self, event):
         event.widget.tk_focusNext().focus()
