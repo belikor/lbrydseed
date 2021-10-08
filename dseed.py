@@ -46,7 +46,7 @@ class Application(tk.Frame):
         frame.pack(padx=4, pady=4)
         self.setup_grid_top(frame, start=0)
         self.setup_grid_low(frame, start=2)
-        self.setup_info(frame, start=6)
+        self.setup_info(frame, start=7)
 
     def setup_grid_top(self, parent, start=0):
         self.server_var = tk.StringVar()
@@ -99,12 +99,22 @@ class Application(tk.Frame):
 
         self.own_dir_var = tk.BooleanVar()
         self.own_dir_var.set(True)
-        chk_owndir = tk.Checkbutton(parent, width=3,
+        chk_owndir = tk.Checkbutton(parent,
                                     variable=self.own_dir_var)
         chk_owndir.grid(row=start+3, column=0, sticky=tk.E)
         lchk = tk.Label(parent,
                         text="Place the downloaded file inside a subdirectory")
         lchk.grid(row=start+3, column=1, sticky=tk.W, padx=2)
+
+        self.save_var = tk.BooleanVar()
+        self.save_var.set(True)
+        chk_save = tk.Checkbutton(parent,
+                                  variable=self.save_var)
+        chk_save.grid(row=start+4, column=0, sticky=tk.E)
+        lchk_save = tk.Label(parent,
+                             text=("Save media and its blobs; "
+                                   "otherwise only the first blob"))
+        lchk_save.grid(row=start+4, column=1, sticky=tk.W, padx=2)
 
     def setup_info(self, parent, start):
         info = tk.Label(parent,
@@ -172,6 +182,7 @@ class Application(tk.Frame):
         rs.download_ch(channels, numbers, info,
                        ddir=self.down_dir_var.get(),
                        own_dir=self.own_dir_var.get(),
+                       save_file=self.save_var.get(),
                        proceed=True,
                        server=self.server_var.get())
 

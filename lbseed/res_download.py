@@ -93,7 +93,7 @@ def get_download_dir(server="http://localhost:5279"):
 
 
 def download_ch(channels, numbers, info,
-                ddir=None, own_dir=False,
+                ddir=None, own_dir=False, save_file=True,
                 proceed=False,
                 print_msg=True,
                 server="http://localhost:5279"):
@@ -128,6 +128,6 @@ def download_ch(channels, numbers, info,
                 output = lbryt.ch_download_latest(channel=channel,
                                                   number=number,
                                                   ddir=ddir, own_dir=own_dir,
-                                                  save_file=True,
+                                                  save_file=save_file,
                                                   server=server)
 
