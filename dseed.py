@@ -49,10 +49,10 @@ class Application(tk.Frame):
         self.setup_info(frame, start=6)
 
     def setup_grid_top(self, parent, start=0):
-        self.entry_var = tk.StringVar()
-        self.entry_var.set("http://localhost:5279")
+        self.server_var = tk.StringVar()
+        self.server_var.set("http://localhost:5279")
 
-        entry = tk.Entry(parent, textvariable=self.entry_var)
+        entry = tk.Entry(parent, textvariable=self.server_var)
         entry.grid(row=start, column=0, sticky=tk.W + tk.E)
         le = tk.Label(parent,
                       text=("Address of the 'lbrynet' daemon. "
@@ -60,7 +60,7 @@ class Application(tk.Frame):
         le.grid(row=start, column=1, sticky=tk.W, padx=2)
 
         self.down_dir_var = tk.StringVar()
-        self.down_dir_var.set(rs.get_download_dir(server=self.entry_var.get()))
+        self.down_dir_var.set(rs.get_download_dir(server=self.server_var.get()))
 
         entry_dir = tk.Entry(parent, textvariable=self.down_dir_var)
         entry_dir.grid(row=start+1, column=0, sticky=tk.W + tk.E)
@@ -97,10 +97,10 @@ class Application(tk.Frame):
                             "from the channels"))
         lr.grid(row=start+2, column=1, sticky=tk.W, padx=2)
 
-        self.check_var = tk.IntVar()
-        self.check_var.set(1)
+        self.own_dir_var = tk.BooleanVar()
+        self.own_dir_var.set(True)
         chk_owndir = tk.Checkbutton(parent, width=3,
-                                    variable=self.check_var)
+                                    variable=self.own_dir_var)
         chk_owndir.grid(row=start+3, column=0, sticky=tk.E)
         lchk = tk.Label(parent,
                         text="Place the downloaded file inside a subdirectory")
@@ -150,30 +150,33 @@ class Application(tk.Frame):
     def resolve(self, print_msg=True):
         channels, numbers = self.validate(print_msg=False)
 
-        if not rs.server_exists(server=self.entry_var.get()):
+        if not rs.server_exists(server=self.server_var.get()):
             return False
 
         ddir = self.down_dir_var.get()
         if not os.path.exists(ddir):
-            nddir = rs.get_download_dir(server=self.entry_var.get())
+            nddir = rs.get_download_dir(server=self.server_var.get())
             self.down_dir_var.set(nddir)
             print(f"Directory does not exist: {ddir}")
             print(f"Default directory: {nddir}")
 
         info = rs.resolve_ch(channels, numbers, print_msg=print_msg,
-                             server=self.entry_var.get())
+                             server=self.server_var.get())
         return channels, numbers, info
 
     def start_download(self):
-        if not rs.server_exists(server=self.entry_var.get()):
+        if not rs.server_exists(server=self.server_var.get()):
             return False
 
         channels, numbers, info = self.resolve(print_msg=False)
         rs.download_ch(channels, numbers, info,
                        ddir=self.down_dir_var.get(),
-                       own_dir=self.check_var.get(),
+                       own_dir=self.own_dir_var.get(),
                        proceed=True,
-                       server=self.entry_var.get())
+                       server=self.server_var.get())
+
+        print(40 * "-")
+        print("Done")
 
 
 def main(argv=None):
