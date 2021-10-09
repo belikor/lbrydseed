@@ -58,6 +58,26 @@ def setup_textbox(parent, font="monospace",
     return textbox
 
 
+def setup_download_entry(parent,
+                         server_var=None, dir_var=None,
+                         font=None, start=0):
+    entry = ttk.Entry(parent, textvariable=server_var,
+                      font=font)
+    entry.grid(row=start, column=0, sticky=tk.W + tk.E)
+    le = ttk.Label(parent,
+                   text=("Address of the 'lbrynet' daemon. "
+                         "It defaults to localhost:5279"))
+    le.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+    entry_dir = ttk.Entry(parent, textvariable=dir_var,
+                          font=font)
+    entry_dir.grid(row=start+1, column=0, sticky=tk.W + tk.E)
+    ledir = ttk.Label(parent,
+                      text=("Download directory. "
+                            "It defaults to your home directory."))
+    ledir.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+
+
 class Application(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -65,6 +85,11 @@ class Application(ttk.Frame):
 
     def setup_widgets(self, parent):
         self.ftmono = tk.font.Font(family="monospace", size=10)
+        self.server_var = tk.StringVar()
+        self.server_var.set("http://localhost:5279")
+        self.down_dir_var = tk.StringVar()
+        self.down_dir_var.set(res.get_download_dir(server=self.server_var.get()))
+
         note = ttk.Notebook(parent)
         page1 = ttk.Frame(note)
         page2 = ttk.Frame(note)
@@ -92,27 +117,9 @@ class Application(ttk.Frame):
         self.setup_info_dch(frame, start=7)
 
     def setup_grid_top_dch(self, parent, start=0):
-        self.server_var = tk.StringVar()
-        self.server_var.set("http://localhost:5279")
-
-        entry = ttk.Entry(parent, textvariable=self.server_var,
-                          font=self.ftmono)
-        entry.grid(row=start, column=0, sticky=tk.W + tk.E)
-        le = ttk.Label(parent,
-                       text=("Address of the 'lbrynet' daemon. "
-                             "It defaults to localhost:5279"))
-        le.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-        self.down_dir_var = tk.StringVar()
-        self.down_dir_var.set(res.get_download_dir(server=self.server_var.get()))
-
-        entry_dir = ttk.Entry(parent, textvariable=self.down_dir_var,
-                              font=self.ftmono)
-        entry_dir.grid(row=start+1, column=0, sticky=tk.W + tk.E)
-        ledir = ttk.Label(parent,
-                          text=("Download directory. "
-                                "It defaults to your home directory."))
-        ledir.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+        setup_download_entry(parent, server_var=self.server_var,
+                             dir_var=self.down_dir_var,
+                             font="Monospace 10", start=start)
 
     def setup_grid_low_dch(self, parent, start=0):
         _width = 26
