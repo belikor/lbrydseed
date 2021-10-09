@@ -23,16 +23,9 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER         #
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
-"""Methods to resolve and download claims of channels."""
-import importlib
+"""Methods to resolve claims and channels."""
 import requests
-import tempfile
-
-try:
-    import lbrytools as lbryt
-    external_lib = True
-except ModuleNotFoundError:
-    external_lib = False
+import lbrytools as lbryt
 
 
 def server_exists(server="http://localhost:5279"):
@@ -45,6 +38,13 @@ def server_exists(server="http://localhost:5279"):
         print("  lbrynet start")
         return False
     return True
+
+
+def get_download_dir(server="http://localhost:5279"):
+    msg = {"method": "settings_get"}
+    out_set = requests.post(server, json=msg).json()
+    ddir = out_set["result"]["download_dir"]
+    return ddir
 
 
 def resolve_ch(channels, numbers, print_msg=True,
@@ -86,71 +86,6 @@ def resolve_ch(channels, numbers, print_msg=True,
     return resolve_info
 
 
-def get_download_dir(server="http://localhost:5279"):
-    msg = {"method": "settings_get"}
-    out_set = requests.post(server, json=msg).json()
-    ddir = out_set["result"]["download_dir"]
-    return ddir
-
-
-def download_ch(channels, numbers, info,
-                ddir=None, own_dir=False, save_file=True,
-                proceed=False,
-                print_msg=True,
-                server="http://localhost:5279"):
-    """Download claims from channels."""
-    if print_msg:
-        print("Download claims")
-        print(80 * "-")
-
-    n_channels = len(channels)
-
-    for num, group in enumerate(zip(channels, numbers, info), start=1):
-        channel = group[0]
-        number = group[1]
-        information = group[2]
-
-        if "NOT_FOUND" in information:
-            continue
-        if print_msg:
-            print(f"Channel {num}/{n_channels}, '{information}'")
-            if num < n_channels:
-                print()
-            msg = {"method": "getch",
-                   "params": {"channel": channel,
-                              "number": number,
-                              "download_directory": ddir,
-                              "save_file": True}}
-
-            if proceed and not external_lib:
-                print(f"lbrynet getch '{channel}' --number={number}")
-                output = requests.post(server, json=msg).json()
-            elif proceed and external_lib:
-                output = lbryt.ch_download_latest(channel=channel,
-                                                  number=number,
-                                                  ddir=ddir, own_dir=own_dir,
-                                                  save_file=save_file,
-                                                  server=server)
-
-
-def print_claims(cid=True, blobs=True, show_channel=False,
-                 name=True, channel=None,
-                 server="http://localhost:5279"):
-    """Print all downloaded claims to a temporary file and read that file."""
-    with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.print_summary(show="all",
-                            title=False, typ=False, path=False,
-                            cid=cid, blobs=blobs, ch=show_channel,
-                            ch_online=False,
-                            name=name,
-                            start=1, end=0, channel=channel, invalid=False,
-                            file=fp.name, fdate=False, sep=";",
-                            server=server)
-        fp.seek(0)
-        content = fp.read()
-    return content
-
-
 def resolve_claims(text, print_msg=True,
                    server="http://localhost:5279"):
     """Resolve claims to see if they actually exist."""
@@ -189,26 +124,4 @@ def resolve_claims(text, print_msg=True,
         print(80 * "-")
         print("\n".join(out))
     return claims
-
-
-def delete_claims(claims, what="media",
-                  print_msg=True,
-                  server="http://localhost:5279"):
-    """Delete claims."""
-    if print_msg:
-        print("Delete claims")
-        print(80 * "-")
-
-    n_claims = len(claims)
-
-    for num, claim in enumerate(claims, start=1):
-        if not claim:
-            continue
-
-        name = claim["name"]
-        if print_msg:
-            print(f"Claim {num}/{n_claims}, '{name}'")
-            lbryt.delete_single(cid=claim["claim_id"], what=what,
-                                server=server)
-            print()
 

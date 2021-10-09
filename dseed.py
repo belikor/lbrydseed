@@ -31,8 +31,9 @@ import tkinter as tk
 import tkinter.font
 import tkinter.ttk as ttk
 
-import lbseed.res_download as rs
+import lbseed.resolve as res
 import lbseed.validate as vd
+import lbseed.actions as actions
 
 
 class Application(ttk.Frame):
@@ -78,7 +79,7 @@ class Application(ttk.Frame):
         le.grid(row=start, column=1, sticky=tk.W, padx=2)
 
         self.down_dir_var = tk.StringVar()
-        self.down_dir_var.set(rs.get_download_dir(server=self.server_var.get()))
+        self.down_dir_var.set(res.get_download_dir(server=self.server_var.get()))
 
         entry_dir = ttk.Entry(parent, textvariable=self.down_dir_var,
                               font=self.ftmono)
@@ -177,31 +178,31 @@ class Application(ttk.Frame):
     def resolve(self, print_msg=True):
         channels, numbers = self.validate(print_msg=False)
 
-        if not rs.server_exists(server=self.server_var.get()):
+        if not res.server_exists(server=self.server_var.get()):
             return False
 
         ddir = self.down_dir_var.get()
         if not os.path.exists(ddir):
-            nddir = rs.get_download_dir(server=self.server_var.get())
+            nddir = res.get_download_dir(server=self.server_var.get())
             self.down_dir_var.set(nddir)
             print(f"Directory does not exist: {ddir}")
             print(f"Default directory: {nddir}")
 
-        info = rs.resolve_ch(channels, numbers, print_msg=print_msg,
-                             server=self.server_var.get())
+        info = res.resolve_ch(channels, numbers, print_msg=print_msg,
+                              server=self.server_var.get())
         return channels, numbers, info
 
     def start_download(self):
-        if not rs.server_exists(server=self.server_var.get()):
+        if not res.server_exists(server=self.server_var.get()):
             return False
 
         channels, numbers, info = self.resolve(print_msg=False)
-        rs.download_ch(channels, numbers, info,
-                       ddir=self.down_dir_var.get(),
-                       own_dir=self.own_dir_var.get(),
-                       save_file=self.save_var.get(),
-                       proceed=True,
-                       server=self.server_var.get())
+        actions.download_ch(channels, numbers, info,
+                            ddir=self.down_dir_var.get(),
+                            own_dir=self.own_dir_var.get(),
+                            save_file=self.save_var.get(),
+                            proceed=True,
+                            server=self.server_var.get())
 
         print(40 * "-")
         print("Done")
@@ -283,18 +284,18 @@ class Application(ttk.Frame):
         vsrl2.config(command=self.textbox2.yview)
 
     def list_claims(self):
-        if not rs.server_exists(server=self.server_var.get()):
+        if not res.server_exists(server=self.server_var.get()):
             return False
 
         if self.entry_chan.get():
             self.show_ch.set(True)
 
-        content = rs.print_claims(cid=self.check_cid.get(),
-                                  blobs=self.check_blobs.get(),
-                                  show_channel=self.show_ch.get(),
-                                  channel=self.entry_chan.get(),
-                                  name=self.check_name.get(),
-                                  server=self.server_var.get())
+        content = actions.print_claims(cid=self.check_cid.get(),
+                                       blobs=self.check_blobs.get(),
+                                       show_channel=self.show_ch.get(),
+                                       channel=self.entry_chan.get(),
+                                       name=self.check_name.get(),
+                                       server=self.server_var.get())
 
         self.textbox2.replace("1.0", tk.END, content)
         print(40 * "-")
@@ -380,21 +381,21 @@ class Application(ttk.Frame):
         self.textbox3.insert("1.0", claims)
 
     def resolve_claims(self, print_msg=True):
-        if not rs.server_exists(server=self.server_var.get()):
+        if not res.server_exists(server=self.server_var.get()):
             return False
 
         text = self.textbox3.get("1.0", tk.END)
-        claims = rs.resolve_claims(text, print_msg=print_msg,
-                                   server=self.server_var.get())
+        claims = res.resolve_claims(text, print_msg=print_msg,
+                                    server=self.server_var.get())
         return claims
 
     def del_claims(self):
-        if not rs.server_exists(server=self.server_var.get()):
+        if not res.server_exists(server=self.server_var.get()):
             return False
 
         claims = self.resolve_claims(print_msg=False)
-        rs.delete_claims(claims, what=self.del_what_var.get(),
-                         server=self.server_var.get())
+        actions.delete_claims(claims, what=self.del_what_var.get(),
+                              server=self.server_var.get())
         print(40 * "-")
         print("Done")
 
