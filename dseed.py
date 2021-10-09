@@ -252,7 +252,63 @@ class Application(ttk.Frame):
         print("Done")
 
     def setup_page2(self, parent):
-        pass
+        self.setup_top_d(parent)
+        self.setup_textbox_d(parent)
+
+    def setup_top_d(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_d(frame, start=0)
+        self.setup_grid_low_d(frame, start=2)
+        self.setup_info_d(frame, start=7)
+
+    def setup_grid_top_d(self, parent, start=0):
+        setup_download_entry(parent, server_var=self.server_var,
+                             dir_var=self.down_dir_var,
+                             font="Monospace 10", start=start)
+
+    def setup_grid_low_d(self, parent, start=0):
+        _width = 26
+        b_resolve = ttk.Button(parent, text="Resolve online",
+                               width=_width,
+                               command=self.resolve_claims_d)
+        b_resolve.grid(row=start, column=0)
+        lr = ttk.Label(parent,
+                       text="Confirm that the claims exist")
+        lr.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+        b_download = ttk.Button(parent, text="Download claims",
+                                width=_width,
+                                command=self.download_claims)
+        b_download.grid(row=start+1, column=0)
+        l2 = ttk.Label(parent,
+                       text="Start downloading the claims")
+        l2.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+
+        setup_download_check(parent, own_dir_var=self.own_dir_var,
+                             save_var=self.save_var,
+                             start=start+2)
+
+    def setup_info_d(self, parent, start=0):
+        info_claims(parent, start=start)
+
+    def setup_textbox_d(self, parent):
+        claims = set_up_default_claims()
+        self.textbox_d = setup_textbox(parent, font="monospace",
+                                       tab_function=self.focus_next_widget)
+        self.textbox_d.insert("1.0", claims)
+
+    def resolve_claims_d(self, print_msg=True):
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        text = self.textbox_d.get("1.0", tk.END)
+        claims = res.resolve_claims(text, print_msg=print_msg,
+                                    server=self.server_var.get())
+        return claims
+
+    def download_claims(self):
+        print("Download_claims")
 
     def setup_page3(self, parent):
         self.setup_top_list(parent)
