@@ -93,6 +93,14 @@ def setup_download_check(parent, own_dir_var=None, save_var=None,
     chk_save.grid(row=start+1, column=1, sticky=tk.W)
 
 
+def info_claims(parent, start=0):
+    info = ttk.Label(parent,
+                     text=("Add one claim per row; this should be "
+                           "a 'claim_name' or a 'claim_id' "
+                           "(40-character string)"))
+    info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+
 class Application(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -359,11 +367,7 @@ class Application(ttk.Frame):
         both.grid(row=start+2, column=1, sticky=tk.W)
 
     def setup_info_del(self, parent, start=0):
-        info = ttk.Label(parent,
-                         text=("Add one claim per row; this should be "
-                               "a 'claim_name' or a 'claim_id' "
-                               "(40-character string)"))
-        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+        info_claims(parent, start=start)
 
     def setup_textbox_del(self, parent):
         claims = ["some-claim-name",
