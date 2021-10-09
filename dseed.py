@@ -78,6 +78,21 @@ def setup_download_entry(parent,
     ledir.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
 
+def setup_download_check(parent, own_dir_var=None, save_var=None,
+                         start=0):
+    chk_owndir = ttk.Checkbutton(parent,
+                                 variable=own_dir_var,
+                                 text=("Place the downloaded file "
+                                       "inside a subdirectory"))
+    chk_owndir.grid(row=start, column=1, sticky=tk.W)
+
+    chk_save = ttk.Checkbutton(parent,
+                               variable=save_var,
+                               text=("Save media and its blobs; "
+                                     "otherwise only the first blob"))
+    chk_save.grid(row=start+1, column=1, sticky=tk.W)
+
+
 class Application(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -89,6 +104,10 @@ class Application(ttk.Frame):
         self.server_var.set("http://localhost:5279")
         self.down_dir_var = tk.StringVar()
         self.down_dir_var.set(res.get_download_dir(server=self.server_var.get()))
+        self.own_dir_var = tk.BooleanVar()
+        self.own_dir_var.set(True)
+        self.save_var = tk.BooleanVar()
+        self.save_var.set(True)
 
         note = ttk.Notebook(parent)
         page1 = ttk.Frame(note)
@@ -149,21 +168,9 @@ class Application(ttk.Frame):
                              "from the channels"))
         lr.grid(row=start+2, column=1, sticky=tk.W, padx=2)
 
-        self.own_dir_var = tk.BooleanVar()
-        self.own_dir_var.set(True)
-        chk_owndir = ttk.Checkbutton(parent,
-                                     variable=self.own_dir_var,
-                                     text=("Place the downloaded file "
-                                           "inside a subdirectory"))
-        chk_owndir.grid(row=start+3, column=1, sticky=tk.W)
-
-        self.save_var = tk.BooleanVar()
-        self.save_var.set(True)
-        chk_save = ttk.Checkbutton(parent,
-                                   variable=self.save_var,
-                                   text=("Save media and its blobs; "
-                                         "otherwise only the first blob"))
-        chk_save.grid(row=start+4, column=1, sticky=tk.W)
+        setup_download_check(parent, own_dir_var=self.own_dir_var,
+                             save_var=self.save_var,
+                             start=start+3)
 
     def setup_info_dch(self, parent, start=0):
         info = ttk.Label(parent,
