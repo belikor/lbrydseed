@@ -36,6 +36,28 @@ import lbseed.validate as vd
 import lbseed.actions as actions
 
 
+def setup_textbox(parent, font="monospace",
+                  tab_function=None):
+    hsrl = ttk.Scrollbar(parent, orient="horizontal")
+    hsrl.pack(side=tk.BOTTOM, fill=tk.X)
+    vsrl = ttk.Scrollbar(parent)
+    vsrl.pack(side=tk.RIGHT, fill=tk.Y)
+
+    textbox = tk.Text(parent,
+                      xscrollcommand=hsrl.set,
+                      yscrollcommand=vsrl.set,
+                      font=font,
+                      width=60, height=10,
+                      wrap=tk.NONE)
+    textbox.bind("<Tab>", tab_function)
+
+    textbox.pack(side="top", fill="both", expand=True)
+
+    hsrl.config(command=textbox.xview)
+    vsrl.config(command=textbox.yview)
+    return textbox
+
+
 class Application(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -144,29 +166,13 @@ class Application(ttk.Frame):
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_dch(self, parent):
-        hsrl = ttk.Scrollbar(parent, orient="horizontal")
-        hsrl.pack(side=tk.BOTTOM, fill=tk.X)
-        vsrl = ttk.Scrollbar(parent)
-        vsrl.pack(side=tk.RIGHT, fill=tk.Y)
-
-        self.textbox_dch = tk.Text(parent,
-                                   xscrollcommand=hsrl.set,
-                                   yscrollcommand=vsrl.set,
-                                   font="monospace",
-                                   width=60, height=10,
-                                   wrap=tk.NONE)
-        self.textbox_dch.bind("<Tab>", self.focus_next_widget)
-
-        self.textbox_dch.pack(side="top", fill="both", expand=True)
-
-        hsrl.config(command=self.textbox_dch.xview)
-        vsrl.config(command=self.textbox_dch.yview)
-
         channels = ["@my-favorite-channel, 5",
                     "@OdyseeHelp#b, 2",
                     "@lbry:3f, 4"]
         channels = "\n".join(channels)
 
+        self.textbox_dch = setup_textbox(parent, font="monospace",
+                                         tab_function=self.focus_next_widget)
         self.textbox_dch.insert("1.0", channels)
 
     def focus_next_widget(self, event):
@@ -271,23 +277,8 @@ class Application(ttk.Frame):
         chck_name.grid(row=start+3, column=1, sticky=tk.W)
 
     def setup_textbox_list(self, parent):
-        hsrl = ttk.Scrollbar(parent, orient="horizontal")
-        hsrl.pack(side=tk.BOTTOM, fill=tk.X)
-        vsrl = ttk.Scrollbar(parent)
-        vsrl.pack(side=tk.RIGHT, fill=tk.Y)
-
-        self.textbox_list = tk.Text(parent,
-                                    xscrollcommand=hsrl.set,
-                                    yscrollcommand=vsrl.set,
-                                    font="monospace 8",
-                                    width=60, height=10,
-                                    wrap=tk.NONE)
-        self.textbox_list.bind("<Tab>", self.focus_next_widget)
-
-        self.textbox_list.pack(side="top", fill="both", expand=True)
-
-        hsrl.config(command=self.textbox_list.xview)
-        vsrl.config(command=self.textbox_list.yview)
+        self.textbox_list = setup_textbox(parent, font="monospace 8",
+                                          tab_function=self.focus_next_widget)
 
     def list_claims(self):
         if not res.server_exists(server=self.server_var.get()):
@@ -361,29 +352,13 @@ class Application(ttk.Frame):
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_del(self, parent):
-        hsrl = ttk.Scrollbar(parent, orient="horizontal")
-        hsrl.pack(side=tk.BOTTOM, fill=tk.X)
-        vsrl = ttk.Scrollbar(parent)
-        vsrl.pack(side=tk.RIGHT, fill=tk.Y)
-
-        self.textbox_del = tk.Text(parent,
-                                   xscrollcommand=hsrl.set,
-                                   yscrollcommand=vsrl.set,
-                                   font="monospace",
-                                   width=60, height=10,
-                                   wrap=tk.NONE)
-        self.textbox_del.bind("<Tab>", self.focus_next_widget)
-
-        self.textbox_del.pack(side="top", fill="both", expand=True)
-
-        hsrl.config(command=self.textbox_del.xview)
-        vsrl.config(command=self.textbox_del.yview)
-
         claims = ["some-claim-name",
                   "this-is-a-fake-claim",
                   "abcd0000efgh0000ijkl0000mopq0000rstu0000"]
         claims = "\n".join(claims)
 
+        self.textbox_del = setup_textbox(parent, font="monospace",
+                                         tab_function=self.focus_next_widget)
         self.textbox_del.insert("1.0", claims)
 
     def resolve_claims(self, print_msg=True):
