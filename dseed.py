@@ -389,7 +389,14 @@ class Application(ttk.Frame):
         return claims
 
     def del_claims(self):
-        print("Delete claims")
+        if not rs.server_exists(server=self.server_var.get()):
+            return False
+
+        claims = self.resolve_claims(print_msg=False)
+        rs.delete_claims(claims, what=self.del_what_var.get(),
+                         server=self.server_var.get())
+        print(40 * "-")
+        print("Done")
 
 
 def main(argv=None):

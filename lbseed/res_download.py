@@ -190,3 +190,25 @@ def resolve_claims(text, print_msg=True,
         print("\n".join(out))
     return claims
 
+
+def delete_claims(claims, what="media",
+                  print_msg=True,
+                  server="http://localhost:5279"):
+    """Delete claims."""
+    if print_msg:
+        print("Delete claims")
+        print(80 * "-")
+
+    n_claims = len(claims)
+
+    for num, claim in enumerate(claims, start=1):
+        if not claim:
+            continue
+
+        name = claim["name"]
+        if print_msg:
+            print(f"Claim {num}/{n_claims}, '{name}'")
+            lbryt.delete_single(cid=claim["claim_id"], what=what,
+                                server=server)
+            print()
+
