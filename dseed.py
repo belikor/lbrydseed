@@ -47,26 +47,29 @@ class Application(ttk.Frame):
         page1 = ttk.Frame(note)
         page2 = ttk.Frame(note)
         page3 = ttk.Frame(note)
-        note.add(page1, text="Download")
-        note.add(page2, text="List")
-        note.add(page3, text="Delete")
+        page4 = ttk.Frame(note)
+        note.add(page1, text="Download channel")
+        note.add(page2, text="Download single")
+        note.add(page3, text="List")
+        note.add(page4, text="Delete single")
         self.setup_page1(page1)
         self.setup_page2(page2)
         self.setup_page3(page3)
+        self.setup_page4(page4)
         note.pack()
 
     def setup_page1(self, parent):
-        self.setup_top(parent)
-        self.setup_textbox(parent)
+        self.setup_top_dch(parent)
+        self.setup_textbox_dch(parent)
 
-    def setup_top(self, parent):
+    def setup_top_dch(self, parent):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
-        self.setup_grid_top(frame, start=0)
-        self.setup_grid_low(frame, start=2)
-        self.setup_info(frame, start=7)
+        self.setup_grid_top_dch(frame, start=0)
+        self.setup_grid_low_dch(frame, start=2)
+        self.setup_info_dch(frame, start=7)
 
-    def setup_grid_top(self, parent, start=0):
+    def setup_grid_top_dch(self, parent, start=0):
         self.server_var = tk.StringVar()
         self.server_var.set("http://localhost:5279")
 
@@ -89,11 +92,11 @@ class Application(ttk.Frame):
                                 "It defaults to your home directory."))
         ledir.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
-    def setup_grid_low(self, parent, start=0):
+    def setup_grid_low_dch(self, parent, start=0):
         _width = 26
         b_validate = ttk.Button(parent, text="Validate input",
                                 width=_width,
-                                command=self.validate)
+                                command=self.validate_ch)
         b_validate.grid(row=start, column=0)
         b_validate.focus()
         lv = ttk.Label(parent,
@@ -102,7 +105,7 @@ class Application(ttk.Frame):
 
         b_resolve = ttk.Button(parent, text="Resolve online",
                                width=_width,
-                               command=self.resolve)
+                               command=self.resolve_ch)
         b_resolve.grid(row=start+1, column=0)
         lr = ttk.Label(parent,
                        text="Confirm that the channels exist")
@@ -110,7 +113,7 @@ class Application(ttk.Frame):
 
         b_download = ttk.Button(parent, text="Download claims",
                                 width=_width,
-                                command=self.start_download)
+                                command=self.download_cha)
         b_download.grid(row=start+2, column=0)
         lr = ttk.Label(parent,
                        text=("Start downloading the newest claims "
@@ -133,53 +136,53 @@ class Application(ttk.Frame):
                                          "otherwise only the first blob"))
         chk_save.grid(row=start+4, column=1, sticky=tk.W)
 
-    def setup_info(self, parent, start):
+    def setup_info_dch(self, parent, start=0):
         info = ttk.Label(parent,
                          text=("Add a channel, a comma, "
                                "and the number of items to download "
                                "from this channel"))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
-    def setup_textbox(self, parent):
+    def setup_textbox_dch(self, parent):
         hsrl = ttk.Scrollbar(parent, orient="horizontal")
         hsrl.pack(side=tk.BOTTOM, fill=tk.X)
         vsrl = ttk.Scrollbar(parent)
         vsrl.pack(side=tk.RIGHT, fill=tk.Y)
 
-        self.textbox = tk.Text(parent,
-                               xscrollcommand=hsrl.set,
-                               yscrollcommand=vsrl.set,
-                               font="monospace",
-                               width=60, height=10,
-                               wrap=tk.NONE)
-        self.textbox.bind("<Tab>", self.focus_next_widget)
+        self.textbox_dch = tk.Text(parent,
+                                   xscrollcommand=hsrl.set,
+                                   yscrollcommand=vsrl.set,
+                                   font="monospace",
+                                   width=60, height=10,
+                                   wrap=tk.NONE)
+        self.textbox_dch.bind("<Tab>", self.focus_next_widget)
 
-        self.textbox.pack(side="top", fill="both", expand=True)
+        self.textbox_dch.pack(side="top", fill="both", expand=True)
 
-        hsrl.config(command=self.textbox.xview)
-        vsrl.config(command=self.textbox.yview)
+        hsrl.config(command=self.textbox_dch.xview)
+        vsrl.config(command=self.textbox_dch.yview)
 
         channels = ["@my-favorite-channel, 5",
                     "@OdyseeHelp#b, 2",
                     "@lbry:3f, 4"]
         channels = "\n".join(channels)
 
-        self.textbox.insert("1.0", channels)
+        self.textbox_dch.insert("1.0", channels)
 
     def focus_next_widget(self, event):
         event.widget.tk_focusNext().focus()
         return "break"
 
-    def validate(self, print_msg=True):
-        text = self.textbox.get("1.0", tk.END)
+    def validate_ch(self, print_msg=True):
+        text = self.textbox_dch.get("1.0", tk.END)
         channels, numbers = vd.validate_input(text, print_msg=print_msg)
         return channels, numbers
 
-    def resolve(self, print_msg=True):
-        channels, numbers = self.validate(print_msg=False)
-
+    def resolve_ch(self, print_msg=True):
         if not res.server_exists(server=self.server_var.get()):
             return False
+
+        channels, numbers = self.validate_ch(print_msg=False)
 
         ddir = self.down_dir_var.get()
         if not os.path.exists(ddir):
@@ -192,11 +195,11 @@ class Application(ttk.Frame):
                               server=self.server_var.get())
         return channels, numbers, info
 
-    def start_download(self):
+    def download_cha(self):
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        channels, numbers, info = self.resolve(print_msg=False)
+        channels, numbers, info = self.resolve_ch(print_msg=False)
         actions.download_ch(channels, numbers, info,
                             ddir=self.down_dir_var.get(),
                             own_dir=self.own_dir_var.get(),
@@ -208,16 +211,19 @@ class Application(ttk.Frame):
         print("Done")
 
     def setup_page2(self, parent):
-        self.setup_top2(parent)
-        self.setup_textbox2(parent)
+        pass
 
-    def setup_top2(self, parent):
+    def setup_page3(self, parent):
+        self.setup_top_list(parent)
+        self.setup_textbox_list(parent)
+
+    def setup_top_list(self, parent):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
-        self.setup_grid_top2(frame, start=0)
-        self.setup_grid_low2(frame, start=3)
+        self.setup_grid_top_list(frame, start=0)
+        self.setup_grid_low_list(frame, start=3)
 
-    def setup_grid_top2(self, parent, start=0):
+    def setup_grid_top_list(self, parent, start=0):
         _width = 26
         b_list = ttk.Button(parent, text="List claims",
                             width=_width,
@@ -235,7 +241,7 @@ class Application(ttk.Frame):
                        text="Filter by channel name")
         le.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
-    def setup_grid_low2(self, parent, start=0):
+    def setup_grid_low_list(self, parent, start=0):
         self.check_cid = tk.BooleanVar()
         self.check_cid.set(False)
         chck_cid = ttk.Checkbutton(parent,
@@ -264,24 +270,24 @@ class Application(ttk.Frame):
                                     text="Show 'claim_name'")
         chck_name.grid(row=start+3, column=1, sticky=tk.W)
 
-    def setup_textbox2(self, parent):
-        hsrl2 = ttk.Scrollbar(parent, orient="horizontal")
-        hsrl2.pack(side=tk.BOTTOM, fill=tk.X)
-        vsrl2 = ttk.Scrollbar(parent)
-        vsrl2.pack(side=tk.RIGHT, fill=tk.Y)
+    def setup_textbox_list(self, parent):
+        hsrl = ttk.Scrollbar(parent, orient="horizontal")
+        hsrl.pack(side=tk.BOTTOM, fill=tk.X)
+        vsrl = ttk.Scrollbar(parent)
+        vsrl.pack(side=tk.RIGHT, fill=tk.Y)
 
-        self.textbox2 = tk.Text(parent,
-                                xscrollcommand=hsrl2.set,
-                                yscrollcommand=vsrl2.set,
-                                font="monospace 8",
-                                width=60, height=10,
-                                wrap=tk.NONE)
-        self.textbox2.bind("<Tab>", self.focus_next_widget)
+        self.textbox_list = tk.Text(parent,
+                                    xscrollcommand=hsrl.set,
+                                    yscrollcommand=vsrl.set,
+                                    font="monospace 8",
+                                    width=60, height=10,
+                                    wrap=tk.NONE)
+        self.textbox_list.bind("<Tab>", self.focus_next_widget)
 
-        self.textbox2.pack(side="top", fill="both", expand=True)
+        self.textbox_list.pack(side="top", fill="both", expand=True)
 
-        hsrl2.config(command=self.textbox2.xview)
-        vsrl2.config(command=self.textbox2.yview)
+        hsrl.config(command=self.textbox_list.xview)
+        vsrl.config(command=self.textbox_list.yview)
 
     def list_claims(self):
         if not res.server_exists(server=self.server_var.get()):
@@ -297,30 +303,30 @@ class Application(ttk.Frame):
                                        name=self.check_name.get(),
                                        server=self.server_var.get())
 
-        self.textbox2.replace("1.0", tk.END, content)
+        self.textbox_list.replace("1.0", tk.END, content)
         print(40 * "-")
         print("Done")
 
-    def setup_page3(self, parent):
-        self.setup_top3(parent)
-        self.setup_textbox3(parent)
+    def setup_page4(self, parent):
+        self.setup_top_del(parent)
+        self.setup_textbox_del(parent)
         
-    def setup_top3(self, parent):
+    def setup_top_del(self, parent):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
-        self.setup_grid_top3(frame, start=0)
-        self.setup_grid_low3(frame, start=2)
-        self.setup_info3(frame, start=5)
+        self.setup_grid_top_del(frame, start=0)
+        self.setup_grid_low_del(frame, start=2)
+        self.setup_info_del(frame, start=5)
 
-    def setup_grid_top3(self, parent, start=0):
+    def setup_grid_top_del(self, parent, start=0):
         _width = 26
-        b_resolve3 = ttk.Button(parent, text="Resolve online",
-                                width=_width,
-                                command=self.resolve_claims)
-        b_resolve3.grid(row=start, column=0)
-        lr3 = ttk.Label(parent,
-                        text="Confirm that the claims exist")
-        lr3.grid(row=start, column=1, sticky=tk.W, padx=2)
+        b_resolve_del = ttk.Button(parent, text="Resolve online",
+                                   width=_width,
+                                   command=self.resolve_claims)
+        b_resolve_del.grid(row=start, column=0)
+        lrdel = ttk.Label(parent,
+                          text="Confirm that the claims exist")
+        lrdel.grid(row=start, column=1, sticky=tk.W, padx=2)
 
         b_del = ttk.Button(parent, text="Delete claims", 
                            width=_width, 
@@ -330,7 +336,7 @@ class Application(ttk.Frame):
                          text="Delete locally downloaded claims")
         ldel.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
-    def setup_grid_low3(self, parent, start=0):
+    def setup_grid_low_del(self, parent, start=0):
         self.del_what_var = tk.StringVar()
         self.del_what_var.set("media")
 
@@ -347,44 +353,44 @@ class Application(ttk.Frame):
         blobs.grid(row=start+1, column=1, sticky=tk.W)
         both.grid(row=start+2, column=1, sticky=tk.W)
 
-    def setup_info3(self, parent, start=0):
+    def setup_info_del(self, parent, start=0):
         info = ttk.Label(parent,
                          text=("Add one claim per row; this should be "
                                "a 'claim_name' or a 'claim_id' "
                                "(40-character string)"))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
-    def setup_textbox3(self, parent):
-        hsrl3 = ttk.Scrollbar(parent, orient="horizontal")
-        hsrl3.pack(side=tk.BOTTOM, fill=tk.X)
-        vsrl3 = ttk.Scrollbar(parent)
-        vsrl3.pack(side=tk.RIGHT, fill=tk.Y)
+    def setup_textbox_del(self, parent):
+        hsrl = ttk.Scrollbar(parent, orient="horizontal")
+        hsrl.pack(side=tk.BOTTOM, fill=tk.X)
+        vsrl = ttk.Scrollbar(parent)
+        vsrl.pack(side=tk.RIGHT, fill=tk.Y)
 
-        self.textbox3 = tk.Text(parent,
-                                xscrollcommand=hsrl3.set,
-                                yscrollcommand=vsrl3.set,
-                                font="monospace",
-                                width=60, height=10,
-                                wrap=tk.NONE)
-        self.textbox3.bind("<Tab>", self.focus_next_widget)
+        self.textbox_del = tk.Text(parent,
+                                   xscrollcommand=hsrl.set,
+                                   yscrollcommand=vsrl.set,
+                                   font="monospace",
+                                   width=60, height=10,
+                                   wrap=tk.NONE)
+        self.textbox_del.bind("<Tab>", self.focus_next_widget)
 
-        self.textbox3.pack(side="top", fill="both", expand=True)
+        self.textbox_del.pack(side="top", fill="both", expand=True)
 
-        hsrl3.config(command=self.textbox3.xview)
-        vsrl3.config(command=self.textbox3.yview)
+        hsrl.config(command=self.textbox_del.xview)
+        vsrl.config(command=self.textbox_del.yview)
 
         claims = ["some-claim-name",
                   "this-is-a-fake-claim",
                   "abcd0000efgh0000ijkl0000mopq0000rstu0000"]
         claims = "\n".join(claims)
 
-        self.textbox3.insert("1.0", claims)
+        self.textbox_del.insert("1.0", claims)
 
     def resolve_claims(self, print_msg=True):
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        text = self.textbox3.get("1.0", tk.END)
+        text = self.textbox_del.get("1.0", tk.END)
         claims = res.resolve_claims(text, print_msg=print_msg,
                                     server=self.server_var.get())
         return claims
