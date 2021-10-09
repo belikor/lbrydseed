@@ -101,6 +101,23 @@ def info_claims(parent, start=0):
     info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
 
+def set_up_default_channels():
+    channels = ["@my-favorite-channel, 5",
+                "@OdyseeHelp#b, 2",
+                "@lbry:3f, 4"]
+    channels = "\n".join(channels)
+    return channels
+
+
+def set_up_default_claims():
+    claims = ["this-is-a-fake-claim",
+              "odysee-rss",
+              "abcd0000efgh0000ijkl0000mopq0000rstu0000",
+              "de458915e3a3c5a894f45785b0bf9b9a67739f79"]
+    claims = "\n".join(claims)
+    return claims
+
+
 class Application(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -188,11 +205,7 @@ class Application(ttk.Frame):
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_dch(self, parent):
-        channels = ["@my-favorite-channel, 5",
-                    "@OdyseeHelp#b, 2",
-                    "@lbry:3f, 4"]
-        channels = "\n".join(channels)
-
+        channels = set_up_default_channels()
         self.textbox_dch = setup_textbox(parent, font="monospace",
                                          tab_function=self.focus_next_widget)
         self.textbox_dch.insert("1.0", channels)
@@ -370,11 +383,7 @@ class Application(ttk.Frame):
         info_claims(parent, start=start)
 
     def setup_textbox_del(self, parent):
-        claims = ["some-claim-name",
-                  "this-is-a-fake-claim",
-                  "abcd0000efgh0000ijkl0000mopq0000rstu0000"]
-        claims = "\n".join(claims)
-
+        claims = set_up_default_claims()
         self.textbox_del = setup_textbox(parent, font="monospace",
                                          tab_function=self.focus_next_widget)
         self.textbox_del.insert("1.0", claims)
