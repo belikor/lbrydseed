@@ -111,7 +111,7 @@ def set_up_default_channels():
 
 def set_up_default_claims():
     claims = ["this-is-a-fake-claim",
-              "odysee-rss",
+              "livestream-tutorial:b",
               "abcd0000efgh0000ijkl0000mopq0000rstu0000",
               "de458915e3a3c5a894f45785b0bf9b9a67739f79"]
     claims = "\n".join(claims)
@@ -308,7 +308,17 @@ class Application(ttk.Frame):
         return claims
 
     def download_claims(self):
-        print("Download_claims")
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        claims = self.resolve_claims_d(print_msg=False)
+        actions.download_claims(claims,
+                                ddir=self.down_dir_var.get(),
+                                own_dir=self.own_dir_var.get(),
+                                save_file=self.save_var.get(),
+                                server=self.server_var.get())
+        print(40 * "-")
+        print("Done")
 
     def setup_page3(self, parent):
         self.setup_top_list(parent)

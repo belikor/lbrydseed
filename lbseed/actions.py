@@ -73,6 +73,30 @@ def download_ch(channels, numbers, info,
                                                   save_file=save_file,
                                                   server=server)
 
+def download_claims(claims,
+                    ddir=None, own_dir=False, save_file=True,
+                    print_msg=True,
+                    server="http://localhost:5279"):
+    """Download individual claims."""
+    if print_msg:
+        print("Download claims")
+        print(80 * "-")
+
+    n_claims = len(claims)
+
+    for num, claim in enumerate(claims, start=1):
+        if not claim:
+            continue
+
+        name = claim["name"]
+        print(f"Claim {num}/{n_claims}, '{name}'")
+        output = lbryt.download_single(cid=claim["claim_id"],
+                                       ddir=ddir, own_dir=own_dir,
+                                       save_file=save_file,
+                                       server=server)
+        if num < n_claims:
+            print()
+
 
 def print_claims(cid=True, blobs=True, show_channel=False,
                  name=True, channel=None,
