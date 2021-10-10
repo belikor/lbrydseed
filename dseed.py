@@ -339,7 +339,7 @@ class Application(ttk.Frame):
         _width = 26
         b_resolve = ttk.Button(parent, text="Resolve online",
                                width=_width,
-                               command=self.resolve_claims_d)
+                               command=self.resolve_claims)
         b_resolve.grid(row=start, column=0)
         lr = ttk.Label(parent,
                        text="Confirm that the claims exist")
@@ -367,11 +367,16 @@ class Application(ttk.Frame):
                                        tab_function=self.focus_next_widget)
         self.textbox_d.insert("1.0", claims)
 
-    def resolve_claims_d(self, print_msg=True):
+    def resolve_claims(self, print_msg=True):
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        text = self.textbox_d.get("1.0", tk.END)
+        title = self.note.tab(self.note.select())["text"]
+
+        if title == "Download single":
+            text = self.textbox_d.get("1.0", tk.END)
+        elif title == "Delete single":
+            text = self.textbox_del.get("1.0", tk.END)
         claims = res.resolve_claims(text, print_msg=print_msg,
                                     server=self.server_var.get())
         return claims
@@ -380,7 +385,7 @@ class Application(ttk.Frame):
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        claims = self.resolve_claims_d(print_msg=False)
+        claims = self.resolve_claims(print_msg=False)
         actions.download_claims(claims,
                                 ddir=self.down_dir_var.get(),
                                 own_dir=self.own_dir_var.get(),
@@ -508,15 +513,6 @@ class Application(ttk.Frame):
         self.textbox_del = setup_textbox(parent, font="monospace",
                                          tab_function=self.focus_next_widget)
         self.textbox_del.insert("1.0", claims)
-
-    def resolve_claims(self, print_msg=True):
-        if not res.server_exists(server=self.server_var.get()):
-            return False
-
-        text = self.textbox_del.get("1.0", tk.END)
-        claims = res.resolve_claims(text, print_msg=print_msg,
-                                    server=self.server_var.get())
-        return claims
 
     def del_claims(self):
         if not res.server_exists(server=self.server_var.get()):
