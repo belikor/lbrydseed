@@ -247,7 +247,6 @@ class Application(ttk.Frame):
                             save_file=self.save_var.get(),
                             proceed=True,
                             server=self.server_var.get())
-
         print(40 * "-")
         print("Done")
 

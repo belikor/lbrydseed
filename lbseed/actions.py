@@ -41,7 +41,7 @@ def download_ch(channels, numbers, info,
                 server="http://localhost:5279"):
     """Download claims from channels."""
     if print_msg:
-        print("Download claims")
+        print("Download claims from channels")
         print(80 * "-")
 
     n_channels = len(channels)
@@ -53,25 +53,28 @@ def download_ch(channels, numbers, info,
 
         if "NOT_FOUND" in information:
             continue
-        if print_msg:
-            print(f"Channel {num}/{n_channels}, '{information}'")
-            if num < n_channels:
-                print()
-            msg = {"method": "getch",
-                   "params": {"channel": channel,
-                              "number": number,
-                              "download_directory": ddir,
-                              "save_file": True}}
 
-            if proceed and not external_lib:
-                print(f"lbrynet getch '{channel}' --number={number}")
-                output = requests.post(server, json=msg).json()
-            elif proceed and external_lib:
-                output = lbryt.ch_download_latest(channel=channel,
-                                                  number=number,
-                                                  ddir=ddir, own_dir=own_dir,
-                                                  save_file=save_file,
-                                                  server=server)
+        print(f"Channel {num}/{n_channels}, '{information}'")
+
+        msg = {"method": "getch",
+               "params": {"channel": channel,
+                          "number": number,
+                          "download_directory": ddir,
+                          "save_file": True}}
+
+        # If the `getch` method is implemented
+        # if proceed and not external_lib:
+        #     print(f"lbrynet getch '{channel}' --number={number}")
+        #     output = requests.post(server, json=msg).json()
+
+        output = lbryt.ch_download_latest(channel=channel,
+                                          number=number,
+                                          ddir=ddir, own_dir=own_dir,
+                                          save_file=save_file,
+                                          server=server)
+        if num < n_channels:
+            print()
+
 
 def download_claims(claims,
                     ddir=None, own_dir=False, save_file=True,
