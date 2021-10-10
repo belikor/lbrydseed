@@ -165,17 +165,20 @@ class Application(ttk.Frame):
         page_d = ttk.Frame(note)
         page_list = ttk.Frame(note)
         page_del = ttk.Frame(note)
+        page_delch = ttk.Frame(note)
         note.add(page_cfg, text="General")
         note.add(page_dch, text="Download channel")
         note.add(page_d, text="Download single")
         note.add(page_list, text="List")
         note.add(page_del, text="Delete single")
+        note.add(page_delch, text="Clean up channels")
         note.select(page_dch)
         self.setup_page_cfg(page_cfg)
         self.setup_page_dch(page_dch)
         self.setup_page_d(page_d)
         self.setup_page_list(page_list)
         self.setup_page_del(page_del)
+        self.setup_page_delch(page_delch)
         note.pack()
 
     def setup_page_cfg(self, parent):
@@ -507,6 +510,60 @@ class Application(ttk.Frame):
                               server=self.server_var.get())
         print(40 * "-")
         print("Done")
+
+    def setup_page_delch(self, parent):
+        self.setup_top_delch(parent)
+        self.setup_textbox_delch(parent)
+
+    def setup_top_delch(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_button_delch(frame, start=0)
+        self.setup_grid_radio_delch(frame, start=3)
+        self.setup_info_delch(frame, start=6)
+
+    def setup_grid_button_delch(self, parent, start=0):
+        _width = 26
+        b_validate = ttk.Button(parent, text="Validate input",
+                                width=_width,
+                                command=self.validate_ch)
+        b_validate.grid(row=start, column=0)
+        lv = ttk.Label(parent,
+                       text="Verify that the input can be read correctly")
+        lv.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+        b_resolve = ttk.Button(parent, text="Resolve online",
+                               width=_width,
+                               command=self.resolve_ch)
+        b_resolve.grid(row=start+1, column=0)
+        lr = ttk.Label(parent,
+                       text="Confirm that the channels exist")
+        lr.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+
+        b_clean = ttk.Button(parent, text="Clean up claims",
+                             width=_width)
+        b_clean.grid(row=start+2, column=0)
+        lb = ttk.Label(parent,
+                       text=("Start deleting claims "
+                             "from the oldest to the newest"))
+        lb.grid(row=start+2, column=1, sticky=tk.W, padx=2)
+
+    def setup_grid_radio_delch(self, parent, start=0):
+        setup_delete_radio(parent, del_what_var=self.del_what_var, start=start)
+
+    def setup_info_delch(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("Add a channel, a comma, "
+                               "and the number of items to keep "
+                               "from this channel; older items "
+                               "will be removed"))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_delch(self, parent):
+        channels = set_up_default_channels(clean_up=True)
+        self.textbox_delch = setup_textbox(parent, font="monospace",
+                                           tab_function=self.focus_next_widget)
+        self.textbox_delch.insert("1.0", channels)
 
 
 def main(argv=None):
