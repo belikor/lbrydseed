@@ -145,25 +145,25 @@ class Application(ttk.Frame):
         self.del_what_var.set("media")
 
         note = ttk.Notebook(parent)
-        page0 = ttk.Frame(note)
-        page1 = ttk.Frame(note)
-        page2 = ttk.Frame(note)
-        page3 = ttk.Frame(note)
-        page4 = ttk.Frame(note)
-        note.add(page0, text="General")
-        note.add(page1, text="Download channel")
-        note.add(page2, text="Download single")
-        note.add(page3, text="List")
-        note.add(page4, text="Delete single")
-        note.select(1)
-        self.setup_page0(page0)
-        self.setup_page1(page1)
-        self.setup_page2(page2)
-        self.setup_page3(page3)
-        self.setup_page4(page4)
+        page_cfg = ttk.Frame(note)
+        page_dch = ttk.Frame(note)
+        page_d = ttk.Frame(note)
+        page_list = ttk.Frame(note)
+        page_del = ttk.Frame(note)
+        note.add(page_cfg, text="General")
+        note.add(page_dch, text="Download channel")
+        note.add(page_d, text="Download single")
+        note.add(page_list, text="List")
+        note.add(page_del, text="Delete single")
+        note.select(page_dch)
+        self.setup_page_cfg(page_cfg)
+        self.setup_page_dch(page_dch)
+        self.setup_page_d(page_d)
+        self.setup_page_list(page_list)
+        self.setup_page_del(page_del)
         note.pack()
 
-    def setup_page0(self, parent):
+    def setup_page_cfg(self, parent):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
         self.setup_top_config(frame,
@@ -180,7 +180,7 @@ class Application(ttk.Frame):
                              "It defaults to localhost:5279"))
         le.grid(row=start, column=1, sticky=tk.W, padx=2)
 
-    def setup_page1(self, parent):
+    def setup_page_dch(self, parent):
         self.setup_top_dch(parent)
         self.setup_textbox_dch(parent)
 
@@ -283,7 +283,7 @@ class Application(ttk.Frame):
         print(40 * "-")
         print("Done")
 
-    def setup_page2(self, parent):
+    def setup_page_d(self, parent):
         self.setup_top_d(parent)
         self.setup_textbox_d(parent)
 
@@ -354,7 +354,7 @@ class Application(ttk.Frame):
         print(40 * "-")
         print("Done")
 
-    def setup_page3(self, parent):
+    def setup_page_list(self, parent):
         self.setup_top_list(parent)
         self.setup_textbox_list(parent)
 
@@ -433,7 +433,7 @@ class Application(ttk.Frame):
         print(40 * "-")
         print("Done")
 
-    def setup_page4(self, parent):
+    def setup_page_del(self, parent):
         self.setup_top_del(parent)
         self.setup_textbox_del(parent)
         
