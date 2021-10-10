@@ -273,7 +273,8 @@ class Application(ttk.Frame):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
         self.setup_grid_top_d(frame, start=0)
-        self.setup_grid_low_d(frame, start=1)
+        self.setup_grid_button_d(frame, start=1)
+        self.setup_grid_check_d(frame, start=3)
         self.setup_info_d(frame, start=5)
 
     def setup_grid_top_d(self, parent, start=0):
@@ -281,7 +282,7 @@ class Application(ttk.Frame):
                              dir_var=self.down_dir_var,
                              font="Monospace 10", start=start)
 
-    def setup_grid_low_d(self, parent, start=0):
+    def setup_grid_button_d(self, parent, start=0):
         _width = 26
         b_resolve = ttk.Button(parent, text="Resolve online",
                                width=_width,
@@ -299,9 +300,10 @@ class Application(ttk.Frame):
                        text="Start downloading the claims")
         l2.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
+    def setup_grid_check_d(self, parent, start=0):
         setup_download_check(parent, own_dir_var=self.own_dir_var,
                              save_var=self.save_var,
-                             start=start+2)
+                             start=start)
 
     def setup_info_d(self, parent, start=0):
         info_claims(parent, start=start)
