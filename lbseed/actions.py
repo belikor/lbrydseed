@@ -119,7 +119,7 @@ def print_claims(cid=True, blobs=True, show_channel=False,
 def delete_claims(claims, what="media",
                   print_msg=True,
                   server="http://localhost:5279"):
-    """Delete claims."""
+    """Delete individual claims."""
     if print_msg:
         print("Delete claims")
         print(80 * "-")
@@ -131,9 +131,10 @@ def delete_claims(claims, what="media",
             continue
 
         name = claim["name"]
-        if print_msg:
-            print(f"Claim {num}/{n_claims}, '{name}'")
-            lbryt.delete_single(cid=claim["claim_id"], what=what,
-                                server=server)
+        print(f"Claim {num}/{n_claims}, '{name}'")
+        lbryt.delete_single(cid=claim["claim_id"],
+                            what=what,
+                            server=server)
+        if num < n_claims:
             print()
 
