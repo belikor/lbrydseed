@@ -59,23 +59,15 @@ def setup_textbox(parent, font="monospace",
 
 
 def setup_download_entry(parent,
-                         server_var=None, dir_var=None,
+                         dir_var=None,
                          font=None, start=0):
-    entry = ttk.Entry(parent, textvariable=server_var,
-                      font=font)
-    entry.grid(row=start, column=0, sticky=tk.W + tk.E)
-    le = ttk.Label(parent,
-                   text=("Address of the 'lbrynet' daemon. "
-                         "It defaults to localhost:5279"))
-    le.grid(row=start, column=1, sticky=tk.W, padx=2)
-
     entry_dir = ttk.Entry(parent, textvariable=dir_var,
                           font=font)
-    entry_dir.grid(row=start+1, column=0, sticky=tk.W + tk.E)
+    entry_dir.grid(row=start, column=0, sticky=tk.W + tk.E)
     ledir = ttk.Label(parent,
                       text=("Download directory. "
                             "It defaults to your home directory."))
-    ledir.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+    ledir.grid(row=start, column=1, sticky=tk.W, padx=2)
 
 
 def setup_download_check(parent, own_dir_var=None, save_var=None,
@@ -135,19 +127,40 @@ class Application(ttk.Frame):
         self.save_var.set(True)
 
         note = ttk.Notebook(parent)
+        page0 = ttk.Frame(note)
         page1 = ttk.Frame(note)
         page2 = ttk.Frame(note)
         page3 = ttk.Frame(note)
         page4 = ttk.Frame(note)
+        note.add(page0, text="General")
         note.add(page1, text="Download channel")
         note.add(page2, text="Download single")
         note.add(page3, text="List")
         note.add(page4, text="Delete single")
+        note.select(1)
+        self.setup_page0(page0)
         self.setup_page1(page1)
         self.setup_page2(page2)
         self.setup_page3(page3)
         self.setup_page4(page4)
         note.pack()
+
+    def setup_page0(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_top_config(frame,
+                              server_var=self.server_var,
+                              font="Monospace 10", start=0)
+
+    def setup_top_config(self, parent, server_var=None, font=None, start=0):
+        _width = 26
+        entry = ttk.Entry(parent, textvariable=server_var, font=font,
+                          width=_width)
+        entry.grid(row=start, column=0, sticky=tk.W + tk.E)
+        le = ttk.Label(parent,
+                       text=("Address of the 'lbrynet' daemon. "
+                             "It defaults to localhost:5279"))
+        le.grid(row=start, column=1, sticky=tk.W, padx=2)
 
     def setup_page1(self, parent):
         self.setup_top_dch(parent)
@@ -157,11 +170,11 @@ class Application(ttk.Frame):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
         self.setup_grid_top_dch(frame, start=0)
-        self.setup_grid_low_dch(frame, start=2)
-        self.setup_info_dch(frame, start=7)
+        self.setup_grid_low_dch(frame, start=1)
+        self.setup_info_dch(frame, start=6)
 
     def setup_grid_top_dch(self, parent, start=0):
-        setup_download_entry(parent, server_var=self.server_var,
+        setup_download_entry(parent,
                              dir_var=self.down_dir_var,
                              font="Monospace 10", start=start)
 
@@ -258,11 +271,11 @@ class Application(ttk.Frame):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
         self.setup_grid_top_d(frame, start=0)
-        self.setup_grid_low_d(frame, start=2)
-        self.setup_info_d(frame, start=7)
+        self.setup_grid_low_d(frame, start=1)
+        self.setup_info_d(frame, start=5)
 
     def setup_grid_top_d(self, parent, start=0):
-        setup_download_entry(parent, server_var=self.server_var,
+        setup_download_entry(parent,
                              dir_var=self.down_dir_var,
                              font="Monospace 10", start=start)
 
