@@ -423,7 +423,7 @@ class Application(ttk.Frame):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
         self.setup_grid_top_del(frame, start=0)
-        self.setup_grid_low_del(frame, start=2)
+        self.setup_grid_radio_del(frame, start=2)
         self.setup_info_del(frame, start=5)
 
     def setup_grid_top_del(self, parent, start=0):
@@ -444,7 +444,7 @@ class Application(ttk.Frame):
                          text="Delete locally downloaded claims")
         ldel.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
-    def setup_grid_low_del(self, parent, start=0):
+    def setup_grid_radio_del(self, parent, start=0):
         self.del_what_var = tk.StringVar()
         self.del_what_var.set("media")
 
