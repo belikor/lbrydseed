@@ -344,7 +344,7 @@ class Application(ttk.Frame):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
         self.setup_grid_top_list(frame, start=0)
-        self.setup_grid_low_list(frame, start=3)
+        self.setup_grid_check_list(frame, start=2)
 
     def setup_grid_top_list(self, parent, start=0):
         _width = 26
@@ -364,7 +364,7 @@ class Application(ttk.Frame):
                        text="Filter by channel name")
         le.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
-    def setup_grid_low_list(self, parent, start=0):
+    def setup_grid_check_list(self, parent, start=0):
         self.check_cid = tk.BooleanVar()
         self.check_cid.set(False)
         chck_cid = ttk.Checkbutton(parent,
