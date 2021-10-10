@@ -543,7 +543,8 @@ class Application(ttk.Frame):
 
         _width = 26
         b_clean = ttk.Button(parent, text="Clean up claims",
-                             width=_width)
+                             width=_width,
+                             command=self.delete_ch)
         b_clean.grid(row=start+2, column=0)
         lb = ttk.Label(parent,
                        text=("Start deleting claims "
@@ -566,6 +567,17 @@ class Application(ttk.Frame):
         self.textbox_delch = setup_textbox(parent, font="monospace",
                                            tab_function=self.focus_next_widget)
         self.textbox_delch.insert("1.0", channels)
+
+    def delete_ch(self):
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        channels, numbers, info = self.resolve_ch(print_msg=False)
+        actions.clean_ch(channels, numbers, info,
+                         what=self.del_what_var.get(),
+                         server=self.server_var.get())
+        print(40 * "-")
+        print("Done")
 
 
 def main(argv=None):

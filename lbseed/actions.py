@@ -51,7 +51,7 @@ def download_ch(channels, numbers, info,
         number = group[1]
         information = group[2]
 
-        if "NOT_FOUND" in information:
+        if "NOT_FOUND" in information or "not a valid url" in information:
             continue
 
         print(f"Channel {num}/{n_channels}, '{information}'")
@@ -67,11 +67,11 @@ def download_ch(channels, numbers, info,
         #     print(f"lbrynet getch '{channel}' --number={number}")
         #     output = requests.post(server, json=msg).json()
 
-        output = lbryt.ch_download_latest(channel=channel,
-                                          number=number,
-                                          ddir=ddir, own_dir=own_dir,
-                                          save_file=save_file,
-                                          server=server)
+        lbryt.ch_download_latest(channel=channel,
+                                 number=number,
+                                 ddir=ddir, own_dir=own_dir,
+                                 save_file=save_file,
+                                 server=server)
         if num < n_channels:
             print()
 
@@ -93,10 +93,10 @@ def download_claims(claims,
 
         name = claim["name"]
         print(f"Claim {num}/{n_claims}, '{name}'")
-        output = lbryt.download_single(cid=claim["claim_id"],
-                                       ddir=ddir, own_dir=own_dir,
-                                       save_file=save_file,
-                                       server=server)
+        lbryt.download_single(cid=claim["claim_id"],
+                              ddir=ddir, own_dir=own_dir,
+                              save_file=save_file,
+                              server=server)
         if num < n_claims:
             print()
 
@@ -139,5 +139,33 @@ def delete_claims(claims, what="media",
                             what=what,
                             server=server)
         if num < n_claims:
+            print()
+
+
+def clean_ch(channels, numbers, info,
+             what="media",
+             print_msg=True,
+             server="http://localhost:5279"):
+    """Delete claims from channels."""
+    if print_msg:
+        print("Delete claims from channels")
+        print(80 * "-")
+
+    n_channels = len(channels)
+
+    for num, group in enumerate(zip(channels, numbers, info), start=1):
+        channel = group[0]
+        number = group[1]
+        information = group[2]
+
+        if "NOT_FOUND" in information or "not a valid url" in information:
+            continue
+
+        print(f"Channel {num}/{n_channels}, '{information}'")
+        lbryt.ch_cleanup(channel=channel,
+                         number=number,
+                         what=what,
+                         server=server)
+        if num < n_channels:
             print()
 
