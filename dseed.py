@@ -141,6 +141,29 @@ def setup_delete_radio(parent, del_what_var=None,
     both.grid(row=start+2, column=1, sticky=tk.W)
 
 
+def setup_grid_button_val_res(parent,
+                              validate_func=None,
+                              resolve_func=None,
+                              start=0):
+    _width = 26
+    b_validate = ttk.Button(parent, text="Validate input",
+                            width=_width,
+                            command=validate_func)
+    b_validate.grid(row=start, column=0)
+    b_validate.focus()
+    lv = ttk.Label(parent,
+                   text="Verify that the input can be read correctly")
+    lv.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+    b_resolve = ttk.Button(parent, text="Resolve online",
+                           width=_width,
+                           command=resolve_func)
+    b_resolve.grid(row=start+1, column=0)
+    lr = ttk.Label(parent,
+                   text="Confirm that the channels exist")
+    lr.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+
+
 class Application(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -217,24 +240,12 @@ class Application(ttk.Frame):
                              font="Monospace 10", start=start)
 
     def setup_grid_button_dch(self, parent, start=0):
+        setup_grid_button_val_res(parent,
+                                  validate_func=self.validate_ch,
+                                  resolve_func=self.resolve_ch,
+                                  start=start)
+
         _width = 26
-        b_validate = ttk.Button(parent, text="Validate input",
-                                width=_width,
-                                command=self.validate_ch)
-        b_validate.grid(row=start, column=0)
-        b_validate.focus()
-        lv = ttk.Label(parent,
-                       text="Verify that the input can be read correctly")
-        lv.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-        b_resolve = ttk.Button(parent, text="Resolve online",
-                               width=_width,
-                               command=self.resolve_ch)
-        b_resolve.grid(row=start+1, column=0)
-        lr = ttk.Label(parent,
-                       text="Confirm that the channels exist")
-        lr.grid(row=start+1, column=1, sticky=tk.W, padx=2)
-
         b_download = ttk.Button(parent, text="Download claims",
                                 width=_width,
                                 command=self.download_cha)
@@ -529,23 +540,12 @@ class Application(ttk.Frame):
         self.setup_info_delch(frame, start=6)
 
     def setup_grid_button_delch(self, parent, start=0):
+        setup_grid_button_val_res(parent,
+                                  validate_func=self.validate_ch,
+                                  resolve_func=self.resolve_ch,
+                                  start=start)
+
         _width = 26
-        b_validate = ttk.Button(parent, text="Validate input",
-                                width=_width,
-                                command=self.validate_ch)
-        b_validate.grid(row=start, column=0)
-        lv = ttk.Label(parent,
-                       text="Verify that the input can be read correctly")
-        lv.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-        b_resolve = ttk.Button(parent, text="Resolve online",
-                               width=_width,
-                               command=self.resolve_ch)
-        b_resolve.grid(row=start+1, column=0)
-        lr = ttk.Label(parent,
-                       text="Confirm that the channels exist")
-        lr.grid(row=start+1, column=1, sticky=tk.W, padx=2)
-
         b_clean = ttk.Button(parent, text="Clean up claims",
                              width=_width)
         b_clean.grid(row=start+2, column=0)
