@@ -170,7 +170,8 @@ class Application(ttk.Frame):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
         self.setup_grid_top_dch(frame, start=0)
-        self.setup_grid_low_dch(frame, start=1)
+        self.setup_grid_button_dch(frame, start=1)
+        self.setup_grid_check_dch(frame, start=4)
         self.setup_info_dch(frame, start=6)
 
     def setup_grid_top_dch(self, parent, start=0):
@@ -178,7 +179,7 @@ class Application(ttk.Frame):
                              dir_var=self.down_dir_var,
                              font="Monospace 10", start=start)
 
-    def setup_grid_low_dch(self, parent, start=0):
+    def setup_grid_button_dch(self, parent, start=0):
         _width = 26
         b_validate = ttk.Button(parent, text="Validate input",
                                 width=_width,
@@ -206,9 +207,10 @@ class Application(ttk.Frame):
                              "from the channels"))
         lr.grid(row=start+2, column=1, sticky=tk.W, padx=2)
 
+    def setup_grid_check_dch(self, parent, start=0):
         setup_download_check(parent, own_dir_var=self.own_dir_var,
                              save_var=self.save_var,
-                             start=start+3)
+                             start=start)
 
     def setup_info_dch(self, parent, start=0):
         info = ttk.Label(parent,
