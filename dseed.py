@@ -159,7 +159,8 @@ class Application(ttk.Frame):
         self.del_what_var = tk.StringVar()
         self.del_what_var.set("media")
 
-        note = ttk.Notebook(parent)
+        self.note = ttk.Notebook(parent)
+        note = self.note
         page_cfg = ttk.Frame(note)
         page_dch = ttk.Frame(note)
         page_d = ttk.Frame(note)
@@ -266,7 +267,12 @@ class Application(ttk.Frame):
         return "break"
 
     def validate_ch(self, print_msg=True):
-        text = self.textbox_dch.get("1.0", tk.END)
+        title = self.note.tab(self.note.select())["text"]
+
+        if title == "Download channel":
+            text = self.textbox_dch.get("1.0", tk.END)
+        elif title == "Clean up channels":
+            text = self.textbox_delch.get("1.0", tk.END)
         channels, numbers = vd.validate_input(text, print_msg=print_msg)
         return channels, numbers
 
