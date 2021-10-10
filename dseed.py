@@ -93,19 +93,34 @@ def info_claims(parent, start=0):
     info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
 
-def set_up_default_channels():
+def set_up_default_channels(clean_up=False):
     channels = ["@my-favorite-channel, 5",
-                "@OdyseeHelp#b, 2",
-                "@lbry:3f, 4"]
+                "@OdyseeHelp#b, 4",
+                "@lbry:3f, 6"]
+
+    if clean_up:
+        channels = ["@OdyseeHelp, 2",
+                    "@my-favorite-channel-vmv, 15",
+                    "@lbry, 1",
+                    "@The-Best-Channel-ABC, 5"]
+
     channels = "\n".join(channels)
     return channels
 
 
-def set_up_default_claims():
+def set_up_default_claims(clean_up=False):
     claims = ["this-is-a-fake-claim",
               "livestream-tutorial:b",
               "abcd0000efgh0000ijkl0000mopq0000rstu0000",
               "de458915e3a3c5a894f45785b0bf9b9a67739f79"]
+
+    if clean_up:
+        claims = ["abcd0000efgh0000ijkl0000mopq0000rstu0000",
+                  "LBRYPlaylists#d",
+                  "this-is-a-fake-claim",
+                  "livestream-tutorial:b",
+                  "de458915e3a3c5a894f45785b0bf9b9a67739f79"]
+
     claims = "\n".join(claims)
     return claims
 
@@ -469,7 +484,7 @@ class Application(ttk.Frame):
         info_claims(parent, start=start)
 
     def setup_textbox_del(self, parent):
-        claims = set_up_default_claims()
+        claims = set_up_default_claims(clean_up=True)
         self.textbox_del = setup_textbox(parent, font="monospace",
                                          tab_function=self.focus_next_widget)
         self.textbox_del.insert("1.0", claims)
