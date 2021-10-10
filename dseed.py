@@ -110,6 +110,22 @@ def set_up_default_claims():
     return claims
 
 
+def setup_delete_radio(parent, del_what_var=None,
+                       start=0):
+    media = ttk.Radiobutton(parent,
+                            text="Delete media (keep seeding the claim)",
+                            variable=del_what_var, value="media")
+    blobs = ttk.Radiobutton(parent,
+                            text="Delete blobs (keep media in download directory)",
+                            variable=del_what_var, value="blobs")
+    both = ttk.Radiobutton(parent,
+                           text="Delete both (completely remove the claim)",
+                           variable=del_what_var, value="both")
+    media.grid(row=start, column=1, sticky=tk.W)
+    blobs.grid(row=start+1, column=1, sticky=tk.W)
+    both.grid(row=start+2, column=1, sticky=tk.W)
+
+
 class Application(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -125,6 +141,8 @@ class Application(ttk.Frame):
         self.own_dir_var.set(True)
         self.save_var = tk.BooleanVar()
         self.save_var.set(True)
+        self.del_what_var = tk.StringVar()
+        self.del_what_var.set("media")
 
         note = ttk.Notebook(parent)
         page0 = ttk.Frame(note)
@@ -445,21 +463,7 @@ class Application(ttk.Frame):
         ldel.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
     def setup_grid_radio_del(self, parent, start=0):
-        self.del_what_var = tk.StringVar()
-        self.del_what_var.set("media")
-
-        media = ttk.Radiobutton(parent,
-                                text="Delete media (keep seeding the claim)",
-                                variable=self.del_what_var, value="media")
-        blobs = ttk.Radiobutton(parent,
-                                text="Delete blobs (keep media in download directory)",
-                                variable=self.del_what_var, value="blobs")
-        both = ttk.Radiobutton(parent,
-                               text="Delete both (completely remove the claim)",
-                               variable=self.del_what_var, value="both")
-        media.grid(row=start, column=1, sticky=tk.W)
-        blobs.grid(row=start+1, column=1, sticky=tk.W)
-        both.grid(row=start+2, column=1, sticky=tk.W)
+        setup_delete_radio(parent, del_what_var=self.del_what_var, start=start)
 
     def setup_info_del(self, parent, start=0):
         info_claims(parent, start=start)
