@@ -477,7 +477,7 @@ class Application(ttk.Frame):
     def setup_page_del(self, parent):
         self.setup_top_del(parent)
         self.setup_textbox_del(parent)
-        
+
     def setup_top_del(self, parent):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
@@ -495,8 +495,8 @@ class Application(ttk.Frame):
                           text="Confirm that the claims exist")
         lrdel.grid(row=start, column=1, sticky=tk.W, padx=2)
 
-        b_del = ttk.Button(parent, text="Delete claims", 
-                           width=_width, 
+        b_del = ttk.Button(parent, text="Delete claims",
+                           width=_width,
                            command=self.del_claims)
         b_del.grid(row=start+1, column=0)
         ldel = ttk.Label(parent,
@@ -595,4 +595,3 @@ def main(argv=None):
 
 if __name__ == "__main__":
     sys.exit(main())
-
