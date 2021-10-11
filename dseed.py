@@ -94,11 +94,6 @@ class Application(ttk.Frame):
         self.setup_page_delch(page_delch)
         note.pack()
 
-    def focus_next_widget(self, event):
-        """Callback to focus on next widget when pressing <Tab>."""
-        event.widget.tk_focusNext().focus()
-        return "break"
-
     def setup_page_cfg(self, parent):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
@@ -164,10 +159,7 @@ class Application(ttk.Frame):
 
     def setup_textbox_dch(self, parent):
         channels = blocks.set_up_default_channels()
-        self.textbox_dch = \
-            blocks.setup_textbox(parent,
-                                 font=self.txt_font,
-                                 tab_func=self.focus_next_widget)
+        self.textbox_dch = blocks.setup_textbox(parent, font=self.txt_font)
         self.textbox_dch.insert("1.0", channels)
 
     def validate_ch(self, print_msg=True):
@@ -262,9 +254,7 @@ class Application(ttk.Frame):
 
     def setup_textbox_d(self, parent):
         claims = blocks.set_up_default_claims()
-        self.textbox_d = blocks.setup_textbox(parent,
-                                              font=self.txt_font,
-                                              tab_func=self.focus_next_widget)
+        self.textbox_d = blocks.setup_textbox(parent, font=self.txt_font)
         self.textbox_d.insert("1.0", claims)
 
     def resolve_claims(self, print_msg=True):
@@ -335,10 +325,8 @@ class Application(ttk.Frame):
                                 start=start)
 
     def setup_textbox_list(self, parent):
-        self.textbox_list = \
-            blocks.setup_textbox(parent,
-                                 font=self.txt_lst_font,
-                                 tab_func=self.focus_next_widget)
+        self.textbox_list = blocks.setup_textbox(parent,
+                                                 font=self.txt_lst_font)
 
     def list_claims(self):
         if not res.server_exists(server=self.server_var.get()):
@@ -393,10 +381,7 @@ class Application(ttk.Frame):
 
     def setup_textbox_del(self, parent):
         claims = blocks.set_up_default_claims(clean_up=True)
-        self.textbox_del = \
-            blocks.setup_textbox(parent,
-                                 font=self.txt_font,
-                                 tab_func=self.focus_next_widget)
+        self.textbox_del = blocks.setup_textbox(parent, font=self.txt_font)
         self.textbox_del.insert("1.0", claims)
 
     def del_claims(self):
@@ -451,10 +436,7 @@ class Application(ttk.Frame):
 
     def setup_textbox_delch(self, parent):
         channels = blocks.set_up_default_channels(clean_up=True)
-        self.textbox_delch = \
-            blocks.setup_textbox(parent,
-                                 font=self.txt_font,
-                                 tab_func=self.focus_next_widget)
+        self.textbox_delch = blocks.setup_textbox(parent, font=self.txt_font)
         self.textbox_delch.insert("1.0", channels)
 
     def delete_ch(self):

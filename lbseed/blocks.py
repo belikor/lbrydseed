@@ -34,6 +34,12 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
+def focus_next_widget(event):
+    """Callback to focus on next widget when pressing <Tab>."""
+    event.widget.tk_focusNext().focus()
+    return "break"
+
+
 def set_up_default_channels(clean_up=False):
     """Block of text to populate a Text widget."""
     channels = ["@my-favorite-channel, 5",
@@ -198,8 +204,7 @@ def setup_delete_radio(parent,
 
 def setup_textbox(parent,
                   font="monospace",
-                  width=60, height=10,
-                  tab_func=None):
+                  width=70, height=12):
     """Setup for the textboxes, including scrollbars and Text widget."""
     hsrl = ttk.Scrollbar(parent, orient="horizontal")
     hsrl.pack(side=tk.BOTTOM, fill=tk.X)
@@ -212,7 +217,7 @@ def setup_textbox(parent,
                       font=font,
                       width=width, height=height,
                       wrap=tk.NONE)
-    textbox.bind("<Tab>", tab_func)
+    textbox.bind("<Tab>", focus_next_widget)
 
     textbox.pack(side="top", fill="both", expand=True)
 
