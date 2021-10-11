@@ -178,6 +178,10 @@ class Application(ttk.Frame):
         elif title == "Clean up channels":
             text = self.textbox_delch.get("1.0", tk.END)
         channels, numbers = vd.validate_input(text, print_msg=print_msg)
+        if print_msg:
+            print(40 * "-")
+            print("Done")
+
         return channels, numbers
 
     def resolve_ch(self, print_msg=True):
@@ -195,6 +199,10 @@ class Application(ttk.Frame):
 
         info = res.resolve_ch(channels, numbers, print_msg=print_msg,
                               server=self.server_var.get())
+        if print_msg:
+            print(40 * "-")
+            print("Done")
+
         return channels, numbers, info
 
     def download_cha(self):
@@ -271,6 +279,10 @@ class Application(ttk.Frame):
             text = self.textbox_del.get("1.0", tk.END)
         claims = res.resolve_claims(text, print_msg=print_msg,
                                     server=self.server_var.get())
+        if print_msg:
+            print(40 * "-")
+            print("Done")
+
         return claims
 
     def download_claims(self):
