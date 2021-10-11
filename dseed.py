@@ -112,14 +112,15 @@ def set_up_default_claims(clean_up=False):
     claims = ["this-is-a-fake-claim",
               "livestream-tutorial:b",
               "abcd0000efgh0000ijkl0000mopq0000rstu0000",
-              "de458915e3a3c5a894f45785b0bf9b9a67739f79"]
+              "8e16d91185aa4f1cd797f93d7714de2a22622759",
+              "LBRYPlaylists#d"]
 
     if clean_up:
         claims = ["abcd0000efgh0000ijkl0000mopq0000rstu0000",
                   "LBRYPlaylists#d",
                   "this-is-a-fake-claim",
                   "livestream-tutorial:b",
-                  "de458915e3a3c5a894f45785b0bf9b9a67739f79"]
+                  "8e16d91185aa4f1cd797f93d7714de2a22622759"]
 
     claims = "\n".join(claims)
     return claims
