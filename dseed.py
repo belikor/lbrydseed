@@ -170,18 +170,31 @@ class Application(ttk.Frame):
         super().__init__(parent)
         self.setup_widgets(parent)
 
-    def setup_widgets(self, parent):
+    def setup_vars(self):
         self.ftmono = tk.font.Font(family="monospace", size=10)
         self.server_var = tk.StringVar()
         self.server_var.set("http://localhost:5279")
         self.down_dir_var = tk.StringVar()
-        self.down_dir_var.set(res.get_download_dir(server=self.server_var.get()))
+        server = res.get_download_dir(server=self.server_var.get())
+        self.down_dir_var.set(server)
         self.own_dir_var = tk.BooleanVar()
         self.own_dir_var.set(True)
         self.save_var = tk.BooleanVar()
         self.save_var.set(True)
         self.del_what_var = tk.StringVar()
         self.del_what_var.set("media")
+
+        self.check_cid = tk.BooleanVar()
+        self.check_cid.set(False)
+        self.check_blobs = tk.BooleanVar()
+        self.check_blobs.set(True)
+        self.check_show_ch = tk.BooleanVar()
+        self.check_show_ch.set(True)
+        self.check_name = tk.BooleanVar()
+        self.check_name.set(True)
+
+    def setup_widgets(self, parent):
+        self.setup_vars()
 
         self.note = ttk.Notebook(parent)
         note = self.note
@@ -424,29 +437,21 @@ class Application(ttk.Frame):
         le.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
     def setup_grid_check_list(self, parent, start=0):
-        self.check_cid = tk.BooleanVar()
-        self.check_cid.set(False)
         chck_cid = ttk.Checkbutton(parent,
                                    variable=self.check_cid,
                                    text="Show 'claim_id'")
         chck_cid.grid(row=start, column=1, sticky=tk.W)
 
-        self.check_blobs = tk.BooleanVar()
-        self.check_blobs.set(True)
         chck_blobs = ttk.Checkbutton(parent,
                                      variable=self.check_blobs,
                                      text="Show number of blobs")
         chck_blobs.grid(row=start+1, column=1, sticky=tk.W)
 
-        self.show_ch = tk.BooleanVar()
-        self.show_ch.set(True)
         chck_ch = ttk.Checkbutton(parent,
-                                  variable=self.show_ch,
+                                  variable=self.check_show_ch,
                                   text="Show channel of the claim")
         chck_ch.grid(row=start+2, column=1, sticky=tk.W)
 
-        self.check_name = tk.BooleanVar()
-        self.check_name.set(True)
         chck_name = ttk.Checkbutton(parent,
                                     variable=self.check_name,
                                     text="Show 'claim_name'")
@@ -461,11 +466,11 @@ class Application(ttk.Frame):
             return False
 
         if self.entry_chan.get():
-            self.show_ch.set(True)
+            self.check_show_ch.set(True)
 
         content = actions.print_claims(cid=self.check_cid.get(),
                                        blobs=self.check_blobs.get(),
-                                       show_channel=self.show_ch.get(),
+                                       show_channel=self.check_show_ch.get(),
                                        channel=self.entry_chan.get(),
                                        name=self.check_name.get(),
                                        server=self.server_var.get())
