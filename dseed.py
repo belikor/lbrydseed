@@ -31,138 +31,10 @@ import tkinter as tk
 import tkinter.font
 import tkinter.ttk as ttk
 
+import lbseed.blocks as blocks
 import lbseed.resolve as res
 import lbseed.validate as vd
 import lbseed.actions as actions
-
-
-def setup_textbox(parent, font="monospace",
-                  tab_function=None):
-    hsrl = ttk.Scrollbar(parent, orient="horizontal")
-    hsrl.pack(side=tk.BOTTOM, fill=tk.X)
-    vsrl = ttk.Scrollbar(parent)
-    vsrl.pack(side=tk.RIGHT, fill=tk.Y)
-
-    textbox = tk.Text(parent,
-                      xscrollcommand=hsrl.set,
-                      yscrollcommand=vsrl.set,
-                      font=font,
-                      width=60, height=10,
-                      wrap=tk.NONE)
-    textbox.bind("<Tab>", tab_function)
-
-    textbox.pack(side="top", fill="both", expand=True)
-
-    hsrl.config(command=textbox.xview)
-    vsrl.config(command=textbox.yview)
-    return textbox
-
-
-def setup_download_entry(parent,
-                         dir_var=None,
-                         font=None, start=0):
-    entry_dir = ttk.Entry(parent, textvariable=dir_var,
-                          font=font)
-    entry_dir.grid(row=start, column=0, sticky=tk.W + tk.E)
-    ledir = ttk.Label(parent,
-                      text=("Download directory. "
-                            "It defaults to your home directory."))
-    ledir.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-
-def setup_download_check(parent, own_dir_var=None, save_var=None,
-                         start=0):
-    chk_owndir = ttk.Checkbutton(parent,
-                                 variable=own_dir_var,
-                                 text=("Place the downloaded file "
-                                       "inside a subdirectory"))
-    chk_owndir.grid(row=start, column=1, sticky=tk.W)
-
-    chk_save = ttk.Checkbutton(parent,
-                               variable=save_var,
-                               text=("Save media and its blobs; "
-                                     "otherwise only the first blob"))
-    chk_save.grid(row=start+1, column=1, sticky=tk.W)
-
-
-def info_claims(parent, start=0):
-    info = ttk.Label(parent,
-                     text=("Add one claim per row; this should be "
-                           "a 'claim_name' or a 'claim_id' "
-                           "(40-character string)"))
-    info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
-
-
-def set_up_default_channels(clean_up=False):
-    channels = ["@my-favorite-channel, 5",
-                "@OdyseeHelp#b, 4",
-                "@lbry:3f, 6"]
-
-    if clean_up:
-        channels = ["@OdyseeHelp, 2",
-                    "@my-favorite-channel-vmv, 15",
-                    "@lbry, 1",
-                    "@The-Best-Channel-ABC, 5"]
-
-    channels = "\n".join(channels)
-    return channels
-
-
-def set_up_default_claims(clean_up=False):
-    claims = ["this-is-a-fake-claim",
-              "livestream-tutorial:b",
-              "abcd0000efgh0000ijkl0000mopq0000rstu0000",
-              "8e16d91185aa4f1cd797f93d7714de2a22622759",
-              "LBRYPlaylists#d"]
-
-    if clean_up:
-        claims = ["abcd0000efgh0000ijkl0000mopq0000rstu0000",
-                  "LBRYPlaylists#d",
-                  "this-is-a-fake-claim",
-                  "livestream-tutorial:b",
-                  "8e16d91185aa4f1cd797f93d7714de2a22622759"]
-
-    claims = "\n".join(claims)
-    return claims
-
-
-def setup_delete_radio(parent, del_what_var=None,
-                       start=0):
-    media = ttk.Radiobutton(parent,
-                            text="Delete media (keep seeding the claim)",
-                            variable=del_what_var, value="media")
-    blobs = ttk.Radiobutton(parent,
-                            text="Delete blobs (keep media in download directory)",
-                            variable=del_what_var, value="blobs")
-    both = ttk.Radiobutton(parent,
-                           text="Delete both (completely remove the claim)",
-                           variable=del_what_var, value="both")
-    media.grid(row=start, column=1, sticky=tk.W)
-    blobs.grid(row=start+1, column=1, sticky=tk.W)
-    both.grid(row=start+2, column=1, sticky=tk.W)
-
-
-def setup_grid_button_val_res(parent,
-                              validate_func=None,
-                              resolve_func=None,
-                              start=0):
-    _width = 26
-    b_validate = ttk.Button(parent, text="Validate input",
-                            width=_width,
-                            command=validate_func)
-    b_validate.grid(row=start, column=0)
-    b_validate.focus()
-    lv = ttk.Label(parent,
-                   text="Verify that the input can be read correctly")
-    lv.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-    b_resolve = ttk.Button(parent, text="Resolve online",
-                           width=_width,
-                           command=resolve_func)
-    b_resolve.grid(row=start+1, column=0)
-    lr = ttk.Label(parent,
-                   text="Confirm that the channels exist")
-    lr.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
 
 class Application(ttk.Frame):
@@ -224,11 +96,14 @@ class Application(ttk.Frame):
         frame.pack(padx=4, pady=4)
         self.setup_top_config(frame,
                               server_var=self.server_var,
-                              font="Monospace 10", start=0)
+                              font="Monospace 10",
+                              start=0)
 
     def setup_top_config(self, parent, server_var=None, font=None, start=0):
         _width = 26
-        entry = ttk.Entry(parent, textvariable=server_var, font=font,
+        entry = ttk.Entry(parent,
+                          textvariable=server_var,
+                          font=font,
                           width=_width)
         entry.grid(row=start, column=0, sticky=tk.W + tk.E)
         le = ttk.Label(parent,
@@ -249,17 +124,19 @@ class Application(ttk.Frame):
         self.setup_info_dch(frame, start=6)
 
     def setup_grid_top_dch(self, parent, start=0):
-        setup_download_entry(parent,
-                             dir_var=self.down_dir_var,
-                             font="Monospace 10", start=start)
+        blocks.setup_download_entry(parent,
+                                    dir_var=self.down_dir_var,
+                                    font="Monospace 10",
+                                    start=start)
 
     def setup_grid_button_dch(self, parent, start=0):
-        setup_grid_button_val_res(parent,
-                                  validate_func=self.validate_ch,
-                                  resolve_func=self.resolve_ch,
-                                  start=start)
-
         _width = 26
+        blocks.setup_buttons_val_res(parent,
+                                     width=_width,
+                                     validate_func=self.validate_ch,
+                                     resolve_func=self.resolve_ch,
+                                     start=start)
+
         b_download = ttk.Button(parent, text="Download claims",
                                 width=_width,
                                 command=self.download_cha)
@@ -270,9 +147,10 @@ class Application(ttk.Frame):
         lr.grid(row=start+2, column=1, sticky=tk.W, padx=2)
 
     def setup_grid_check_dch(self, parent, start=0):
-        setup_download_check(parent, own_dir_var=self.own_dir_var,
-                             save_var=self.save_var,
-                             start=start)
+        blocks.setup_download_check(parent,
+                                    own_dir_var=self.own_dir_var,
+                                    save_var=self.save_var,
+                                    start=start)
 
     def setup_info_dch(self, parent, start=0):
         info = ttk.Label(parent,
@@ -282,9 +160,10 @@ class Application(ttk.Frame):
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_dch(self, parent):
-        channels = set_up_default_channels()
-        self.textbox_dch = setup_textbox(parent, font="monospace",
-                                         tab_function=self.focus_next_widget)
+        channels = blocks.set_up_default_channels()
+        self.textbox_dch = blocks.setup_textbox(parent,
+                                                font="monospace",
+                                                tab_func=self.focus_next_widget)
         self.textbox_dch.insert("1.0", channels)
 
     def focus_next_widget(self, event):
@@ -345,19 +224,17 @@ class Application(ttk.Frame):
         self.setup_info_d(frame, start=5)
 
     def setup_grid_top_d(self, parent, start=0):
-        setup_download_entry(parent,
-                             dir_var=self.down_dir_var,
-                             font="Monospace 10", start=start)
+        blocks.setup_download_entry(parent,
+                                    dir_var=self.down_dir_var,
+                                    font="Monospace 10",
+                                    start=start)
 
     def setup_grid_button_d(self, parent, start=0):
         _width = 26
-        b_resolve = ttk.Button(parent, text="Resolve online",
-                               width=_width,
-                               command=self.resolve_claims)
-        b_resolve.grid(row=start, column=0)
-        lr = ttk.Label(parent,
-                       text="Confirm that the claims exist")
-        lr.grid(row=start, column=1, sticky=tk.W, padx=2)
+        blocks.setup_button_resolve_claims(parent,
+                                           width=_width,
+                                           res_function=self.resolve_claims,
+                                           start=start)
 
         b_download = ttk.Button(parent, text="Download claims",
                                 width=_width,
@@ -368,17 +245,19 @@ class Application(ttk.Frame):
         l2.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
     def setup_grid_check_d(self, parent, start=0):
-        setup_download_check(parent, own_dir_var=self.own_dir_var,
-                             save_var=self.save_var,
-                             start=start)
+        blocks.setup_download_check(parent,
+                                    own_dir_var=self.own_dir_var,
+                                    save_var=self.save_var,
+                                    start=start)
 
     def setup_info_d(self, parent, start=0):
-        info_claims(parent, start=start)
+        blocks.info_claims(parent, start=start)
 
     def setup_textbox_d(self, parent):
-        claims = set_up_default_claims()
-        self.textbox_d = setup_textbox(parent, font="monospace",
-                                       tab_function=self.focus_next_widget)
+        claims = blocks.set_up_default_claims()
+        self.textbox_d = blocks.setup_textbox(parent,
+                                              font="monospace",
+                                              tab_func=self.focus_next_widget)
         self.textbox_d.insert("1.0", claims)
 
     def resolve_claims(self, print_msg=True):
@@ -437,29 +316,17 @@ class Application(ttk.Frame):
         le.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
     def setup_grid_check_list(self, parent, start=0):
-        chck_cid = ttk.Checkbutton(parent,
-                                   variable=self.check_cid,
-                                   text="Show 'claim_id'")
-        chck_cid.grid(row=start, column=1, sticky=tk.W)
-
-        chck_blobs = ttk.Checkbutton(parent,
-                                     variable=self.check_blobs,
-                                     text="Show number of blobs")
-        chck_blobs.grid(row=start+1, column=1, sticky=tk.W)
-
-        chck_ch = ttk.Checkbutton(parent,
-                                  variable=self.check_show_ch,
-                                  text="Show channel of the claim")
-        chck_ch.grid(row=start+2, column=1, sticky=tk.W)
-
-        chck_name = ttk.Checkbutton(parent,
-                                    variable=self.check_name,
-                                    text="Show 'claim_name'")
-        chck_name.grid(row=start+3, column=1, sticky=tk.W)
+        blocks.setup_check_list(parent,
+                                cid_var=self.check_cid,
+                                blobs_var=self.check_blobs,
+                                show_ch_var=self.check_show_ch,
+                                name_var=self.check_name,
+                                start=start)
 
     def setup_textbox_list(self, parent):
-        self.textbox_list = setup_textbox(parent, font="monospace 8",
-                                          tab_function=self.focus_next_widget)
+        self.textbox_list = blocks.setup_textbox(parent,
+                                                 font="monospace 8",
+                                                 tab_func=self.focus_next_widget)
 
     def list_claims(self):
         if not res.server_exists(server=self.server_var.get()):
@@ -492,13 +359,10 @@ class Application(ttk.Frame):
 
     def setup_grid_top_del(self, parent, start=0):
         _width = 26
-        b_resolve_del = ttk.Button(parent, text="Resolve online",
-                                   width=_width,
-                                   command=self.resolve_claims)
-        b_resolve_del.grid(row=start, column=0)
-        lrdel = ttk.Label(parent,
-                          text="Confirm that the claims exist")
-        lrdel.grid(row=start, column=1, sticky=tk.W, padx=2)
+        blocks.setup_button_resolve_claims(parent,
+                                           width=_width,
+                                           res_function=self.resolve_claims,
+                                           start=start)
 
         b_del = ttk.Button(parent, text="Delete claims",
                            width=_width,
@@ -509,15 +373,18 @@ class Application(ttk.Frame):
         ldel.grid(row=start+1, column=1, sticky=tk.W, padx=2)
 
     def setup_grid_radio_del(self, parent, start=0):
-        setup_delete_radio(parent, del_what_var=self.del_what_var, start=start)
+        blocks.setup_delete_radio(parent,
+                                  del_what_var=self.del_what_var,
+                                  start=start)
 
     def setup_info_del(self, parent, start=0):
-        info_claims(parent, start=start)
+        blocks.info_claims(parent, start=start)
 
     def setup_textbox_del(self, parent):
-        claims = set_up_default_claims(clean_up=True)
-        self.textbox_del = setup_textbox(parent, font="monospace",
-                                         tab_function=self.focus_next_widget)
+        claims = blocks.set_up_default_claims(clean_up=True)
+        self.textbox_del = blocks.setup_textbox(parent,
+                                                font="monospace",
+                                                tab_func=self.focus_next_widget)
         self.textbox_del.insert("1.0", claims)
 
     def del_claims(self):
@@ -542,12 +409,13 @@ class Application(ttk.Frame):
         self.setup_info_delch(frame, start=6)
 
     def setup_grid_button_delch(self, parent, start=0):
-        setup_grid_button_val_res(parent,
-                                  validate_func=self.validate_ch,
-                                  resolve_func=self.resolve_ch,
-                                  start=start)
-
         _width = 26
+        blocks.setup_buttons_val_res(parent,
+                                     width=_width,
+                                     validate_func=self.validate_ch,
+                                     resolve_func=self.resolve_ch,
+                                     start=start)
+
         b_clean = ttk.Button(parent, text="Clean up claims",
                              width=_width,
                              command=self.delete_ch)
@@ -558,7 +426,9 @@ class Application(ttk.Frame):
         lb.grid(row=start+2, column=1, sticky=tk.W, padx=2)
 
     def setup_grid_radio_delch(self, parent, start=0):
-        setup_delete_radio(parent, del_what_var=self.del_what_var, start=start)
+        blocks.setup_delete_radio(parent,
+                                  del_what_var=self.del_what_var,
+                                  start=start)
 
     def setup_info_delch(self, parent, start=0):
         info = ttk.Label(parent,
@@ -569,9 +439,10 @@ class Application(ttk.Frame):
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_delch(self, parent):
-        channels = set_up_default_channels(clean_up=True)
-        self.textbox_delch = setup_textbox(parent, font="monospace",
-                                           tab_function=self.focus_next_widget)
+        channels = blocks.set_up_default_channels(clean_up=True)
+        self.textbox_delch = blocks.setup_textbox(parent,
+                                                  font="monospace",
+                                                  tab_func=self.focus_next_widget)
         self.textbox_delch.insert("1.0", channels)
 
     def delete_ch(self):
