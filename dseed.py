@@ -40,10 +40,15 @@ import lbseed.actions as actions
 class Application(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
+        self.setup_vars()
         self.setup_widgets(parent)
 
     def setup_vars(self):
-        self.ftmono = tk.font.Font(family="monospace", size=10)
+        self.e_font = tk.font.Font(family="monospace", size=10)
+        self.b_width = 26
+        self.txt_font = tk.font.Font(family="monospace")
+        self.txt_lst_font = tk.font.Font(family="monospace", size=9)
+
         self.server_var = tk.StringVar()
         self.server_var.set("http://localhost:5279")
         self.down_dir_var = tk.StringVar()
@@ -66,8 +71,6 @@ class Application(ttk.Frame):
         self.check_name.set(True)
 
     def setup_widgets(self, parent):
-        self.setup_vars()
-
         self.note = ttk.Notebook(parent)
         note = self.note
         page_cfg = ttk.Frame(note)
@@ -91,20 +94,21 @@ class Application(ttk.Frame):
         self.setup_page_delch(page_delch)
         note.pack()
 
+    def focus_next_widget(self, event):
+        """Callback to focus on next widget when pressing <Tab>."""
+        event.widget.tk_focusNext().focus()
+        return "break"
+
     def setup_page_cfg(self, parent):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
-        self.setup_top_config(frame,
-                              server_var=self.server_var,
-                              font="Monospace 10",
-                              start=0)
+        self.setup_top_config(frame, start=0)
 
-    def setup_top_config(self, parent, server_var=None, font=None, start=0):
-        _width = 26
+    def setup_top_config(self, parent, start=0):
         entry = ttk.Entry(parent,
-                          textvariable=server_var,
-                          font=font,
-                          width=_width)
+                          textvariable=self.server_var,
+                          font=self.e_font,
+                          width=self.b_width)
         entry.grid(row=start, column=0, sticky=tk.W + tk.E)
         le = ttk.Label(parent,
                        text=("Address of the 'lbrynet' daemon. "
@@ -126,19 +130,18 @@ class Application(ttk.Frame):
     def setup_grid_top_dch(self, parent, start=0):
         blocks.setup_download_entry(parent,
                                     dir_var=self.down_dir_var,
-                                    font="Monospace 10",
+                                    font=self.e_font,
                                     start=start)
 
     def setup_grid_button_dch(self, parent, start=0):
-        _width = 26
         blocks.setup_buttons_val_res(parent,
-                                     width=_width,
+                                     width=self.b_width,
                                      validate_func=self.validate_ch,
                                      resolve_func=self.resolve_ch,
                                      start=start)
 
         b_download = ttk.Button(parent, text="Download claims",
-                                width=_width,
+                                width=self.b_width,
                                 command=self.download_cha)
         b_download.grid(row=start+2, column=0)
         lr = ttk.Label(parent,
@@ -161,14 +164,11 @@ class Application(ttk.Frame):
 
     def setup_textbox_dch(self, parent):
         channels = blocks.set_up_default_channels()
-        self.textbox_dch = blocks.setup_textbox(parent,
-                                                font="monospace",
-                                                tab_func=self.focus_next_widget)
+        self.textbox_dch = \
+            blocks.setup_textbox(parent,
+                                 font=self.txt_font,
+                                 tab_func=self.focus_next_widget)
         self.textbox_dch.insert("1.0", channels)
-
-    def focus_next_widget(self, event):
-        event.widget.tk_focusNext().focus()
-        return "break"
 
     def validate_ch(self, print_msg=True):
         title = self.note.tab(self.note.select())["text"]
@@ -226,18 +226,17 @@ class Application(ttk.Frame):
     def setup_grid_top_d(self, parent, start=0):
         blocks.setup_download_entry(parent,
                                     dir_var=self.down_dir_var,
-                                    font="Monospace 10",
+                                    font=self.e_font,
                                     start=start)
 
     def setup_grid_button_d(self, parent, start=0):
-        _width = 26
         blocks.setup_button_resolve_claims(parent,
-                                           width=_width,
+                                           width=self.b_width,
                                            res_function=self.resolve_claims,
                                            start=start)
 
         b_download = ttk.Button(parent, text="Download claims",
-                                width=_width,
+                                width=self.b_width,
                                 command=self.download_claims)
         b_download.grid(row=start+1, column=0)
         l2 = ttk.Label(parent,
@@ -256,7 +255,7 @@ class Application(ttk.Frame):
     def setup_textbox_d(self, parent):
         claims = blocks.set_up_default_claims()
         self.textbox_d = blocks.setup_textbox(parent,
-                                              font="monospace",
+                                              font=self.txt_font,
                                               tab_func=self.focus_next_widget)
         self.textbox_d.insert("1.0", claims)
 
@@ -298,9 +297,8 @@ class Application(ttk.Frame):
         self.setup_grid_check_list(frame, start=2)
 
     def setup_grid_top_list(self, parent, start=0):
-        _width = 26
         b_list = ttk.Button(parent, text="List claims",
-                            width=_width,
+                            width=self.b_width,
                             command=self.list_claims)
         b_list.grid(row=start, column=0)
         llist = ttk.Label(parent,
@@ -308,8 +306,9 @@ class Application(ttk.Frame):
         llist.grid(row=start, column=1, sticky=tk.W, padx=2)
 
         self.entry_chan = tk.StringVar()
-        entry = ttk.Entry(parent, textvariable=self.entry_chan,
-                          font=self.ftmono)
+        entry = ttk.Entry(parent,
+                          textvariable=self.entry_chan,
+                          font=self.e_font)
         entry.grid(row=start+1, column=0, sticky=tk.W + tk.E)
         le = ttk.Label(parent,
                        text="Filter by channel name")
@@ -324,9 +323,10 @@ class Application(ttk.Frame):
                                 start=start)
 
     def setup_textbox_list(self, parent):
-        self.textbox_list = blocks.setup_textbox(parent,
-                                                 font="monospace 8",
-                                                 tab_func=self.focus_next_widget)
+        self.textbox_list = \
+            blocks.setup_textbox(parent,
+                                 font=self.txt_lst_font,
+                                 tab_func=self.focus_next_widget)
 
     def list_claims(self):
         if not res.server_exists(server=self.server_var.get()):
@@ -358,14 +358,13 @@ class Application(ttk.Frame):
         self.setup_info_del(frame, start=5)
 
     def setup_grid_top_del(self, parent, start=0):
-        _width = 26
         blocks.setup_button_resolve_claims(parent,
-                                           width=_width,
+                                           width=self.b_width,
                                            res_function=self.resolve_claims,
                                            start=start)
 
         b_del = ttk.Button(parent, text="Delete claims",
-                           width=_width,
+                           width=self.b_width,
                            command=self.del_claims)
         b_del.grid(row=start+1, column=0)
         ldel = ttk.Label(parent,
@@ -382,9 +381,10 @@ class Application(ttk.Frame):
 
     def setup_textbox_del(self, parent):
         claims = blocks.set_up_default_claims(clean_up=True)
-        self.textbox_del = blocks.setup_textbox(parent,
-                                                font="monospace",
-                                                tab_func=self.focus_next_widget)
+        self.textbox_del = \
+            blocks.setup_textbox(parent,
+                                 font=self.txt_font,
+                                 tab_func=self.focus_next_widget)
         self.textbox_del.insert("1.0", claims)
 
     def del_claims(self):
@@ -409,15 +409,14 @@ class Application(ttk.Frame):
         self.setup_info_delch(frame, start=6)
 
     def setup_grid_button_delch(self, parent, start=0):
-        _width = 26
         blocks.setup_buttons_val_res(parent,
-                                     width=_width,
+                                     width=self.b_width,
                                      validate_func=self.validate_ch,
                                      resolve_func=self.resolve_ch,
                                      start=start)
 
         b_clean = ttk.Button(parent, text="Clean up claims",
-                             width=_width,
+                             width=self.b_width,
                              command=self.delete_ch)
         b_clean.grid(row=start+2, column=0)
         lb = ttk.Label(parent,
@@ -440,9 +439,10 @@ class Application(ttk.Frame):
 
     def setup_textbox_delch(self, parent):
         channels = blocks.set_up_default_channels(clean_up=True)
-        self.textbox_delch = blocks.setup_textbox(parent,
-                                                  font="monospace",
-                                                  tab_func=self.focus_next_widget)
+        self.textbox_delch = \
+            blocks.setup_textbox(parent,
+                                 font=self.txt_font,
+                                 tab_func=self.focus_next_widget)
         self.textbox_delch.insert("1.0", channels)
 
     def delete_ch(self):
