@@ -233,9 +233,51 @@ class ListPage:
                                                  font=self.txt_lst_font)
 
 
+class DeletePage:
+    """Mixin class to provide the delete page to the application."""
+    def setup_page_del(self, parent):
+        self.setup_top_del(parent)
+        self.setup_textbox_del(parent)
+
+    def setup_top_del(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_del(frame, start=0)
+        self.setup_grid_radio_del(frame, start=2)
+        self.setup_info_del(frame, start=5)
+
+    def setup_grid_top_del(self, parent, start=0):
+        blocks.setup_button_resolve_claims(parent,
+                                           width=self.b_width,
+                                           res_function=self.resolve_claims,
+                                           start=start)
+
+        b_del = ttk.Button(parent, text="Delete claims",
+                           width=self.b_width,
+                           command=self.del_claims)
+        b_del.grid(row=start+1, column=0)
+        ldel = ttk.Label(parent,
+                         text="Delete locally downloaded claims")
+        ldel.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+
+    def setup_grid_radio_del(self, parent, start=0):
+        blocks.setup_delete_radio(parent,
+                                  del_what_var=self.del_what_var,
+                                  start=start)
+
+    def setup_info_del(self, parent, start=0):
+        blocks.info_claims(parent, start=start)
+
+    def setup_textbox_del(self, parent):
+        claims = blocks.set_up_default_claims(clean_up=True)
+        self.textbox_del = blocks.setup_textbox(parent, font=self.txt_font)
+        self.textbox_del.insert("1.0", claims)
+
+
 class Application(ttk.Frame, Variables, ConfigPage,
                   DownloadChPage, DownloadSinglePage,
-                  ListPage):
+                  ListPage,
+                  DeletePage):
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
@@ -365,44 +407,6 @@ class Application(ttk.Frame, Variables, ConfigPage,
         self.textbox_list.replace("1.0", tk.END, content)
         print(40 * "-")
         print("Done")
-
-    def setup_page_del(self, parent):
-        self.setup_top_del(parent)
-        self.setup_textbox_del(parent)
-
-    def setup_top_del(self, parent):
-        frame = ttk.Frame(parent)
-        frame.pack(padx=4, pady=4)
-        self.setup_grid_top_del(frame, start=0)
-        self.setup_grid_radio_del(frame, start=2)
-        self.setup_info_del(frame, start=5)
-
-    def setup_grid_top_del(self, parent, start=0):
-        blocks.setup_button_resolve_claims(parent,
-                                           width=self.b_width,
-                                           res_function=self.resolve_claims,
-                                           start=start)
-
-        b_del = ttk.Button(parent, text="Delete claims",
-                           width=self.b_width,
-                           command=self.del_claims)
-        b_del.grid(row=start+1, column=0)
-        ldel = ttk.Label(parent,
-                         text="Delete locally downloaded claims")
-        ldel.grid(row=start+1, column=1, sticky=tk.W, padx=2)
-
-    def setup_grid_radio_del(self, parent, start=0):
-        blocks.setup_delete_radio(parent,
-                                  del_what_var=self.del_what_var,
-                                  start=start)
-
-    def setup_info_del(self, parent, start=0):
-        blocks.info_claims(parent, start=start)
-
-    def setup_textbox_del(self, parent):
-        claims = blocks.set_up_default_claims(clean_up=True)
-        self.textbox_del = blocks.setup_textbox(parent, font=self.txt_font)
-        self.textbox_del.insert("1.0", claims)
 
     def del_claims(self):
         if not res.server_exists(server=self.server_var.get()):
