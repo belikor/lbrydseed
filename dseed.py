@@ -38,10 +38,13 @@ import lbseed.actions as actions
 
 
 class Application(ttk.Frame):
-    def __init__(self, parent):
-        super().__init__(parent)
+    def __init__(self, root):
+        # Initialize and show the main frame
+        super().__init__(root)  # Frame(root)
+        self.pack()  # Frame.pack()
+
         self.setup_vars()
-        self.setup_widgets(parent)
+        self.setup_widgets(parent=self)  # the new Frame is the main container
 
     def setup_vars(self):
         self.e_font = tk.font.Font(family="monospace", size=10)
@@ -453,13 +456,15 @@ class Application(ttk.Frame):
 
 def main(argv=None):
     root = tk.Tk()
-    app = Application(root)
+    root.columnconfigure(0, weight=1)
+    root.rowconfigure(0, weight=1)
+    root.title("lbrydseed")
 
-    them = ttk.Style()
+    theme = ttk.Style()
     if "linux" in platform.system().lower():
-        them.theme_use("clam")
+        theme.theme_use("clam")
 
-    app.master.title("lbrydseed")
+    app = Application(root=root)
     app.mainloop()
 
 
