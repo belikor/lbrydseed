@@ -190,8 +190,52 @@ class DownloadSinglePage:
         self.textbox_d.insert("1.0", claims)
 
 
+class ListPage:
+    """Mixin class to provide the list page to the application."""
+    def setup_page_list(self, parent):
+        self.setup_top_list(parent)
+        self.setup_textbox_list(parent)
+
+    def setup_top_list(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_list(frame, start=0)
+        self.setup_grid_check_list(frame, start=2)
+
+    def setup_grid_top_list(self, parent, start=0):
+        b_list = ttk.Button(parent, text="List claims",
+                            width=self.b_width,
+                            command=self.list_claims)
+        b_list.grid(row=start, column=0)
+        llist = ttk.Label(parent,
+                          text="List all locally downloaded claims")
+        llist.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+        self.entry_chan = tk.StringVar()
+        entry = ttk.Entry(parent,
+                          textvariable=self.entry_chan,
+                          font=self.e_font)
+        entry.grid(row=start+1, column=0, sticky=tk.W + tk.E)
+        le = ttk.Label(parent,
+                       text="Filter by channel name")
+        le.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+
+    def setup_grid_check_list(self, parent, start=0):
+        blocks.setup_check_list(parent,
+                                cid_var=self.check_cid,
+                                blobs_var=self.check_blobs,
+                                show_ch_var=self.check_show_ch,
+                                name_var=self.check_name,
+                                start=start)
+
+    def setup_textbox_list(self, parent):
+        self.textbox_list = blocks.setup_textbox(parent,
+                                                 font=self.txt_lst_font)
+
+
 class Application(ttk.Frame, Variables, ConfigPage,
-                  DownloadChPage, DownloadSinglePage):
+                  DownloadChPage, DownloadSinglePage,
+                  ListPage):
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
@@ -303,46 +347,6 @@ class Application(ttk.Frame, Variables, ConfigPage,
                                 server=self.server_var.get())
         print(40 * "-")
         print("Done")
-
-    def setup_page_list(self, parent):
-        self.setup_top_list(parent)
-        self.setup_textbox_list(parent)
-
-    def setup_top_list(self, parent):
-        frame = ttk.Frame(parent)
-        frame.pack(padx=4, pady=4)
-        self.setup_grid_top_list(frame, start=0)
-        self.setup_grid_check_list(frame, start=2)
-
-    def setup_grid_top_list(self, parent, start=0):
-        b_list = ttk.Button(parent, text="List claims",
-                            width=self.b_width,
-                            command=self.list_claims)
-        b_list.grid(row=start, column=0)
-        llist = ttk.Label(parent,
-                          text="List all locally downloaded claims")
-        llist.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-        self.entry_chan = tk.StringVar()
-        entry = ttk.Entry(parent,
-                          textvariable=self.entry_chan,
-                          font=self.e_font)
-        entry.grid(row=start+1, column=0, sticky=tk.W + tk.E)
-        le = ttk.Label(parent,
-                       text="Filter by channel name")
-        le.grid(row=start+1, column=1, sticky=tk.W, padx=2)
-
-    def setup_grid_check_list(self, parent, start=0):
-        blocks.setup_check_list(parent,
-                                cid_var=self.check_cid,
-                                blobs_var=self.check_blobs,
-                                show_ch_var=self.check_show_ch,
-                                name_var=self.check_name,
-                                start=start)
-
-    def setup_textbox_list(self, parent):
-        self.textbox_list = blocks.setup_textbox(parent,
-                                                 font=self.txt_lst_font)
 
     def list_claims(self):
         if not res.server_exists(server=self.server_var.get()):
