@@ -141,7 +141,57 @@ class DownloadChPage:
         self.textbox_dch.insert("1.0", channels)
 
 
-class Application(ttk.Frame, Variables, ConfigPage, DownloadChPage):
+class DownloadSinglePage:
+    """Mixin class to provide the download single page to the application."""
+    def setup_page_d(self, parent):
+        self.setup_top_d(parent)
+        self.setup_textbox_d(parent)
+
+    def setup_top_d(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_d(frame, start=0)
+        self.setup_grid_button_d(frame, start=1)
+        self.setup_grid_check_d(frame, start=3)
+        self.setup_info_d(frame, start=5)
+
+    def setup_grid_top_d(self, parent, start=0):
+        blocks.setup_download_entry(parent,
+                                    dir_var=self.down_dir_var,
+                                    font=self.e_font,
+                                    start=start)
+
+    def setup_grid_button_d(self, parent, start=0):
+        blocks.setup_button_resolve_claims(parent,
+                                           width=self.b_width,
+                                           res_function=self.resolve_claims,
+                                           start=start)
+
+        b_download = ttk.Button(parent, text="Download claims",
+                                width=self.b_width,
+                                command=self.download_claims)
+        b_download.grid(row=start+1, column=0)
+        l2 = ttk.Label(parent,
+                       text="Start downloading the claims")
+        l2.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+
+    def setup_grid_check_d(self, parent, start=0):
+        blocks.setup_download_check(parent,
+                                    own_dir_var=self.own_dir_var,
+                                    save_var=self.save_var,
+                                    start=start)
+
+    def setup_info_d(self, parent, start=0):
+        blocks.info_claims(parent, start=start)
+
+    def setup_textbox_d(self, parent):
+        claims = blocks.set_up_default_claims()
+        self.textbox_d = blocks.setup_textbox(parent, font=self.txt_font)
+        self.textbox_d.insert("1.0", claims)
+
+
+class Application(ttk.Frame, Variables, ConfigPage,
+                  DownloadChPage, DownloadSinglePage):
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
@@ -222,52 +272,6 @@ class Application(ttk.Frame, Variables, ConfigPage, DownloadChPage):
                             server=self.server_var.get())
         print(40 * "-")
         print("Done")
-
-    def setup_page_d(self, parent):
-        self.setup_top_d(parent)
-        self.setup_textbox_d(parent)
-
-    def setup_top_d(self, parent):
-        frame = ttk.Frame(parent)
-        frame.pack(padx=4, pady=4)
-        self.setup_grid_top_d(frame, start=0)
-        self.setup_grid_button_d(frame, start=1)
-        self.setup_grid_check_d(frame, start=3)
-        self.setup_info_d(frame, start=5)
-
-    def setup_grid_top_d(self, parent, start=0):
-        blocks.setup_download_entry(parent,
-                                    dir_var=self.down_dir_var,
-                                    font=self.e_font,
-                                    start=start)
-
-    def setup_grid_button_d(self, parent, start=0):
-        blocks.setup_button_resolve_claims(parent,
-                                           width=self.b_width,
-                                           res_function=self.resolve_claims,
-                                           start=start)
-
-        b_download = ttk.Button(parent, text="Download claims",
-                                width=self.b_width,
-                                command=self.download_claims)
-        b_download.grid(row=start+1, column=0)
-        l2 = ttk.Label(parent,
-                       text="Start downloading the claims")
-        l2.grid(row=start+1, column=1, sticky=tk.W, padx=2)
-
-    def setup_grid_check_d(self, parent, start=0):
-        blocks.setup_download_check(parent,
-                                    own_dir_var=self.own_dir_var,
-                                    save_var=self.save_var,
-                                    start=start)
-
-    def setup_info_d(self, parent, start=0):
-        blocks.info_claims(parent, start=start)
-
-    def setup_textbox_d(self, parent):
-        claims = blocks.set_up_default_claims()
-        self.textbox_d = blocks.setup_textbox(parent, font=self.txt_font)
-        self.textbox_d.insert("1.0", claims)
 
     def resolve_claims(self, print_msg=True):
         if not res.server_exists(server=self.server_var.get()):
