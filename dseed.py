@@ -274,10 +274,58 @@ class DeletePage:
         self.textbox_del.insert("1.0", claims)
 
 
+class DeleteChPage:
+    """Mixin class to provide the list page to the application."""
+    def setup_page_delch(self, parent):
+        self.setup_top_delch(parent)
+        self.setup_textbox_delch(parent)
+
+    def setup_top_delch(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_button_delch(frame, start=0)
+        self.setup_grid_radio_delch(frame, start=3)
+        self.setup_info_delch(frame, start=6)
+
+    def setup_grid_button_delch(self, parent, start=0):
+        blocks.setup_buttons_val_res(parent,
+                                     width=self.b_width,
+                                     validate_func=self.validate_ch,
+                                     resolve_func=self.resolve_ch,
+                                     start=start)
+
+        b_clean = ttk.Button(parent, text="Clean up claims",
+                             width=self.b_width,
+                             command=self.delete_ch)
+        b_clean.grid(row=start+2, column=0)
+        lb = ttk.Label(parent,
+                       text=("Start deleting claims "
+                             "from the oldest to the newest"))
+        lb.grid(row=start+2, column=1, sticky=tk.W, padx=2)
+
+    def setup_grid_radio_delch(self, parent, start=0):
+        blocks.setup_delete_radio(parent,
+                                  del_what_var=self.del_what_var,
+                                  start=start)
+
+    def setup_info_delch(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("Add a channel, a comma, "
+                               "and the number of items to keep "
+                               "from this channel; older items "
+                               "will be removed"))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_delch(self, parent):
+        channels = blocks.set_up_default_channels(clean_up=True)
+        self.textbox_delch = blocks.setup_textbox(parent, font=self.txt_font)
+        self.textbox_delch.insert("1.0", channels)
+
+
 class Application(ttk.Frame, Variables, ConfigPage,
                   DownloadChPage, DownloadSinglePage,
                   ListPage,
-                  DeletePage):
+                  DeletePage, DeleteChPage):
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
@@ -417,51 +465,6 @@ class Application(ttk.Frame, Variables, ConfigPage,
                               server=self.server_var.get())
         print(40 * "-")
         print("Done")
-
-    def setup_page_delch(self, parent):
-        self.setup_top_delch(parent)
-        self.setup_textbox_delch(parent)
-
-    def setup_top_delch(self, parent):
-        frame = ttk.Frame(parent)
-        frame.pack(padx=4, pady=4)
-        self.setup_grid_button_delch(frame, start=0)
-        self.setup_grid_radio_delch(frame, start=3)
-        self.setup_info_delch(frame, start=6)
-
-    def setup_grid_button_delch(self, parent, start=0):
-        blocks.setup_buttons_val_res(parent,
-                                     width=self.b_width,
-                                     validate_func=self.validate_ch,
-                                     resolve_func=self.resolve_ch,
-                                     start=start)
-
-        b_clean = ttk.Button(parent, text="Clean up claims",
-                             width=self.b_width,
-                             command=self.delete_ch)
-        b_clean.grid(row=start+2, column=0)
-        lb = ttk.Label(parent,
-                       text=("Start deleting claims "
-                             "from the oldest to the newest"))
-        lb.grid(row=start+2, column=1, sticky=tk.W, padx=2)
-
-    def setup_grid_radio_delch(self, parent, start=0):
-        blocks.setup_delete_radio(parent,
-                                  del_what_var=self.del_what_var,
-                                  start=start)
-
-    def setup_info_delch(self, parent, start=0):
-        info = ttk.Label(parent,
-                         text=("Add a channel, a comma, "
-                               "and the number of items to keep "
-                               "from this channel; older items "
-                               "will be removed"))
-        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
-
-    def setup_textbox_delch(self, parent):
-        channels = blocks.set_up_default_channels(clean_up=True)
-        self.textbox_delch = blocks.setup_textbox(parent, font=self.txt_font)
-        self.textbox_delch.insert("1.0", channels)
 
     def delete_ch(self):
         if not res.server_exists(server=self.server_var.get()):
