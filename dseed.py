@@ -67,7 +67,26 @@ class Variables:
         self.check_name.set(True)
 
 
-class Application(ttk.Frame, Variables):
+class ConfigPage:
+    """Mixin class to provide the configuration page to the application."""
+    def setup_page_cfg(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_top_config(frame, start=0)
+
+    def setup_top_config(self, parent, start=0):
+        entry = ttk.Entry(parent,
+                          textvariable=self.server_var,
+                          font=self.e_font,
+                          width=self.b_width)
+        entry.grid(row=start, column=0, sticky=tk.W + tk.E)
+        le = ttk.Label(parent,
+                       text=("Address of the 'lbrynet' daemon. "
+                             "It defaults to localhost:5279"))
+        le.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+
+class Application(ttk.Frame, Variables, ConfigPage):
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
@@ -99,22 +118,6 @@ class Application(ttk.Frame, Variables):
         self.setup_page_del(page_del)
         self.setup_page_delch(page_delch)
         note.pack()
-
-    def setup_page_cfg(self, parent):
-        frame = ttk.Frame(parent)
-        frame.pack(padx=4, pady=4)
-        self.setup_top_config(frame, start=0)
-
-    def setup_top_config(self, parent, start=0):
-        entry = ttk.Entry(parent,
-                          textvariable=self.server_var,
-                          font=self.e_font,
-                          width=self.b_width)
-        entry.grid(row=start, column=0, sticky=tk.W + tk.E)
-        le = ttk.Label(parent,
-                       text=("Address of the 'lbrynet' daemon. "
-                             "It defaults to localhost:5279"))
-        le.grid(row=start, column=1, sticky=tk.W, padx=2)
 
     def setup_page_dch(self, parent):
         self.setup_top_dch(parent)
