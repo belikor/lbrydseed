@@ -37,15 +37,8 @@ import lbseed.validate as vd
 import lbseed.actions as actions
 
 
-class Application(ttk.Frame):
-    def __init__(self, root):
-        # Initialize and show the main frame
-        super().__init__(root)  # Frame(root)
-        self.pack()  # Frame.pack()
-
-        self.setup_vars()
-        self.setup_widgets(parent=self)  # the new Frame is the main container
-
+class Variables:
+    """Mixin class to provide variables to the application."""
     def setup_vars(self):
         self.e_font = tk.font.Font(family="monospace", size=10)
         self.b_width = 26
@@ -72,6 +65,16 @@ class Application(ttk.Frame):
         self.check_show_ch.set(True)
         self.check_name = tk.BooleanVar()
         self.check_name.set(True)
+
+
+class Application(ttk.Frame, Variables):
+    def __init__(self, root):
+        # Initialize and show the main frame
+        super().__init__(root)  # Frame(root)
+        self.pack()  # Frame.pack()
+
+        self.setup_vars()
+        self.setup_widgets(parent=self)  # the new Frame is the main container
 
     def setup_widgets(self, parent):
         self.note = ttk.Notebook(parent)
