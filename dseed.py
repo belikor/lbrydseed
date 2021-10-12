@@ -86,39 +86,8 @@ class ConfigPage:
         le.grid(row=start, column=1, sticky=tk.W, padx=2)
 
 
-class Application(ttk.Frame, Variables, ConfigPage):
-    def __init__(self, root):
-        # Initialize and show the main frame
-        super().__init__(root)  # Frame(root)
-        self.pack()  # Frame.pack()
-
-        self.setup_vars()
-        self.setup_widgets(parent=self)  # the new Frame is the main container
-
-    def setup_widgets(self, parent):
-        self.note = ttk.Notebook(parent)
-        note = self.note
-        page_cfg = ttk.Frame(note)
-        page_dch = ttk.Frame(note)
-        page_d = ttk.Frame(note)
-        page_list = ttk.Frame(note)
-        page_del = ttk.Frame(note)
-        page_delch = ttk.Frame(note)
-        note.add(page_cfg, text="General")
-        note.add(page_dch, text="Download channel")
-        note.add(page_d, text="Download single")
-        note.add(page_list, text="List")
-        note.add(page_del, text="Delete single")
-        note.add(page_delch, text="Clean up channels")
-        note.select(page_dch)
-        self.setup_page_cfg(page_cfg)
-        self.setup_page_dch(page_dch)
-        self.setup_page_d(page_d)
-        self.setup_page_list(page_list)
-        self.setup_page_del(page_del)
-        self.setup_page_delch(page_delch)
-        note.pack()
-
+class DownloadChPage:
+    """Mixin class to provide the download channel page to the application."""
     def setup_page_dch(self, parent):
         self.setup_top_dch(parent)
         self.setup_textbox_dch(parent)
@@ -170,6 +139,40 @@ class Application(ttk.Frame, Variables, ConfigPage):
         channels = blocks.set_up_default_channels()
         self.textbox_dch = blocks.setup_textbox(parent, font=self.txt_font)
         self.textbox_dch.insert("1.0", channels)
+
+
+class Application(ttk.Frame, Variables, ConfigPage, DownloadChPage):
+    def __init__(self, root):
+        # Initialize and show the main frame
+        super().__init__(root)  # Frame(root)
+        self.pack()  # Frame.pack()
+
+        self.setup_vars()
+        self.setup_widgets(parent=self)  # the new Frame is the main container
+
+    def setup_widgets(self, parent):
+        self.note = ttk.Notebook(parent)
+        note = self.note
+        page_cfg = ttk.Frame(note)
+        page_dch = ttk.Frame(note)
+        page_d = ttk.Frame(note)
+        page_list = ttk.Frame(note)
+        page_del = ttk.Frame(note)
+        page_delch = ttk.Frame(note)
+        note.add(page_cfg, text="General")
+        note.add(page_dch, text="Download channel")
+        note.add(page_d, text="Download single")
+        note.add(page_list, text="List")
+        note.add(page_del, text="Delete single")
+        note.add(page_delch, text="Clean up channels")
+        note.select(page_dch)
+        self.setup_page_cfg(page_cfg)
+        self.setup_page_dch(page_dch)
+        self.setup_page_d(page_d)
+        self.setup_page_list(page_list)
+        self.setup_page_del(page_del)
+        self.setup_page_delch(page_delch)
+        note.pack()
 
     def validate_ch(self, print_msg=True):
         title = self.note.tab(self.note.select())["text"]
