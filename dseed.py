@@ -102,12 +102,9 @@ class Application(ttk.Frame,
 
         channels, numbers = self.validate_ch(print_msg=False)
 
-        ddir = self.down_dir_var.get()
-        if not os.path.exists(ddir):
-            nddir = res.get_download_dir(server=self.server_var.get())
-            self.down_dir_var.set(nddir)
-            print(f"Directory does not exist: {ddir}")
-            print(f"Default directory: {nddir}")
+        ddir = res.check_download_dir(ddir=self.down_dir_var.get(),
+                                      server=self.server_var.get())
+        self.down_dir_var.set(ddir)
 
         info = res.resolve_ch(channels, numbers, print_msg=print_msg,
                               server=self.server_var.get())
@@ -140,6 +137,9 @@ class Application(ttk.Frame,
         title = self.note.tab(self.note.select())["text"]
 
         if title == "Download single":
+            ddir = res.check_download_dir(ddir=self.down_dir_var.get(),
+                                          server=self.server_var.get())
+            self.down_dir_var.set(ddir)
             text = self.textbox_d.get("1.0", tk.END)
         elif title == "Delete single":
             text = self.textbox_del.get("1.0", tk.END)

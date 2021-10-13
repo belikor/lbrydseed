@@ -24,7 +24,9 @@
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
 """Methods to resolve claims and channels."""
+import os
 import requests
+
 import lbrytools as lbryt
 
 
@@ -44,6 +46,15 @@ def get_download_dir(server="http://localhost:5279"):
     msg = {"method": "settings_get"}
     out_set = requests.post(server, json=msg).json()
     ddir = out_set["result"]["download_dir"]
+    return ddir
+
+
+def check_download_dir(ddir=None, server="http://localhost:5279"):
+    old_ddir = str(ddir)
+    if not os.path.exists(ddir):
+        ddir = get_download_dir(server=server)
+        print(f"Directory does not exist: {old_ddir}")
+        print(f"Default directory: {ddir}")
     return ddir
 
 
@@ -124,4 +135,3 @@ def resolve_claims(text, print_msg=True,
         print(80 * "-")
         print("\n".join(out))
     return claims
-
