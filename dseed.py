@@ -117,7 +117,7 @@ class Application(ttk.Frame,
 
         return channels, numbers, info
 
-    def download_cha(self):
+    def download_ch(self):
         """Download the claims from the channels in the textbox."""
         if not res.server_exists(server=self.server_var.get()):
             return False

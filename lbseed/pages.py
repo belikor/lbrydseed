@@ -125,8 +125,11 @@ class DownloadChPage:
 
         b_download = ttk.Button(parent, text="Download claims",
                                 width=self.b_width,
-                                command=self.download_cha)
+                                command=self.download_ch)
         b_download.grid(row=start+2, column=0)
+        b_download.bind("<<Activate>>",
+                        blocks.f_with_event(self.download_ch))
+
         lr = ttk.Label(parent,
                        text=("Start downloading the newest claims "
                              "from the channels"))

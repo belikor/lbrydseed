@@ -89,6 +89,8 @@ def setup_download_entry(parent,
     entry_dir = ttk.Entry(parent, textvariable=dir_var,
                           font=font)
     entry_dir.grid(row=start, column=0, sticky=tk.W + tk.E)
+    entry_dir.bind("<<Activate>>", focus_next_widget)
+
     ledir = ttk.Label(parent,
                       text=("Download directory. "
                             "It defaults to your home directory."))
@@ -105,7 +107,10 @@ def setup_buttons_val_res(parent,
                             width=width,
                             command=validate_func)
     b_validate.grid(row=start, column=0)
+    b_validate.bind("<<Activate>>",
+                    f_with_event(validate_func))
     b_validate.focus()
+
     lv = ttk.Label(parent,
                    text="Verify that the input can be read correctly")
     lv.grid(row=start, column=1, sticky=tk.W, padx=2)
@@ -114,6 +119,9 @@ def setup_buttons_val_res(parent,
                            width=width,
                            command=resolve_func)
     b_resolve.grid(row=start+1, column=0)
+    b_resolve.bind("<<Activate>>",
+                   f_with_event(resolve_func))
+
     lr = ttk.Label(parent,
                    text="Confirm that the channels exist")
     lr.grid(row=start+1, column=1, sticky=tk.W, padx=2)
