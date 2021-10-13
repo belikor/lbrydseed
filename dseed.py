@@ -52,6 +52,9 @@ class Application(ttk.Frame,
         self.setup_widgets(parent=self)  # the new Frame is the main container
 
     def setup_widgets(self, parent):
+        # Virtual event used in some widgets
+        parent.event_add("<<Activate>>", "<Return>", "<KP_Enter>")
+
         self.note = ttk.Notebook(parent)
         note = self.note
         page_cfg = ttk.Frame(note)
