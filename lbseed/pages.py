@@ -223,6 +223,9 @@ class ListPage:
                             width=self.b_width,
                             command=self.list_claims)
         b_list.grid(row=start, column=0)
+        b_list.bind("<<Activate>>",
+                    blocks.f_with_event(self.list_claims))
+
         llist = ttk.Label(parent,
                           text="List all locally downloaded claims")
         llist.grid(row=start, column=1, sticky=tk.W, padx=2)
@@ -232,6 +235,9 @@ class ListPage:
                           textvariable=self.entry_chan,
                           font=self.e_font)
         entry.grid(row=start+1, column=0, sticky=tk.W + tk.E)
+        entry.bind("<<Activate>>",
+                   blocks.f_with_event(self.list_claims))
+
         le = ttk.Label(parent,
                        text="Filter by channel name")
         le.grid(row=start+1, column=1, sticky=tk.W, padx=2)
