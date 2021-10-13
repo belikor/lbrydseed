@@ -184,7 +184,7 @@ class Application(ttk.Frame,
         print(40 * "-")
         print("Done")
 
-    def del_claims(self):
+    def delete_claims(self):
         """Delete the claims in the textbox."""
         if not res.server_exists(server=self.server_var.get()):
             return False

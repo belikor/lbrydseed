@@ -276,8 +276,11 @@ class DeletePage:
 
         b_del = ttk.Button(parent, text="Delete claims",
                            width=self.b_width,
-                           command=self.del_claims)
+                           command=self.delete_claims)
         b_del.grid(row=start+1, column=0)
+        b_del.bind("<<Activate>>",
+                   blocks.f_with_event(self.delete_claims))
+
         ldel = ttk.Label(parent,
                          text="Delete locally downloaded claims")
         ldel.grid(row=start+1, column=1, sticky=tk.W, padx=2)
