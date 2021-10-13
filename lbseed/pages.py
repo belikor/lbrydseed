@@ -323,6 +323,9 @@ class DeleteChPage:
                              width=self.b_width,
                              command=self.delete_ch)
         b_clean.grid(row=start+2, column=0)
+        b_clean.bind("<<Activate>>",
+                     blocks.f_with_event(self.delete_ch))
+
         lb = ttk.Label(parent,
                        text=("Start deleting claims "
                              "from the oldest to the newest"))
