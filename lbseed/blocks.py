@@ -40,6 +40,13 @@ def focus_next_widget(event):
     return "break"
 
 
+def f_with_event(function):
+    """Decorate a function so that it accepts an event."""
+    def function_with_event(event, **kwargs):
+        function(**kwargs)
+    return function_with_event
+
+
 def set_up_default_channels(clean_up=False):
     """Block of text to populate a Text widget."""
     channels = ["@my-favorite-channel, 5",
