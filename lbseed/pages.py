@@ -177,13 +177,16 @@ class DownloadSinglePage:
     def setup_grid_button_d(self, parent, start=0):
         blocks.setup_button_resolve_claims(parent,
                                            width=self.b_width,
-                                           res_function=self.resolve_claims,
+                                           resolve_func=self.resolve_claims,
                                            start=start)
 
         b_download = ttk.Button(parent, text="Download claims",
                                 width=self.b_width,
                                 command=self.download_claims)
         b_download.grid(row=start+1, column=0)
+        b_download.bind("<<Activate>>",
+                        blocks.f_with_event(self.download_claims))
+
         l2 = ttk.Label(parent,
                        text="Start downloading the claims")
         l2.grid(row=start+1, column=1, sticky=tk.W, padx=2)
@@ -262,7 +265,7 @@ class DeletePage:
     def setup_grid_top_del(self, parent, start=0):
         blocks.setup_button_resolve_claims(parent,
                                            width=self.b_width,
-                                           res_function=self.resolve_claims,
+                                           resolve_func=self.resolve_claims,
                                            start=start)
 
         b_del = ttk.Button(parent, text="Delete claims",

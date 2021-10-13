@@ -129,13 +129,16 @@ def setup_buttons_val_res(parent,
 
 def setup_button_resolve_claims(parent,
                                 width=26,
-                                res_function=None,
+                                resolve_func=None,
                                 start=0):
     """Setup for buttons for resolving claims."""
     b_resolve = ttk.Button(parent, text="Resolve online",
                            width=width,
-                           command=res_function)
+                           command=resolve_func)
     b_resolve.grid(row=start, column=0)
+    b_resolve.bind("<<Activate>>",
+                   f_with_event(resolve_func))
+
     lr = ttk.Label(parent,
                    text="Confirm that the claims exist")
     lr.grid(row=start, column=1, sticky=tk.W, padx=2)
