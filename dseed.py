@@ -66,9 +66,9 @@ class Application(ttk.Frame,
         note.add(page_cfg, text="General")
         note.add(page_dch, text="Download channel")
         note.add(page_d, text="Download single")
-        note.add(page_list, text="List")
+        note.add(page_list, text="List claims")
         note.add(page_del, text="Delete single")
-        note.add(page_delch, text="Clean up channels")
+        note.add(page_delch, text="Clean up channel")
         note.select(page_dch)
 
         # Built from the mixin `Page` classes
@@ -86,7 +86,7 @@ class Application(ttk.Frame,
 
         if title == "Download channel":
             text = self.textbox_dch.get("1.0", tk.END)
-        elif title == "Clean up channels":
+        elif title == "Clean up channel":
             text = self.textbox_delch.get("1.0", tk.END)
         channels, numbers = val.validate_input(text, print_msg=print_msg)
         if print_msg:

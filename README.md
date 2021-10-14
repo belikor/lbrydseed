@@ -98,9 +98,27 @@ python dseed.py
 ```
 
 Enter the name of the channels, and a number of claims to download for each,
-then press `Download claims`.
+then press `"Download claims"`.
 
-![lbryseed interface](./lbrydseed.png)
+![lbryseed download_channel](./g_lbrydseed_download_channel.png)
+
+Enter the name or claim ID of various claims,
+and then press `"Download claims"`.
+
+![lbryseed download_single](./g_lbrydseed_download_single.png)
+
+Press `"List claims"` to display all downloaded claims in the system.
+
+![lbryseed list_claims](./g_lbrydseed_list_claims.png)
+
+Enter the name or claim ID of various claims, then press `"Delete claims"`.
+
+![lbryseed delete_single](./g_lbrydseed_delete_single.png)
+
+Enter the name of the channels, and a number of claims to keep for each,
+then press `"Clean up claims"`.
+
+![lbryseed cleanup_channel](./g_lbrydseed_cleanup_channel.png)
 
 ## Development
 
