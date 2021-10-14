@@ -24,7 +24,6 @@
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
 """Small application to download claims from LBRY channels."""
-import os
 import platform
 import sys
 import tkinter as tk
@@ -42,7 +41,8 @@ class Application(ttk.Frame,
                   pages.ConfigPage,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListPage,
-                  pages.DeletePage, pages.DeleteChPage):
+                  pages.DeletePage, pages.DeleteChPage,
+                  pages.SupportPage):
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
@@ -63,12 +63,14 @@ class Application(ttk.Frame,
         page_list = ttk.Frame(note)
         page_del = ttk.Frame(note)
         page_delch = ttk.Frame(note)
+        page_supports = ttk.Frame(note)
         note.add(page_cfg, text="General")
         note.add(page_dch, text="Download channel")
         note.add(page_d, text="Download single")
         note.add(page_list, text="List claims")
         note.add(page_del, text="Delete single")
         note.add(page_delch, text="Clean up channel")
+        note.add(page_supports, text="List supports")
         note.select(page_dch)
 
         # Built from the mixin `Page` classes
@@ -78,6 +80,7 @@ class Application(ttk.Frame,
         self.setup_page_list(page_list)
         self.setup_page_del(page_del)
         self.setup_page_delch(page_delch)
+        self.setup_page_supports(page_supports)
         note.pack()
 
     def validate_ch(self, print_msg=True):
@@ -204,6 +207,21 @@ class Application(ttk.Frame,
         actions.clean_ch(channels, numbers, info,
                          what=self.del_what_var.get(),
                          server=self.server_var.get())
+        print(40 * "-")
+        print("Done")
+
+    def list_supports(self):
+        """List supported claims, either channels or streams."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        content = actions.list_supports(show_ch_var=self.check_s_ch.get(),
+                                        show_claims_var=self.check_s_claims.get(),
+                                        show_cid_var=self.check_s_cid.get(),
+                                        combine_var=self.check_s_combine.get(),
+                                        server=self.server_var.get())
+
+        self.textbox_supports.replace("1.0", tk.END, content)
         print(40 * "-")
         print("Done")
 

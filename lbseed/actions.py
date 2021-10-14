@@ -169,3 +169,25 @@ def clean_ch(channels, numbers, info,
         if num < n_channels:
             print()
 
+
+def list_supports(show_ch_var=False,
+                  show_claims_var=True,
+                  show_cid_var=False,
+                  combine_var=True,
+                  print_msg=True,
+                  server="http://localhost:5279"):
+    """List supports."""
+    if print_msg:
+        print("List all supported claims")
+        print(80 * "-")
+
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        lbryt.list_supports(claim_id=show_cid_var,
+                            combine=combine_var,
+                            claims=show_claims_var,
+                            channels=show_ch_var,
+                            file=fp.name, fdate=False, sep=";",
+                            server=server)
+        fp.seek(0)
+        content = fp.read()
+    return content

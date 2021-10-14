@@ -76,6 +76,15 @@ class Variables:
         self.check_name = tk.BooleanVar()
         self.check_name.set(True)
 
+        self.check_s_ch = tk.BooleanVar()
+        self.check_s_ch.set(False)
+        self.check_s_claims = tk.BooleanVar()
+        self.check_s_claims.set(True)
+        self.check_s_cid = tk.BooleanVar()
+        self.check_s_cid.set(False)
+        self.check_s_combine = tk.BooleanVar()
+        self.check_s_combine.set(True)
+
 
 class ConfigPage:
     """Mixin class to provide the configuration page to the application."""
@@ -348,3 +357,48 @@ class DeleteChPage:
         channels = blocks.set_up_default_channels(clean_up=True)
         self.textbox_delch = blocks.setup_textbox(parent, font=self.txt_font)
         self.textbox_delch.insert("1.0", channels)
+
+
+class SupportPage:
+    """Mixin class to provide the support page to the application."""
+    def setup_page_supports(self, parent):
+        self.setup_top_support(parent)
+        self.setup_textbox_support(parent)
+
+    def setup_top_support(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_button_support(frame, start=0)
+        self.setup_grid_check_support(frame, start=1)
+        self.setup_info_support(frame, start=5)
+
+    def setup_grid_button_support(self, parent, start=0):
+        b_clean = ttk.Button(parent, text="List supports",
+                             width=self.b_width,
+                             command=self.list_supports)
+        b_clean.grid(row=start, column=0)
+        b_clean.bind("<<Activate>>",
+                     blocks.f_with_event(self.list_supports))
+
+        lb = ttk.Label(parent,
+                       text=("List claims supported with LBC"))
+        lb.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+    def setup_grid_check_support(self, parent, start=0):
+        blocks.setup_check_support(parent,
+                                   show_ch_var=self.check_s_ch,
+                                   show_claims_var=self.check_s_claims,
+                                   show_cid_var=self.check_s_cid,
+                                   combine_var=self.check_s_combine,
+                                   start=start)
+
+    def setup_info_support(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("List the supported claim, "
+                               "the amount of LBC support, "
+                               "and the trending score"))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_support(self, parent):
+        self.textbox_supports = blocks.setup_textbox(parent,
+                                                     font=self.txt_lst_font)

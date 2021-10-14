@@ -242,3 +242,32 @@ def setup_textbox(parent,
     hsrl.config(command=textbox.xview)
     vsrl.config(command=textbox.yview)
     return textbox
+
+
+def setup_check_support(parent,
+                        show_ch_var=None,
+                        show_claims_var=None,
+                        show_cid_var=None,
+                        combine_var=None,
+                        start=0):
+    """Setup the checkbuttons to list supports."""
+    chck_ch = ttk.Checkbutton(parent,
+                              variable=show_ch_var,
+                              text="Show channel claims")
+    chck_ch.grid(row=start, column=1, sticky=tk.W)
+
+    chck_claims = ttk.Checkbutton(parent,
+                                  variable=show_claims_var,
+                                  text=("Show stream claims "
+                                        "(video, audio, document, etc.)"))
+    chck_claims.grid(row=start+1, column=1, sticky=tk.W)
+
+    chck_cid = ttk.Checkbutton(parent,
+                               variable=show_cid_var,
+                               text="Show claim ID")
+    chck_cid.grid(row=start+2, column=1, sticky=tk.W)
+
+    chck_combine = ttk.Checkbutton(parent,
+                                   variable=combine_var,
+                                   text="Show combined trending score")
+    chck_combine.grid(row=start+3, column=1, sticky=tk.W)
