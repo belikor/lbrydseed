@@ -118,13 +118,14 @@ def resolve_claims(text, print_msg=True,
         result = lbryt.search_item(line, print_error=False,
                                    server=server)
 
-        info = ""
         if not result:
             result = lbryt.search_item(cid=line, print_error=False,
                                        server=server)
 
         if not result:
-            info = "No claim found"
+            info = "<-- claim not found"
+        else:
+            info = result["canonical_url"]
 
         line = f'"{line}"'
         out += [f'{num:2d}: item={line:42s}  {info}']
