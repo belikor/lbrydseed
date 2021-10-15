@@ -42,7 +42,7 @@ class Application(ttk.Frame,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListPage,
                   pages.DeletePage, pages.DeleteChPage,
-                  pages.SupportPage):
+                  pages.SupportPage, pages.SeedPage):
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
@@ -64,6 +64,7 @@ class Application(ttk.Frame,
         page_del = ttk.Frame(note)
         page_delch = ttk.Frame(note)
         page_supports = ttk.Frame(note)
+        page_seed_ratio = ttk.Frame(note)
         note.add(page_cfg, text="General")
         note.add(page_dch, text="Download channel")
         note.add(page_d, text="Download single")
@@ -71,6 +72,7 @@ class Application(ttk.Frame,
         note.add(page_del, text="Delete single")
         note.add(page_delch, text="Clean up channel")
         note.add(page_supports, text="List supports")
+        note.add(page_seed_ratio, text="Seeding ratio")
         note.select(page_dch)
 
         # Built from the mixin `Page` classes
@@ -81,6 +83,8 @@ class Application(ttk.Frame,
         self.setup_page_del(page_del)
         self.setup_page_delch(page_delch)
         self.setup_page_supports(page_supports)
+        self.setup_page_seed(page_seed_ratio)
+        self.setup_plot()
         note.pack()
 
     def validate_ch(self, print_msg=True):
@@ -215,13 +219,41 @@ class Application(ttk.Frame,
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        content = actions.list_supports(show_ch_var=self.check_s_ch.get(),
-                                        show_claims_var=self.check_s_claims.get(),
-                                        show_cid_var=self.check_s_cid.get(),
-                                        combine_var=self.check_s_combine.get(),
-                                        server=self.server_var.get())
+        content = \
+            actions.list_supports(show_ch_var=self.check_s_ch.get(),
+                                  show_claims_var=self.check_s_claims.get(),
+                                  show_cid_var=self.check_s_cid.get(),
+                                  combine_var=self.check_s_combine.get(),
+                                  server=self.server_var.get())
 
         self.textbox_supports.replace("1.0", tk.END, content)
+        print(40 * "-")
+        print("Done")
+
+    def seeding_ratio(self):
+        """Print estimated seeding ratio from the log files."""
+        frame = None
+
+        if self.check_seed_plot.get():
+            if not hasattr(self, "top_plot"):
+                # This is normally not called because the plot toplevel
+                # is already set up by `SeedPage.setup_page_seed`
+                frame = self.setup_plot()
+                frame.deiconify()
+            elif hasattr(self, "top_plot"):
+                if self.top_plot.children:
+                    # We remove the content before reusing the toplevel
+                    frame = self.remove_plot()
+                else:
+                    # The toplevel is empty, so we just use it
+                    frame = self.top_plot
+                frame.deiconify()
+
+        content = \
+            actions.seeding_ratio(frame=frame,
+                                  plot_hst_var=self.check_seed_plot.get(),
+                                  server=self.server_var.get())
+        self.textbox_seed.replace("1.0", tk.END, content)
         print(40 * "-")
         print("Done")
 
@@ -231,6 +263,9 @@ def main(argv=None):
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
     root.title("lbrydseed")
+    # The quit method is explicit because we create a second toplevel,
+    # and it causes problems when we try to close the window
+    root.protocol("WM_DELETE_WINDOW", root.quit)
 
     theme = ttk.Style()
     if "linux" in platform.system().lower():

@@ -85,6 +85,9 @@ class Variables:
         self.check_s_combine = tk.BooleanVar()
         self.check_s_combine.set(True)
 
+        self.check_seed_plot = tk.BooleanVar()
+        self.check_seed_plot.set(False)
+
 
 class ConfigPage:
     """Mixin class to provide the configuration page to the application."""
@@ -402,3 +405,57 @@ class SupportPage:
     def setup_textbox_support(self, parent):
         self.textbox_supports = blocks.setup_textbox(parent,
                                                      font=self.txt_lst_font)
+
+
+class SeedPage:
+    """Mixin class to provide the seeding page to the application."""
+    def setup_page_seed(self, parent):
+        self.setup_top_seed(parent)
+        self.setup_textbox_seed(parent)
+        self.setup_plot()
+
+    def setup_top_seed(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_button_seed(frame, start=0)
+        self.setup_grid_check_seed(frame, start=1)
+
+    def setup_grid_button_seed(self, parent, start=0):
+        b_seed = ttk.Button(parent, text="Display seeding ratio",
+                            width=self.b_width,
+                            command=self.seeding_ratio)
+        b_seed.grid(row=start, column=0)
+        b_seed.bind("<<Activate>>",
+                    blocks.f_with_event(self.seeding_ratio))
+
+        lb = ttk.Label(parent,
+                       text=("This is an estimation of uploaded and "
+                             "downloaded blobs\n"
+                             "based on information found in the log files."))
+        lb.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+    def setup_grid_check_seed(self, parent, start=0):
+        chk_plot = ttk.Checkbutton(parent,
+                                   variable=self.check_seed_plot,
+                                   text=("Plot histograms of blob activity "
+                                         "(requires Matplotlib)"))
+        chk_plot.grid(row=start, column=1, sticky=tk.W)
+
+    def setup_textbox_seed(self, parent):
+        self.textbox_seed = blocks.setup_textbox(parent,
+                                                 font=self.txt_lst_font)
+
+    def setup_plot(self):
+        self.top_plot = tk.Toplevel()
+        self.top_plot.withdraw()
+        self.top_plot.title("Upload/download seeding ratio")
+        self.top_plot.protocol("WM_DELETE_WINDOW", self.remove_plot)
+        return self.top_plot
+
+    def remove_plot(self):
+        self.top_plot.withdraw()
+
+        values = list(self.top_plot.children.values())
+        for v in values:
+            v.destroy()
+        return self.top_plot

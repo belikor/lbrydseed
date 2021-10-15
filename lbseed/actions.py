@@ -24,7 +24,6 @@
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
 """Methods to resolve and download claims of channels."""
-import requests
 import tempfile
 
 try:
@@ -56,11 +55,11 @@ def download_ch(channels, numbers, info,
 
         print(f"Channel {num}/{n_channels}, '{information}'")
 
-        msg = {"method": "getch",
-               "params": {"channel": channel,
-                          "number": number,
-                          "download_directory": ddir,
-                          "save_file": True}}
+        # msg = {"method": "getch",
+        #        "params": {"channel": channel,
+        #                   "number": number,
+        #                   "download_directory": ddir,
+        #                   "save_file": True}}
 
         # If the `getch` method is implemented
         # if proceed and not external_lib:
@@ -190,4 +189,19 @@ def list_supports(show_ch_var=False,
                             server=server)
         fp.seek(0)
         content = fp.read()
+    return content
+
+
+def seeding_ratio(frame=None, plot_hst_var=True,
+                  server="http://localhost:5279"):
+    """List seeding ratio estimate."""
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        lbryt.print_blobs_ratio(data_dir=None,
+                                plot_hst=plot_hst_var,
+                                file=fp.name, fdate=False, sep=";",
+                                tk_frame=frame,
+                                server=server)
+        fp.seek(0)
+        content = fp.read()
+
     return content
