@@ -166,8 +166,8 @@ def info_claims(parent, start=0):
     """Setup instructions when dealing with individual claims."""
     info = ttk.Label(parent,
                      text=("Add one claim per row; this should be "
-                           "a 'claim_name' or a 'claim_id' "
-                           "(40-character string)"))
+                           "a claim name or a claim ID "
+                           "(40-character string)."))
     info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
 

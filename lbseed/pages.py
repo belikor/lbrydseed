@@ -157,7 +157,7 @@ class DownloadChPage:
         info = ttk.Label(parent,
                          text=("Add a channel, a comma, "
                                "and the number of items to download "
-                               "from this channel"))
+                               "from this channel."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_dch(self, parent):
@@ -352,8 +352,10 @@ class DeleteChPage:
         info = ttk.Label(parent,
                          text=("Add a channel, a comma, "
                                "and the number of items to keep "
-                               "from this channel; older items "
-                               "will be removed"))
+                               "from this channel.\n"
+                               "The N newest claims (by publication date) "
+                               "will remain while older items "
+                               "will be removed."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_delch(self, parent):
@@ -398,8 +400,8 @@ class SupportPage:
     def setup_info_support(self, parent, start=0):
         info = ttk.Label(parent,
                          text=("List the supported claim, "
-                               "the amount of LBC support, "
-                               "and the trending score"))
+                               "the amount of supporting LBC, "
+                               "and its trending score."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_support(self, parent):
