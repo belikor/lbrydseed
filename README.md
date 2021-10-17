@@ -2,6 +2,9 @@
 
 This is a simple graphical interface that allows us
 to download the latest claims from a list of channels in the LBRY network.
+We can also do other operations like deleting individual claims,
+cleaning up claims from channels, listing all downloaded claims,
+showing our supports, and estimating our seeding ratio.
 
 It uses the [lbrytools](https://github.com/belikor/lbrytools) library
 to add more functionality to the basic `lbrynet` daemon.
@@ -19,11 +22,33 @@ Get them from [lbry.com/get](https://lbry.com/get).
 
 You must also have the [lbrytools](https://github.com/belikor/lbrytools/lbrytools)
 library (the internal `lbrytools/` directory that has the `__init__.py`).
-You can download that repository manually, or you can clone this repository
-with an option to download submodules:
+
+Clone this repository with `--recurse-submodules` to include `lbrytools`
+with the rest of the code:
 ```sh
 git clone --recurse-submodules https://github.com/belikor/lbrydseed
 ```
+
+After cloning you should have the following structure:
+```
+lbrydseed/
+    dseed.py
+    lbrytools/
+    lbseed/
+```
+
+You can run the `dseed.py` program where it is.
+```sh
+python dseed.py
+```
+
+If you place `dseed.py` somewhere else, make sure it is always
+next to `lbrytools/` and `lbseed/`.
+
+### System wide installation
+
+This is optional, and only required if you want to have the libraries
+available in your entire system.
 
 Copy the `lbrytools` directory (the one with an `__init__.py`)
 and the [`lbseed`](./lbseed) directory (also with an `__init__.py`),
@@ -41,9 +66,13 @@ or in a system-wide directory:
 /usr/lib/python3/dist-packages/lbseed
 ```
 
-You can also modify the `PYTHONPATH` environmental variable
-to include the parent directory where `lbseed` and `lbrytools`
-are located.
+Then place `dseed.py` wherever you want, and run it from there.
+
+### Environmental variables
+
+This is optional. Instead of moving the `lbrytools` and `lbseed` libraries,
+simply add them to the `PYTHONPATH` environmental variable.
+We must add the parent directory containing these libraries.
 For example, if
 ```
 /top1/
@@ -57,20 +86,10 @@ The variable will be
 PYTHONPATH="/top1:/top2/pkg:$PYTHONPATH"
 ```
 
-These libraries were developed and tested with Python 3.8 but they may also work with
-earlier versions with small changes.
-It uses standard modules such as `importlib`, `os`, `random`, `requests`,
-`sys`, and `time`.
+### Optional
 
-You can run the `dseed.py` program where it is, or place it wherever you want.
-If you want to keep everything contained, make sure `dseed.py`
-is always next to `lbrytools` and `lbseed`.
-```
-toplevel/
-    dseed.py
-    lbrytools/
-    lbseed/
-```
+The Matplotlib library is optional, and only needed
+to plot the histograms in the `"Seeding ratio"` page.
 
 ## Setuptools
 
@@ -119,6 +138,16 @@ Enter the name of the channels, and a number of claims to keep for each,
 then press `"Clean up claims"`.
 
 ![lbryseed cleanup_channel](./g_lbrydseed_cleanup_channel.png)
+
+Press `"List supports"` to show claims that we support with LBC.
+
+![lbryseed_list_supports](./g_lbrydseed_list_supports.png)
+
+Press `"Display seeding ratio"` to show an estimate of the blobs uploaded
+and downloaded.
+
+![lbryseed_seeding](./g_lbrydseed_seeding.png)
+
 
 ## Development
 
