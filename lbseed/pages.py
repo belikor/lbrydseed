@@ -88,6 +88,25 @@ class Variables:
         self.check_seed_plot = tk.BooleanVar()
         self.check_seed_plot.set(False)
 
+        self.check_c_contr = tk.BooleanVar()
+        self.check_c_contr.set(False)
+        self.check_c_non_contr = tk.BooleanVar()
+        self.check_c_non_contr.set(True)
+        self.check_c_skip_repost = tk.BooleanVar()
+        self.check_c_skip_repost.set(False)
+        self.check_c_ch_only = tk.BooleanVar()
+        self.check_c_ch_only.set(False)
+        self.check_c_cid = tk.BooleanVar()
+        self.check_c_cid.set(False)
+        self.check_c_is_repost = tk.BooleanVar()
+        self.check_c_is_repost.set(True)
+        self.check_c_competing = tk.BooleanVar()
+        self.check_c_competing.set(True)
+        self.check_c_reposts = tk.BooleanVar()
+        self.check_c_reposts.set(True)
+        self.check_c_compact = tk.BooleanVar()
+        self.check_c_compact.set(True)
+
 
 class ConfigPage:
     """Mixin class to provide the configuration page to the application."""
@@ -469,3 +488,86 @@ class SeedPage:
         for v in values:
             v.destroy()
         return self.top_plot
+
+
+class ControllingClaimsPage:
+    """Mixin class to provide the controlling claims page."""
+    def setup_page_controlling(self, parent):
+        self.setup_top_controlling(parent)
+        self.setup_textbox_controlling(parent)
+
+    def setup_top_controlling(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_button_contr(frame, start=0)
+        self.setup_grid_check_contr(frame, start=1)
+        self.setup_grid_check_contr_compact(frame, start=5)
+        self.setup_info_contr(frame, start=10)
+
+    def setup_grid_button_contr(self, parent, start=0):
+        b_cont = ttk.Button(parent, text="Display controlling claims",
+                            width=self.b_width,
+                            command=self.controlling_claims)
+        b_cont.grid(row=start, column=0)
+        b_cont.bind("<<Activate>>",
+                    blocks.f_with_event(self.controlling_claims))
+
+        lb = ttk.Label(parent,
+                       text=('Show our claims, and whether '
+                             'we have the "controlling claim"\n'
+                             '(claim with the highest bid when compared '
+                             'to other claims of the same name)'))
+        lb.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+    def setup_grid_check_contr(self, parent, start=0):
+        blocks.setup_check_controlling(parent,
+                                       contr_var=self.check_c_contr,
+                                       non_contr_var=self.check_c_non_contr,
+                                       skip_repost_var=self.check_c_skip_repost,
+                                       ch_only_var=self.check_c_ch_only,
+                                       start=start)
+
+    def setup_grid_check_contr_compact(self, parent, start=0):
+        frame = ttk.Frame(parent, relief="groove", borderwidth=2)
+        frame.grid(row=start, column=1, sticky=tk.W + tk.E)
+
+        (self.chck_claim_id,
+         self.chck_is_repost,
+         self.chck_competing,
+         self.chck_reposts) = \
+             blocks.setup_check_contr_compact(frame,
+                                              compact_var=self.check_c_compact,
+                                              compact_command=self.compact_disable,
+                                              cid_var=self.check_c_cid,
+                                              is_repost_var=self.check_c_is_repost,
+                                              n_competing_var=self.check_c_competing,
+                                              n_reposts_var=self.check_c_reposts,
+                                              start=0)
+
+    def compact_disable(self):
+        if self.check_c_compact.get():
+            self.chck_claim_id["state"] = "normal"
+            self.chck_is_repost["state"] = "normal"
+            self.chck_competing["state"] = "normal"
+            self.chck_reposts["state"] = "normal"
+        else:
+            self.chck_claim_id["state"] = "disabled"
+            self.chck_is_repost["state"] = "disabled"
+            self.chck_competing["state"] = "disabled"
+            self.chck_reposts["state"] = "disabled"
+
+    def setup_info_contr(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("'Staked' is the support in our claim while "
+                               "'highest bid' is in a competing claim.\n"
+                               "Note: at the moment the counters "
+                               "for competing claims and reposts "
+                               "goes to a maximum of 50.\n"
+                               "This normally indicates that the claim "
+                               "is very popular, and thus is reposted "
+                               "by many users."))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_controlling(self, parent):
+        self.textbox_controlling = blocks.setup_textbox(parent,
+                                                        font=self.txt_lst_font)

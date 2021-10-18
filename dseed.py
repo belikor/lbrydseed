@@ -42,7 +42,8 @@ class Application(ttk.Frame,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListPage,
                   pages.DeletePage, pages.DeleteChPage,
-                  pages.SupportPage, pages.SeedPage):
+                  pages.SupportPage, pages.SeedPage,
+                  pages.ControllingClaimsPage):
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
@@ -65,6 +66,7 @@ class Application(ttk.Frame,
         page_delch = ttk.Frame(note)
         page_supports = ttk.Frame(note)
         page_seed_ratio = ttk.Frame(note)
+        page_claims = ttk.Frame(note)
         note.add(page_cfg, text="General")
         note.add(page_dch, text="Download channel")
         note.add(page_d, text="Download single")
@@ -73,6 +75,7 @@ class Application(ttk.Frame,
         note.add(page_delch, text="Clean up channel")
         note.add(page_supports, text="List supports")
         note.add(page_seed_ratio, text="Seeding ratio")
+        note.add(page_claims, text="Controlling claims")
         note.select(page_dch)
 
         # Built from the mixin `Page` classes
@@ -85,6 +88,7 @@ class Application(ttk.Frame,
         self.setup_page_supports(page_supports)
         self.setup_page_seed(page_seed_ratio)
         self.setup_plot()
+        self.setup_page_controlling(page_claims)
         note.pack()
 
     def validate_ch(self, print_msg=True):
@@ -254,6 +258,22 @@ class Application(ttk.Frame,
                                   plot_hst_var=self.check_seed_plot.get(),
                                   server=self.server_var.get())
         self.textbox_seed.replace("1.0", tk.END, content)
+        print(40 * "-")
+        print("Done")
+
+    def controlling_claims(self):
+        content = \
+            actions.show_claims_bids(show_controlling=self.check_c_contr.get(),
+                                     show_non_controlling=self.check_c_non_contr.get(),
+                                     skip_repost=self.check_c_skip_repost.get(),
+                                     channels_only=self.check_c_ch_only.get(),
+                                     show_claim_id=self.check_c_cid.get(),
+                                     show_repost_status=self.check_c_is_repost.get(),
+                                     show_competing=self.check_c_competing.get(),
+                                     show_reposts=self.check_c_reposts.get(),
+                                     compact=self.check_c_compact.get(),
+                                     server=self.server_var.get())
+        self.textbox_controlling.replace("1.0", tk.END, content)
         print(40 * "-")
         print("Done")
 
