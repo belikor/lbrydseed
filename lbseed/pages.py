@@ -421,6 +421,7 @@ class SeedPage:
         frame.pack(padx=4, pady=4)
         self.setup_grid_button_seed(frame, start=0)
         self.setup_grid_check_seed(frame, start=1)
+        self.setup_info_seed(frame, start=2)
 
     def setup_grid_button_seed(self, parent, start=0):
         b_seed = ttk.Button(parent, text="Display seeding ratio",
@@ -442,6 +443,13 @@ class SeedPage:
                                    text=("Plot histograms of blob activity "
                                          "(requires Matplotlib)"))
         chk_plot.grid(row=start, column=1, sticky=tk.W)
+
+    def setup_info_seed(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("If uploaded blobs is 0, "
+                               "make sure the ports 3333 and 4444 "
+                               "are forwarded in your router."))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_seed(self, parent):
         self.textbox_seed = blocks.setup_textbox(parent,

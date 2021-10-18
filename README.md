@@ -2,9 +2,9 @@
 
 This is a simple graphical interface that allows us
 to download the latest claims from a list of channels in the LBRY network.
-We can also do other operations like deleting individual claims,
-cleaning up claims from channels, listing all downloaded claims,
-showing our supports, and estimating our seeding ratio.
+We can also do other operations like delete individual claims,
+clean up claims from channels, list all downloaded claims,
+show our supports, and show an estimate of our seeding ratio.
 
 It uses the [lbrytools](https://github.com/belikor/lbrytools) library
 to add more functionality to the basic `lbrynet` daemon.
