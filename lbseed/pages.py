@@ -64,6 +64,9 @@ class Variables:
         self.own_dir_var.set(True)
         self.save_var = tk.BooleanVar()
         self.save_var.set(True)
+
+        self.entry_chan = tk.StringVar()
+
         self.del_what_var = tk.StringVar()
         self.del_what_var.set("media")
 
@@ -261,7 +264,6 @@ class ListPage:
                           text="List all locally downloaded claims")
         llist.grid(row=start, column=1, sticky=tk.W, padx=2)
 
-        self.entry_chan = tk.StringVar()
         entry = ttk.Entry(parent,
                           textvariable=self.entry_chan,
                           font=self.e_font)
@@ -418,8 +420,9 @@ class SupportPage:
 
     def setup_info_support(self, parent, start=0):
         info = ttk.Label(parent,
-                         text=("List the supported claim, "
-                               "the amount of supporting LBC, "
+                         text=("List the claim, "
+                               "the amount of our LBC support, "
+                               "the total amount of support, "
                                "and its trending score."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
