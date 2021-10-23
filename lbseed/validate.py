@@ -29,26 +29,26 @@
 def validate_input(text, print_msg=False):
     """Validate the text entered."""
     lines = text.splitlines()
- 
+
     channels = []
     numbers = []
- 
+
     out = []
     num = 0
- 
+
     for ch in lines:
         edited = False
- 
+
         parts = ch.split(",")
         parts = [i.strip() for i in parts]
- 
+
         ch_name = parts[0]
         try:
-            number= parts[1]
+            number = parts[1]
         except IndexError:
             number = 2
             edited = True
- 
+
         if " " in ch_name:
             ch_name = ch_name.replace(" ", "")
             edited = True
@@ -58,10 +58,10 @@ def validate_input(text, print_msg=False):
         if "'" in ch_name:
             ch_name = ch_name.replace("'", "")
             edited = True
- 
+
         if not ch_name:
             continue
- 
+
         if not number:
             number = 2
             edited = True
@@ -69,24 +69,23 @@ def validate_input(text, print_msg=False):
             number = int(float(number))
         except ValueError:
             number = 2
-            edited = True 
- 
+            edited = True
+
         if not ch_name.startswith("@"):
             ch_name = "@" + ch_name
- 
+
         num += 1
         channel = f"'{ch_name}'"
         if edited:
             out += [f"{num:2d}: name={channel:35s} number={number}  <-- edited"]
         else:
             out += [f"{num:2d}: name={channel:35s} number={number}"]
- 
+
         channels.append(ch_name)
         numbers.append(number)
- 
+
     if print_msg:
         print("Validate input")
         print(80 * "-")
         print("\n".join(out))
     return channels, numbers
-
