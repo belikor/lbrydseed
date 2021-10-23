@@ -237,3 +237,40 @@ def show_claims_bids(show_controlling=False,
         content = fp.read()
 
     return content
+
+
+def add_supports(claims, supports, support_style="create",
+                 print_msg=True,
+                 server="http://localhost:5279"):
+    """Add supports to the claims."""
+    if print_msg:
+        print("Add supports")
+        print(80 * "-")
+
+    n_claims = len(claims)
+
+    for num, pair in enumerate(zip(claims, supports), start=1):
+        claim = pair[0]
+        number = pair[1]
+        name = claim["name"]
+
+        print(f"Claim {num}/{n_claims}, {name}")
+        if support_style in ("create"):
+            lbryt.create_support(cid=claim["claim_id"],
+                                 amount=number,
+                                 server=server)
+        elif support_style in ("abandon_change"):
+            lbryt.abandon_support(cid=claim["claim_id"],
+                                  keep=number,
+                                  server=server)
+        elif support_style in ("target"):
+            lbryt.target_support(cid=claim["claim_id"],
+                                 target=number,
+                                 server=server)
+        else:
+            print(f"Wrong option: {support_style}")
+
+        if num < n_claims:
+            print()
+
+    return support_style

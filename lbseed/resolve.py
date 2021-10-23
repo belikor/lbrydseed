@@ -136,3 +136,39 @@ def resolve_claims(text, print_msg=True,
         print(80 * "-")
         print("\n".join(out))
     return claims
+
+
+def resolve_claims_pairs(claims, numbers, print_msg=True,
+                         server="http://localhost:5279"):
+    """Resolve claims to see if they actually exist and return a new vector."""
+    new_claims = []
+    new_numbers = []
+    out = []
+
+    for num, pair in enumerate(zip(claims, numbers), start=1):
+        claim = pair[0]
+        number = pair[1]
+
+        result = lbryt.search_item(claim, print_error=False,
+                                   server=server)
+
+        if not result:
+            result = lbryt.search_item(cid=claim, print_error=False,
+                                       server=server)
+
+        if not result:
+            info = "<-- claim not found"
+        else:
+            info = result["canonical_url"]
+            new_claims.append(result)
+            new_numbers.append(number)
+
+        claim = f'"{claim}"'
+        out += [f'{num:2d}: item={claim:58s}  {info}']
+
+    if print_msg:
+        print("Resolve claims")
+        print(80 * "-")
+        print("\n".join(out))
+
+    return new_claims, new_numbers

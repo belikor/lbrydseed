@@ -42,7 +42,7 @@ class Application(ttk.Frame,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
-                  pages.SupportListPage, pages.SeedPage,
+                  pages.SupportListPage, pages.SupportAddPage, pages.SeedPage,
                   pages.ControllingClaimsPage):
     def __init__(self, root):
         # Initialize and show the main frame
@@ -65,6 +65,7 @@ class Application(ttk.Frame,
         page_del = ttk.Frame(note)
         page_delch = ttk.Frame(note)
         page_supports = ttk.Frame(note)
+        page_add_supports = ttk.Frame(note)
         page_seed_ratio = ttk.Frame(note)
         page_claims = ttk.Frame(note)
         note.add(page_cfg, text="General")
@@ -74,6 +75,7 @@ class Application(ttk.Frame,
         note.add(page_del, text="Delete single")
         note.add(page_delch, text="Clean up channel")
         note.add(page_supports, text="List supports")
+        note.add(page_add_supports, text="Add support")
         note.add(page_seed_ratio, text="Seeding ratio")
         note.add(page_claims, text="Controlling claims")
         note.select(page_dch)
@@ -86,6 +88,7 @@ class Application(ttk.Frame,
         self.setup_page_del(page_del)
         self.setup_page_delch(page_delch)
         self.setup_page_supports(page_supports)
+        self.setup_page_add_supports(page_add_supports)
         self.setup_page_seed(page_seed_ratio)
         self.setup_plot()
         self.setup_page_controlling(page_claims)
@@ -277,6 +280,44 @@ class Application(ttk.Frame,
                                      compact=self.check_c_compact.get(),
                                      server=self.server_var.get())
         self.textbox_controlling.replace("1.0", tk.END, content)
+        print(40 * "-")
+        print("Done")
+
+    def validate_g_claims(self, print_msg=True):
+        """Validate the textbox with claims and numbers."""
+        text = self.textbox_add_support.get("1.0", tk.END)
+        claims, supports = val.validate_input(text,
+                                              assume_channel=False,
+                                              number_float=True,
+                                              print_msg=print_msg)
+        if print_msg:
+            print(40 * "-")
+            print("Done")
+        return claims, supports
+
+    def resolve_g_claims(self, print_msg=True):
+        """Resolve the claims in the textbox online."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        claims, supports = self.validate_g_claims(print_msg=False)
+
+        claims, supports = \
+            res.resolve_claims_pairs(claims, supports, print_msg=print_msg,
+                                     server=self.server_var.get())
+
+        return claims, supports
+
+    def add_supports(self):
+        """Add supports to claims, either channels or streams."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        claims, supports = self.resolve_g_claims(print_msg=False)
+
+        actions.add_supports(claims, supports,
+                             support_style=self.rad_s_support.get(),
+                             server=self.server_var.get())
         print(40 * "-")
         print("Done")
 
