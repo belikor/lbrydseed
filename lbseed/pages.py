@@ -376,7 +376,9 @@ class DeleteChPage:
                                "from this channel.\n"
                                "The N newest claims (by publication date) "
                                "will remain while older items "
-                               "will be removed."))
+                               "will be removed.\n"
+                               "If the number is 0, it will remove "
+                               "all downloaded items from the channel."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_delch(self, parent):
