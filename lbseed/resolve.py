@@ -87,7 +87,7 @@ def resolve_ch(channels, numbers, print_msg=True,
                 info = item["canonical_url"]
 
         channel = f"'{channel}'"
-        out += [f"{num:2d}: name={channel:35s} number={number}  {info}"]
+        out += [f"{num:2d}: name={channel:58s} number={number}  {info}"]
         resolve_info.append(info)
 
     if print_msg:
@@ -128,7 +128,7 @@ def resolve_claims(text, print_msg=True,
             info = result["canonical_url"]
 
         line = f'"{line}"'
-        out += [f'{num:2d}: item={line:42s}  {info}']
+        out += [f'{num:2d}: item={line:58s}  {info}']
         claims.append(result)
 
     if print_msg:
