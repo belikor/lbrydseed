@@ -26,7 +26,8 @@
 """Auxiliary methods to parse input information of the graphical interface."""
 
 
-def validate_input(text, assume_channel=True, print_msg=False):
+def validate_input(text, assume_channel=True, number_float=False,
+                   print_msg=False):
     """Validate the text entered."""
     lines = text.splitlines()
 
@@ -66,7 +67,10 @@ def validate_input(text, assume_channel=True, print_msg=False):
             number = 2
             edited = True
         try:
-            number = int(float(number))
+            if number_float:
+                number = round(float(number), 8)
+            else:
+                number = int(float(number))
         except ValueError:
             number = 2
             edited = True

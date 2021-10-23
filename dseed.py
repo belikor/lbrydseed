@@ -101,6 +101,7 @@ class Application(ttk.Frame,
             text = self.textbox_delch.get("1.0", tk.END)
         channels, numbers = val.validate_input(text,
                                                assume_channel=True,
+                                               number_float=False,
                                                print_msg=print_msg)
         if print_msg:
             print(40 * "-")
