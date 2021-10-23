@@ -99,7 +99,9 @@ class Application(ttk.Frame,
             text = self.textbox_dch.get("1.0", tk.END)
         elif title == "Clean up channel":
             text = self.textbox_delch.get("1.0", tk.END)
-        channels, numbers = val.validate_input(text, print_msg=print_msg)
+        channels, numbers = val.validate_input(text,
+                                               assume_channel=True,
+                                               print_msg=print_msg)
         if print_msg:
             print(40 * "-")
             print("Done")

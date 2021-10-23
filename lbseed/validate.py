@@ -26,40 +26,40 @@
 """Auxiliary methods to parse input information of the graphical interface."""
 
 
-def validate_input(text, print_msg=False):
+def validate_input(text, assume_channel=True, print_msg=False):
     """Validate the text entered."""
     lines = text.splitlines()
 
-    channels = []
+    claims = []
     numbers = []
 
     out = []
     num = 0
 
-    for ch in lines:
+    for claim in lines:
         edited = False
 
-        parts = ch.split(",")
+        parts = claim.split(",")
         parts = [i.strip() for i in parts]
 
-        ch_name = parts[0]
+        claim_name = parts[0]
         try:
             number = parts[1]
         except IndexError:
             number = 2
             edited = True
 
-        if " " in ch_name:
-            ch_name = ch_name.replace(" ", "")
+        if " " in claim_name:
+            claim_name = claim_name.replace(" ", "")
             edited = True
-        if '"' in ch_name:
-            ch_name = ch_name.replace('"', '')
+        if '"' in claim_name:
+            claim_name = claim_name.replace('"', '')
             edited = True
-        if "'" in ch_name:
-            ch_name = ch_name.replace("'", "")
+        if "'" in claim_name:
+            claim_name = claim_name.replace("'", "")
             edited = True
 
-        if not ch_name:
+        if not claim_name:
             continue
 
         if not number:
@@ -71,21 +71,21 @@ def validate_input(text, print_msg=False):
             number = 2
             edited = True
 
-        if not ch_name.startswith("@"):
-            ch_name = "@" + ch_name
+        if assume_channel and not claim_name.startswith("@"):
+            claim_name = "@" + claim_name
 
         num += 1
-        channel = f"'{ch_name}'"
+        name = f"'{claim_name}'"
         if edited:
-            out += [f"{num:2d}: name={channel:35s} number={number}  <-- edited"]
+            out += [f"{num:2d}: name={name:58s} number={number}  <-- edited"]
         else:
-            out += [f"{num:2d}: name={channel:35s} number={number}"]
+            out += [f"{num:2d}: name={name:58s} number={number}"]
 
-        channels.append(ch_name)
+        claims.append(claim_name)
         numbers.append(number)
 
     if print_msg:
         print("Validate input")
         print(80 * "-")
         print("\n".join(out))
-    return channels, numbers
+    return claims, numbers
