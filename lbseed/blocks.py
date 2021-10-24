@@ -82,6 +82,24 @@ def set_up_default_claims(clean_up=False):
     return claims
 
 
+def setup_entry_gen(parent,
+                    font=None,
+                    text_var=None,
+                    l_text="Side text",
+                    start=0):
+    """Setup for a generic entry field with a label next to it."""
+    entry = ttk.Entry(parent,
+                      textvariable=text_var,
+                      font=font)
+    entry.grid(row=start, column=0, sticky=tk.W + tk.E)
+    entry.bind("<<Activate>>", focus_next_widget)
+
+    label = ttk.Label(parent, text=l_text)
+    label.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+    return entry, label
+
+
 def setup_download_entry(parent,
                          dir_var=None,
                          font=None, start=0):
