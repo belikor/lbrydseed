@@ -100,21 +100,6 @@ def setup_entry_gen(parent,
     return entry, label
 
 
-def setup_download_entry(parent,
-                         dir_var=None,
-                         font=None, start=0):
-    """Setup for an entry field with a download directory."""
-    entry_dir = ttk.Entry(parent, textvariable=dir_var,
-                          font=font)
-    entry_dir.grid(row=start, column=0, sticky=tk.W + tk.E)
-    entry_dir.bind("<<Activate>>", focus_next_widget)
-
-    ledir = ttk.Label(parent,
-                      text=("Download directory. "
-                            "It defaults to your home directory."))
-    ledir.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-
 def setup_button_gen(parent,
                      width=26,
                      b_text="Button text",

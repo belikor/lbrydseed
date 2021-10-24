@@ -145,10 +145,12 @@ class DownloadChPage:
         self.setup_info_dch(frame, start=6)
 
     def setup_grid_top_dch(self, parent, start=0):
-        blocks.setup_download_entry(parent,
-                                    dir_var=self.down_dir_var,
-                                    font=self.e_font,
-                                    start=start)
+        blocks.setup_entry_gen(parent,
+                               font=self.e_font,
+                               text_var=self.down_dir_var,
+                               l_text=("Download directory. "
+                                       "It defaults to your home directory."),
+                               start=start)
 
     def setup_grid_button_dch(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -208,10 +210,12 @@ class DownloadSinglePage:
         self.setup_info_d(frame, start=5)
 
     def setup_grid_top_d(self, parent, start=0):
-        blocks.setup_download_entry(parent,
-                                    dir_var=self.down_dir_var,
-                                    font=self.e_font,
-                                    start=start)
+        blocks.setup_entry_gen(parent,
+                               font=self.e_font,
+                               text_var=self.down_dir_var,
+                               l_text=("Download directory. "
+                                       "It defaults to your home directory."),
+                               start=start)
 
     def setup_grid_button_d(self, parent, start=0):
         blocks.setup_button_gen(parent,
