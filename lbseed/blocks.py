@@ -120,7 +120,7 @@ def setup_button_gen(parent,
     return button, label
 
 
-def setup_download_check(parent,
+def setup_check_download(parent,
                          own_dir_var=None,
                          save_var=None,
                          start=0):
@@ -136,15 +136,6 @@ def setup_download_check(parent,
                                text=("Save media and its blobs; "
                                      "otherwise only the first blob"))
     chk_save.grid(row=start+1, column=1, sticky=tk.W)
-
-
-def info_claims(parent, start=0):
-    """Setup instructions when dealing with individual claims."""
-    info = ttk.Label(parent,
-                     text=("Add one claim per row; this should be "
-                           "a claim name or a claim ID "
-                           "(40-character string)."))
-    info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
 
 def setup_check_list(parent,
@@ -194,6 +185,15 @@ def setup_delete_radio(parent,
     media.grid(row=start, column=1, sticky=tk.W)
     blobs.grid(row=start+1, column=1, sticky=tk.W)
     both.grid(row=start+2, column=1, sticky=tk.W)
+
+
+def info_claims(parent, start=0):
+    """Setup instructions when dealing with individual claims."""
+    info = ttk.Label(parent,
+                     text=("Add one claim per row; this should be "
+                           "a claim name or a claim ID "
+                           "(40-character string)."))
+    info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
 
 def setup_textbox(parent,

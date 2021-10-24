@@ -176,7 +176,7 @@ class DownloadChPage:
                                 start=start+2)
 
     def setup_grid_check_dch(self, parent, start=0):
-        blocks.setup_download_check(parent,
+        blocks.setup_check_download(parent,
                                     own_dir_var=self.own_dir_var,
                                     save_var=self.save_var,
                                     start=start)
@@ -232,7 +232,7 @@ class DownloadSinglePage:
                                 start=start+1)
 
     def setup_grid_check_d(self, parent, start=0):
-        blocks.setup_download_check(parent,
+        blocks.setup_check_download(parent,
                                     own_dir_var=self.own_dir_var,
                                     save_var=self.save_var,
                                     start=start)
