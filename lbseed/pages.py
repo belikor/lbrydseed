@@ -505,19 +505,16 @@ class ControllingClaimsPage:
         self.setup_info_contr(frame, start=10)
 
     def setup_grid_button_contr(self, parent, start=0):
-        b_cont = ttk.Button(parent, text="Display controlling claims",
-                            width=self.b_width,
-                            command=self.controlling_claims)
-        b_cont.grid(row=start, column=0)
-        b_cont.bind("<<Activate>>",
-                    blocks.f_with_event(self.controlling_claims))
-
-        lb = ttk.Label(parent,
-                       text=('Show our claims, and whether '
-                             'we have the "controlling claim"\n'
-                             '(claim with the highest bid when compared '
-                             'to other claims of the same name)'))
-        lb.grid(row=start, column=1, sticky=tk.W, padx=2)
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Display controlling claims",
+                                b_command=self.controlling_claims,
+                                l_text=('Show our claims, and whether '
+                                        'we have the "controlling claim"\n'
+                                        '(claim with the highest bid '
+                                        'when compared to other claims '
+                                        'of the same name)'),
+                                start=start)
 
     def setup_grid_check_contr(self, parent, start=0):
         blocks.setup_check_controlling(parent,
