@@ -119,15 +119,14 @@ class ConfigPage:
         self.setup_top_config(frame, start=0)
 
     def setup_top_config(self, parent, start=0):
-        entry = ttk.Entry(parent,
-                          textvariable=self.server_var,
-                          font=self.e_font,
-                          width=self.b_width)
-        entry.grid(row=start, column=0, sticky=tk.W + tk.E)
-        le = ttk.Label(parent,
-                       text=("Address of the 'lbrynet' daemon. "
-                             "It defaults to localhost:5279"))
-        le.grid(row=start, column=1, sticky=tk.W, padx=2)
+        entry, label = \
+            blocks.setup_entry_gen(parent,
+                                   font=self.e_font,
+                                   text_var=self.server_var,
+                                   l_text=("Address of the 'lbrynet' daemon. "
+                                           "It defaults to localhost:5279"),
+                                   start=start)
+        entry["width"] = self.b_width
 
 
 class DownloadChPage:
@@ -267,16 +266,13 @@ class ListPage:
                                 l_text="List all locally downloaded claims",
                                 start=start)
 
-        entry = ttk.Entry(parent,
-                          textvariable=self.entry_chan,
-                          font=self.e_font)
-        entry.grid(row=start+1, column=0, sticky=tk.W + tk.E)
-        entry.bind("<<Activate>>",
-                   blocks.f_with_event(self.list_claims))
-
-        le = ttk.Label(parent,
-                       text="Filter by channel name")
-        le.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+        entry, label = \
+            blocks.setup_entry_gen(parent,
+                                   font=self.e_font,
+                                   text_var=self.entry_chan,
+                                   l_text="Filter by channel name",
+                                   start=start+1)
+        entry.bind("<<Activate>>", blocks.f_with_event(self.list_claims))
 
     def setup_grid_check_list(self, parent, start=0):
         blocks.setup_check_list(parent,
