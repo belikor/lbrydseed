@@ -446,18 +446,15 @@ class SeedPage:
         self.setup_info_seed(frame, start=2)
 
     def setup_grid_button_seed(self, parent, start=0):
-        b_seed = ttk.Button(parent, text="Display seeding ratio",
-                            width=self.b_width,
-                            command=self.seeding_ratio)
-        b_seed.grid(row=start, column=0)
-        b_seed.bind("<<Activate>>",
-                    blocks.f_with_event(self.seeding_ratio))
-
-        lb = ttk.Label(parent,
-                       text=("This is an estimation of uploaded and "
-                             "downloaded blobs\n"
-                             "based on information found in the log files."))
-        lb.grid(row=start, column=1, sticky=tk.W, padx=2)
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Display seeding ratio",
+                                b_command=self.seeding_ratio,
+                                l_text=("This is an estimation of uploaded "
+                                        "and downloaded blobs\n"
+                                        "based on information found "
+                                        "in the log files."),
+                                start=start)
 
     def setup_grid_check_seed(self, parent, start=0):
         chk_plot = ttk.Checkbutton(parent,
