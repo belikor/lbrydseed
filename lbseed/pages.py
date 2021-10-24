@@ -151,23 +151,28 @@ class DownloadChPage:
                                     start=start)
 
     def setup_grid_button_dch(self, parent, start=0):
-        blocks.setup_buttons_val_res(parent,
-                                     width=self.b_width,
-                                     validate_func=self.validate_ch,
-                                     resolve_func=self.resolve_ch,
-                                     start=start)
-
-        b_download = ttk.Button(parent, text="Download claims",
+        blocks.setup_button_gen(parent,
                                 width=self.b_width,
-                                command=self.download_ch)
-        b_download.grid(row=start+2, column=0)
-        b_download.bind("<<Activate>>",
-                        blocks.f_with_event(self.download_ch))
+                                b_text="Validate input",
+                                b_command=self.validate_ch,
+                                l_text=("Verify that the input "
+                                        "can be read correctly"),
+                                start=start)
 
-        lr = ttk.Label(parent,
-                       text=("Start downloading the newest claims "
-                             "from the channels"))
-        lr.grid(row=start+2, column=1, sticky=tk.W, padx=2)
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Resolve online",
+                                b_command=self.resolve_ch,
+                                l_text="Confirm that the channels exist",
+                                start=start+1)
+
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Download claims",
+                                b_command=self.download_ch,
+                                l_text=("Start downloading the newest claims "
+                                        "from the channels"),
+                                start=start+2)
 
     def setup_grid_check_dch(self, parent, start=0):
         blocks.setup_download_check(parent,
@@ -209,21 +214,19 @@ class DownloadSinglePage:
                                     start=start)
 
     def setup_grid_button_d(self, parent, start=0):
-        blocks.setup_button_resolve_claims(parent,
-                                           width=self.b_width,
-                                           resolve_func=self.resolve_claims,
-                                           start=start)
-
-        b_download = ttk.Button(parent, text="Download claims",
+        blocks.setup_button_gen(parent,
                                 width=self.b_width,
-                                command=self.download_claims)
-        b_download.grid(row=start+1, column=0)
-        b_download.bind("<<Activate>>",
-                        blocks.f_with_event(self.download_claims))
+                                b_text="Resolve online",
+                                b_command=self.resolve_claims,
+                                l_text="Confirm that the claims exist",
+                                start=start)
 
-        l2 = ttk.Label(parent,
-                       text="Start downloading the claims")
-        l2.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Download claims",
+                                b_command=self.download_claims,
+                                l_text="Start downloading claims",
+                                start=start+1)
 
     def setup_grid_check_d(self, parent, start=0):
         blocks.setup_download_check(parent,
