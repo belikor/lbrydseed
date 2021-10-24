@@ -291,7 +291,7 @@ class ListPage:
                                                  font=self.txt_lst_font)
 
 
-class DeletePage:
+class DeleteSinglePage:
     """Mixin class to provide the delete page to the application."""
     def setup_page_del(self, parent):
         self.setup_top_del(parent)
@@ -305,21 +305,19 @@ class DeletePage:
         self.setup_info_del(frame, start=5)
 
     def setup_grid_top_del(self, parent, start=0):
-        blocks.setup_button_resolve_claims(parent,
-                                           width=self.b_width,
-                                           resolve_func=self.resolve_claims,
-                                           start=start)
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Resolve online",
+                                b_command=self.resolve_claims,
+                                l_text="Confirm that the claims exist",
+                                start=start)
 
-        b_del = ttk.Button(parent, text="Delete claims",
-                           width=self.b_width,
-                           command=self.delete_claims)
-        b_del.grid(row=start+1, column=0)
-        b_del.bind("<<Activate>>",
-                   blocks.f_with_event(self.delete_claims))
-
-        ldel = ttk.Label(parent,
-                         text="Delete locally downloaded claims")
-        ldel.grid(row=start+1, column=1, sticky=tk.W, padx=2)
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Delete claims",
+                                b_command=self.delete_claims,
+                                l_text="Delete locally downloaded claims",
+                                start=start+1)
 
     def setup_grid_radio_del(self, parent, start=0):
         blocks.setup_delete_radio(parent,
@@ -349,23 +347,28 @@ class DeleteChPage:
         self.setup_info_delch(frame, start=6)
 
     def setup_grid_button_delch(self, parent, start=0):
-        blocks.setup_buttons_val_res(parent,
-                                     width=self.b_width,
-                                     validate_func=self.validate_ch,
-                                     resolve_func=self.resolve_ch,
-                                     start=start)
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Validate input",
+                                b_command=self.validate_ch,
+                                l_text=("Verify that the input "
+                                        "can be read correctly"),
+                                start=start)
 
-        b_clean = ttk.Button(parent, text="Clean up claims",
-                             width=self.b_width,
-                             command=self.delete_ch)
-        b_clean.grid(row=start+2, column=0)
-        b_clean.bind("<<Activate>>",
-                     blocks.f_with_event(self.delete_ch))
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Resolve online",
+                                b_command=self.resolve_ch,
+                                l_text="Confirm that the claims exist",
+                                start=start+1)
 
-        lb = ttk.Label(parent,
-                       text=("Start deleting claims "
-                             "from the oldest to the newest"))
-        lb.grid(row=start+2, column=1, sticky=tk.W, padx=2)
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Clean up claims",
+                                b_command=self.delete_ch,
+                                l_text=("Start deleting claims "
+                                        "from the oldest to the newest"),
+                                start=start+2)
 
     def setup_grid_radio_delch(self, parent, start=0):
         blocks.setup_delete_radio(parent,

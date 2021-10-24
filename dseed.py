@@ -41,7 +41,7 @@ class Application(ttk.Frame,
                   pages.ConfigPage,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListPage,
-                  pages.DeletePage, pages.DeleteChPage,
+                  pages.DeleteSinglePage, pages.DeleteChPage,
                   pages.SupportPage, pages.SeedPage,
                   pages.ControllingClaimsPage):
     def __init__(self, root):
