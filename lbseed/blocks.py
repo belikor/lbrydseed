@@ -117,53 +117,6 @@ def setup_button_gen(parent,
     return button, label
 
 
-def setup_buttons_val_res(parent,
-                          width=26,
-                          validate_func=None,
-                          resolve_func=None,
-                          start=0):
-    """Setup for buttons for validating and resolving channels."""
-    b_validate = ttk.Button(parent, text="Validate input",
-                            width=width,
-                            command=validate_func)
-    b_validate.grid(row=start, column=0)
-    b_validate.bind("<<Activate>>",
-                    f_with_event(validate_func))
-    b_validate.focus()
-
-    lv = ttk.Label(parent,
-                   text="Verify that the input can be read correctly")
-    lv.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-    b_resolve = ttk.Button(parent, text="Resolve online",
-                           width=width,
-                           command=resolve_func)
-    b_resolve.grid(row=start+1, column=0)
-    b_resolve.bind("<<Activate>>",
-                   f_with_event(resolve_func))
-
-    lr = ttk.Label(parent,
-                   text="Confirm that the channels exist")
-    lr.grid(row=start+1, column=1, sticky=tk.W, padx=2)
-
-
-def setup_button_resolve_claims(parent,
-                                width=26,
-                                resolve_func=None,
-                                start=0):
-    """Setup for buttons for resolving claims."""
-    b_resolve = ttk.Button(parent, text="Resolve online",
-                           width=width,
-                           command=resolve_func)
-    b_resolve.grid(row=start, column=0)
-    b_resolve.bind("<<Activate>>",
-                   f_with_event(resolve_func))
-
-    lr = ttk.Label(parent,
-                   text="Confirm that the claims exist")
-    lr.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-
 def setup_download_check(parent,
                          own_dir_var=None,
                          save_var=None,
