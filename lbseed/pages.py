@@ -316,7 +316,7 @@ class DeleteSinglePage:
                                 start=start+1)
 
     def setup_grid_radio_del(self, parent, start=0):
-        blocks.setup_delete_radio(parent,
+        blocks.setup_radio_delete(parent,
                                   del_what_var=self.del_what_var,
                                   start=start)
 
@@ -367,7 +367,7 @@ class DeleteChPage:
                                 start=start+2)
 
     def setup_grid_radio_delch(self, parent, start=0):
-        blocks.setup_delete_radio(parent,
+        blocks.setup_radio_delete(parent,
                                   del_what_var=self.del_what_var,
                                   start=start)
 

@@ -166,60 +166,6 @@ def setup_check_list(parent,
     chck_name.grid(row=start+3, column=1, sticky=tk.W)
 
 
-def setup_delete_radio(parent,
-                       del_what_var=None,
-                       start=0):
-    """Setup the radiobuttons to choose how to delete claims."""
-    media = ttk.Radiobutton(parent,
-                            text=("Delete media "
-                                  "(keep seeding the claim)"),
-                            variable=del_what_var, value="media")
-    blobs = ttk.Radiobutton(parent,
-                            text=("Delete blobs "
-                                  "(keep media in download directory)"),
-                            variable=del_what_var, value="blobs")
-    both = ttk.Radiobutton(parent,
-                           text=("Delete both "
-                                 "(completely remove the claim)"),
-                           variable=del_what_var, value="both")
-    media.grid(row=start, column=1, sticky=tk.W)
-    blobs.grid(row=start+1, column=1, sticky=tk.W)
-    both.grid(row=start+2, column=1, sticky=tk.W)
-
-
-def info_claims(parent, start=0):
-    """Setup instructions when dealing with individual claims."""
-    info = ttk.Label(parent,
-                     text=("Add one claim per row; this should be "
-                           "a claim name or a claim ID "
-                           "(40-character string)."))
-    info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
-
-
-def setup_textbox(parent,
-                  font="monospace",
-                  width=70, height=12):
-    """Setup for the textboxes, including scrollbars and Text widget."""
-    hsrl = ttk.Scrollbar(parent, orient="horizontal")
-    hsrl.pack(side=tk.BOTTOM, fill=tk.X)
-    vsrl = ttk.Scrollbar(parent)
-    vsrl.pack(side=tk.RIGHT, fill=tk.Y)
-
-    textbox = tk.Text(parent,
-                      xscrollcommand=hsrl.set,
-                      yscrollcommand=vsrl.set,
-                      font=font,
-                      width=width, height=height,
-                      wrap=tk.NONE)
-    textbox.bind("<Tab>", focus_next_widget)
-
-    textbox.pack(side="top", fill="both", expand=True)
-
-    hsrl.config(command=textbox.xview)
-    vsrl.config(command=textbox.yview)
-    return textbox
-
-
 def setup_check_support(parent,
                         show_ch_var=None,
                         show_claims_var=None,
@@ -318,3 +264,57 @@ def setup_check_contr_compact(parent,
     chck_reposts.grid(row=start+4, column=1, sticky=tk.W)
 
     return chck_claim_id, chck_is_repost, chck_competing, chck_reposts
+
+
+def setup_radio_delete(parent,
+                       del_what_var=None,
+                       start=0):
+    """Setup the radiobuttons to choose how to delete claims."""
+    media = ttk.Radiobutton(parent,
+                            text=("Delete media "
+                                  "(keep seeding the claim)"),
+                            variable=del_what_var, value="media")
+    blobs = ttk.Radiobutton(parent,
+                            text=("Delete blobs "
+                                  "(keep media in download directory)"),
+                            variable=del_what_var, value="blobs")
+    both = ttk.Radiobutton(parent,
+                           text=("Delete both "
+                                 "(completely remove the claim)"),
+                           variable=del_what_var, value="both")
+    media.grid(row=start, column=1, sticky=tk.W)
+    blobs.grid(row=start+1, column=1, sticky=tk.W)
+    both.grid(row=start+2, column=1, sticky=tk.W)
+
+
+def info_claims(parent, start=0):
+    """Setup instructions when dealing with individual claims."""
+    info = ttk.Label(parent,
+                     text=("Add one claim per row; this should be "
+                           "a claim name or a claim ID "
+                           "(40-character string)."))
+    info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+
+def setup_textbox(parent,
+                  font="monospace",
+                  width=70, height=12):
+    """Setup for the textboxes, including scrollbars and Text widget."""
+    hsrl = ttk.Scrollbar(parent, orient="horizontal")
+    hsrl.pack(side=tk.BOTTOM, fill=tk.X)
+    vsrl = ttk.Scrollbar(parent)
+    vsrl.pack(side=tk.RIGHT, fill=tk.Y)
+
+    textbox = tk.Text(parent,
+                      xscrollcommand=hsrl.set,
+                      yscrollcommand=vsrl.set,
+                      font=font,
+                      width=width, height=height,
+                      wrap=tk.NONE)
+    textbox.bind("<Tab>", focus_next_widget)
+
+    textbox.pack(side="top", fill="both", expand=True)
+
+    hsrl.config(command=textbox.xview)
+    vsrl.config(command=textbox.yview)
+    return textbox
