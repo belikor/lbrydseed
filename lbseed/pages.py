@@ -256,16 +256,12 @@ class ListPage:
         self.setup_grid_check_list(frame, start=2)
 
     def setup_grid_top_list(self, parent, start=0):
-        b_list = ttk.Button(parent, text="List claims",
-                            width=self.b_width,
-                            command=self.list_claims)
-        b_list.grid(row=start, column=0)
-        b_list.bind("<<Activate>>",
-                    blocks.f_with_event(self.list_claims))
-
-        llist = ttk.Label(parent,
-                          text="List all locally downloaded claims")
-        llist.grid(row=start, column=1, sticky=tk.W, padx=2)
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="List claims",
+                                b_command=self.list_claims,
+                                l_text="List all locally downloaded claims",
+                                start=start)
 
         entry = ttk.Entry(parent,
                           textvariable=self.entry_chan,
