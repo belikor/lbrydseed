@@ -97,6 +97,26 @@ def setup_download_entry(parent,
     ledir.grid(row=start, column=1, sticky=tk.W, padx=2)
 
 
+def setup_button_gen(parent,
+                     width=26,
+                     b_text="Button text",
+                     b_command=None,
+                     l_text="Side text",
+                     start=0):
+    """Setup for a generic button with a label next to it."""
+    button = ttk.Button(parent,
+                        text=b_text,
+                        width=width,
+                        command=b_command)
+    button.grid(row=start, column=0)
+    button.bind("<<Activate>>", f_with_event(b_command))
+
+    label = ttk.Label(parent, text=l_text)
+    label.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+    return button, label
+
+
 def setup_buttons_val_res(parent,
                           width=26,
                           validate_func=None,
