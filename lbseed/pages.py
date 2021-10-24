@@ -403,16 +403,12 @@ class SupportPage:
         self.setup_info_support(frame, start=5)
 
     def setup_grid_button_support(self, parent, start=0):
-        b_clean = ttk.Button(parent, text="List supports",
-                             width=self.b_width,
-                             command=self.list_supports)
-        b_clean.grid(row=start, column=0)
-        b_clean.bind("<<Activate>>",
-                     blocks.f_with_event(self.list_supports))
-
-        lb = ttk.Label(parent,
-                       text=("List claims supported with LBC"))
-        lb.grid(row=start, column=1, sticky=tk.W, padx=2)
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="List supports",
+                                b_command=self.list_supports,
+                                l_text="List claims supported with LBC",
+                                start=start)
 
     def setup_grid_check_support(self, parent, start=0):
         blocks.setup_check_support(parent,
