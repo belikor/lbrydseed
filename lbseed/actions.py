@@ -91,7 +91,7 @@ def download_claims(claims,
             continue
 
         name = claim["name"]
-        print(f"Claim {num}/{n_claims}, '{name}'")
+        print(f"Claim {num}/{n_claims}, {name}")
         lbryt.download_single(cid=claim["claim_id"],
                               ddir=ddir, own_dir=own_dir,
                               save_file=save_file,
@@ -133,7 +133,7 @@ def delete_claims(claims, what="media",
             continue
 
         name = claim["name"]
-        print(f"Claim {num}/{n_claims}, '{name}'")
+        print(f"Claim {num}/{n_claims}, {name}")
         lbryt.delete_single(cid=claim["claim_id"],
                             what=what,
                             server=server)
