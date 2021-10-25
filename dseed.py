@@ -47,7 +47,7 @@ class Application(ttk.Frame,
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
-        self.pack()  # Frame.pack()
+        self.pack(fill="both", expand=True)  # Frame.pack()
 
         self.setup_vars()  # Initialized from `Variables` class
         self.setup_widgets(parent=self)  # the new Frame is the main container
@@ -89,7 +89,7 @@ class Application(ttk.Frame,
         self.setup_page_seed(page_seed_ratio)
         self.setup_plot()
         self.setup_page_controlling(page_claims)
-        note.pack()
+        note.pack(fill="both", expand=True)
 
     def validate_ch(self, print_msg=True):
         """Validate the textbox with channels and numbers."""
