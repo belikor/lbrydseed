@@ -389,7 +389,7 @@ class DeleteChPage:
         self.textbox_delch.insert("1.0", channels)
 
 
-class SupportPage:
+class SupportListPage:
     """Mixin class to provide the support page to the application."""
     def setup_page_supports(self, parent):
         self.setup_top_support(parent)
@@ -421,9 +421,11 @@ class SupportPage:
     def setup_info_support(self, parent, start=0):
         info = ttk.Label(parent,
                          text=("List the claim, "
-                               "the amount of our LBC support, "
+                               "the amount of our support, "
                                "the total amount of support, "
-                               "and its trending score."))
+                               "and its trending score.\n"
+                               "Supports will appear only after they "
+                               "have been confirmed in the blockchain."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_support(self, parent):

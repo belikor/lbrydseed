@@ -42,7 +42,7 @@ class Application(ttk.Frame,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
-                  pages.SupportPage, pages.SeedPage,
+                  pages.SupportListPage, pages.SeedPage,
                   pages.ControllingClaimsPage):
     def __init__(self, root):
         # Initialize and show the main frame
