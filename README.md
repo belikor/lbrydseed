@@ -126,7 +126,7 @@ and then press `"Download claims"`.
 
 ![lbryseed download_single](./g_lbrydseed_download_single.png)
 
-Press `"List claims"` to display all downloaded claims in the system.
+Press `"List claims"` to display all claims downloaded to the system.
 
 ![lbryseed list_claims](./g_lbrydseed_list_claims.png)
 
@@ -143,11 +143,22 @@ Press `"List supports"` to show claims that we support with LBC.
 
 ![lbryseed_list_supports](./g_lbrydseed_list_supports.png)
 
+Enter the name or claim ID of various claims (it can be any type of claim
+such as videos and channels), a number,
+and then press `"Add or remove support"`.
+
+![lbryseed_add_support](./g_lbrydseed_add_support.png)
+
 Press `"Display seeding ratio"` to show an estimate of the blobs uploaded
 and downloaded.
 
 ![lbryseed_seeding](./g_lbrydseed_seeding.png)
 
+Press `"Display controlling claims"` to show our published claims,
+and whether they are "controlling", meaning that they have the highest bid
+for their name.
+
+![lbryseed_controlling](./g_lbrydseed_controlling.png)
 
 ## Development
 
