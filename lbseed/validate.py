@@ -56,9 +56,10 @@ def validate_input(text, assume_channel=True, number_float=False,
         if '"' in claim_name:
             claim_name = claim_name.replace('"', '')
             edited = True
-        if "'" in claim_name:
-            claim_name = claim_name.replace("'", "")
-            edited = True
+        if assume_channel:
+            if "'" in claim_name:
+                claim_name = claim_name.replace("'", "")
+                edited = True
 
         if not claim_name:
             continue
@@ -79,7 +80,8 @@ def validate_input(text, assume_channel=True, number_float=False,
             claim_name = "@" + claim_name
 
         num += 1
-        name = f"'{claim_name}'"
+        name = f'"{claim_name}"'
+
         if edited:
             out += [f"{num:2d}: name={name:58s} number={number}  <-- edited"]
         else:
