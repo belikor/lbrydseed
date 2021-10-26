@@ -303,7 +303,9 @@ class Application(ttk.Frame,
         claims, supports = self.validate_g_claims(print_msg=False)
 
         claims, supports = \
-            res.resolve_claims_pairs(claims, supports, print_msg=print_msg,
+            res.resolve_claims_pairs(claims, supports,
+                                     show_support=True,
+                                     print_msg=print_msg,
                                      server=self.server_var.get())
 
         return claims, supports

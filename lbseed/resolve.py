@@ -138,7 +138,9 @@ def resolve_claims(text, print_msg=True,
     return claims
 
 
-def resolve_claims_pairs(claims, numbers, print_msg=True,
+def resolve_claims_pairs(claims, numbers,
+                         show_support=False,
+                         print_msg=True,
                          server="http://localhost:5279"):
     """Resolve claims to see if they actually exist and return a new vector."""
     new_claims = []
@@ -162,6 +164,15 @@ def resolve_claims_pairs(claims, numbers, print_msg=True,
             info = result["canonical_url"]
             new_claims.append(result)
             new_numbers.append(number)
+
+            if show_support:
+                supp = lbryt.get_base_support(info)
+                existing = supp["existing_support"]
+                base = supp["base_support"]
+                old = supp["old_support"]
+                info += (f" ; ex: {existing:.8f}"
+                         f" ; base: {base:.8f}"
+                         f" ; old: {old:.8f}")
 
         claim = f'"{claim}"'
         out += [f'{num:2d}: item={claim:58s}  {info}']
