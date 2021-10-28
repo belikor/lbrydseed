@@ -179,10 +179,21 @@ class DownloadChPage:
                                 start=start+2)
 
     def setup_grid_check_dch(self, parent, start=0):
-        blocks.setup_check_download(parent,
-                                    own_dir_var=self.own_dir_var,
-                                    save_var=self.save_var,
-                                    start=start)
+        (self.chck_save_dch,
+         self.chck_owndir_dch) = \
+            blocks.setup_check_download(parent,
+                                        save_var=self.save_var,
+                                        own_dir_var=self.own_dir_var,
+                                        enable_command=self.chck_enable_dch,
+                                        start=start)
+
+    def chck_enable_dch(self):
+        if self.save_var.get():
+            self.own_dir_var.set(True)
+            self.chck_owndir_dch["state"] = "normal"
+        else:
+            self.own_dir_var.set(False)
+            self.chck_owndir_dch["state"] = "disabled"
 
     def setup_info_dch(self, parent, start=0):
         info = ttk.Label(parent,
@@ -235,10 +246,21 @@ class DownloadSinglePage:
                                 start=start+1)
 
     def setup_grid_check_d(self, parent, start=0):
-        blocks.setup_check_download(parent,
-                                    own_dir_var=self.own_dir_var,
-                                    save_var=self.save_var,
-                                    start=start)
+        (self.chck_save_d,
+         self.chck_owndir_d) = \
+            blocks.setup_check_download(parent,
+                                        save_var=self.save_var,
+                                        own_dir_var=self.own_dir_var,
+                                        enable_command=self.chck_enable_d,
+                                        start=start)
+
+    def chck_enable_d(self):
+        if self.save_var.get():
+            self.own_dir_var.set(True)
+            self.chck_owndir_d["state"] = "normal"
+        else:
+            self.own_dir_var.set(False)
+            self.chck_owndir_d["state"] = "disabled"
 
     def setup_info_d(self, parent, start=0):
         blocks.info_claims(parent, start=start)
