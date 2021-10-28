@@ -121,21 +121,26 @@ def setup_button_gen(parent,
 
 
 def setup_check_download(parent,
-                         own_dir_var=None,
                          save_var=None,
+                         own_dir_var=None,
                          start=0):
     """Setup for the checkbuttons to modify the download of claims."""
-    chk_owndir = ttk.Checkbutton(parent,
-                                 variable=own_dir_var,
-                                 text=("Place the downloaded file "
-                                       "inside a subdirectory"))
-    chk_owndir.grid(row=start, column=1, sticky=tk.W)
-
     chk_save = ttk.Checkbutton(parent,
                                variable=save_var,
-                               text=("Save media and its blobs; "
-                                     "otherwise only the first blob"))
-    chk_save.grid(row=start+1, column=1, sticky=tk.W)
+                               text=("Save the media file "
+                                     "(mp4, mkv, mp3, etc.), "
+                                     "otherwise only the blobs "
+                                     "will be downloaded.\n"
+                                     "Only the blobs are necessary to seed "
+                                     "the content."))
+    chk_save.grid(row=start, column=1, sticky=tk.W)
+
+    chk_owndir = ttk.Checkbutton(parent,
+                                 variable=own_dir_var,
+                                 text=("Place the media file "
+                                       "inside a subdirectory named after "
+                                       "the channel"))
+    chk_owndir.grid(row=start+1, column=1, sticky=tk.W, pady=2)
 
 
 def setup_check_list(parent,
