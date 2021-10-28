@@ -79,6 +79,7 @@ class Application(ttk.Frame,
         note.add(page_seed_ratio, text="Seeding ratio")
         note.add(page_claims, text="Controlling claims")
         note.select(page_dch)
+        note.bind("<<NotebookTabChanged>>", self.update_checkbox)
 
         # Built from the mixin `Page` classes
         self.setup_page_cfg(page_cfg)
@@ -93,6 +94,13 @@ class Application(ttk.Frame,
         self.setup_plot()
         self.setup_page_controlling(page_claims)
         note.pack(fill="both", expand=True)
+
+    def update_checkbox(self, event):
+        title = self.note.tab(self.note.select())["text"]
+        if title == "Download channel":
+            self.chck_enable_dch(force_second_var=False)
+        elif title == "Download single":
+            self.chck_enable_d(force_second_var=False)
 
     def validate_ch(self, print_msg=True):
         """Validate the textbox with channels and numbers."""

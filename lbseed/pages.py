@@ -187,9 +187,10 @@ class DownloadChPage:
                                         enable_command=self.chck_enable_dch,
                                         start=start)
 
-    def chck_enable_dch(self):
+    def chck_enable_dch(self, force_second_var=True):
         if self.save_var.get():
-            self.own_dir_var.set(True)
+            if force_second_var:
+                self.own_dir_var.set(True)
             self.chck_owndir_dch["state"] = "normal"
         else:
             self.own_dir_var.set(False)
@@ -254,9 +255,10 @@ class DownloadSinglePage:
                                         enable_command=self.chck_enable_d,
                                         start=start)
 
-    def chck_enable_d(self):
+    def chck_enable_d(self, force_second_var=True):
         if self.save_var.get():
-            self.own_dir_var.set(True)
+            if force_second_var:
+                self.own_dir_var.set(True)
             self.chck_owndir_d["state"] = "normal"
         else:
             self.own_dir_var.set(False)
