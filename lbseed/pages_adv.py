@@ -183,3 +183,142 @@ class ControllingClaimsPage:
     def setup_textbox_controlling(self, parent):
         self.textbox_controlling = blocks.setup_textbox(parent,
                                                         font=self.txt_lst_font)
+
+
+class TrendPage:
+    def setup_page_trend(self, parent):
+        self.setup_top_trend(parent)
+        self.setup_textbox_trend(parent)
+
+    def setup_top_trend(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_button_trend(frame, start=0)
+        self.setup_grid_chck_trend_top(frame, start=2)
+        self.setup_grid_radio_trend_claims(frame, start=3, col=0)
+        self.setup_grid_chck_trend_streams(frame, start=3, col=1)
+        self.setup_info_trend(frame, start=4)
+
+    def setup_grid_button_trend(self, parent, start=0):
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Show trending claims",
+                                b_command=self.show_trending_claims,
+                                l_text=("Display trending claims "
+                                        "in the network"),
+                                start=start)
+
+        spin, lb = blocks.setup_spin_page(parent,
+                                          s_text_var=self.spin_page,
+                                          s_command=self.show_trending_claims,
+                                          l_text=("Page to search"),
+                                          start=start+1)
+
+        spin["width"] = 25
+        spin.grid_forget()
+        spin.grid(row=start+1, column=0)
+
+    def setup_grid_chck_trend_top(self, parent, start=0):
+        chck_cid = ttk.Checkbutton(parent,
+                                   variable=self.chck_tr_cid,
+                                   text=("Show claim ID"))
+        chck_cid.grid(row=start, column=1, sticky=tk.W)
+
+    def setup_grid_radio_trend_claims(self, parent, start=0, col=1):
+        frame = ttk.Frame(parent, relief="groove", borderwidth=2)
+        frame.grid(row=start, column=col, sticky=tk.W + tk.E + tk.N)
+
+        blocks.setup_radio_trend_claims(frame,
+                                        claim_type_var=self.chck_tr_claim_t,
+                                        activate_func=self.activate_tr_checks,
+                                        deactivate_func=self.deactivate_tr_checks,
+                                        start=0, col=0)
+
+    def deactivate_tr_checks(self):
+        self.chck_tr_all.set(True)
+        variables = [self.chck_tr_vid, self.chck_tr_audio,
+                     self.chck_tr_doc, self.chck_tr_img,
+                     self.chck_tr_bin, self.chck_tr_model]
+
+        for v in variables:
+            v.set(False)
+
+        widgets = [self.tr_chck_all, self.tr_chck_vid,
+                   self.tr_chck_audio, self.tr_chck_doc,
+                   self.tr_chck_img, self.tr_chck_bin,
+                   self.tr_chck_model]
+
+        for widget in widgets:
+            widget["state"] = "disabled"
+
+    def activate_tr_checks(self):
+        widgets = [self.tr_chck_all, self.tr_chck_vid,
+                   self.tr_chck_audio, self.tr_chck_doc,
+                   self.tr_chck_img, self.tr_chck_bin,
+                   self.tr_chck_model]
+
+        for widget in widgets:
+            widget["state"] = "enabled"
+
+    def setup_grid_chck_trend_streams(self, parent, start=0, col=1):
+        frame = ttk.Frame(parent, relief="groove", borderwidth=2)
+        frame.grid(row=start, column=col, sticky=tk.W + tk.E + tk.N)
+
+        (self.tr_chck_all,
+         self.tr_chck_vid,
+         self.tr_chck_audio,
+         self.tr_chck_doc,
+         self.tr_chck_img,
+         self.tr_chck_bin,
+         self.tr_chck_model) = \
+            blocks.setup_check_trend(frame,
+                                     all_var=self.chck_tr_all,
+                                     all_command=self.switch_tr_all,
+                                     video_var=self.chck_tr_vid,
+                                     audio_var=self.chck_tr_audio,
+                                     doc_var=self.chck_tr_doc,
+                                     image_var=self.chck_tr_img,
+                                     bin_var=self.chck_tr_bin,
+                                     model_var=self.chck_tr_model,
+                                     not_all_command=self.switch_tr_various,
+                                     start=0, col=0)
+
+    def switch_tr_all(self):
+        """Change variables if all claims are considered."""
+        variables = [self.chck_tr_vid, self.chck_tr_audio,
+                     self.chck_tr_doc, self.chck_tr_img,
+                     self.chck_tr_bin, self.chck_tr_model]
+
+        if self.chck_tr_all.get():
+            for v in variables:
+                v.set(False)
+        else:
+            self.chck_tr_vid.set(True)
+            self.chck_tr_doc.set(True)
+
+    def switch_tr_various(self):
+        """If any stream checkbox is used, it is not all claims anymore."""
+        if (self.chck_tr_vid.get()
+                or self.chck_tr_audio.get()
+                or self.chck_tr_doc.get()
+                or self.chck_tr_img.get()
+                or self.chck_tr_bin.get()
+                or self.chck_tr_model.get()):
+            self.chck_tr_all.set(False)
+        if (not self.chck_tr_vid.get()
+                and not self.chck_tr_audio.get()
+                and not self.chck_tr_doc.get()
+                and not self.chck_tr_img.get()
+                and not self.chck_tr_bin.get()
+                and not self.chck_tr_model.get()):
+            self.chck_tr_all.set(True)
+
+    def setup_info_trend(self, parent, start=0):
+        blocks.info_search(parent, start=start)
+
+        page = ttk.Label(parent, textvariable=self.label_tr_info)
+        page.grid(row=start+1, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_trend(self, parent):
+        self.textbox_trend = blocks.setup_textbox(parent,
+                                                  font=self.txt_lst_font)

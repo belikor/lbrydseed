@@ -39,6 +39,7 @@ import lbseed.actions as actions
 class Application(ttk.Frame,
                   pages.Variables,
                   pages.ConfigPage,
+                  pages.TrendPage,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
@@ -97,6 +98,14 @@ class Application(ttk.Frame,
         note_sub_sup.add(page_add_supports, text="Add or remove support")
         note_sub_sup.pack(fill="both", expand=True)
 
+        page_s_search = ttk.Frame(self.note)
+        self.note.add(page_s_search, text="Search")
+
+        note_sub_search = ttk.Notebook(page_s_search)
+        page_trend = ttk.Frame(note_sub_search)
+        note_sub_search.add(page_trend, text="Trending claims")
+        note_sub_search.pack(fill="both", expand=True)
+
         page_s_adv = ttk.Frame(self.note)
         self.note.add(page_s_adv, text="Advanced")
 
@@ -118,6 +127,7 @@ class Application(ttk.Frame,
         self.setup_page_delch(page_delch)
         self.setup_page_supports(page_supports)
         self.setup_page_add_supports(page_add_supports)
+        self.setup_page_trend(page_trend)
         self.setup_page_seed(page_seed_ratio)
         self.setup_plot()
         self.setup_page_controlling(page_claims)
@@ -358,6 +368,26 @@ class Application(ttk.Frame,
                              support_style=self.rad_s_support.get(),
                              server=self.server_var.get())
 
+        self.print_done(print_msg=True)
+
+    def show_trending_claims(self):
+        """Get the trending claims."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        content = actions.print_trending(page=self.spin_page.get(),
+                                         claim_id=self.chck_tr_cid.get(),
+                                         claim_type=self.chck_tr_claim_t.get(),
+                                         video_stream=self.chck_tr_vid.get(),
+                                         audio_stream=self.chck_tr_audio.get(),
+                                         doc_stream=self.chck_tr_doc.get(),
+                                         img_stream=self.chck_tr_img.get(),
+                                         bin_stream=self.chck_tr_bin.get(),
+                                         model_stream=self.chck_tr_model.get(),
+                                         server=self.server_var.get())
+
+        self.label_tr_info.set("Page: " + str(self.spin_page.get()))
+        self.textbox_trend.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
 

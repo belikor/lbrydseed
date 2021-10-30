@@ -48,7 +48,7 @@ from .pages_base import (ConfigPage,
                          ListPage,
                          DeleteSinglePage, DeleteChPage,
                          SupportListPage, SupportAddPage)
-from .pages_adv import SeedPage, ControllingClaimsPage
+from .pages_adv import SeedPage, ControllingClaimsPage, TrendPage
 
 
 class Variables:
@@ -117,6 +117,30 @@ class Variables:
         self.rad_s_support = tk.StringVar()
         self.rad_s_support.set("create")
 
+        self.spin_page = tk.IntVar()
+        self.spin_page.set(1)
+        self.chck_tr_claim_t = tk.StringVar()
+        self.chck_tr_claim_t.set("stream")
+
+        self.chck_tr_cid = tk.BooleanVar()
+        self.chck_tr_cid.set(False)
+        self.chck_tr_all = tk.BooleanVar()
+        self.chck_tr_all.set(False)
+        self.chck_tr_vid = tk.BooleanVar()
+        self.chck_tr_vid.set(True)
+        self.chck_tr_audio = tk.BooleanVar()
+        self.chck_tr_audio.set(False)
+        self.chck_tr_doc = tk.BooleanVar()
+        self.chck_tr_doc.set(True)
+        self.chck_tr_img = tk.BooleanVar()
+        self.chck_tr_img.set(False)
+        self.chck_tr_bin = tk.BooleanVar()
+        self.chck_tr_bin.set(False)
+        self.chck_tr_model = tk.BooleanVar()
+        self.chck_tr_model.set(False)
+        self.label_tr_info = tk.StringVar()
+        self.label_tr_info.set("Page: -")
+
 
 # Use the classes to prevent warnings by code checkers (flake8)
 True if ConfigPage else False
@@ -130,3 +154,4 @@ True if SupportAddPage else False
 
 True if SeedPage else False
 True if ControllingClaimsPage else False
+True if TrendPage else False
