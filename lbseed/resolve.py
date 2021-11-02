@@ -43,6 +43,10 @@ def server_exists(server="http://localhost:5279"):
 
 
 def get_download_dir(server="http://localhost:5279"):
+    """Get the default download directory for lbrynet."""
+    if not server_exists(server=server):
+        return "~"
+
     msg = {"method": "settings_get"}
     out_set = requests.post(server, json=msg).json()
     ddir = out_set["result"]["download_dir"]
