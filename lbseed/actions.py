@@ -23,14 +23,10 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER         #
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
-"""Methods to resolve and download claims of channels."""
+"""Methods to actually do something with the interface."""
 import tempfile
 
-try:
-    import lbrytools as lbryt
-    external_lib = True
-except ModuleNotFoundError:
-    external_lib = False
+import lbrytools as lbryt
 
 
 def download_ch(channels, numbers, info,
