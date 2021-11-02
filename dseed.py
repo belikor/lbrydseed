@@ -57,29 +57,57 @@ class Application(ttk.Frame,
         parent.event_add("<<Activate>>", "<Return>", "<KP_Enter>")
 
         self.note = ttk.Notebook(parent)
-        note = self.note
-        page_cfg = ttk.Frame(note)
-        page_dch = ttk.Frame(note)
-        page_d = ttk.Frame(note)
-        page_list = ttk.Frame(note)
-        page_del = ttk.Frame(note)
-        page_delch = ttk.Frame(note)
-        page_supports = ttk.Frame(note)
-        page_add_supports = ttk.Frame(note)
-        page_seed_ratio = ttk.Frame(note)
-        page_claims = ttk.Frame(note)
-        note.add(page_cfg, text="General")
-        note.add(page_dch, text="Download channel")
-        note.add(page_d, text="Download single")
-        note.add(page_list, text="List claims")
-        note.add(page_del, text="Delete single")
-        note.add(page_delch, text="Clean up channel")
-        note.add(page_supports, text="List supports")
-        note.add(page_add_supports, text="Add support")
-        note.add(page_seed_ratio, text="Seeding ratio")
-        note.add(page_claims, text="Controlling claims")
-        note.select(page_dch)
-        note.bind("<<NotebookTabChanged>>", self.update_checkbox)
+        self.note.pack(fill="both", expand=True)
+
+        page_cfg = ttk.Frame(self.note)
+        self.note.add(page_cfg, text="General")
+
+        page_s_d = ttk.Frame(self.note)
+        self.note.add(page_s_d, text="Download")
+
+        self.note_sub_d = ttk.Notebook(page_s_d)
+        page_dch = ttk.Frame(self.note_sub_d)
+        page_d = ttk.Frame(self.note_sub_d)
+        self.note_sub_d.add(page_dch, text="Download channel")
+        self.note_sub_d.add(page_d, text="Download single")
+        self.note_sub_d.pack(fill="both", expand=True)
+
+        self.note_sub_d.bind("<<NotebookTabChanged>>", self.update_checkbox)
+
+        page_list = ttk.Frame(self.note)
+        self.note.add(page_list, text="List claims")
+
+        page_s_del = ttk.Frame(self.note)
+        self.note.add(page_s_del, text="Delete")
+
+        note_sub_del = ttk.Notebook(page_s_del)
+        page_del = ttk.Frame(note_sub_del)
+        page_delch = ttk.Frame(note_sub_del)
+        note_sub_del.add(page_del, text="Delete single")
+        note_sub_del.add(page_delch, text="Clean up channel")
+        note_sub_del.pack(fill="both", expand=True)
+
+        page_s_sup = ttk.Frame(self.note)
+        self.note.add(page_s_sup, text="Supports")
+
+        note_sub_sup = ttk.Notebook(page_s_sup)
+        page_supports = ttk.Frame(note_sub_sup)
+        page_add_supports = ttk.Frame(note_sub_sup)
+        note_sub_sup.add(page_supports, text="List supports")
+        note_sub_sup.add(page_add_supports, text="Add or remove support")
+        note_sub_sup.pack(fill="both", expand=True)
+
+        page_s_adv = ttk.Frame(self.note)
+        self.note.add(page_s_adv, text="Advanced")
+
+        note_sub_adv = ttk.Notebook(page_s_adv)
+        page_seed_ratio = ttk.Frame(note_sub_adv)
+        page_claims = ttk.Frame(note_sub_adv)
+        note_sub_adv.add(page_seed_ratio, text="Seeding ratio")
+        note_sub_adv.add(page_claims, text="Controlling claims")
+        note_sub_adv.pack(fill="both", expand=True)
+
+        self.note.select(page_s_d)
 
         # Built from the mixin `Page` classes
         self.setup_page_cfg(page_cfg)
@@ -93,10 +121,9 @@ class Application(ttk.Frame,
         self.setup_page_seed(page_seed_ratio)
         self.setup_plot()
         self.setup_page_controlling(page_claims)
-        note.pack(fill="both", expand=True)
 
     def update_checkbox(self, event):
-        title = self.note.tab(self.note.select())["text"]
+        title = self.note_sub_d.tab(self.note_sub_d.select())["text"]
         if title == "Download channel":
             self.chck_enable_dch(force_second_var=False)
         elif title == "Download single":
@@ -106,9 +133,9 @@ class Application(ttk.Frame,
         """Validate the textbox with channels and numbers."""
         title = self.note.tab(self.note.select())["text"]
 
-        if title == "Download channel":
+        if title == "Download":
             text = self.textbox_dch.get("1.0", tk.END)
-        elif title == "Clean up channel":
+        elif title == "Delete":
             text = self.textbox_delch.get("1.0", tk.END)
         channels, numbers = val.validate_input(text,
                                                assume_channel=True,
@@ -161,12 +188,12 @@ class Application(ttk.Frame,
 
         title = self.note.tab(self.note.select())["text"]
 
-        if title == "Download single":
+        if title == "Download":
             ddir = res.check_download_dir(ddir=self.down_dir_var.get(),
                                           server=self.server_var.get())
             self.down_dir_var.set(ddir)
             text = self.textbox_d.get("1.0", tk.END)
-        elif title == "Delete single":
+        elif title == "Delete":
             text = self.textbox_del.get("1.0", tk.END)
         claims = res.resolve_claims(text, print_msg=print_msg,
                                     server=self.server_var.get())
