@@ -48,7 +48,7 @@ from .pages_base import (ConfigPage,
                          ListPage,
                          DeleteSinglePage, DeleteChPage,
                          SupportListPage, SupportAddPage)
-from .pages_adv import SeedPage, ControllingClaimsPage, TrendPage
+from .pages_adv import SeedPage, ControllingClaimsPage, TrendPage, SearchPage
 
 
 class Variables:
@@ -141,6 +141,12 @@ class Variables:
         self.label_tr_info = tk.StringVar()
         self.label_tr_info.set("Page: -")
 
+        self.search_entry = tk.StringVar()
+        self.search_entry.set("text to search")
+        self.search_entry_tags = tk.StringVar()
+        self.label_sch_info = tk.StringVar()
+        self.label_sch_info.set("Page: -")
+
 
 # Use the classes to prevent warnings by code checkers (flake8)
 True if ConfigPage else False
@@ -155,3 +161,4 @@ True if SupportAddPage else False
 True if SeedPage else False
 True if ControllingClaimsPage else False
 True if TrendPage else False
+True if SearchPage else False

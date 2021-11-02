@@ -301,3 +301,41 @@ def print_trending(page=1,
         content = fp.read()
 
     return content
+
+
+def return_search(page=1,
+                  text="lbry",
+                  tags=None,
+                  claim_id=False,
+                  claim_type=None,
+                  video_stream=False, audio_stream=False,
+                  doc_stream=False, img_stream=False,
+                  bin_stream=False, model_stream=False,
+                  server="http://localhost:5279"):
+    """Print the result of the claim search in the network."""
+    if tags:
+        tags = tags.split(",")
+        tags = [tag.strip() for tag in tags]
+    else:
+        tags = []
+
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        lbryt.print_search_claims(page=page,
+                                  order="release_time",
+                                  text=text,
+                                  tags=tags,
+                                  claim_id=claim_id,
+                                  claim_type=claim_type,
+                                  video_stream=video_stream,
+                                  audio_stream=audio_stream,
+                                  doc_stream=doc_stream,
+                                  img_stream=img_stream,
+                                  bin_stream=bin_stream,
+                                  model_stream=model_stream,
+                                  sanitize=True,
+                                  file=fp.name, fdate=False, sep=";",
+                                  server=server)
+        fp.seek(0)
+        content = fp.read()
+
+    return content
