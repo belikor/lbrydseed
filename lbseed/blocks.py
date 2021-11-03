@@ -156,7 +156,7 @@ def setup_check_list(parent,
     """Setup the checkbuttons to list various properties."""
     chck_cid = ttk.Checkbutton(parent,
                                variable=cid_var,
-                               text="Show 'claim_id'")
+                               text="Show claim ID (40-character string)")
     chck_cid.grid(row=start, column=1, sticky=tk.W)
 
     chck_blobs = ttk.Checkbutton(parent,
@@ -166,12 +166,12 @@ def setup_check_list(parent,
 
     chck_ch = ttk.Checkbutton(parent,
                               variable=show_ch_var,
-                              text="Show channel of the claim")
+                              text="Show signing channel of the claim")
     chck_ch.grid(row=start+2, column=1, sticky=tk.W)
 
     chck_name = ttk.Checkbutton(parent,
                                 variable=name_var,
-                                text="Show 'claim_name'")
+                                text="Show claim name")
     chck_name.grid(row=start+3, column=1, sticky=tk.W)
 
 
