@@ -129,6 +129,11 @@ class Application(ttk.Frame,
         elif title == "Download single":
             self.chck_enable_d(force_second_var=False)
 
+    def print_done(self, print_msg=True):
+        if print_msg:
+            print(40 * "-")
+            print("Done")
+
     def validate_ch(self, print_msg=True):
         """Validate the textbox with channels and numbers."""
         title = self.note.tab(self.note.select())["text"]
@@ -141,9 +146,8 @@ class Application(ttk.Frame,
                                                assume_channel=True,
                                                number_float=False,
                                                print_msg=print_msg)
-        if print_msg:
-            print(40 * "-")
-            print("Done")
+
+        self.print_done(print_msg=print_msg)
 
         return channels, numbers
 
@@ -160,9 +164,8 @@ class Application(ttk.Frame,
 
         info = res.resolve_ch(channels, numbers, print_msg=print_msg,
                               server=self.server_var.get())
-        if print_msg:
-            print(40 * "-")
-            print("Done")
+
+        self.print_done(print_msg=print_msg)
 
         return channels, numbers, info
 
@@ -178,8 +181,8 @@ class Application(ttk.Frame,
                             save_file=self.save_var.get(),
                             proceed=True,
                             server=self.server_var.get())
-        print(40 * "-")
-        print("Done")
+
+        self.print_done(print_msg=True)
 
     def resolve_claims(self, print_msg=True):
         """Resolve the claims in the textbox online."""
@@ -197,9 +200,8 @@ class Application(ttk.Frame,
             text = self.textbox_del.get("1.0", tk.END)
         claims = res.resolve_claims(text, print_msg=print_msg,
                                     server=self.server_var.get())
-        if print_msg:
-            print(40 * "-")
-            print("Done")
+
+        self.print_done(print_msg=print_msg)
 
         return claims
 
@@ -214,8 +216,8 @@ class Application(ttk.Frame,
                                 own_dir=self.own_dir_var.get(),
                                 save_file=self.save_var.get(),
                                 server=self.server_var.get())
-        print(40 * "-")
-        print("Done")
+
+        self.print_done(print_msg=True)
 
     def list_claims(self):
         """Print the claims in the textbox."""
@@ -233,8 +235,7 @@ class Application(ttk.Frame,
                                        server=self.server_var.get())
 
         self.textbox_list.replace("1.0", tk.END, content)
-        print(40 * "-")
-        print("Done")
+        self.print_done(print_msg=True)
 
     def delete_claims(self):
         """Delete the claims in the textbox."""
@@ -244,8 +245,8 @@ class Application(ttk.Frame,
         claims = self.resolve_claims(print_msg=False)
         actions.delete_claims(claims, what=self.del_what_var.get(),
                               server=self.server_var.get())
-        print(40 * "-")
-        print("Done")
+
+        self.print_done(print_msg=True)
 
     def delete_ch(self):
         """Delete the claims from the channels in the textbox."""
@@ -256,8 +257,8 @@ class Application(ttk.Frame,
         actions.clean_ch(channels, numbers, info,
                          what=self.del_what_var.get(),
                          server=self.server_var.get())
-        print(40 * "-")
-        print("Done")
+
+        self.print_done(print_msg=True)
 
     def list_supports(self):
         """List supported claims, either channels or streams."""
@@ -272,8 +273,7 @@ class Application(ttk.Frame,
                                   server=self.server_var.get())
 
         self.textbox_supports.replace("1.0", tk.END, content)
-        print(40 * "-")
-        print("Done")
+        self.print_done(print_msg=True)
 
     def seeding_ratio(self):
         """Print estimated seeding ratio from the log files."""
@@ -298,9 +298,9 @@ class Application(ttk.Frame,
             actions.seeding_ratio(frame=frame,
                                   plot_hst_var=self.check_seed_plot.get(),
                                   server=self.server_var.get())
+
         self.textbox_seed.replace("1.0", tk.END, content)
-        print(40 * "-")
-        print("Done")
+        self.print_done(print_msg=True)
 
     def controlling_claims(self):
         content = \
@@ -314,9 +314,9 @@ class Application(ttk.Frame,
                                      show_reposts=self.check_c_reposts.get(),
                                      compact=self.check_c_compact.get(),
                                      server=self.server_var.get())
+
         self.textbox_controlling.replace("1.0", tk.END, content)
-        print(40 * "-")
-        print("Done")
+        self.print_done(print_msg=True)
 
     def validate_g_claims(self, print_msg=True):
         """Validate the textbox with claims and numbers."""
@@ -325,9 +325,9 @@ class Application(ttk.Frame,
                                               assume_channel=False,
                                               number_float=True,
                                               print_msg=print_msg)
-        if print_msg:
-            print(40 * "-")
-            print("Done")
+
+        self.print_done(print_msg=print_msg)
+
         return claims, supports
 
     def resolve_g_claims(self, print_msg=True):
@@ -343,6 +343,8 @@ class Application(ttk.Frame,
                                      print_msg=print_msg,
                                      server=self.server_var.get())
 
+        self.print_done(print_msg=print_msg)
+
         return claims, supports
 
     def add_supports(self):
@@ -355,8 +357,8 @@ class Application(ttk.Frame,
         actions.add_supports(claims, supports,
                              support_style=self.rad_s_support.get(),
                              server=self.server_var.get())
-        print(40 * "-")
-        print("Done")
+
+        self.print_done(print_msg=True)
 
 
 def main(argv=None):
