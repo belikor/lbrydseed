@@ -35,6 +35,7 @@ lbrydseed/
     dseed.py
     lbrytools/
     lbseed/
+    emoji/
 ```
 
 You can run the `dseed.py` program where it is.
@@ -43,7 +44,7 @@ python dseed.py
 ```
 
 If you place `dseed.py` somewhere else, make sure it is always
-next to `lbrytools/` and `lbseed/`.
+next to `lbrytools/`, `lbseed/`, and `emoji/`.
 
 ### Updating
 
@@ -88,6 +89,13 @@ or in a system-wide directory:
 /usr/lib/python3/dist-packages/lbseed
 ```
 
+You should also install the `emoji` package through `pip`,
+or by moving the current `emoji/` directory to the `site-packages`
+directory.
+```sh
+python3 -m pip install --user requests emoji
+```
+
 Then place `dseed.py` wherever you want, and run it from there.
 
 ### Environmental variables
@@ -110,8 +118,11 @@ PYTHONPATH="/top1:/top2/pkg:$PYTHONPATH"
 
 ### Optional
 
-The Matplotlib library is optional, and only needed
+The `matplotlib` library is optional, and only needed
 to plot the histograms in the `"Seeding ratio"` page.
+```sh
+python3 -m pip install --user matplotlib
+```
 
 ## Setuptools
 
