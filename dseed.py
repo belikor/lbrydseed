@@ -123,10 +123,10 @@ class Application(ttk.Frame,
         self.setup_page_controlling(page_claims)
 
     def update_checkbox(self, event):
-        title = self.note_sub_d.tab(self.note_sub_d.select())["text"]
-        if title == "Download channel":
+        page = self.note_sub_d.tab(self.note_sub_d.select())["text"]
+        if page == "Download channel":
             self.chck_enable_dch(force_second_var=False)
-        elif title == "Download single":
+        elif page == "Download single":
             self.chck_enable_d(force_second_var=False)
 
     def print_done(self, print_msg=True):
@@ -136,11 +136,11 @@ class Application(ttk.Frame,
 
     def validate_ch(self, print_msg=True):
         """Validate the textbox with channels and numbers."""
-        title = self.note.tab(self.note.select())["text"]
+        page = self.note.tab(self.note.select())["text"]
 
-        if title == "Download":
+        if page == "Download":
             text = self.textbox_dch.get("1.0", tk.END)
-        elif title == "Delete":
+        elif page == "Delete":
             text = self.textbox_delch.get("1.0", tk.END)
         channels, numbers = val.validate_input(text,
                                                assume_channel=True,
@@ -189,14 +189,14 @@ class Application(ttk.Frame,
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        title = self.note.tab(self.note.select())["text"]
+        page = self.note.tab(self.note.select())["text"]
 
-        if title == "Download":
+        if page == "Download":
             ddir = res.check_download_dir(ddir=self.down_dir_var.get(),
                                           server=self.server_var.get())
             self.down_dir_var.set(ddir)
             text = self.textbox_d.get("1.0", tk.END)
-        elif title == "Delete":
+        elif page == "Delete":
             text = self.textbox_del.get("1.0", tk.END)
         claims = res.resolve_claims(text, print_msg=print_msg,
                                     server=self.server_var.get())
