@@ -20,8 +20,8 @@ or a full featured distribution such as Anaconda.
 You must have the LBRY Desktop application or the `lbrynet` client.
 Get them from [lbry.com/get](https://lbry.com/get).
 
-You must also have the [lbrytools](https://github.com/belikor/lbrytools/lbrytools)
-library (the internal `lbrytools/` directory that has the `__init__.py`).
+You must also have the [lbrytools](https://github.com/belikor/lbrytools/tree/master/lbrytools)
+library (the `lbrytools/` directory that has the `__init__.py`).
 
 Clone this repository with `--recurse-submodules` to include `lbrytools`
 with the rest of the code:
@@ -50,19 +50,21 @@ next to `lbrytools/`, `lbseed/`, and `emoji/`.
 
 To update the program's code, make sure you are in the `lbrydseed/` directory:
 ```sh
+cd lbrydseed/
 git pull
 ```
 
-The [lbrytools](https://github.com/belikor/lbrytools/lbrytools) library
-is hosted in its own repository, and is used in this program as a submodule.
-To update this submodule:
+The [lbrytools](https://github.com/belikor/lbrytools/tree/submodule) library
+is hosted in its own repository (under the `submodule` branch),
+and is used in this program as a submodule.
+To update this component:
 ```sh
 git submodule update --remote --rebase lbrytools/
 ```
 
 If this causes merging errors you may have to update the submodule manually:
 ```sh
-cd lbrytools/
+cd lbrydseed/lbrytools/
 git checkout submodule
 git fetch
 git reset --hard FETCH_HEAD
