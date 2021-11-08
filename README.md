@@ -45,6 +45,28 @@ python dseed.py
 If you place `dseed.py` somewhere else, make sure it is always
 next to `lbrytools/` and `lbseed/`.
 
+### Updating
+
+To update the program's code, make sure you are in the `lbrydseed/` directory:
+```sh
+git pull
+```
+
+The [lbrytools](https://github.com/belikor/lbrytools/lbrytools) library
+is hosted in its own repository, and is used in this program as a submodule.
+To update this submodule:
+```sh
+git submodule update --remote --rebase lbrytools/
+```
+
+If this causes merging errors you may have to update the submodule manually:
+```sh
+cd lbrytools/
+git checkout submodule
+git fetch
+git reset --hard FETCH_HEAD
+```
+
 ### System wide installation
 
 This is optional, and only required if you want to have the libraries
