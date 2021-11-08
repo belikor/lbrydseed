@@ -182,6 +182,17 @@ and then press `"Add or remove support"`.
 
 ![lbryseed_add_support](./g_lbrydseed_add_support.png)
 
+Press `"Show trending claims"` to show the claims that are trending
+on the network at the moment.
+
+![lbryseed_trending](./g_lbrydseed_trending.png)
+
+Press `"Search"` to search the string, and tags, if any.
+At the moment, the search functionality is very basic, so using simple words
+is better than long sentences.
+
+![lbryseed_search](./g_lbrydseed_search.png)
+
 Press `"Display seeding ratio"` to show an estimate of the blobs uploaded
 and downloaded.
 
