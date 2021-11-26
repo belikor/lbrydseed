@@ -154,57 +154,57 @@ python dseed.py
 Enter the name of the channels, and a number of claims to download for each,
 then press `"Download claims"`.
 
-![lbryseed download_channel](./g_lbrydseed_download_channel.png)
+![lbryseed download_channel](./img/g_lbrydseed_download_channel.png)
 
 Enter the name or claim ID of various claims,
 and then press `"Download claims"`.
 
-![lbryseed download_single](./g_lbrydseed_download_single.png)
+![lbryseed download_single](./img/g_lbrydseed_download_single.png)
 
 Press `"List claims"` to display all claims downloaded to the system.
 
-![lbryseed list_claims](./g_lbrydseed_list_claims.png)
+![lbryseed list_claims](./img/g_lbrydseed_list_claims.png)
 
 Enter the name or claim ID of various claims, then press `"Delete claims"`.
 
-![lbryseed delete_single](./g_lbrydseed_delete_single.png)
+![lbryseed delete_single](./img/g_lbrydseed_delete_single.png)
 
 Enter the name of the channels, and a number of claims to keep for each,
 then press `"Clean up claims"`.
 
-![lbryseed cleanup_channel](./g_lbrydseed_cleanup_channel.png)
+![lbryseed cleanup_channel](./img/g_lbrydseed_cleanup_channel.png)
 
 Press `"List supports"` to show claims that we support with LBC.
 
-![lbryseed_list_supports](./g_lbrydseed_list_supports.png)
+![lbryseed_list_supports](./img/g_lbrydseed_list_supports.png)
 
 Enter the name or claim ID of various claims (it can be any type of claim
 such as videos and channels), a number,
 and then press `"Add or remove support"`.
 
-![lbryseed_add_support](./g_lbrydseed_add_support.png)
+![lbryseed_add_support](./img/g_lbrydseed_add_support.png)
 
 Press `"Show trending claims"` to show the claims that are trending
 on the network at the moment.
 
-![lbryseed_trending](./g_lbrydseed_trending.png)
+![lbryseed_trending](./img/g_lbrydseed_trending.png)
 
 Press `"Search"` to search the string, and tags, if any.
 At the moment, the search functionality is very basic, so using simple words
 is better than long sentences.
 
-![lbryseed_search](./g_lbrydseed_search.png)
+![lbryseed_search](./img/g_lbrydseed_search.png)
 
 Press `"Display seeding ratio"` to show an estimate of the blobs uploaded
 and downloaded.
 
-![lbryseed_seeding](./g_lbrydseed_seeding.png)
+![lbryseed_seeding](./img/g_lbrydseed_seeding.png)
 
 Press `"Display controlling claims"` to show our published claims,
 and whether they are "controlling", meaning that they have the highest bid
 for their name.
 
-![lbryseed_controlling](./g_lbrydseed_controlling.png)
+![lbryseed_controlling](./img/g_lbrydseed_controlling.png)
 
 ## Development
 
