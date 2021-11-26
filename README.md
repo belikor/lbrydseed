@@ -16,15 +16,53 @@ This program is released as free software under the MIT license.
 You must have Python installed. Most Linux distributions come with Python
 ready to use; for Windows you may need to get the official package,
 or a full featured distribution such as Anaconda.
+In Windows, make sure the Python executable is added to the `PATH`
+so that it can be launched from anywhere in your system.
 
 You must have the LBRY Desktop application or the `lbrynet` client.
 Get them from [lbry.com/get](https://lbry.com/get).
 
-You must also have the [lbrytools](https://github.com/belikor/lbrytools/tree/master/lbrytools)
+### Requisites
+
+The program uses the `tkinter` module which makes the Tk graphical libraries
+available in Python.
+These libraries are normally distributed together with Python
+although you may have to verify that they are actually installed:
+```sh
+sudo apt install python-tk
+sudo apt install python3-tk  # for Ubuntu
+sudo pacman -S tk  # for Arch
+```
+
+The `requests` library is necessary to communicate
+with the running LBRY daemon; the `emoji` module is used to clean up emojis
+from the output:
+```sh
+python -m pip install --user requests emoji
+python3 -m pip install --user requests emoji  # for Ubuntu
+```
+
+You can install these and other libraries by using `pip`,
+the Python package manager. If this is not installed it can be installed:
+```sh
+sudo apt install python-pip
+sudo apt install python3-pip  # for Ubuntu
+sudo pacman -S python-pip  # for Arch
+```
+
+### Windows
+
+On Windows, most prerequisites can be installed using `pip`,
+although a big distribution like Anaconda may be easier to use,
+as it contains many packages already.
+
+### lbrytools
+
+You must have the [lbrytools](https://github.com/belikor/lbrytools/tree/master/lbrytools)
 library (the `lbrytools/` directory that has the `__init__.py`).
 
-Clone this repository with `--recurse-submodules` to include `lbrytools`
-with the rest of the code:
+Clone this repository using Git with `--recurse-submodules`
+to include `lbrytools` with the rest of the code:
 ```sh
 git clone --recurse-submodules https://github.com/belikor/lbrydseed
 ```
@@ -35,8 +73,9 @@ lbrydseed/
     dseed.py
     lbrytools/
     lbseed/
-    emoji/
 ```
+
+### Running in place
 
 You can run the `dseed.py` program where it is.
 ```sh
@@ -44,7 +83,7 @@ python dseed.py
 ```
 
 If you place `dseed.py` somewhere else, make sure it is always
-next to `lbrytools/`, `lbseed/`, and `emoji/`.
+next to `lbrytools/` and `lbseed/`.
 
 ### Updating
 
@@ -91,13 +130,6 @@ or in a system-wide directory:
 /usr/lib/python3/dist-packages/lbseed
 ```
 
-You should also install the `emoji` package through `pip`,
-or by moving the current `emoji/` directory to the `site-packages`
-directory.
-```sh
-python3 -m pip install --user requests emoji
-```
-
 Then place `dseed.py` wherever you want, and run it from there.
 
 ### Environmental variables
@@ -123,7 +155,8 @@ PYTHONPATH="/top1:/top2/pkg:$PYTHONPATH"
 The `matplotlib` library is optional, and only needed
 to plot the histograms in the `"Seeding ratio"` page.
 ```sh
-python3 -m pip install --user matplotlib
+python -m pip install --user matplotlib
+python3 -m pip install --user matplotlib  # for Ubuntu
 ```
 
 ## Setuptools
