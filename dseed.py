@@ -75,8 +75,13 @@ class Application(ttk.Frame,
 
         self.note_sub_d.bind("<<NotebookTabChanged>>", self.update_checkbox)
 
-        page_list = ttk.Frame(self.note)
-        self.note.add(page_list, text="List claims")
+        page_s_list = ttk.Frame(self.note)
+        self.note.add(page_s_list, text="List claims")
+
+        self.note_sub_list = ttk.Notebook(page_s_list)
+        page_list = ttk.Frame(self.note_sub_list)
+        self.note_sub_list.add(page_list, text="List downloaded claims")
+        self.note_sub_list.pack(fill="both", expand=True)
 
         page_s_del = ttk.Frame(self.note)
         self.note.add(page_s_del, text="Delete")
