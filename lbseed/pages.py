@@ -45,7 +45,7 @@ import tkinter as tk
 import lbseed.resolve as res
 from .pages_base import (ConfigPage,
                          DownloadChPage, DownloadSinglePage,
-                         ListPage,
+                         ListPage, ListChPage,
                          DeleteSinglePage, DeleteChPage,
                          SupportListPage, SupportAddPage)
 from .pages_adv import SeedPage, ControllingClaimsPage, TrendPage, SearchPage
@@ -147,12 +147,33 @@ class Variables:
         self.label_sch_info = tk.StringVar()
         self.label_sch_info.set("Page: -")
 
+        self.entry_chl_chan = tk.StringVar()
+        self.entry_chl_chan.set("@lbry:3f")
+        self.spin_chl_num = tk.IntVar()
+        self.spin_chl_num.set(0)
+        self.chck_chl_blk = tk.BooleanVar()
+        self.chck_chl_blk.set(False)
+        self.chck_chl_cid = tk.BooleanVar()
+        self.chck_chl_cid.set(False)
+        self.chck_chl_type = tk.BooleanVar()
+        self.chck_chl_type.set(False)
+        self.chck_chl_chname = tk.BooleanVar()
+        self.chck_chl_chname.set(False)
+        self.chck_chl_title = tk.BooleanVar()
+        self.chck_chl_title.set(False)
+        self.chck_chl_reverse = tk.BooleanVar()
+        self.chck_chl_reverse.set(True)
+        self.label_chl_info = tk.StringVar()
+        self.label_chl_info.set("Total claims: 0; "
+                                "total size: 0 GB")
+
 
 # Use the classes to prevent warnings by code checkers (flake8)
 True if ConfigPage else False
 True if DownloadChPage else False
 True if DownloadSinglePage else False
 True if ListPage else False
+True if ListChPage else False
 True if DeleteSinglePage else False
 True if DeleteChPage else False
 True if SupportListPage else False

@@ -245,6 +245,75 @@ class ListPage:
                                                  font=self.txt_lst_font)
 
 
+class ListChPage:
+    """Mixin class to provide the list channel claims to the application."""
+    def setup_page_ch_claims(self, parent):
+        self.setup_top_ch_list(parent)
+        self.setup_textbox_ch_list(parent)
+
+    def setup_top_ch_list(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_ch_list(frame, start=0)
+        self.setup_grid_check_ch_list(frame, start=4)
+        self.setup_info_ch_list(frame, start=10)
+
+    def setup_grid_top_ch_list(self, parent, start=0):
+        entry, label = \
+            blocks.setup_entry_gen(parent,
+                                   font=self.e_font,
+                                   text_var=self.entry_chl_chan,
+                                   l_text="Channel to inspect",
+                                   start=start)
+        entry.bind("<<Activate>>", blocks.f_with_event(self.list_ch_claims))
+
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Resolve online",
+                                b_command=self.resolve_ch_list,
+                                l_text="Confirm that the channel exists",
+                                start=start+1)
+
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="List claims",
+                                b_command=self.list_ch_claims,
+                                l_text=("List claims from the specified "
+                                        "channel, "
+                                        "starting from the newest one,\n"
+                                        "and going back in time"),
+                                start=start+2)
+
+        spin_num, label = \
+            blocks.setup_spin_page(parent,
+                                   s_text_var=self.spin_chl_num,
+                                   s_command=self.list_ch_claims,
+                                   l_text=("Number of claims to display; "
+                                           "use 0 to display all"),
+                                   start=start+3)
+        spin_num.set(0)
+        spin_num["from_"] = 0.0
+        spin_num["to"] = 100E3
+
+    def setup_grid_check_ch_list(self, parent, start=0):
+        blocks.setup_check_ch_list(parent,
+                                   blocks_var=self.chck_chl_blk,
+                                   cid_var=self.chck_chl_cid,
+                                   type_var=self.chck_chl_type,
+                                   chname_var=self.chck_chl_chname,
+                                   title_var=self.chck_chl_title,
+                                   reverse_var=self.chck_chl_reverse,
+                                   start=start)
+
+    def setup_info_ch_list(self, parent, start=0):
+        info = ttk.Label(parent, textvariable=self.label_chl_info)
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_ch_list(self, parent):
+        self.textbox_ch_list = blocks.setup_textbox(parent,
+                                                    font=self.txt_lst_font)
+
+
 class DeleteSinglePage:
     """Mixin class to provide the delete page to the application."""
     def setup_page_del(self, parent):

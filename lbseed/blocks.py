@@ -175,6 +175,50 @@ def setup_check_list(parent,
     chck_name.grid(row=start+3, column=1, sticky=tk.W)
 
 
+def setup_check_ch_list(parent,
+                        blocks_var=None,
+                        cid_var=None,
+                        type_var=None,
+                        chname_var=None,
+                        title_var=None,
+                        reverse_var=None,
+                        start=0):
+    """Setup the checkbuttons to control displaying properties of claims."""
+    chck_blocks = ttk.Checkbutton(parent,
+                                  variable=blocks_var,
+                                  text=("Show the creation block "
+                                        "and block height of the claim"))
+    chck_blocks.grid(row=start, column=1, sticky=tk.W)
+
+    chck_cid = ttk.Checkbutton(parent,
+                               variable=cid_var,
+                               text="Show claim ID (40-character string)")
+    chck_cid.grid(row=start+1, column=1, sticky=tk.W)
+
+    chck_type = ttk.Checkbutton(parent,
+                                variable=type_var,
+                                text=("Show the type of claim, stream, "
+                                      "and media, if available"))
+    chck_type.grid(row=start+2, column=1, sticky=tk.W)
+
+    chck_chname = ttk.Checkbutton(parent,
+                                  variable=chname_var,
+                                  text=("Show the name of the channel"))
+    chck_chname.grid(row=start+3, column=1, sticky=tk.W)
+
+    chck_chname = ttk.Checkbutton(parent,
+                                  variable=title_var,
+                                  text=("Show the claim 'title' "
+                                        "instead of the claim 'name'"))
+    chck_chname.grid(row=start+4, column=1, sticky=tk.W)
+
+    chck_reverse = ttk.Checkbutton(parent,
+                                   variable=reverse_var,
+                                   text=("Show in descending order "
+                                         "(newer items first, older last)"))
+    chck_reverse.grid(row=start+5, column=1, sticky=tk.W)
+
+
 def setup_check_support(parent,
                         show_ch_var=None,
                         show_claims_var=None,

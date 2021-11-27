@@ -198,6 +198,10 @@ Press `"List claims"` to display all claims downloaded to the system.
 
 ![lbryseed list_claims](./img/g_lbrydseed_list_claims.png)
 
+Press `"List claims"` to display all claims from a single channel.
+
+![lbryseed list_claims](./img/g_lbrydseed_list_ch_claims.png)
+
 Enter the name or claim ID of various claims, then press `"Delete claims"`.
 
 ![lbryseed delete_single](./img/g_lbrydseed_delete_single.png)

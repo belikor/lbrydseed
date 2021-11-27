@@ -62,11 +62,14 @@ def check_download_dir(ddir=None, server="http://localhost:5279"):
     return ddir
 
 
-def resolve_ch(channels, numbers, print_msg=True,
+def resolve_ch(channels, numbers=None, print_msg=True,
                server="http://localhost:5279"):
     """Resolve input channels to see if they in fact exist."""
     resolve_info = []
     out = []
+
+    if not numbers:
+        numbers = len(channels) * [None]
 
     for num, group in enumerate(zip(channels, numbers), start=1):
         channel = group[0]
@@ -91,7 +94,10 @@ def resolve_ch(channels, numbers, print_msg=True,
                 info = item["canonical_url"]
 
         channel = f"'{channel}'"
-        out += [f"{num:2d}: name={channel:58s} number={number}  {info}"]
+        if number:
+            out += [f"{num:2d}: name={channel:58s} number={number}  {info}"]
+        else:
+            out += [f"{num:2d}: name={channel:58s}  {info}"]
         resolve_info.append(info)
 
     if print_msg:

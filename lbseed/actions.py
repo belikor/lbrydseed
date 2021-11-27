@@ -114,6 +114,44 @@ def print_claims(cid=True, blobs=True, show_channel=False,
     return content
 
 
+def print_ch_claims(channel,
+                    number=0,
+                    blocks=False, claim_id=False,
+                    typ=False, ch_name=False,
+                    title=False,
+                    start=1, end=0,
+                    reverse=False,
+                    last_height=99_000_900,
+                    server="http://localhost:5279"):
+    """Print all or a certain number of claims for a specified channel."""
+    if number:
+        output = lbryt.ch_search_n_claims(channel,
+                                          number=number,
+                                          last_height=last_height,
+                                          reverse=False,
+                                          server=server)
+    else:
+        output = lbryt.ch_search_all_claims(channel,
+                                            last_height=last_height,
+                                            reverse=False,
+                                            server=server)
+
+    if not output:
+        return False
+
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        content = lbryt.print_sch_claims(output["claims"],
+                                         blocks=blocks, claim_id=claim_id,
+                                         typ=typ, ch_name=ch_name,
+                                         title=title, sanitize=True,
+                                         start=start, end=end,
+                                         reverse=reverse,
+                                         file=fp.name, fdate=False, sep=";")
+        fp.seek(0)
+        content = fp.read()
+    return content, len(output["claims"]), output["total_size"]
+
+
 def delete_claims(claims, what="media",
                   print_msg=True,
                   server="http://localhost:5279"):

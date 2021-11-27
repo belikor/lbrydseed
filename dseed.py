@@ -41,7 +41,7 @@ class Application(ttk.Frame,
                   pages.ConfigPage,
                   pages.TrendPage, pages.SearchPage,
                   pages.DownloadChPage, pages.DownloadSinglePage,
-                  pages.ListPage,
+                  pages.ListPage, pages.ListChPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
                   pages.SupportListPage, pages.SupportAddPage, pages.SeedPage,
                   pages.ControllingClaimsPage):
@@ -80,7 +80,9 @@ class Application(ttk.Frame,
 
         self.note_sub_list = ttk.Notebook(page_s_list)
         page_list = ttk.Frame(self.note_sub_list)
+        page_ch_claims = ttk.Frame(self.note_sub_list)
         self.note_sub_list.add(page_list, text="List downloaded claims")
+        self.note_sub_list.add(page_ch_claims, text="List channel claims")
         self.note_sub_list.pack(fill="both", expand=True)
 
         page_s_del = ttk.Frame(self.note)
@@ -133,6 +135,7 @@ class Application(ttk.Frame,
         self.setup_page_dch(page_dch)
         self.setup_page_d(page_d)
         self.setup_page_list(page_list)
+        self.setup_page_ch_claims(page_ch_claims)
         self.setup_page_del(page_del)
         self.setup_page_delch(page_delch)
         self.setup_page_supports(page_supports)
@@ -275,6 +278,60 @@ class Application(ttk.Frame,
                                        server=self.server_var.get())
 
         self.textbox_list.replace("1.0", tk.END, content)
+        self.print_done(print_msg=True)
+
+    def resolve_ch_list(self, print_msg=True):
+        """Resolve the channel to make sure it exists."""
+        channel = self.entry_chl_chan.get()
+
+        if not channel:
+            self.print_done(print_msg=True)
+            return False
+
+        if not channel.startswith("@"):
+            channel = "@" + channel
+            self.entry_chl_chan.set(channel)
+
+        ch = res.resolve_ch([channel], numbers=None,
+                            print_msg=print_msg,
+                            server=self.server_var.get())
+
+        ch = ch[0]
+        if "NOT_FOUND" in ch:
+            self.print_done(print_msg=True)
+            return False
+
+        channel = ch.lstrip("lbry://")
+        self.print_done(print_msg=print_msg)
+
+        return channel
+
+    def list_ch_claims(self):
+        """Print the channel claims in the textbox."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        channel = self.resolve_ch_list(print_msg=True)
+        if not channel:
+            return False
+
+        content, number, size = \
+            actions.print_ch_claims(channel,
+                                    number=self.spin_chl_num.get(),
+                                    blocks=self.chck_chl_blk.get(),
+                                    claim_id=self.check_cid.get(),
+                                    typ=self.chck_chl_type.get(),
+                                    ch_name=self.chck_chl_chname.get(),
+                                    title=self.chck_chl_title.get(),
+                                    start=1, end=0,
+                                    reverse=self.chck_chl_reverse.get(),
+                                    server=self.server_var.get())
+
+        size_gb = size/(1024**3)
+
+        self.textbox_ch_list.replace("1.0", tk.END, content)
+        self.label_chl_info.set(f"Claims: {number}; "
+                                f"total size: {size_gb:.4f} GB")
         self.print_done(print_msg=True)
 
     def delete_claims(self):
