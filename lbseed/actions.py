@@ -96,16 +96,30 @@ def download_claims(claims,
             print()
 
 
-def print_claims(cid=False, blobs=True,
+def print_claims(blocks=False, cid=False, blobs=True, size=True,
                  show_channel=False,
-                 name=True, channel=None,
+                 show_out="name", channel=None,
                  server="http://localhost:5279"):
     """Print all downloaded claims to a temporary file and read that file."""
+    if show_out in ("name"):
+        name = True
+        title = False
+        path = False
+    elif show_out in ("title"):
+        name = False
+        title = True
+        path = False
+    elif show_out in ("path"):
+        name = False
+        title = False
+        path = True
+
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         lbryt.print_summary(show="all",
-                            cid=cid, blobs=blobs,
+                            blocks=blocks, cid=cid, blobs=blobs, size=size,
                             typ=False, ch=show_channel, ch_online=False,
-                            name=name, title=False, path=False,
+                            name=name, title=title, path=path,
+                            sanitize=True,
                             start=1, end=0, channel=channel, invalid=False,
                             file=fp.name, fdate=False, sep=";",
                             server=server)

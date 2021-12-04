@@ -215,6 +215,7 @@ class ListPage:
         frame.pack(padx=4, pady=4)
         self.setup_grid_top_list(frame, start=0)
         self.setup_grid_check_list(frame, start=2)
+        self.setup_grid_radio_list(frame, start=7)
 
     def setup_grid_top_list(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -234,11 +235,20 @@ class ListPage:
 
     def setup_grid_check_list(self, parent, start=0):
         blocks.setup_check_list(parent,
+                                blocks_var=self.check_lst_blks,
                                 cid_var=self.check_lst_cid,
                                 blobs_var=self.check_lst_blobs,
+                                size_var=self.check_lst_size,
                                 show_ch_var=self.check_lst_show_ch,
-                                name_var=self.check_name,
                                 start=start)
+
+    def setup_grid_radio_list(self, parent, start=0):
+        frame = ttk.Frame(parent, relief="groove", borderwidth=2)
+        frame.grid(row=start, column=1, sticky=tk.W + tk.E + tk.N)
+
+        blocks.setup_radio_list(frame,
+                                name_var=self.rad_lst_name,
+                                start=0)
 
     def setup_textbox_list(self, parent):
         self.textbox_list = blocks.setup_textbox(parent,

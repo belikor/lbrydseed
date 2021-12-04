@@ -271,11 +271,13 @@ class Application(ttk.Frame,
             self.check_lst_show_ch.set(True)
 
         content = \
-            actions.print_claims(cid=self.check_lst_cid.get(),
+            actions.print_claims(blocks=self.check_lst_blks.get(),
+                                 cid=self.check_lst_cid.get(),
                                  blobs=self.check_lst_blobs.get(),
+                                 size=self.check_lst_size.get(),
                                  show_channel=self.check_lst_show_ch.get(),
+                                 show_out=self.rad_lst_name.get(),
                                  channel=self.entry_chan.get(),
-                                 name=self.check_name.get(),
                                  server=self.server_var.get())
 
         self.textbox_list.replace("1.0", tk.END, content)
