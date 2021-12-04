@@ -268,14 +268,15 @@ class Application(ttk.Frame,
             return False
 
         if self.entry_chan.get():
-            self.check_show_ch.set(True)
+            self.check_lst_show_ch.set(True)
 
-        content = actions.print_claims(cid=self.check_cid.get(),
-                                       blobs=self.check_blobs.get(),
-                                       show_channel=self.check_show_ch.get(),
-                                       channel=self.entry_chan.get(),
-                                       name=self.check_name.get(),
-                                       server=self.server_var.get())
+        content = \
+            actions.print_claims(cid=self.check_lst_cid.get(),
+                                 blobs=self.check_lst_blobs.get(),
+                                 show_channel=self.check_lst_show_ch.get(),
+                                 channel=self.entry_chan.get(),
+                                 name=self.check_name.get(),
+                                 server=self.server_var.get())
 
         self.textbox_list.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)

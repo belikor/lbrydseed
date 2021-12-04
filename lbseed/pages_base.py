@@ -234,9 +234,9 @@ class ListPage:
 
     def setup_grid_check_list(self, parent, start=0):
         blocks.setup_check_list(parent,
-                                cid_var=self.check_cid,
-                                blobs_var=self.check_blobs,
-                                show_ch_var=self.check_show_ch,
+                                cid_var=self.check_lst_cid,
+                                blobs_var=self.check_lst_blobs,
+                                show_ch_var=self.check_lst_show_ch,
                                 name_var=self.check_name,
                                 start=start)
 

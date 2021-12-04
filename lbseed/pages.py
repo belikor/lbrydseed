@@ -74,12 +74,12 @@ class Variables:
         self.del_what_var = tk.StringVar()
         self.del_what_var.set("media")
 
-        self.check_cid = tk.BooleanVar()
-        self.check_cid.set(False)
-        self.check_blobs = tk.BooleanVar()
-        self.check_blobs.set(True)
-        self.check_show_ch = tk.BooleanVar()
-        self.check_show_ch.set(True)
+        self.check_lst_cid = tk.BooleanVar()
+        self.check_lst_cid.set(False)
+        self.check_lst_blobs = tk.BooleanVar()
+        self.check_lst_blobs.set(True)
+        self.check_lst_show_ch = tk.BooleanVar()
+        self.check_lst_show_ch.set(True)
         self.check_name = tk.BooleanVar()
         self.check_name.set(True)
 

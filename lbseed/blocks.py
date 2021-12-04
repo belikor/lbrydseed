@@ -161,7 +161,8 @@ def setup_check_list(parent,
 
     chck_blobs = ttk.Checkbutton(parent,
                                  variable=blobs_var,
-                                 text="Show number of blobs")
+                                 text=("Show number of blobs "
+                                       "(each blob is 2 MB)"))
     chck_blobs.grid(row=start+1, column=1, sticky=tk.W)
 
     chck_ch = ttk.Checkbutton(parent,
