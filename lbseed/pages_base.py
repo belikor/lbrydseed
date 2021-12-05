@@ -220,7 +220,7 @@ class ListPage:
     def setup_grid_top_list(self, parent, start=0):
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
-                                b_text="List claims",
+                                b_text="List downloaded claims",
                                 b_command=self.list_claims,
                                 l_text="List all locally downloaded claims",
                                 start=start)
@@ -272,7 +272,7 @@ class ListInvalidPage:
     def setup_grid_top_list_inv(self, parent, start=0):
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
-                                b_text="List claims",
+                                b_text="List invalid claims",
                                 b_command=self.list_inv_claims,
                                 l_text=("List all locally downloaded claims "
                                         "that have become 'invalid'.\n"
@@ -355,7 +355,7 @@ class ListChPage:
 
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
-                                b_text="List claims",
+                                b_text="List channel claims",
                                 b_command=self.list_ch_claims,
                                 l_text=("List claims from the specified "
                                         "channel, "

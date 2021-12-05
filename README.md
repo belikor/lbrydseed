@@ -187,29 +187,34 @@ python dseed.py
 Enter the name of the channels, and a number of claims to download for each,
 then press `"Download claims"`.
 
-![lbryseed download_channel](./img/g_lbrydseed_download_channel.png)
+![lbryseed_download_channel](./img/g_lbrydseed_download_channel.png)
 
 Enter the name or claim ID of various claims,
 and then press `"Download claims"`.
 
-![lbryseed download_single](./img/g_lbrydseed_download_single.png)
+![lbryseed_download_single](./img/g_lbrydseed_download_single.png)
 
-Press `"List claims"` to display all claims downloaded to the system.
+Press `"List download claims"` to display all claims downloaded to the system.
 
-![lbryseed list_claims](./img/g_lbrydseed_list_claims.png)
+![lbryseed_list_claims](./img/g_lbrydseed_list_claims.png)
 
-Press `"List claims"` to display all claims from a single channel.
+Press `"List invalid claims"` to display all invalid claims,
+previously downloaded but no longer available online.
 
-![lbryseed list_claims](./img/g_lbrydseed_list_ch_claims.png)
+![lbryseed_list_invalid](./img/g_lbrydseed_list_invalid.png)
+
+Press `"List channel claims"` to display all claims from a single channel.
+
+![lbryseed_list_claims](./img/g_lbrydseed_list_ch_claims.png)
 
 Enter the name or claim ID of various claims, then press `"Delete claims"`.
 
-![lbryseed delete_single](./img/g_lbrydseed_delete_single.png)
+![lbryseed_delete_single](./img/g_lbrydseed_delete_single.png)
 
 Enter the name of the channels, and a number of claims to keep for each,
 then press `"Clean up claims"`.
 
-![lbryseed cleanup_channel](./img/g_lbrydseed_cleanup_channel.png)
+![lbryseed_cleanup_channel](./img/g_lbrydseed_cleanup_channel.png)
 
 Press `"List supports"` to show claims that we support with LBC.
 
