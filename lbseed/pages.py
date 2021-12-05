@@ -45,7 +45,7 @@ import tkinter as tk
 import lbseed.resolve as res
 from .pages_base import (ConfigPage,
                          DownloadChPage, DownloadSinglePage,
-                         ListPage, ListChPage,
+                         ListPage, ListInvalidPage, ListChPage,
                          DeleteSinglePage, DeleteChPage,
                          SupportListPage, SupportAddPage)
 from .pages_adv import SeedPage, ControllingClaimsPage, TrendPage, SearchPage
@@ -177,6 +177,7 @@ True if ConfigPage else False
 True if DownloadChPage else False
 True if DownloadSinglePage else False
 True if ListPage else False
+True if ListInvalidPage else False
 True if ListChPage else False
 True if DeleteSinglePage else False
 True if DeleteChPage else False

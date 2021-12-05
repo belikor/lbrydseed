@@ -99,6 +99,7 @@ def download_claims(claims,
 def print_claims(blocks=False, cid=False, blobs=True, size=True,
                  show_channel=False,
                  show_out="name", channel=None,
+                 invalid=False,
                  server="http://localhost:5279"):
     """Print all downloaded claims to a temporary file and read that file."""
     if show_out in ("name"):
@@ -120,7 +121,7 @@ def print_claims(blocks=False, cid=False, blobs=True, size=True,
                             typ=False, ch=show_channel, ch_online=False,
                             name=name, title=title, path=path,
                             sanitize=True,
-                            start=1, end=0, channel=channel, invalid=False,
+                            start=1, end=0, channel=channel, invalid=invalid,
                             file=fp.name, fdate=False, sep=";",
                             server=server)
         fp.seek(0)

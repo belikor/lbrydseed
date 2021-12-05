@@ -255,6 +255,75 @@ class ListPage:
                                                  font=self.txt_lst_font)
 
 
+class ListInvalidPage:
+    """Mixin class to provide the list of invalid claims page."""
+    def setup_page_list_inv(self, parent):
+        self.setup_top_list_inv(parent)
+        self.setup_textbox_list_inv(parent)
+
+    def setup_top_list_inv(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_list_inv(frame, start=0)
+        self.setup_grid_check_list_inv(frame, start=2)
+        self.setup_grid_radio_list_inv(frame, start=7)
+        self.setup_grid_info_list_inv(frame, start=8)
+
+    def setup_grid_top_list_inv(self, parent, start=0):
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="List claims",
+                                b_command=self.list_inv_claims,
+                                l_text=("List all locally downloaded claims "
+                                        "that have become 'invalid'.\n"
+                                        "This operation may take "
+                                        "a long time, as it needs to "
+                                        "search for each claim online."),
+                                start=start)
+
+        entry, label = \
+            blocks.setup_entry_gen(parent,
+                                   font=self.e_font,
+                                   text_var=self.entry_chan,
+                                   l_text="Filter by channel name",
+                                   start=start+1)
+        entry.bind("<<Activate>>", blocks.f_with_event(self.list_inv_claims))
+
+    def setup_grid_check_list_inv(self, parent, start=0):
+        blocks.setup_check_list(parent,
+                                blocks_var=self.check_lst_blks,
+                                cid_var=self.check_lst_cid,
+                                blobs_var=self.check_lst_blobs,
+                                size_var=self.check_lst_size,
+                                show_ch_var=self.check_lst_show_ch,
+                                start=start)
+
+    def setup_grid_radio_list_inv(self, parent, start=0):
+        frame = ttk.Frame(parent, relief="groove", borderwidth=2)
+        frame.grid(row=start, column=1, sticky=tk.W + tk.E + tk.N)
+
+        blocks.setup_radio_list(frame,
+                                name_var=self.rad_lst_name,
+                                start=0)
+
+    def setup_grid_info_list_inv(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("'Invalid' claims are those which "
+                               "were downloaded at one point "
+                               "but then they were removed\n"
+                               "by their authors, thus the claims "
+                               "cannot be resolved online, "
+                               "nor can they be re-downloaded.\n"
+                               "The blobs can be considered orphaned, "
+                               "and they can be removed "
+                               "to free space in the hard drive."))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_list_inv(self, parent):
+        self.textbox_list_inv = blocks.setup_textbox(parent,
+                                                     font=self.txt_lst_font)
+
+
 class ListChPage:
     """Mixin class to provide the list channel claims to the application."""
     def setup_page_ch_claims(self, parent):

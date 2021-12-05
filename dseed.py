@@ -41,7 +41,7 @@ class Application(ttk.Frame,
                   pages.ConfigPage,
                   pages.TrendPage, pages.SearchPage,
                   pages.DownloadChPage, pages.DownloadSinglePage,
-                  pages.ListPage, pages.ListChPage,
+                  pages.ListPage, pages.ListInvalidPage, pages.ListChPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
                   pages.SupportListPage, pages.SupportAddPage, pages.SeedPage,
                   pages.ControllingClaimsPage):
@@ -80,8 +80,10 @@ class Application(ttk.Frame,
 
         self.note_sub_list = ttk.Notebook(page_s_list)
         page_list = ttk.Frame(self.note_sub_list)
+        page_list_inv = ttk.Frame(self.note_sub_list)
         page_ch_claims = ttk.Frame(self.note_sub_list)
         self.note_sub_list.add(page_list, text="List downloaded claims")
+        self.note_sub_list.add(page_list_inv, text="List invalid claims")
         self.note_sub_list.add(page_ch_claims, text="List channel claims")
         self.note_sub_list.pack(fill="both", expand=True)
 
@@ -135,6 +137,7 @@ class Application(ttk.Frame,
         self.setup_page_dch(page_dch)
         self.setup_page_d(page_d)
         self.setup_page_list(page_list)
+        self.setup_page_list_inv(page_list_inv)
         self.setup_page_ch_claims(page_ch_claims)
         self.setup_page_del(page_del)
         self.setup_page_delch(page_delch)
@@ -262,7 +265,7 @@ class Application(ttk.Frame,
 
         self.print_done(print_msg=True)
 
-    def list_claims(self):
+    def list_claims(self, invalid=False):
         """Print the claims in the textbox."""
         if not res.server_exists(server=self.server_var.get()):
             return False
@@ -278,10 +281,20 @@ class Application(ttk.Frame,
                                  show_channel=self.check_lst_show_ch.get(),
                                  show_out=self.rad_lst_name.get(),
                                  channel=self.entry_chan.get(),
+                                 invalid=invalid,
                                  server=self.server_var.get())
 
-        self.textbox_list.replace("1.0", tk.END, content)
+        if not content:
+            content = "No claims found"
+
+        if not invalid:
+            self.textbox_list.replace("1.0", tk.END, content)
+        else:
+            self.textbox_list_inv.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
+
+    def list_inv_claims(self):
+        self.list_claims(invalid=True)
 
     def resolve_ch_list(self, print_msg=True):
         """Resolve the channel to make sure it exists."""
