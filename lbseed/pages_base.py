@@ -80,7 +80,7 @@ class DownloadChPage:
     def setup_grid_top_dch(self, parent, start=0):
         blocks.setup_entry_gen(parent,
                                font=self.e_font,
-                               text_var=self.down_dir_var,
+                               text_var=self.entry_d_dir,
                                l_text=("Download directory. "
                                        "It defaults to your home directory."),
                                start=start)
@@ -113,18 +113,18 @@ class DownloadChPage:
         (self.chck_save_dch,
          self.chck_owndir_dch) = \
             blocks.setup_check_download(parent,
-                                        save_var=self.save_var,
-                                        own_dir_var=self.own_dir_var,
+                                        own_dir_var=self.check_d_own_dir,
+                                        save_var=self.check_d_save,
                                         enable_command=self.chck_enable_dch,
                                         start=start)
 
     def chck_enable_dch(self, force_second_var=True):
-        if self.save_var.get():
+        if self.check_d_save.get():
             if force_second_var:
-                self.own_dir_var.set(True)
+                self.check_d_own_dir.set(True)
             self.chck_owndir_dch["state"] = "normal"
         else:
-            self.own_dir_var.set(False)
+            self.check_d_own_dir.set(False)
             self.chck_owndir_dch["state"] = "disabled"
 
     def setup_info_dch(self, parent, start=0):
@@ -157,7 +157,7 @@ class DownloadSinglePage:
     def setup_grid_top_d(self, parent, start=0):
         blocks.setup_entry_gen(parent,
                                font=self.e_font,
-                               text_var=self.down_dir_var,
+                               text_var=self.entry_d_dir,
                                l_text=("Download directory. "
                                        "It defaults to your home directory."),
                                start=start)
@@ -181,18 +181,18 @@ class DownloadSinglePage:
         (self.chck_save_d,
          self.chck_owndir_d) = \
             blocks.setup_check_download(parent,
-                                        save_var=self.save_var,
-                                        own_dir_var=self.own_dir_var,
+                                        own_dir_var=self.check_d_own_dir,
+                                        save_var=self.check_d_save,
                                         enable_command=self.chck_enable_d,
                                         start=start)
 
     def chck_enable_d(self, force_second_var=True):
-        if self.save_var.get():
+        if self.check_d_save.get():
             if force_second_var:
-                self.own_dir_var.set(True)
+                self.check_d_own_dir.set(True)
             self.chck_owndir_d["state"] = "normal"
         else:
-            self.own_dir_var.set(False)
+            self.check_d_own_dir.set(False)
             self.chck_owndir_d["state"] = "disabled"
 
     def setup_info_d(self, parent, start=0):

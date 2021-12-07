@@ -121,8 +121,8 @@ def setup_button_gen(parent,
 
 
 def setup_check_download(parent,
-                         save_var=None,
                          own_dir_var=None,
+                         save_var=None,
                          enable_command=None,
                          start=0):
     """Setup for the checkbuttons to modify the download of claims."""

@@ -204,9 +204,9 @@ class Application(ttk.Frame,
 
         channels, numbers = self.validate_ch(print_msg=False)
 
-        ddir = res.check_download_dir(ddir=self.down_dir_var.get(),
+        ddir = res.check_download_dir(ddir=self.entry_d_dir.get(),
                                       server=self.server_var.get())
-        self.down_dir_var.set(ddir)
+        self.entry_d_dir.set(ddir)
 
         info = res.resolve_ch(channels, numbers, print_msg=print_msg,
                               server=self.server_var.get())
@@ -222,9 +222,9 @@ class Application(ttk.Frame,
 
         channels, numbers, info = self.resolve_ch(print_msg=False)
         actions.download_ch(channels, numbers, info,
-                            ddir=self.down_dir_var.get(),
-                            own_dir=self.own_dir_var.get(),
-                            save_file=self.save_var.get(),
+                            ddir=self.entry_d_dir.get(),
+                            own_dir=self.check_d_own_dir.get(),
+                            save_file=self.check_d_save.get(),
                             proceed=True,
                             server=self.server_var.get())
 
@@ -238,12 +238,13 @@ class Application(ttk.Frame,
         page = self.note.tab(self.note.select())["text"]
 
         if page == "Download":
-            ddir = res.check_download_dir(ddir=self.down_dir_var.get(),
+            ddir = res.check_download_dir(ddir=self.entry_d_dir.get(),
                                           server=self.server_var.get())
-            self.down_dir_var.set(ddir)
+            self.entry_d_dir.set(ddir)
             text = self.textbox_d.get("1.0", tk.END)
         elif page == "Delete":
             text = self.textbox_del.get("1.0", tk.END)
+
         claims = res.resolve_claims(text, print_msg=print_msg,
                                     server=self.server_var.get())
 
@@ -258,9 +259,9 @@ class Application(ttk.Frame,
 
         claims = self.resolve_claims(print_msg=False)
         actions.download_claims(claims,
-                                ddir=self.down_dir_var.get(),
-                                own_dir=self.own_dir_var.get(),
-                                save_file=self.save_var.get(),
+                                ddir=self.entry_d_dir.get(),
+                                own_dir=self.check_d_own_dir.get(),
+                                save_file=self.check_d_save.get(),
                                 server=self.server_var.get())
 
         self.print_done(print_msg=True)

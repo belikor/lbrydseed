@@ -61,13 +61,14 @@ class Variables:
 
         self.server_var = tk.StringVar()
         self.server_var.set("http://localhost:5279")
-        self.down_dir_var = tk.StringVar()
+
+        self.entry_d_dir = tk.StringVar()
         server = res.get_download_dir(server=self.server_var.get())
-        self.down_dir_var.set(server)
-        self.own_dir_var = tk.BooleanVar()
-        self.own_dir_var.set(True)
-        self.save_var = tk.BooleanVar()
-        self.save_var.set(True)
+        self.entry_d_dir.set(server)
+        self.check_d_own_dir = tk.BooleanVar()
+        self.check_d_own_dir.set(True)
+        self.check_d_save = tk.BooleanVar()
+        self.check_d_save.set(True)
 
         self.entry_chan = tk.StringVar()
 
