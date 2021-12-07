@@ -222,6 +222,7 @@ class Application(ttk.Frame,
 
         channels, numbers, info = self.resolve_ch(print_msg=False)
         actions.download_ch(channels, numbers, info,
+                            repost=self.check_d_repost.get(),
                             ddir=self.entry_d_dir.get(),
                             own_dir=self.check_d_own_dir.get(),
                             save_file=self.check_d_save.get(),
@@ -245,7 +246,9 @@ class Application(ttk.Frame,
         elif page == "Delete":
             text = self.textbox_del.get("1.0", tk.END)
 
-        claims = res.resolve_claims(text, print_msg=print_msg,
+        claims = res.resolve_claims(text,
+                                    repost=self.check_d_repost.get(),
+                                    print_msg=print_msg,
                                     server=self.server_var.get())
 
         self.print_done(print_msg=print_msg)
@@ -259,6 +262,7 @@ class Application(ttk.Frame,
 
         claims = self.resolve_claims(print_msg=False)
         actions.download_claims(claims,
+                                repost=self.check_d_repost.get(),
                                 ddir=self.entry_d_dir.get(),
                                 own_dir=self.check_d_own_dir.get(),
                                 save_file=self.check_d_save.get(),

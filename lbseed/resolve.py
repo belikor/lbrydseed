@@ -107,7 +107,8 @@ def resolve_ch(channels, numbers=None, print_msg=True,
     return resolve_info
 
 
-def resolve_claims(text, print_msg=True,
+def resolve_claims(text, repost=True,
+                   print_msg=True,
                    server="http://localhost:5279"):
     """Resolve claims to see if they actually exist."""
     split_lines = text.splitlines()
@@ -125,11 +126,13 @@ def resolve_claims(text, print_msg=True,
     out = []
 
     for num, line in enumerate(lines, start=1):
-        result = lbryt.search_item(line, print_error=False,
+        result = lbryt.search_item(uri=line, repost=repost,
+                                   print_error=False,
                                    server=server)
 
         if not result:
-            result = lbryt.search_item(cid=line, print_error=False,
+            result = lbryt.search_item(cid=line, repost=repost,
+                                       print_error=False,
                                        server=server)
 
         if not result:

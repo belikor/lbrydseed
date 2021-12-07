@@ -30,6 +30,7 @@ import lbrytools as lbryt
 
 
 def download_ch(channels, numbers, info,
+                repost=True,
                 ddir=None, own_dir=False, save_file=True,
                 proceed=False,
                 print_msg=True,
@@ -64,6 +65,7 @@ def download_ch(channels, numbers, info,
 
         lbryt.ch_download_latest(channel=channel,
                                  number=number,
+                                 repost=repost,
                                  ddir=ddir, own_dir=own_dir,
                                  save_file=save_file,
                                  server=server)
@@ -72,6 +74,7 @@ def download_ch(channels, numbers, info,
 
 
 def download_claims(claims,
+                    repost=True,
                     ddir=None, own_dir=False, save_file=True,
                     print_msg=True,
                     server="http://localhost:5279"):
@@ -89,6 +92,7 @@ def download_claims(claims,
         name = claim["name"]
         print(f"Claim {num}/{n_claims}, {name}")
         lbryt.download_single(cid=claim["claim_id"],
+                              repost=repost,
                               ddir=ddir, own_dir=own_dir,
                               save_file=save_file,
                               server=server)

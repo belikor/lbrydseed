@@ -75,7 +75,7 @@ class DownloadChPage:
         self.setup_grid_top_dch(frame, start=0)
         self.setup_grid_button_dch(frame, start=1)
         self.setup_grid_check_dch(frame, start=4)
-        self.setup_info_dch(frame, start=6)
+        self.setup_info_dch(frame, start=7)
 
     def setup_grid_top_dch(self, parent, start=0):
         blocks.setup_entry_gen(parent,
@@ -113,6 +113,7 @@ class DownloadChPage:
         (self.chck_save_dch,
          self.chck_owndir_dch) = \
             blocks.setup_check_download(parent,
+                                        repost_var=self.check_d_repost,
                                         own_dir_var=self.check_d_own_dir,
                                         save_var=self.check_d_save,
                                         enable_command=self.chck_enable_dch,
@@ -152,7 +153,7 @@ class DownloadSinglePage:
         self.setup_grid_top_d(frame, start=0)
         self.setup_grid_button_d(frame, start=1)
         self.setup_grid_check_d(frame, start=3)
-        self.setup_info_d(frame, start=5)
+        self.setup_info_d(frame, start=6)
 
     def setup_grid_top_d(self, parent, start=0):
         blocks.setup_entry_gen(parent,
@@ -181,6 +182,7 @@ class DownloadSinglePage:
         (self.chck_save_d,
          self.chck_owndir_d) = \
             blocks.setup_check_download(parent,
+                                        repost_var=self.check_d_repost,
                                         own_dir_var=self.check_d_own_dir,
                                         save_var=self.check_d_save,
                                         enable_command=self.chck_enable_d,

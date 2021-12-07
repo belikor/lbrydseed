@@ -65,6 +65,8 @@ class Variables:
         self.entry_d_dir = tk.StringVar()
         server = res.get_download_dir(server=self.server_var.get())
         self.entry_d_dir.set(server)
+        self.check_d_repost = tk.BooleanVar()
+        self.check_d_repost.set(True)
         self.check_d_own_dir = tk.BooleanVar()
         self.check_d_own_dir.set(True)
         self.check_d_save = tk.BooleanVar()
