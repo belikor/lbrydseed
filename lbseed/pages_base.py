@@ -103,7 +103,7 @@ class DownloadChPage:
 
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
-                                b_text="Download claims",
+                                b_text="Download channel claims",
                                 b_command=self.download_ch,
                                 l_text=("Start downloading the newest claims "
                                         "from the channels"),

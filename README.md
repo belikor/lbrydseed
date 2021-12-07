@@ -185,7 +185,7 @@ python dseed.py
 ```
 
 Enter the name of the channels, and a number of claims to download for each,
-then press `"Download claims"`.
+then press `"Download channel claims"`.
 
 ![lbryseed_download_channel](./img/g_lbrydseed_download_channel.png)
 
