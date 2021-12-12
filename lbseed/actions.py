@@ -104,6 +104,7 @@ def print_claims(blocks=False, cid=False, blobs=True, size=True,
                  show_channel=False,
                  show_out="name", channel=None,
                  invalid=False,
+                 reverse=False,
                  server="http://localhost:5279"):
     """Print all downloaded claims to a temporary file and read that file."""
     if show_out in ("name"):
@@ -119,18 +120,25 @@ def print_claims(blocks=False, cid=False, blobs=True, size=True,
         title = False
         path = True
 
+    output = lbryt.sort_items_size(reverse=False, invalid=invalid,
+                                   server=server)
+    if not output or not output["claims"]:
+        return False, 0, 0
+
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.print_summary(show="all",
-                            blocks=blocks, cid=cid, blobs=blobs, size=size,
-                            typ=False, ch=show_channel, ch_online=False,
-                            name=name, title=title, path=path,
-                            sanitize=True,
-                            start=1, end=0, channel=channel, invalid=invalid,
-                            file=fp.name, fdate=False, sep=";",
-                            server=server)
+        lbryt.print_items(output["claims"],
+                          show="all",
+                          blocks=blocks, cid=cid, blobs=blobs, size=size,
+                          typ=False, ch=show_channel, ch_online=False,
+                          name=name, title=title, path=path,
+                          sanitize=True,
+                          start=1, end=0, channel=channel,
+                          reverse=reverse,
+                          file=fp.name, fdate=False, sep=";",
+                          server=server)
         fp.seek(0)
         content = fp.read()
-    return content
+    return content, len(output["claims"]), output["total_size"]
 
 
 def print_ch_claims(channel,
@@ -159,13 +167,13 @@ def print_ch_claims(channel,
         return False
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        content = lbryt.print_sch_claims(output["claims"],
-                                         blocks=blocks, claim_id=claim_id,
-                                         typ=typ, ch_name=ch_name,
-                                         title=title, sanitize=True,
-                                         start=start, end=end,
-                                         reverse=reverse,
-                                         file=fp.name, fdate=False, sep=";")
+        lbryt.print_sch_claims(output["claims"],
+                               blocks=blocks, claim_id=claim_id,
+                               typ=typ, ch_name=ch_name,
+                               title=title, sanitize=True,
+                               start=start, end=end,
+                               reverse=reverse,
+                               file=fp.name, fdate=False, sep=";")
         fp.seek(0)
         content = fp.read()
     return content, len(output["claims"]), output["total_size"]

@@ -89,6 +89,14 @@ class Variables:
         self.check_lst_show_ch.set(True)
         self.rad_lst_name = tk.StringVar()
         self.rad_lst_name.set("name")
+        self.check_lst_reverse = tk.BooleanVar()
+        self.check_lst_reverse.set(True)
+        self.label_lst_info = tk.StringVar()
+        self.label_lst_info.set("Total claims: 0; "
+                                "total size: 0 GB")
+        self.label_lst_inv_info = tk.StringVar()
+        self.label_lst_inv_info.set("Total claims: 0; "
+                                    "total size: 0 GB")
 
         self.check_s_ch = tk.BooleanVar()
         self.check_s_ch.set(False)

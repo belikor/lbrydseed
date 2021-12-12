@@ -218,6 +218,8 @@ class ListPage:
         self.setup_grid_top_list(frame, start=0)
         self.setup_grid_check_list(frame, start=2)
         self.setup_grid_radio_list(frame, start=7)
+        self.setup_grid_check_reverse(frame, start=8)
+        self.setup_info_list(frame, start=9)
 
     def setup_grid_top_list(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -252,6 +254,18 @@ class ListPage:
                                 name_var=self.rad_lst_name,
                                 start=0)
 
+    def setup_grid_check_reverse(self, parent, start=0):
+        chk_reverse = \
+            ttk.Checkbutton(parent,
+                            variable=self.check_lst_reverse,
+                            text=("Show in descending order "
+                                  "(newer items first, older last)"))
+        chk_reverse.grid(row=start, column=1, sticky=tk.W, pady=2)
+
+    def setup_info_list(self, parent, start=0):
+        info = ttk.Label(parent, textvariable=self.label_lst_info)
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
     def setup_textbox_list(self, parent):
         self.textbox_list = blocks.setup_textbox(parent,
                                                  font=self.txt_lst_font)
@@ -269,7 +283,9 @@ class ListInvalidPage:
         self.setup_grid_top_list_inv(frame, start=0)
         self.setup_grid_check_list_inv(frame, start=2)
         self.setup_grid_radio_list_inv(frame, start=7)
-        self.setup_grid_info_list_inv(frame, start=8)
+        self.setup_grid_check_inv_reverse(frame, start=8)
+        self.setup_grid_info_list_inv(frame, start=9)
+        self.setup_info_list_inv(frame, start=10)
 
     def setup_grid_top_list_inv(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -308,6 +324,14 @@ class ListInvalidPage:
                                 name_var=self.rad_lst_name,
                                 start=0)
 
+    def setup_grid_check_inv_reverse(self, parent, start=0):
+        chk_reverse = \
+            ttk.Checkbutton(parent,
+                            variable=self.check_lst_reverse,
+                            text=("Show in descending order "
+                                  "(newer items first, older last)"))
+        chk_reverse.grid(row=start, column=1, sticky=tk.W, pady=2)
+
     def setup_grid_info_list_inv(self, parent, start=0):
         info = ttk.Label(parent,
                          text=("'Invalid' claims are those which "
@@ -319,6 +343,10 @@ class ListInvalidPage:
                                "The blobs can be considered orphaned, "
                                "and they can be removed "
                                "to free space in the hard drive."))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_info_list_inv(self, parent, start=0):
+        info = ttk.Label(parent, textvariable=self.label_lst_inv_info)
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_list_inv(self, parent):

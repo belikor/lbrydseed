@@ -278,7 +278,7 @@ class Application(ttk.Frame,
         if self.entry_chan.get():
             self.check_lst_show_ch.set(True)
 
-        content = \
+        content, number, size = \
             actions.print_claims(blocks=self.check_lst_blks.get(),
                                  cid=self.check_lst_cid.get(),
                                  blobs=self.check_lst_blobs.get(),
@@ -287,15 +287,22 @@ class Application(ttk.Frame,
                                  show_out=self.rad_lst_name.get(),
                                  channel=self.entry_chan.get(),
                                  invalid=invalid,
+                                 reverse=self.check_lst_reverse.get(),
                                  server=self.server_var.get())
 
         if not content:
             content = "No claims found"
 
+        size_gb = size/(1024**3)
+
         if not invalid:
             self.textbox_list.replace("1.0", tk.END, content)
+            self.label_lst_info.set(f"Claims: {number}; "
+                                    f"total size: {size_gb:.4f} GB")
         else:
             self.textbox_list_inv.replace("1.0", tk.END, content)
+            self.label_lst_inv_info.set(f"Claims: {number}; "
+                                        f"total size: {size_gb:.4f} GB")
         self.print_done(print_msg=True)
 
     def list_inv_claims(self):
