@@ -295,8 +295,9 @@ class ListInvalidPage:
                                 l_text=("List all locally downloaded claims "
                                         "that have become 'invalid'.\n"
                                         "This operation may take "
-                                        "a long time, as it needs to "
-                                        "search for each claim online."),
+                                        "a long time as it needs to "
+                                        "search all previously downloaded\n"
+                                        "claims online."),
                                 start=start)
 
         entry, label = \
@@ -336,12 +337,14 @@ class ListInvalidPage:
         info = ttk.Label(parent,
                          text=("'Invalid' claims are those which "
                                "were downloaded at one point "
-                               "but then they were removed\n"
-                               "by their authors, thus the claims "
-                               "cannot be resolved online, "
+                               "but then they were removed "
+                               "by their authors,\n"
+                               "thus the claims "
+                               "cannot be resolved online any more, "
                                "nor can they be re-downloaded.\n"
-                               "The blobs can be considered orphaned, "
-                               "and they can be removed "
+                               "The blobs belonging to these claims "
+                               "can be considered orphaned, "
+                               "and they can be removed\n"
                                "to free space in the hard drive."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
