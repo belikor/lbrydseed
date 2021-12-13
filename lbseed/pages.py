@@ -92,10 +92,10 @@ class Variables:
         self.check_lst_reverse = tk.BooleanVar()
         self.check_lst_reverse.set(True)
         self.label_lst_info = tk.StringVar()
-        self.label_lst_info.set("Total claims: 0; "
+        self.label_lst_info.set("Claims: 0; "
                                 "total size: 0 GB")
         self.label_lst_inv_info = tk.StringVar()
-        self.label_lst_inv_info.set("Total claims: 0; "
+        self.label_lst_inv_info.set("Claims: 0; "
                                     "total size: 0 GB")
 
         self.check_s_ch = tk.BooleanVar()
@@ -179,7 +179,7 @@ class Variables:
         self.chck_chl_reverse = tk.BooleanVar()
         self.chck_chl_reverse.set(True)
         self.label_chl_info = tk.StringVar()
-        self.label_chl_info.set("Total claims: 0; "
+        self.label_chl_info.set("Claims: 0; "
                                 "total size: 0 GB")
 
 
