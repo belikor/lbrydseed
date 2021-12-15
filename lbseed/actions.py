@@ -122,8 +122,8 @@ def print_claims(blocks=False, cid=False, blobs=True, size=True,
 
     output = lbryt.sort_items_size(reverse=False, invalid=invalid,
                                    server=server)
-    if not output or not output["claims"]:
-        return False, 0, 0
+    if not output:
+        return False, 0, 0, 0
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         lbryt.print_items(output["claims"],
@@ -138,7 +138,7 @@ def print_claims(blocks=False, cid=False, blobs=True, size=True,
                           server=server)
         fp.seek(0)
         content = fp.read()
-    return content, len(output["claims"]), output["total_size"]
+    return content, len(output["claims"]), output["size"], output["duration"]
 
 
 def print_ch_claims(channel,
@@ -164,7 +164,7 @@ def print_ch_claims(channel,
                                             server=server)
 
     if not output:
-        return False
+        return False, 0, 0, 0
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         lbryt.print_sch_claims(output["claims"],
@@ -176,7 +176,25 @@ def print_ch_claims(channel,
                                file=fp.name, fdate=False, sep=";")
         fp.seek(0)
         content = fp.read()
-    return content, len(output["claims"]), output["total_size"]
+    return content, len(output["claims"]), output["size"], output["duration"]
+
+
+def list_text_size(number, size, seconds):
+    """Calculate size and duration of the claims."""
+    size_gb = size/(1024**3)
+    hrs = seconds / 3600
+    days = hrs / 24
+
+    hr = seconds // 3600
+    mi = (seconds % 3600) // 60
+    sec = (seconds % 3600) % 60
+
+    text = (f"Claims: {number}; "
+            f"total size: {size_gb:.4f} GB; "
+            f"total duration: {hr} h {mi} min {sec} s, "
+            f"or {days:.4f} days")
+
+    return text
 
 
 def delete_claims(claims, what="media",

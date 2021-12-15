@@ -93,10 +93,12 @@ class Variables:
         self.check_lst_reverse.set(True)
         self.label_lst_info = tk.StringVar()
         self.label_lst_info.set("Claims: 0; "
-                                "total size: 0 GB")
+                                "total size: 0 GB; "
+                                "total duration: 0 h")
         self.label_lst_inv_info = tk.StringVar()
         self.label_lst_inv_info.set("Claims: 0; "
-                                    "total size: 0 GB")
+                                    "total size: 0 GB; "
+                                    "total duration: 0 h")
 
         self.check_s_ch = tk.BooleanVar()
         self.check_s_ch.set(False)
@@ -180,7 +182,8 @@ class Variables:
         self.chck_chl_reverse.set(True)
         self.label_chl_info = tk.StringVar()
         self.label_chl_info.set("Claims: 0; "
-                                "total size: 0 GB")
+                                "total size: 0 GB; "
+                                "total duration: 0 h")
 
 
 # Use the classes to prevent warnings by code checkers (flake8)

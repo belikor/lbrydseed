@@ -278,7 +278,7 @@ class Application(ttk.Frame,
         if self.entry_chan.get():
             self.check_lst_show_ch.set(True)
 
-        content, number, size = \
+        content, number, size, seconds = \
             actions.print_claims(blocks=self.check_lst_blks.get(),
                                  cid=self.check_lst_cid.get(),
                                  blobs=self.check_lst_blobs.get(),
@@ -293,16 +293,14 @@ class Application(ttk.Frame,
         if not content:
             content = "No claims found"
 
-        size_gb = size/(1024**3)
+        text = actions.list_text_size(number, size, seconds)
 
         if not invalid:
             self.textbox_list.replace("1.0", tk.END, content)
-            self.label_lst_info.set(f"Claims: {number}; "
-                                    f"total size: {size_gb:.4f} GB")
+            self.label_lst_info.set(text)
         else:
             self.textbox_list_inv.replace("1.0", tk.END, content)
-            self.label_lst_inv_info.set(f"Claims: {number}; "
-                                        f"total size: {size_gb:.4f} GB")
+            self.label_lst_inv_info.set(text)
         self.print_done(print_msg=True)
 
     def list_inv_claims(self):
@@ -343,7 +341,7 @@ class Application(ttk.Frame,
         if not channel:
             return False
 
-        content, number, size = \
+        content, number, size, seconds = \
             actions.print_ch_claims(channel,
                                     number=self.spin_chl_num.get(),
                                     blocks=self.chck_chl_blk.get(),
@@ -355,11 +353,10 @@ class Application(ttk.Frame,
                                     reverse=self.chck_chl_reverse.get(),
                                     server=self.server_var.get())
 
-        size_gb = size/(1024**3)
+        text = actions.list_text_size(number, size, seconds)
 
         self.textbox_ch_list.replace("1.0", tk.END, content)
-        self.label_chl_info.set(f"Claims: {number}; "
-                                f"total size: {size_gb:.4f} GB")
+        self.label_chl_info.set(text)
         self.print_done(print_msg=True)
 
     def delete_claims(self):
