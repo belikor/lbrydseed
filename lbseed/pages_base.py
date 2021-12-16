@@ -263,8 +263,19 @@ class ListPage:
         chk_reverse.grid(row=start, column=1, sticky=tk.W, pady=2)
 
     def setup_info_list(self, parent, start=0):
+        desc = ttk.Label(parent,
+                         text=("The 'size' corresponds to the size "
+                               "of the downloaded blobs; "
+                               "if all media files were to exist\n"
+                               "the files would take double the space "
+                               "on the hard drive.\n"
+                               "The 'duration' considers only those "
+                               "claims that have a duration, such as "
+                               "video and audio files."))
+        desc.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
         info = ttk.Label(parent, textvariable=self.label_lst_info)
-        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+        info.grid(row=start+1, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_list(self, parent):
         self.textbox_list = blocks.setup_textbox(parent,
@@ -349,8 +360,19 @@ class ListInvalidPage:
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_info_list_inv(self, parent, start=0):
+        desc = ttk.Label(parent,
+                         text=("The 'size' corresponds to the size "
+                               "of the downloaded blobs; "
+                               "if all media files were to exist\n"
+                               "the files would take double the space "
+                               "on the hard drive.\n"
+                               "The 'duration' considers only those "
+                               "claims that have a duration, such as "
+                               "video and audio files."))
+        desc.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
         info = ttk.Label(parent, textvariable=self.label_lst_inv_info)
-        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+        info.grid(row=start+1, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_list_inv(self, parent):
         self.textbox_list_inv = blocks.setup_textbox(parent,
@@ -418,8 +440,19 @@ class ListChPage:
                                    start=start)
 
     def setup_info_ch_list(self, parent, start=0):
+        desc = ttk.Label(parent,
+                         text=("The 'size' corresponds to the size "
+                               "of the downloaded blobs; "
+                               "if all media files were to exist\n"
+                               "the files would take double the space "
+                               "on the hard drive.\n"
+                               "The 'duration' considers only those "
+                               "claims that have a duration, such as "
+                               "video and audio files."))
+        desc.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
         info = ttk.Label(parent, textvariable=self.label_chl_info)
-        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+        info.grid(row=start+1, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_ch_list(self, parent):
         self.textbox_ch_list = blocks.setup_textbox(parent,
