@@ -113,6 +113,8 @@ class Variables:
 
         self.rad_s_support = tk.StringVar()
         self.rad_s_support.set("create")
+        self.check_s_supp_inv = tk.BooleanVar()
+        self.check_s_supp_inv.set(False)
 
         self.check_seed_plot = tk.BooleanVar()
         self.check_seed_plot.set(False)

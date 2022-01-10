@@ -321,6 +321,7 @@ def show_claims_bids(show_controlling=False,
 
 
 def add_supports(claims, supports, support_style="create",
+                 invalid=False,
                  print_msg=True,
                  server="http://localhost:5279"):
     """Add supports to the claims."""
@@ -330,10 +331,17 @@ def add_supports(claims, supports, support_style="create",
 
     n_claims = len(claims)
 
+    if invalid:
+        all_supports = lbryt.get_all_supports(server=server)
+        invalids = all_supports['invalid_supports']
+
     for num, pair in enumerate(zip(claims, supports), start=1):
         claim = pair[0]
         number = pair[1]
-        name = claim["name"]
+        if invalid:
+            name = claim
+        else:
+            name = claim["name"]
 
         print(f"Claim {num}/{n_claims}, {name}")
         if support_style in ("create"):
@@ -341,9 +349,20 @@ def add_supports(claims, supports, support_style="create",
                                  amount=number,
                                  server=server)
         elif support_style in ("abandon_change"):
-            lbryt.abandon_support(cid=claim["claim_id"],
-                                  keep=number,
-                                  server=server)
+            if invalid:
+                result = lbryt.abandon_support_inv(invalids=invalids,
+                                                   cid=name,
+                                                   keep=number,
+                                                   server=server)
+                if not result:
+                    lbryt.abandon_support_inv(invalids=invalids,
+                                              name=name,
+                                              keep=number,
+                                              server=server)
+            else:
+                lbryt.abandon_support(cid=claim["claim_id"],
+                                      keep=number,
+                                      server=server)
         elif support_style in ("target"):
             lbryt.target_support(cid=claim["claim_id"],
                                  target=number,

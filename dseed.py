@@ -458,13 +458,17 @@ class Application(ttk.Frame,
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        claims, supports = self.validate_g_claims(print_msg=False)
-
-        claims, supports = \
-            res.resolve_claims_pairs(claims, supports,
-                                     show_support=True,
-                                     print_msg=print_msg,
-                                     server=self.server_var.get())
+        if self.check_s_supp_inv.get():
+            claims, supports = self.validate_g_claims(print_msg=True)
+            print("Assuming the claims are 'invalid' claims, "
+                  "so they won't be resolved online.")
+        else:
+            claims, supports = self.validate_g_claims(print_msg=False)
+            claims, supports = \
+                res.resolve_claims_pairs(claims, supports,
+                                         show_support=True,
+                                         print_msg=print_msg,
+                                         server=self.server_var.get())
 
         self.print_done(print_msg=print_msg)
 
@@ -479,6 +483,7 @@ class Application(ttk.Frame,
 
         actions.add_supports(claims, supports,
                              support_style=self.rad_s_support.get(),
+                             invalid=self.check_s_supp_inv.get(),
                              server=self.server_var.get())
 
         self.print_done(print_msg=True)

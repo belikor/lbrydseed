@@ -459,6 +459,8 @@ def setup_radio_delete(parent,
 
 def setup_radio_support(parent,
                         support_how_var=None,
+                        support_inv_var=None,
+                        support_inv_cmd=None,
                         start=0):
     """Setup the radiobuttons to choose how to support claims."""
     r_create = ttk.Radiobutton(parent,
@@ -504,9 +506,25 @@ def setup_radio_support(parent,
                                variable=support_how_var,
                                value="target")
 
+    chck_inv = ttk.Checkbutton(parent,
+                               variable=support_inv_var,
+                               text=("Consider the claims as 'invalid'. "
+                                     "Invalid claims no longer resolve "
+                                     "online\n"
+                                     "so their support "
+                                     "should be removed or diminished.\n"
+                                     "These are shown in the list "
+                                     "of supports within '[brackets]'.\n"
+                                     "In the textbox, write them "
+                                     "without the brackets."),
+                               command=support_inv_cmd)
+
     r_create.grid(row=start, column=1, sticky=tk.W, pady=4)
     r_abandon.grid(row=start+1, column=1, sticky=tk.W, pady=4)
     r_target.grid(row=start+2, column=1, sticky=tk.W, pady=4)
+    chck_inv.grid(row=start+3, column=1, sticky=tk.W)
+
+    return r_create, r_abandon, r_target
 
 
 def setup_radio_trend_claims(parent,

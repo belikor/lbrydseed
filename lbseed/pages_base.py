@@ -622,7 +622,7 @@ class SupportAddPage:
         frame.pack(padx=4, pady=4)
         self.setup_grid_button_add_sup(frame, start=0)
         self.setup_grid_radio_support(frame, start=3)
-        self.setup_info_support_add(frame, start=6)
+        self.setup_info_support_add(frame, start=7)
 
     def setup_grid_button_add_sup(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -649,9 +649,26 @@ class SupportAddPage:
                                 start=start+2)
 
     def setup_grid_radio_support(self, parent, start=0):
-        blocks.setup_radio_support(parent,
-                                   support_how_var=self.rad_s_support,
-                                   start=start)
+        (self.r_s_create,
+         self.r_s_abandon,
+         self.r_s_target) = \
+             blocks.setup_radio_support(parent,
+                                        support_how_var=self.rad_s_support,
+                                        support_inv_var=self.check_s_supp_inv,
+                                        support_inv_cmd=self.test_support_inv,
+                                        start=start)
+
+    def test_support_inv(self):
+        if self.check_s_supp_inv.get():
+            self.rad_s_support.set("abandon_change")
+            self.r_s_create["state"] = "disabled"
+            self.r_s_abandon["state"] = "normal"
+            self.r_s_target["state"] = "disabled"
+        else:
+            self.rad_s_support.set("create")
+            self.r_s_create["state"] = "normal"
+            self.r_s_abandon["state"] = "normal"
+            self.r_s_target["state"] = "normal"
 
     def setup_info_support_add(self, parent, start=0):
         info = ttk.Label(parent,
@@ -659,7 +676,7 @@ class SupportAddPage:
                                "that is provided by the author, "
                                "and by other users.\n"
                                "We don't control this 'base' support, "
-                               "so we can only add to it.\n"
+                               "we can only add to it.\n"
                                "total = base + ours\n"
                                "\n"
                                "Add a claim, a comma, "
