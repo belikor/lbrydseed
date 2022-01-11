@@ -257,6 +257,7 @@ def setup_check_support(parent,
                         show_ch_var=None,
                         show_claims_var=None,
                         show_cid_var=None,
+                        show_invalid_var=None,
                         combine_var=None,
                         start=0):
     """Setup the checkbuttons to list supports."""
@@ -280,6 +281,11 @@ def setup_check_support(parent,
                                    variable=combine_var,
                                    text="Show combined trending score")
     chck_combine.grid(row=start+3, column=1, sticky=tk.W)
+
+    chck_inv = ttk.Checkbutton(parent,
+                               variable=show_invalid_var,
+                               text="Only show 'invalid' claims")
+    chck_inv.grid(row=start+4, column=1, sticky=tk.W)
 
 
 def setup_check_controlling(parent,

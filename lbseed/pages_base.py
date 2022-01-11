@@ -572,7 +572,7 @@ class SupportListPage:
         frame.pack(padx=4, pady=4)
         self.setup_grid_button_support(frame, start=0)
         self.setup_grid_check_support(frame, start=1)
-        self.setup_info_support(frame, start=5)
+        self.setup_info_support(frame, start=6)
 
     def setup_grid_button_support(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -587,6 +587,7 @@ class SupportListPage:
                                    show_ch_var=self.check_s_ch,
                                    show_claims_var=self.check_s_claims,
                                    show_cid_var=self.check_s_cid,
+                                   show_invalid_var=self.check_s_invalid,
                                    combine_var=self.check_s_combine,
                                    start=start)
 
@@ -597,7 +598,12 @@ class SupportListPage:
                                "the total amount of support, "
                                "and its trending score.\n"
                                "Supports will appear only after they "
-                               "have been confirmed in the blockchain."))
+                               "have been confirmed in the blockchain.\n"
+                               "Claims that have become 'invalid' "
+                               "(removed by their authors) will appear\n"
+                               "surrounded by '[brackets]'. "
+                               "It is best to remove the support completely "
+                               "from these claims."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_support(self, parent):

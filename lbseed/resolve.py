@@ -183,7 +183,7 @@ def resolve_claims_pairs(claims, numbers,
                 existing = supp["existing_support"]
                 base = supp["base_support"]
                 old = supp["old_support"]
-                info += (f" ; ex: {existing:.8f}"
+                info += (f" ; curr: {existing:.8f}"
                          f" ; base: {base:.8f}"
                          f" ; old: {old:.8f}")
 

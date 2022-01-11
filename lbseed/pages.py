@@ -108,6 +108,11 @@ class Variables:
         self.check_s_cid.set(False)
         self.check_s_combine = tk.BooleanVar()
         self.check_s_combine.set(True)
+        self.check_s_invalid = tk.BooleanVar()
+        self.check_s_invalid.set(False)
+
+        self.rad_s_support = tk.StringVar()
+        self.rad_s_support.set("create")
 
         self.check_seed_plot = tk.BooleanVar()
         self.check_seed_plot.set(False)
@@ -130,9 +135,6 @@ class Variables:
         self.check_c_reposts.set(True)
         self.check_c_compact = tk.BooleanVar()
         self.check_c_compact.set(True)
-
-        self.rad_s_support = tk.StringVar()
-        self.rad_s_support.set("create")
 
         self.spin_page = tk.IntVar()
         self.spin_page.set(1)

@@ -248,10 +248,11 @@ def clean_ch(channels, numbers, info,
             print()
 
 
-def list_supports(show_ch_var=False,
-                  show_claims_var=True,
-                  show_cid_var=False,
-                  combine_var=True,
+def list_supports(show_ch=False,
+                  show_claims=True,
+                  show_cid=False,
+                  show_combined=True,
+                  show_invalid=False,
                   print_msg=True,
                   server="http://localhost:5279"):
     """List supports."""
@@ -260,10 +261,11 @@ def list_supports(show_ch_var=False,
         print(80 * "-")
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.list_supports(claim_id=show_cid_var,
-                            combine=combine_var,
-                            claims=show_claims_var,
-                            channels=show_ch_var,
+        lbryt.list_supports(claim_id=show_cid,
+                            invalid=show_invalid,
+                            combine=show_combined,
+                            claims=show_claims,
+                            channels=show_ch,
                             file=fp.name, fdate=False, sep=";",
                             server=server)
         fp.seek(0)
