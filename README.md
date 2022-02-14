@@ -11,6 +11,8 @@ to add more functionality to the basic `lbrynet` daemon.
 
 This program is released as free software under the MIT license.
 
+![lbrydseed ch claims](./img/lbrydseed-ch-claims.png)
+
 ## Installation
 
 You must have Python installed. Most Linux distributions come with Python
