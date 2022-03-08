@@ -23,31 +23,54 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER         #
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
-"""Methods to actually do something with the interface."""
-from lbseed.act_download import download_ch
-from lbseed.act_download import download_claims
-from lbseed.act_list import print_claims
-from lbseed.act_list import print_ch_claims
-from lbseed.act_list import list_text_size
-from lbseed.act_delete import delete_claims
-from lbseed.act_delete import clean_ch
-from lbseed.act_supports import list_supports
-from lbseed.act_supports import add_supports
-from lbseed.act_search import print_trending
-from lbseed.act_search import return_search
-from lbseed.act_others import seeding_ratio
-from lbseed.act_others import show_claims_bids
+"""Other methods with the interface."""
+import tempfile
 
-True if download_ch else False
-True if download_claims else False
-True if print_claims else False
-True if print_ch_claims else False
-True if list_text_size else False
-True if delete_claims else False
-True if clean_ch else False
-True if list_supports else False
-True if add_supports else False
-True if print_trending else False
-True if return_search else False
-True if seeding_ratio else False
-True if show_claims_bids else False
+import lbrytools as lbryt
+
+
+def seeding_ratio(frame=None, plot_hst_var=True,
+                  server="http://localhost:5279"):
+    """List seeding ratio estimate."""
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        lbryt.print_blobs_ratio(data_dir=None,
+                                plot_hst=plot_hst_var,
+                                file=fp.name, fdate=False, sep=";",
+                                tk_frame=frame,
+                                server=server)
+        fp.seek(0)
+        content = fp.read()
+
+    return content
+
+
+def show_claims_bids(show_controlling=False,
+                     show_non_controlling=True,
+                     skip_repost=False,
+                     channels_only=False,
+                     show_claim_id=False,
+                     show_repost_status=True,
+                     show_competing=True,
+                     show_reposts=True,
+                     compact=False,
+                     server="http://localhost:5279"):
+    """List the claims that we have and share a name with others.
+
+    See if we have the controlling claim with the highest bid.
+    """
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        lbryt.claims_bids(show_controlling=show_controlling,
+                          show_non_controlling=show_non_controlling,
+                          skip_repost=skip_repost,
+                          channels_only=channels_only,
+                          show_claim_id=show_claim_id,
+                          show_repost_status=show_repost_status,
+                          show_competing=show_competing,
+                          show_reposts=show_reposts,
+                          compact=compact,
+                          file=fp.name, fdate=False, sep=";",
+                          server=server)
+        fp.seek(0)
+        content = fp.read()
+
+    return content

@@ -23,31 +23,56 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER         #
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
-"""Methods to actually do something with the interface."""
-from lbseed.act_download import download_ch
-from lbseed.act_download import download_claims
-from lbseed.act_list import print_claims
-from lbseed.act_list import print_ch_claims
-from lbseed.act_list import list_text_size
-from lbseed.act_delete import delete_claims
-from lbseed.act_delete import clean_ch
-from lbseed.act_supports import list_supports
-from lbseed.act_supports import add_supports
-from lbseed.act_search import print_trending
-from lbseed.act_search import return_search
-from lbseed.act_others import seeding_ratio
-from lbseed.act_others import show_claims_bids
+"""Methods to delete claims with the interface."""
+import lbrytools as lbryt
 
-True if download_ch else False
-True if download_claims else False
-True if print_claims else False
-True if print_ch_claims else False
-True if list_text_size else False
-True if delete_claims else False
-True if clean_ch else False
-True if list_supports else False
-True if add_supports else False
-True if print_trending else False
-True if return_search else False
-True if seeding_ratio else False
-True if show_claims_bids else False
+
+def delete_claims(claims, what="media",
+                  print_msg=True,
+                  server="http://localhost:5279"):
+    """Delete individual claims."""
+    if print_msg:
+        print("Delete claims")
+        print(80 * "-")
+
+    n_claims = len(claims)
+
+    for num, claim in enumerate(claims, start=1):
+        if not claim:
+            continue
+
+        name = claim["name"]
+        print(f"Claim {num}/{n_claims}, {name}")
+        lbryt.delete_single(cid=claim["claim_id"],
+                            what=what,
+                            server=server)
+        if num < n_claims:
+            print()
+
+
+def clean_ch(channels, numbers, info,
+             what="media",
+             print_msg=True,
+             server="http://localhost:5279"):
+    """Delete claims from channels."""
+    if print_msg:
+        print("Delete claims from channels")
+        print(80 * "-")
+
+    n_channels = len(channels)
+
+    for num, group in enumerate(zip(channels, numbers, info), start=1):
+        channel = group[0]
+        number = group[1]
+        information = group[2]
+
+        if "NOT_FOUND" in information or "not a valid url" in information:
+            continue
+
+        print(f"Channel {num}/{n_channels}, '{information}'")
+        lbryt.ch_cleanup(channel=channel,
+                         number=number,
+                         what=what,
+                         server=server)
+        if num < n_channels:
+            print()
