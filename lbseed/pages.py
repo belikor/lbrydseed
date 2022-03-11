@@ -46,6 +46,7 @@ import lbseed.resolve as res
 from .pages_base import (ConfigPage,
                          DownloadChPage, DownloadSinglePage,
                          ListPage, ListInvalidPage, ListChPage,
+                         ListChSubsPage,
                          DeleteSinglePage, DeleteChPage,
                          SupportListPage, SupportAddPage)
 from .pages_adv import SeedPage, ControllingClaimsPage, TrendPage, SearchPage
@@ -99,6 +100,15 @@ class Variables:
         self.label_lst_inv_info.set("Claims: 0; "
                                     "total size: 0 GB; "
                                     "total duration: 0 h")
+
+        self.rad_subs_shared = tk.StringVar()
+        self.rad_subs_shared.set("shared")
+        self.rad_subs_valid = tk.StringVar()
+        self.rad_subs_valid.set("show_valid")
+        self.spin_subs_threads = tk.IntVar()
+        self.spin_subs_threads.set(32)
+        self.check_subs_claim_id = tk.BooleanVar()
+        self.check_subs_claim_id.set(False)
 
         self.check_s_ch = tk.BooleanVar()
         self.check_s_ch.set(False)
@@ -197,6 +207,7 @@ True if DownloadSinglePage else False
 True if ListPage else False
 True if ListInvalidPage else False
 True if ListChPage else False
+True if ListChSubsPage else False
 True if DeleteSinglePage else False
 True if DeleteChPage else False
 True if SupportListPage else False

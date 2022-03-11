@@ -459,6 +459,79 @@ class ListChPage:
                                                     font=self.txt_lst_font)
 
 
+class ListChSubsPage:
+    """Mixing class to provide the list command for subscribed channels."""
+    def setup_page_ch_subs(self, parent):
+        self.setup_top_ch_subs_list(parent)
+        self.setup_textbox_ch_subs_list(parent)
+
+    def setup_top_ch_subs_list(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_ch_subs(frame, start=0)
+        self.setup_grid_rad_ch_subs(frame, start=1)
+        self.setup_grid_spin_subs(frame, start=4)
+        self.setup_info_ch_subs(frame, start=5)
+
+    def setup_grid_top_ch_subs(self, parent, start=0):
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="List subscribed channels",
+                                b_command=self.list_ch_subs,
+                                l_text=("The subscribed channels "
+                                        "reside in the wallet file\n"
+                                        "but they are resolved online "
+                                        "to confirm that they exist"),
+                                start=start)
+
+    def setup_grid_rad_ch_subs(self, parent, start=0):
+        frame = ttk.Frame(parent, relief="groove", borderwidth=2)
+        frame.grid(row=start, column=1, sticky=tk.W + tk.E + tk.N)
+
+        blocks.setup_radio_ch_subs_shared(frame,
+                                          shared_var=self.rad_subs_shared,
+                                          start=0)
+
+        frame2 = ttk.Frame(parent, relief="groove", borderwidth=2)
+        frame2.grid(row=start+1, column=1, sticky=tk.W + tk.E + tk.N)
+
+        blocks.setup_radio_ch_subs_valid(frame2,
+                                         show_var=self.rad_subs_valid,
+                                         start=1)
+
+        chck_cid = ttk.Checkbutton(parent,
+                                   variable=self.check_subs_claim_id,
+                                   text="Show claim ID (40-character string)")
+        chck_cid.grid(row=start+2, column=1, sticky=tk.W)
+
+    def setup_grid_spin_subs(self, parent, start=0):
+        spin_num, label = \
+            blocks.setup_spin_page(parent,
+                                   s_text_var=self.spin_subs_threads,
+                                   s_command=self.list_ch_subs,
+                                   l_text=("Number of threads to resolve "
+                                           "the channels; "
+                                           "use 0 to avoid threads"),
+                                   start=start)
+        spin_num.set(32)
+        spin_num["from_"] = 0
+        spin_num["to"] = 256
+
+    def setup_info_ch_subs(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("Channel subscriptions reside "
+                               "in the wallet file in our local computer, "
+                               "and optionally on Odysee servers,\n"
+                               "if synchronization has been enabled "
+                               "in the configuration file for 'lbrynet'."))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_ch_subs_list(self, parent):
+        self.textbox_ch_subs_list = \
+            blocks.setup_textbox(parent,
+                                 font=self.txt_lst_font)
+
+
 class DeleteSinglePage:
     """Mixin class to provide the delete page to the application."""
     def setup_page_del(self, parent):

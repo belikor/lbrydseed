@@ -2,7 +2,7 @@
 # --------------------------------------------------------------------------- #
 # The MIT License (MIT)                                                       #
 #                                                                             #
-# Copyright (c) 2021 Eliud Cabrera Castillo <e.cabrera-castillo@tum.de>       #
+# Copyright (c) 2022 Eliud Cabrera Castillo <e.cabrera-castillo@tum.de>       #
 #                                                                             #
 # Permission is hereby granted, free of charge, to any person obtaining       #
 # a copy of this software and associated documentation files                  #
@@ -23,33 +23,44 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER         #
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
-"""Methods to actually do something with the interface."""
-from lbseed.act_download import download_ch
-from lbseed.act_download import download_claims
-from lbseed.act_list import print_claims
-from lbseed.act_list import print_ch_claims
-from lbseed.act_list import list_text_size
-from lbseed.act_channels import list_ch_subs
-from lbseed.act_delete import delete_claims
-from lbseed.act_delete import clean_ch
-from lbseed.act_supports import list_supports
-from lbseed.act_supports import add_supports
-from lbseed.act_search import print_trending
-from lbseed.act_search import return_search
-from lbseed.act_others import seeding_ratio
-from lbseed.act_others import show_claims_bids
+"""Methods to list subscribed channels with the interface."""
 
-True if download_ch else False
-True if download_claims else False
-True if print_claims else False
-True if print_ch_claims else False
-True if list_text_size else False
-True if list_ch_subs else False
-True if delete_claims else False
-True if clean_ch else False
-True if list_supports else False
-True if add_supports else False
-True if print_trending else False
-True if return_search else False
-True if seeding_ratio else False
-True if show_claims_bids else False
+import tempfile
+
+import lbrytools as lbryt
+
+
+def list_ch_subs(shared="shared",
+                 show="show_all", filtering="valid",
+                 notifications=True,
+                 threads=32,
+                 claim_id=False,
+                 server="http://localhost:5279"):
+    """Print all subscribed channels to a temporary file and read that file."""
+    if shared in ("shared"):
+        database = True
+    elif shared in ("local"):
+        database = False
+
+    if show in ("show_all"):
+        show_all = True
+        valid = False
+    elif show in ("show_valid"):
+        show_all = False
+        valid = True
+    elif show in ("show_invalid"):
+        show_all = False
+        valid = False
+
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        lbryt.list_ch_subs(shared=database,
+                           show_all=show_all, filtering="valid",
+                           valid=valid, notifications=True,
+                           threads=threads,
+                           claim_id=claim_id,
+                           file=fp.name, fdate=False, sep=";",
+                           server=server)
+        fp.seek(0)
+        content = fp.read()
+
+    return content

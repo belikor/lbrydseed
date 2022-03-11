@@ -253,6 +253,40 @@ def setup_check_ch_list(parent,
     chck_reverse.grid(row=start+5, column=1, sticky=tk.W)
 
 
+def setup_radio_ch_subs_shared(parent,
+                               shared_var=None,
+                               start=0):
+    """Set up the radiobuttons to choose what database to display."""
+    shared = ttk.Radiobutton(parent,
+                             text="Shared database",
+                             variable=shared_var, value="shared")
+    local = ttk.Radiobutton(parent,
+                            text="Local database",
+                            variable=shared_var, value="local")
+    shared.grid(row=start, column=1, sticky=tk.W)
+    local.grid(row=start+1, column=1, sticky=tk.W)
+
+
+def setup_radio_ch_subs_valid(parent,
+                              show_var=None,
+                              start=0):
+    """Set up the radiobuttons to choose what channels to display."""
+    show_all = ttk.Radiobutton(parent,
+                               text="Show all channels",
+                               variable=show_var, value="show_all")
+    show_valid = ttk.Radiobutton(parent,
+                                 text=("Show valid channels only "
+                                       "(they resolve online)"),
+                                 variable=show_var, value="show_valid")
+    show_invalid = ttk.Radiobutton(parent,
+                                   text=("Show invalid channels only "
+                                         "(they were removed)"),
+                                   variable=show_var, value="show_invalid")
+    show_all.grid(row=start, column=1, sticky=tk.W)
+    show_valid.grid(row=start+1, column=1, sticky=tk.W)
+    show_invalid.grid(row=start+2, column=1, sticky=tk.W)
+
+
 def setup_check_support(parent,
                         show_ch_var=None,
                         show_claims_var=None,

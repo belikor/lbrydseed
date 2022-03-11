@@ -42,6 +42,7 @@ class Application(ttk.Frame,
                   pages.TrendPage, pages.SearchPage,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListPage, pages.ListInvalidPage, pages.ListChPage,
+                  pages.ListChSubsPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
                   pages.SupportListPage, pages.SupportAddPage, pages.SeedPage,
                   pages.ControllingClaimsPage):
@@ -82,9 +83,11 @@ class Application(ttk.Frame,
         page_list = ttk.Frame(self.note_sub_list)
         page_list_inv = ttk.Frame(self.note_sub_list)
         page_ch_claims = ttk.Frame(self.note_sub_list)
+        page_ch_subs = ttk.Frame(self.note_sub_list)
         self.note_sub_list.add(page_list, text="List downloaded claims")
         self.note_sub_list.add(page_list_inv, text="List invalid claims")
         self.note_sub_list.add(page_ch_claims, text="List channel claims")
+        self.note_sub_list.add(page_ch_subs, text="Subscribed channels")
         self.note_sub_list.pack(fill="both", expand=True)
 
         page_s_del = ttk.Frame(self.note)
@@ -139,6 +142,7 @@ class Application(ttk.Frame,
         self.setup_page_list(page_list)
         self.setup_page_list_inv(page_list_inv)
         self.setup_page_ch_claims(page_ch_claims)
+        self.setup_page_ch_subs(page_ch_subs)
         self.setup_page_del(page_del)
         self.setup_page_delch(page_delch)
         self.setup_page_supports(page_supports)
@@ -357,6 +361,20 @@ class Application(ttk.Frame,
 
         self.textbox_ch_list.replace("1.0", tk.END, content)
         self.label_chl_info.set(text)
+        self.print_done(print_msg=True)
+
+    def list_ch_subs(self):
+        """Print the subscribed channels in the texbox."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        content = \
+            actions.list_ch_subs(shared=self.rad_subs_shared.get(),
+                                 show=self.rad_subs_valid.get(),
+                                 threads=self.spin_subs_threads.get(),
+                                 claim_id=self.check_subs_claim_id.get())
+
+        self.textbox_ch_subs_list.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
     def delete_claims(self):
