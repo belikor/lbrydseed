@@ -47,7 +47,7 @@ from .pages_base import (ConfigPage,
                          DownloadChPage, DownloadSinglePage,
                          ListPage, ListInvalidPage, ListChPage,
                          ListChSubsPage,
-                         ListChPeersPage,
+                         ListChPeersPage, ListChsPeersPage,
                          DeleteSinglePage, DeleteChPage,
                          SupportListPage, SupportAddPage)
 from .pages_adv import (SeedPage, ControllingClaimsPage,
@@ -124,6 +124,11 @@ class Variables:
         self.chck_ch_peers_type.set(True)
         self.chck_ch_peers_title = tk.BooleanVar()
         self.chck_ch_peers_title.set(False)
+
+        self.spin_ch_threads = tk.IntVar()
+        self.spin_ch_threads.set(16)
+        self.spin_claim_threads = tk.IntVar()
+        self.spin_claim_threads.set(32)
 
         self.check_s_ch = tk.BooleanVar()
         self.check_s_ch.set(False)
@@ -224,6 +229,7 @@ True if ListInvalidPage else False
 True if ListChPage else False
 True if ListChSubsPage else False
 True if ListChPeersPage else False
+True if ListChsPeersPage else False
 True if DeleteSinglePage else False
 True if DeleteChPage else False
 True if SupportListPage else False

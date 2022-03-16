@@ -668,6 +668,104 @@ class ListChPeersPage:
                                                      font=self.txt_lst_font)
 
 
+class ListChsPeersPage:
+    """Mixing class to provide the list of peers for various channels."""
+    def setup_page_chs_peers(self, parent):
+        self.setup_top_chs_peers(parent)
+        frame1 = ttk.Frame(parent)
+        frame1.pack(padx=4, pady=4, fill="both", expand=False)
+        frame2 = ttk.Frame(parent)
+        frame2.pack(padx=4, pady=4, fill="both", expand=True)
+        self.setup_textbox_chs_peers(frame1)
+        self.setup_textbox_chs_peers_out(frame2)
+
+    def setup_top_chs_peers(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_chs_peers(frame, start=0)
+        self.setup_info_chs_peers(frame, start=5)
+
+    def setup_grid_top_chs_peers(self, parent, start=0):
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Validate input",
+                                b_command=self.validate_ch,
+                                l_text=("Verify that the input "
+                                        "can be read correctly"),
+                                start=start)
+
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Resolve online",
+                                b_command=self.resolve_ch,
+                                l_text="Confirm that the channels exist",
+                                start=start+1)
+
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="List channels peers",
+                                b_command=self.list_chs_peers,
+                                l_text=("List peers for the claims "
+                                        "from the specified channels, "
+                                        "starting from the newest claims,\n"
+                                        "and going back in time"),
+                                start=start+2)
+
+        spin_num, label = \
+            blocks.setup_spin_page(parent,
+                                   s_text_var=self.spin_ch_threads,
+                                   s_command=self.list_chs_peers,
+                                   l_text=("Number of threads to process "
+                                           "channels in parallel; "
+                                           "use 0 to avoid threads"),
+                                   start=start+3)
+        spin_num.set(16)
+        spin_num["from_"] = 0
+        spin_num["to"] = 256
+
+        spin_num, label = \
+            blocks.setup_spin_page(parent,
+                                   s_text_var=self.spin_claim_threads,
+                                   s_command=self.list_chs_peers,
+                                   l_text=("Number of threads to process "
+                                           "claims in parallel "
+                                           "and find peers; "
+                                           "use 0 to avoid threads"),
+                                   start=start+4)
+        spin_num.set(32)
+        spin_num["from_"] = 0
+        spin_num["to"] = 256
+
+    def setup_info_chs_peers(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("Add a channel, a comma, "
+                               "and the number of claims to get "
+                               "peer information about.\n\n"
+                               "Only downloadable claims (streams) "
+                               "can be shared in the network, "
+                               "and are able to have peers.\n"
+                               "Other types of claims "
+                               "(reposts, playlists, livestreams, etc.) "
+                               "will not count toward total number of peers\n"
+                               "nor size nor duration.\n"
+                               "When listing the unique peers, the + 1 "
+                               "indicates that we are one of those peers."))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_chs_peers(self, parent):
+        channels = blocks.set_up_default_channels()
+        self.textbox_chs_peers = blocks.setup_textbox(parent,
+                                                      height=10,
+                                                      font=self.txt_font)
+        self.textbox_chs_peers.insert("1.0", channels)
+
+    def setup_textbox_chs_peers_out(self, parent):
+        self.textbox_chs_peers_out = \
+            blocks.setup_textbox(parent,
+                                 font=self.txt_lst_font)
+        self.textbox_chs_peers_out.insert("1.0", "(peer information)")
+
+
 class DeleteSinglePage:
     """Mixin class to provide the delete page to the application."""
     def setup_page_del(self, parent):

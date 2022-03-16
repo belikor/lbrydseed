@@ -31,6 +31,7 @@ from lbseed.act_list import print_ch_claims
 from lbseed.act_list import list_text_size
 from lbseed.act_channels import list_ch_subs
 from lbseed.act_peers import list_peers
+from lbseed.act_peers import list_ch_peers
 from lbseed.act_delete import delete_claims
 from lbseed.act_delete import clean_ch
 from lbseed.act_supports import list_supports
@@ -47,6 +48,7 @@ True if print_ch_claims else False
 True if list_text_size else False
 True if list_ch_subs else False
 True if list_peers else False
+True if list_ch_peers else False
 True if delete_claims else False
 True if clean_ch else False
 True if list_supports else False

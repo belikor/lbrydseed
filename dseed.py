@@ -42,7 +42,7 @@ class Application(ttk.Frame,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListPage, pages.ListInvalidPage, pages.ListChPage,
                   pages.ListChSubsPage,
-                  pages.ListChPeersPage,
+                  pages.ListChPeersPage, pages.ListChsPeersPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
                   pages.SupportListPage, pages.SupportAddPage,
                   pages.SeedPage, pages.ControllingClaimsPage,
@@ -96,7 +96,9 @@ class Application(ttk.Frame,
 
         self.note_sub_peers = ttk.Notebook(page_s_peers)
         page_ch_peers = ttk.Frame(self.note_sub_peers)
+        page_chs_peers = ttk.Frame(self.note_sub_peers)
         self.note_sub_peers.add(page_ch_peers, text="Channel peers")
+        self.note_sub_peers.add(page_chs_peers, text="Multiple channel peers")
         self.note_sub_peers.pack(fill="both", expand=True)
 
         page_s_del = ttk.Frame(self.note)
@@ -153,6 +155,7 @@ class Application(ttk.Frame,
         self.setup_page_ch_claims(page_ch_claims)
         self.setup_page_ch_subs(page_ch_subs)
         self.setup_page_ch_peers(page_ch_peers)
+        self.setup_page_chs_peers(page_chs_peers)
         self.setup_page_del(page_del)
         self.setup_page_delch(page_delch)
         self.setup_page_supports(page_supports)
@@ -202,6 +205,8 @@ class Application(ttk.Frame,
             text = self.textbox_dch.get("1.0", tk.END)
         elif page == "Delete":
             text = self.textbox_delch.get("1.0", tk.END)
+        elif page == "Peers":
+            text = self.textbox_chs_peers.get("1.0", tk.END)
 
         validated_chs = val.validate_input(text,
                                            assume_channel=True,
@@ -433,6 +438,25 @@ class Application(ttk.Frame,
         content += 80 * "-" + "\n"
         content += output["lines"]
         self.textbox_ch_peers.replace("1.0", tk.END, content)
+        self.print_done(print_msg=True)
+
+    def list_chs_peers(self):
+        """Print the peers from the channels listed in the textbox."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        resolved_chs = self.resolve_ch(print_msg=False)
+
+        output = \
+            actions.list_ch_peers(resolved_chs,
+                                  ch_threads=self.spin_ch_threads.get(),
+                                  claim_threads=self.spin_claim_threads.get(),
+                                  server=self.server_var.get())
+
+        content = output["summary"]
+        content += 80 * "-" + "\n"
+        content += output["lines"]
+        self.textbox_chs_peers_out.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
     def delete_claims(self):
