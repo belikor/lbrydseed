@@ -39,13 +39,14 @@ import lbseed.actions as actions
 class Application(ttk.Frame,
                   pages.Variables,
                   pages.ConfigPage,
-                  pages.TrendPage, pages.SearchPage,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListPage, pages.ListInvalidPage, pages.ListChPage,
                   pages.ListChSubsPage,
+                  pages.ListChPeersPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
-                  pages.SupportListPage, pages.SupportAddPage, pages.SeedPage,
-                  pages.ControllingClaimsPage):
+                  pages.SupportListPage, pages.SupportAddPage,
+                  pages.SeedPage, pages.ControllingClaimsPage,
+                  pages.TrendPage, pages.SearchPage):
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
@@ -89,6 +90,14 @@ class Application(ttk.Frame,
         self.note_sub_list.add(page_ch_claims, text="List channel claims")
         self.note_sub_list.add(page_ch_subs, text="Subscribed channels")
         self.note_sub_list.pack(fill="both", expand=True)
+
+        page_s_peers = ttk.Frame(self.note)
+        self.note.add(page_s_peers, text="Peers")
+
+        self.note_sub_peers = ttk.Notebook(page_s_peers)
+        page_ch_peers = ttk.Frame(self.note_sub_peers)
+        self.note_sub_peers.add(page_ch_peers, text="Channel peers")
+        self.note_sub_peers.pack(fill="both", expand=True)
 
         page_s_del = ttk.Frame(self.note)
         self.note.add(page_s_del, text="Delete")
@@ -143,6 +152,7 @@ class Application(ttk.Frame,
         self.setup_page_list_inv(page_list_inv)
         self.setup_page_ch_claims(page_ch_claims)
         self.setup_page_ch_subs(page_ch_subs)
+        self.setup_page_ch_peers(page_ch_peers)
         self.setup_page_del(page_del)
         self.setup_page_delch(page_delch)
         self.setup_page_supports(page_supports)
@@ -399,6 +409,30 @@ class Application(ttk.Frame,
                                  title=self.check_subs_title.get())
 
         self.textbox_ch_subs_list.replace("1.0", tk.END, content)
+        self.print_done(print_msg=True)
+
+    def list_ch_peers(self):
+        """Print the peers of the claims of a channel."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        channel = self.resolve_ch_list(print_msg=True)
+        if not channel:
+            return False
+
+        output = \
+            actions.list_peers(channel=self.entry_chl_chan.get(),
+                               number=self.spin_ch_peers_num.get(),
+                               threads=self.spin_subs_threads.get(),
+                               claim_id=self.chck_ch_peers_cid.get(),
+                               typ=self.chck_ch_peers_type.get(),
+                               title=self.chck_ch_peers_title.get(),
+                               server=self.server_var.get())
+
+        content = output["summary"] + "\n"
+        content += 80 * "-" + "\n"
+        content += output["lines"]
+        self.textbox_ch_peers.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
     def delete_claims(self):

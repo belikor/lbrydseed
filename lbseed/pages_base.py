@@ -564,6 +564,110 @@ class ListChSubsPage:
                                  font=self.txt_lst_font)
 
 
+class ListChPeersPage:
+    """Mixing class to provide the list of peers for a channel."""
+    def setup_page_ch_peers(self, parent):
+        self.setup_top_ch_peers(parent)
+        self.setup_textbox_ch_peers(parent)
+
+    def setup_top_ch_peers(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_ch_peers(frame, start=0)
+        self.setup_grid_top_ch_peers_opt(frame, start=5)
+        self.setup_info_ch_peers(frame, start=8)
+
+    def setup_grid_top_ch_peers(self, parent, start=0):
+        entry, label = \
+            blocks.setup_entry_gen(parent,
+                                   font=self.e_font,
+                                   text_var=self.entry_chl_chan,
+                                   l_text="Channel to inspect",
+                                   start=start)
+        entry.bind("<<Activate>>", blocks.f_with_event(self.list_ch_peers))
+
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Resolve online",
+                                b_command=self.resolve_ch_list,
+                                l_text="Confirm that the channel exists",
+                                start=start+1)
+
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="List channel peers",
+                                b_command=self.list_ch_peers,
+                                l_text=("List peers for the claims "
+                                        "from the specified channel, "
+                                        "starting from the newest one,\n"
+                                        "and going back in time"),
+                                start=start+2)
+
+        spin_num, label = \
+            blocks.setup_spin_page(parent,
+                                   s_text_var=self.spin_ch_peers_num,
+                                   s_command=self.list_ch_peers,
+                                   l_text=("Number of claims to display; "
+                                           "use 0 to display all"),
+                                   start=start+3)
+        spin_num.set(50)
+        spin_num["from_"] = 0
+        spin_num["to"] = 100E3
+
+        spin_num, label = \
+            blocks.setup_spin_page(parent,
+                                   s_text_var=self.spin_subs_threads,
+                                   s_command=self.list_ch_peers,
+                                   l_text=("Number of threads to process "
+                                           "claims in parallel "
+                                           "and find peers; "
+                                           "use 0 to avoid threads"),
+                                   start=start+4)
+        spin_num.set(32)
+        spin_num["from_"] = 0
+        spin_num["to"] = 256
+
+    def setup_grid_top_ch_peers_opt(self, parent, start=0):
+        chck_cid = ttk.Checkbutton(parent,
+                                   variable=self.chck_ch_peers_cid,
+                                   text="Show claim ID (40-character string)")
+        chck_cid.grid(row=start, column=1, sticky=tk.W)
+
+        chck_typ = ttk.Checkbutton(parent,
+                                   variable=self.chck_ch_peers_type,
+                                   text=("Show the type of claim, "
+                                         "and media, if available"))
+        chck_typ.grid(row=start+1, column=1, sticky=tk.W)
+
+        chck_title = ttk.Checkbutton(parent,
+                                     variable=self.chck_ch_peers_title,
+                                     text=("Show the claim 'title' "
+                                           "instead of the claim 'name'"))
+        chck_title.grid(row=start+2, column=1, sticky=tk.W)
+
+    def setup_info_ch_peers(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("Only downloadable claims (streams) "
+                               "can be shared in the network, "
+                               "and are able to have peers.\n"
+                               "Other types of claims "
+                               "(reposts, playlists, livestreams, etc.) "
+                               "will not count toward total number of peers\n"
+                               "nor size nor duration.\n"
+                               "When hosted is 'True' we have the first "
+                               "or second blobs of the stream, "
+                               "so we are one of the peers\n"
+                               "hosting the file in the network. "
+                               "When listing the unique peers, the + 1 "
+                               "indicates that we are one\n"
+                               "of those peers."))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_ch_peers(self, parent):
+        self.textbox_ch_peers = blocks.setup_textbox(parent,
+                                                     font=self.txt_lst_font)
+
+
 class DeleteSinglePage:
     """Mixin class to provide the delete page to the application."""
     def setup_page_del(self, parent):
