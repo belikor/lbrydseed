@@ -469,20 +469,43 @@ class ListChSubsPage:
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
         self.setup_grid_top_ch_subs(frame, start=0)
-        self.setup_grid_rad_ch_subs(frame, start=1)
-        self.setup_grid_spin_subs(frame, start=4)
-        self.setup_info_ch_subs(frame, start=5)
+        self.setup_grid_rad_ch_subs(frame, start=3)
+        self.setup_grid_spin_subs(frame, start=7)
+        self.setup_info_ch_subs(frame, start=8)
 
     def setup_grid_top_ch_subs(self, parent, start=0):
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="List subscribed channels",
                                 b_command=self.list_ch_subs,
-                                l_text=("The subscribed channels "
+                                l_text=("(a) The subscribed channels "
                                         "reside in the wallet file\n"
                                         "but they are resolved online "
                                         "to confirm that they exist"),
                                 start=start)
+
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="List subscribed channels claims",
+                                b_command=self.list_ch_subs_claims,
+                                l_text=("(b) The newest claims "
+                                        "for each channel will be shown"),
+                                start=start+1)
+
+        spin_num, label = \
+            blocks.setup_spin_page(parent,
+                                   s_text_var=self.spin_subs_claim_num,
+                                   s_command=self.list_ch_subs_claims,
+                                   l_text=("(b) Number of claims to show "
+                                           "per channel.\n"
+                                           "It will take various minutes "
+                                           "to load the full list\n"
+                                           "if the number of channels "
+                                           "and claims is large."),
+                                   start=start+2)
+        spin_num.set(4)
+        spin_num["from_"] = 1
+        spin_num["to"] = 20
 
     def setup_grid_rad_ch_subs(self, parent, start=0):
         frame = ttk.Frame(parent, relief="groove", borderwidth=2)
@@ -501,8 +524,17 @@ class ListChSubsPage:
 
         chck_cid = ttk.Checkbutton(parent,
                                    variable=self.check_subs_claim_id,
-                                   text="Show claim ID (40-character string)")
+                                   text=("Show claim ID "
+                                         "(40-character string) "
+                                         "of the channel (a)\n"
+                                         "or the individual claims (b)."))
         chck_cid.grid(row=start+2, column=1, sticky=tk.W)
+
+        chck_t = ttk.Checkbutton(parent,
+                                 variable=self.check_subs_title,
+                                 text=("Show the claim 'title' "
+                                       "instead of the claim 'name' (b)."))
+        chck_t.grid(row=start+3, column=1, sticky=tk.W)
 
     def setup_grid_spin_subs(self, parent, start=0):
         spin_num, label = \

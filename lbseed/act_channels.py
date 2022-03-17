@@ -30,11 +30,13 @@ import tempfile
 import lbrytools as lbryt
 
 
-def list_ch_subs(shared="shared",
+def list_ch_subs(action="subscriptions",
+                 number=4,
+                 shared="shared",
                  show="show_all", filtering="valid",
                  notifications=True,
                  threads=32,
-                 claim_id=False,
+                 claim_id=False, title=False,
                  server="http://localhost:5279"):
     """Print all subscribed channels to a temporary file and read that file."""
     if shared in ("shared"):
@@ -53,13 +55,26 @@ def list_ch_subs(shared="shared",
         valid = False
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.list_ch_subs(shared=database,
-                           show_all=show_all, filtering="valid",
-                           valid=valid, notifications=True,
-                           threads=threads,
-                           claim_id=claim_id,
-                           file=fp.name, fdate=False, sep=";",
-                           server=server)
+        if action in ("subscriptions"):
+            lbryt.list_ch_subs(shared=database,
+                               show_all=show_all, filtering="valid",
+                               valid=valid, notifications=True,
+                               threads=threads,
+                               claim_id=claim_id,
+                               file=fp.name, fdate=False, sep=";",
+                               server=server)
+        elif action in ("latest_claims"):
+            lbryt.list_ch_subs_latest(number=number,
+                                      claim_id=claim_id,
+                                      typ=True, title=title,
+                                      sanitize=True,
+                                      shared=database,
+                                      show_all=show_all, filtering="valid",
+                                      valid=valid, notifications=True,
+                                      threads=threads,
+                                      start=1, end=0,
+                                      file=fp.name, fdate=False, sep=";",
+                                      server=server)
         fp.seek(0)
         content = fp.read()
 

@@ -107,8 +107,12 @@ class Variables:
         self.rad_subs_valid.set("show_valid")
         self.spin_subs_threads = tk.IntVar()
         self.spin_subs_threads.set(32)
+        self.spin_subs_claim_num = tk.IntVar()
+        self.spin_subs_claim_num.set(4)
         self.check_subs_claim_id = tk.BooleanVar()
         self.check_subs_claim_id.set(False)
+        self.check_subs_title = tk.BooleanVar()
+        self.check_subs_title.set(True)
 
         self.check_s_ch = tk.BooleanVar()
         self.check_s_ch.set(False)

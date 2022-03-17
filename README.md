@@ -188,66 +188,73 @@ python dseed.py
 Enter the name of the channels, and a number of claims to download for each,
 then press `"Download channel claims"`.
 
-![lbryseed_download_channel](./img/g_lbrydseed_download_channel.png)
+![lbrydseed_download_channel](./img/g_lbrydseed_download_channel.png)
 
 Enter the name or claim ID of various claims,
 and then press `"Download claims"`.
 
-![lbryseed_download_single](./img/g_lbrydseed_download_single.png)
+![lbrydseed_download_single](./img/g_lbrydseed_download_single.png)
 
 Press `"List download claims"` to display all claims downloaded to the system.
 
-![lbryseed_list_claims](./img/g_lbrydseed_list_claims.png)
+![lbrydseed_list_claims](./img/g_lbrydseed_list_claims.png)
 
 Press `"List invalid claims"` to display all invalid claims,
 previously downloaded but no longer available online.
 
-![lbryseed_list_invalid](./img/g_lbrydseed_list_invalid.png)
+![lbrydseed_list_invalid](./img/g_lbrydseed_list_invalid.png)
 
 Press `"List channel claims"` to display all claims from a single channel.
 
-![lbryseed_list_claims](./img/g_lbrydseed_list_ch_claims.png)
+![lbrydseed_list_claims](./img/g_lbrydseed_list_ch_claims.png)
+
+Press `"List subscribed channels"` to list the subscribed channels
+that are in our wallet file.
+Press `"List subscribed channels claims"` to list the latest claims
+from each of our subscribed channels.
+
+![lbrydseed_list_subscriptions](./img/g_lbrydseed_subscribed_channels.png)
 
 Enter the name or claim ID of various claims, then press `"Delete claims"`.
 
-![lbryseed_delete_single](./img/g_lbrydseed_delete_single.png)
+![lbrydseed_delete_single](./img/g_lbrydseed_delete_single.png)
 
 Enter the name of the channels, and a number of claims to keep for each,
 then press `"Clean up claims"`.
 
-![lbryseed_cleanup_channel](./img/g_lbrydseed_cleanup_channel.png)
+![lbrydseed_cleanup_channel](./img/g_lbrydseed_cleanup_channel.png)
 
 Press `"List supports"` to show claims that we support with LBC.
 
-![lbryseed_list_supports](./img/g_lbrydseed_list_supports.png)
+![lbrydseed_list_supports](./img/g_lbrydseed_list_supports.png)
 
 Enter the name or claim ID of various claims (it can be any type of claim
 such as videos and channels), a number,
 and then press `"Add or remove support"`.
 
-![lbryseed_add_support](./img/g_lbrydseed_add_support.png)
+![lbrydseed_add_support](./img/g_lbrydseed_add_support.png)
 
 Press `"Show trending claims"` to show the claims that are trending
 on the network at the moment.
 
-![lbryseed_trending](./img/g_lbrydseed_trending.png)
+![lbrydseed_trending](./img/g_lbrydseed_trending.png)
 
 Press `"Search"` to search the string, and tags, if any.
 At the moment, the search functionality is very basic, so using simple words
 is better than long sentences.
 
-![lbryseed_search](./img/g_lbrydseed_search.png)
+![lbrydseed_search](./img/g_lbrydseed_search.png)
 
 Press `"Display seeding ratio"` to show an estimate of the blobs uploaded
 and downloaded.
 
-![lbryseed_seeding](./img/g_lbrydseed_seeding.png)
+![lbrydseed_seeding](./img/g_lbrydseed_seeding.png)
 
 Press `"Display controlling claims"` to show our published claims,
 and whether they are "controlling", meaning that they have the highest bid
 for their name.
 
-![lbryseed_controlling](./img/g_lbrydseed_controlling.png)
+![lbrydseed_controlling](./img/g_lbrydseed_controlling.png)
 
 ## Development
 
