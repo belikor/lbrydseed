@@ -382,6 +382,10 @@ class Application(ttk.Frame,
         if not res.server_exists(server=self.server_var.get()):
             return False
 
+        if self.spin_subs_claim_num.get() <= 0:
+            self.spin_subs_claim_num.set(1)
+            print("Number of claims set to: 1")
+
         content = \
             actions.list_ch_subs(action="latest_claims",
                                  number=self.spin_subs_claim_num.get(),

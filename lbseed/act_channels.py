@@ -64,7 +64,7 @@ def list_ch_subs(action="subscriptions",
                                file=fp.name, fdate=False, sep=";",
                                server=server)
         elif action in ("latest_claims"):
-            lbryt.list_ch_subs_latest(number=number,
+            lbryt.list_ch_subs_latest(number=number, override=False,
                                       claim_id=claim_id,
                                       typ=True, title=title,
                                       sanitize=True,
