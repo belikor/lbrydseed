@@ -192,40 +192,41 @@ class Application(ttk.Frame,
             text = self.textbox_dch.get("1.0", tk.END)
         elif page == "Delete":
             text = self.textbox_delch.get("1.0", tk.END)
-        channels, numbers = val.validate_input(text,
-                                               assume_channel=True,
-                                               number_float=False,
-                                               print_msg=print_msg)
+
+        validated_chs = val.validate_input(text,
+                                           assume_channel=True,
+                                           number_float=False,
+                                           print_msg=print_msg)
 
         self.print_done(print_msg=print_msg)
 
-        return channels, numbers
+        return validated_chs
 
     def resolve_ch(self, print_msg=True):
         """Resolve the channels in the textbox online."""
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        channels, numbers = self.validate_ch(print_msg=False)
+        validated_chs = self.validate_ch(print_msg=False)
 
         ddir = res.check_download_dir(ddir=self.entry_d_dir.get(),
                                       server=self.server_var.get())
         self.entry_d_dir.set(ddir)
 
-        info = res.resolve_ch(channels, numbers, print_msg=print_msg,
-                              server=self.server_var.get())
+        resolved_chs = res.resolve_ch(validated_chs, print_msg=print_msg,
+                                      server=self.server_var.get())
 
         self.print_done(print_msg=print_msg)
 
-        return channels, numbers, info
+        return resolved_chs
 
     def download_ch(self):
         """Download the claims from the channels in the textbox."""
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        channels, numbers, info = self.resolve_ch(print_msg=False)
-        actions.download_ch(channels, numbers, info,
+        resolved_chs = self.resolve_ch(print_msg=False)
+        actions.download_ch(resolved_chs,
                             repost=self.check_d_repost.get(),
                             ddir=self.entry_d_dir.get(),
                             own_dir=self.check_d_own_dir.get(),
@@ -322,16 +323,17 @@ class Application(ttk.Frame,
             channel = "@" + channel
             self.entry_chl_chan.set(channel)
 
-        ch = res.resolve_ch([channel], numbers=None,
-                            print_msg=print_msg,
-                            server=self.server_var.get())
+        validated_chs = [{"claim": channel,
+                          "number": False}]
+        resolved_chs = res.resolve_ch(validated_chs, print_msg=print_msg,
+                                      server=self.server_var.get())
 
-        ch = ch[0]
-        if "NOT_FOUND" in ch:
+        resolved_ch = resolved_chs[0]
+        if "NOT_FOUND" in resolved_ch["info"]:
             self.print_done(print_msg=True)
             return False
 
-        channel = ch.lstrip("lbry://")
+        channel = resolved_ch["info"].lstrip("lbry://")
         self.print_done(print_msg=print_msg)
 
         return channel
@@ -415,8 +417,8 @@ class Application(ttk.Frame,
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        channels, numbers, info = self.resolve_ch(print_msg=False)
-        actions.clean_ch(channels, numbers, info,
+        resolved_chs = self.resolve_ch(print_msg=False)
+        actions.clean_ch(resolved_chs,
                          what=self.del_what_var.get(),
                          server=self.server_var.get())
 
@@ -484,14 +486,14 @@ class Application(ttk.Frame,
     def validate_g_claims(self, print_msg=True):
         """Validate the textbox with claims and numbers."""
         text = self.textbox_add_support.get("1.0", tk.END)
-        claims, supports = val.validate_input(text,
+        validated_claims = val.validate_input(text,
                                               assume_channel=False,
                                               number_float=True,
                                               print_msg=print_msg)
 
         self.print_done(print_msg=print_msg)
 
-        return claims, supports
+        return validated_claims
 
     def resolve_g_claims(self, print_msg=True):
         """Resolve the claims in the textbox online."""
@@ -499,29 +501,29 @@ class Application(ttk.Frame,
             return False
 
         if self.check_s_supp_inv.get():
-            claims, supports = self.validate_g_claims(print_msg=True)
+            validated_claims = self.validate_g_claims(print_msg=True)
             print("Assuming the claims are 'invalid' claims, "
                   "so they won't be resolved online.")
         else:
-            claims, supports = self.validate_g_claims(print_msg=False)
-            claims, supports = \
-                res.resolve_claims_pairs(claims, supports,
-                                         show_support=True,
-                                         print_msg=print_msg,
-                                         server=self.server_var.get())
+            validated_claims = self.validate_g_claims(print_msg=False)
+            resolved_claims = \
+                res.resolve_claims_supports(validated_claims,
+                                            show_support=True,
+                                            print_msg=print_msg,
+                                            server=self.server_var.get())
 
         self.print_done(print_msg=print_msg)
 
-        return claims, supports
+        return resolved_claims
 
     def add_supports(self):
         """Add supports to claims, either channels or streams."""
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        claims, supports = self.resolve_g_claims(print_msg=False)
+        resolved_claims = self.resolve_g_claims(print_msg=False)
 
-        actions.add_supports(claims, supports,
+        actions.add_supports(resolved_claims,
                              support_style=self.rad_s_support.get(),
                              invalid=self.check_s_supp_inv.get(),
                              server=self.server_var.get())

@@ -27,7 +27,7 @@
 import lbrytools as lbryt
 
 
-def download_ch(channels, numbers, info,
+def download_ch(resolved_chs,
                 repost=True,
                 ddir=None, own_dir=False, save_file=True,
                 proceed=False,
@@ -38,28 +38,17 @@ def download_ch(channels, numbers, info,
         print("Download claims from channels")
         print(80 * "-")
 
-    n_channels = len(channels)
+    n_channels = len(resolved_chs)
 
-    for num, group in enumerate(zip(channels, numbers, info), start=1):
-        channel = group[0]
-        number = group[1]
-        information = group[2]
+    for num, resolved_ch in enumerate(resolved_chs, start=1):
+        channel = resolved_ch["claim"]
+        number = resolved_ch["number"]
+        information = resolved_ch["info"]
 
         if "NOT_FOUND" in information or "not a valid url" in information:
             continue
 
         print(f"Channel {num}/{n_channels}, '{information}'")
-
-        # msg = {"method": "getch",
-        #        "params": {"channel": channel,
-        #                   "number": number,
-        #                   "download_directory": ddir,
-        #                   "save_file": True}}
-
-        # If the `getch` method is implemented
-        # if proceed and not external_lib:
-        #     print(f"lbrynet getch '{channel}' --number={number}")
-        #     output = requests.post(server, json=msg).json()
 
         lbryt.ch_download_latest(channel=channel,
                                  number=number,

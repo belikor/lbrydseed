@@ -62,18 +62,15 @@ def check_download_dir(ddir=None, server="http://localhost:5279"):
     return ddir
 
 
-def resolve_ch(channels, numbers=None, print_msg=True,
+def resolve_ch(validated_chs, print_msg=True,
                server="http://localhost:5279"):
     """Resolve input channels to see if they in fact exist."""
-    resolve_info = []
+    resolved_chs = []
     out = []
 
-    if not numbers:
-        numbers = len(channels) * [None]
-
-    for num, group in enumerate(zip(channels, numbers), start=1):
-        channel = group[0]
-        number = group[1]
+    for num, validated_ch in enumerate(validated_chs, start=1):
+        channel = validated_ch["claim"]
+        number = validated_ch["number"]
 
         msg = {"method": "resolve",
                "params": {"urls": channel}}
@@ -93,18 +90,22 @@ def resolve_ch(channels, numbers=None, print_msg=True,
             else:
                 info = item["canonical_url"]
 
-        channel = f"'{channel}'"
+        chan = f"'{channel}'"
         if number:
-            out += [f"{num:2d}: name={channel:58s} number={number}  {info}"]
+            out += [f"{num:2d}: name={chan:58s} number={number}  {info}"]
         else:
-            out += [f"{num:2d}: name={channel:58s}  {info}"]
-        resolve_info.append(info)
+            out += [f"{num:2d}: name={chan:58s}  {info}"]
+
+        resolved_chs.append({"claim": channel,
+                             "number": number,
+                             "info": info})
 
     if print_msg:
         print("Resolve channels")
         print(80 * "-")
         print("\n".join(out))
-    return resolve_info
+
+    return resolved_chs
 
 
 def resolve_claims(text, repost=True,
@@ -151,18 +152,17 @@ def resolve_claims(text, repost=True,
     return claims
 
 
-def resolve_claims_pairs(claims, numbers,
-                         show_support=False,
-                         print_msg=True,
-                         server="http://localhost:5279"):
+def resolve_claims_supports(validated_claims,
+                            show_support=False,
+                            print_msg=True,
+                            server="http://localhost:5279"):
     """Resolve claims to see if they actually exist and return a new vector."""
-    new_claims = []
-    new_numbers = []
+    resolved_claims = []
     out = []
 
-    for num, pair in enumerate(zip(claims, numbers), start=1):
-        claim = pair[0]
-        number = pair[1]
+    for num, validated_claim in enumerate(validated_claims, start=1):
+        claim = validated_claim["claim"]
+        number = validated_claim["number"]
 
         result = lbryt.search_item(claim, print_error=False,
                                    server=server)
@@ -175,8 +175,9 @@ def resolve_claims_pairs(claims, numbers,
             info = "<-- claim not found"
         else:
             info = result["canonical_url"]
-            new_claims.append(result)
-            new_numbers.append(number)
+            resolved_claims.append({"claim": claim,
+                                    "number": number,
+                                    "resolved": result})
 
             if show_support:
                 supp = lbryt.get_base_support(info)
@@ -195,4 +196,4 @@ def resolve_claims_pairs(claims, numbers,
         print(80 * "-")
         print("\n".join(out))
 
-    return new_claims, new_numbers
+    return resolved_claims

@@ -26,13 +26,13 @@
 """Auxiliary methods to parse input information of the graphical interface."""
 
 
-def validate_input(text, assume_channel=True, number_float=False,
+def validate_input(text,
+                   assume_channel=True, number_float=False,
                    print_msg=False):
-    """Validate the text entered."""
+    """Validate the text entered to get channels and numbers."""
     lines = text.splitlines()
 
-    claims = []
-    numbers = []
+    validated_claims = []
 
     out = []
     num = 0
@@ -87,11 +87,12 @@ def validate_input(text, assume_channel=True, number_float=False,
         else:
             out += [f"{num:2d}: name={name:58s} number={number}"]
 
-        claims.append(claim_name)
-        numbers.append(number)
+        validated_claims.append({"claim": claim_name,
+                                 "number": number})
 
     if print_msg:
         print("Validate input")
         print(80 * "-")
         print("\n".join(out))
-    return claims, numbers
+
+    return validated_claims

@@ -54,7 +54,7 @@ def list_supports(show_ch=False,
     return content
 
 
-def add_supports(claims, supports, support_style="create",
+def add_supports(resolved_claims, support_style="create",
                  invalid=False,
                  print_msg=True,
                  server="http://localhost:5279"):
@@ -63,15 +63,16 @@ def add_supports(claims, supports, support_style="create",
         print("Add supports")
         print(80 * "-")
 
-    n_claims = len(claims)
+    n_claims = len(resolved_claims)
 
     if invalid:
         all_supports = lbryt.get_all_supports(server=server)
         invalids = all_supports['invalid_supports']
 
-    for num, pair in enumerate(zip(claims, supports), start=1):
-        claim = pair[0]
-        number = pair[1]
+    for num, resolved_claim in enumerate(resolved_claims, start=1):
+        claim = resolved_claim["resolved"]
+        number = resolved_claim["number"]
+
         if invalid:
             name = claim
         else:

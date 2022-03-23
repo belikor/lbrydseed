@@ -50,7 +50,7 @@ def delete_claims(claims, what="media",
             print()
 
 
-def clean_ch(channels, numbers, info,
+def clean_ch(resolved_chs,
              what="media",
              print_msg=True,
              server="http://localhost:5279"):
@@ -59,12 +59,12 @@ def clean_ch(channels, numbers, info,
         print("Delete claims from channels")
         print(80 * "-")
 
-    n_channels = len(channels)
+    n_channels = len(resolved_chs)
 
-    for num, group in enumerate(zip(channels, numbers, info), start=1):
-        channel = group[0]
-        number = group[1]
-        information = group[2]
+    for num, resolved_ch in enumerate(resolved_chs, start=1):
+        channel = resolved_ch["claim"]
+        number = resolved_ch["number"]
+        information = resolved_ch["info"]
 
         if "NOT_FOUND" in information or "not a valid url" in information:
             continue
