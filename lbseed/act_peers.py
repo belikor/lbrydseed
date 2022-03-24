@@ -125,3 +125,39 @@ def list_ch_peers(resolved_chs,
 
     return {"lines": lines,
             "summary": summary}
+
+
+def list_subs_peers(number=2,
+                    shared="shared", show="show_all",
+                    ch_threads=32, c_threads=16,
+                    server="http://localhost:5279"):
+    """Print peers for claims from subscribed channels."""
+    if shared in ("shared"):
+        database = True
+    elif shared in ("local"):
+        database = False
+
+    if show in ("show_valid"):
+        valid = True
+    elif show in ("show_all"):
+        valid = False
+
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        ch_peers_info = lbryt.list_ch_subs_peers(number=number, shuffle=False,
+                                                 start=1, end=0,
+                                                 shared=database, valid=valid,
+                                                 ch_threads=ch_threads,
+                                                 claim_threads=c_threads,
+                                                 file=fp.name,
+                                                 fdate=False, sep=";",
+                                                 server=server)
+        fp.seek(0)
+        lines = fp.read()
+
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        lbryt.print_ch_p_summary(ch_peers_info, file=fp.name, fdate=False)
+        fp.seek(0)
+        summary = fp.read()
+
+    return {"lines": lines,
+            "summary": summary}

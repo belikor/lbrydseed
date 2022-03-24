@@ -766,6 +766,105 @@ class ListChsPeersPage:
         self.textbox_chs_peers_out.insert("1.0", "(peer information)")
 
 
+class ListSubsPeersPage:
+    """Mixing class to provide the list of peers for a channel."""
+    def setup_page_subs_peers(self, parent):
+        self.setup_top_subs_peers(parent)
+        self.setup_textbox_subs_peers(parent)
+
+    def setup_top_subs_peers(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_subs_peers(frame, start=0)
+        self.setup_grid_top_subs_peers_opt(frame, start=4)
+        self.setup_info_subs_peers(frame, start=6)
+
+    def setup_grid_top_subs_peers(self, parent, start=0):
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="List subscribed channels peers",
+                                b_command=self.list_subs_peers,
+                                l_text=("List peers for claims belonging to "
+                                        "our subscribed channels,\n"
+                                        "starting from the newest claims, "
+                                        "and going back in time"),
+                                start=start)
+
+        spin_num, label = \
+            blocks.setup_spin_page(parent,
+                                   s_text_var=self.spin_ch_peers_num,
+                                   s_command=self.list_subs_peers,
+                                   l_text=("Number of claims to search "
+                                           "for peers in each subscribed "
+                                           "channel"),
+                                   start=start+1)
+        spin_num.set(50)
+        spin_num["from_"] = 0
+        spin_num["to"] = 100E3
+
+        spin_num, label = \
+            blocks.setup_spin_page(parent,
+                                   s_text_var=self.spin_ch_subs_threads,
+                                   s_command=self.list_subs_peers,
+                                   l_text=("Number of threads to process "
+                                           "channels in parallel; "
+                                           "use 0 to avoid threads"),
+                                   start=start+2)
+        spin_num.set(32)
+        spin_num["from_"] = 0
+        spin_num["to"] = 256
+
+        spin_num, label = \
+            blocks.setup_spin_page(parent,
+                                   s_text_var=self.spin_c_subs_threads,
+                                   s_command=self.list_subs_peers,
+                                   l_text=("Number of threads to process "
+                                           "claims in parallel "
+                                           "and find peers; "
+                                           "use 0 to avoid threads"),
+                                   start=start+3)
+        spin_num.set(16)
+        spin_num["from_"] = 0
+        spin_num["to"] = 256
+
+    def setup_grid_top_subs_peers_opt(self, parent, start=0):
+        frame = ttk.Frame(parent, relief="groove", borderwidth=2)
+        frame.grid(row=start, column=1, sticky=tk.W + tk.E + tk.N)
+
+        blocks.setup_radio_ch_subs_shared(frame,
+                                          shared_var=self.rad_subs_pr_shared,
+                                          start=0)
+
+        frame2 = ttk.Frame(parent, relief="groove", borderwidth=2)
+        frame2.grid(row=start+1, column=1, sticky=tk.W + tk.E + tk.N)
+
+        blocks.setup_radio_ch_subs_valid2(frame2,
+                                          show_var=self.rad_subs_pr_show,
+                                          start=0)
+
+    def setup_info_subs_peers(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("Only downloadable claims (streams) "
+                               "can be shared in the network, "
+                               "and are able to have peers.\n"
+                               "Other types of claims "
+                               "(reposts, playlists, livestreams, etc.) "
+                               "will not count toward total number of peers\n"
+                               "nor size nor duration.\n"
+                               "When listing the unique peers, the + 1 "
+                               "indicates that we are one of those peers.\n"
+                               "Channels that have become 'invalid' "
+                               "(removed from the network) will appear surrounded by "
+                               "'[brackets]',\n"
+                               "so we should remove them "
+                               "from our subscriptions."))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_subs_peers(self, parent):
+        self.textbox_subs_peers = blocks.setup_textbox(parent,
+                                                       font=self.txt_lst_font)
+
+
 class DeleteSinglePage:
     """Mixin class to provide the delete page to the application."""
     def setup_page_del(self, parent):

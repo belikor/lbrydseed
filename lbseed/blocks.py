@@ -287,6 +287,21 @@ def setup_radio_ch_subs_valid(parent,
     show_invalid.grid(row=start+2, column=1, sticky=tk.W)
 
 
+def setup_radio_ch_subs_valid2(parent,
+                               show_var=None,
+                               start=0):
+    """Set up the radiobuttons to choose what channels to display."""
+    show_all = ttk.Radiobutton(parent,
+                               text="Show all channels",
+                               variable=show_var, value="show_all")
+    show_valid = ttk.Radiobutton(parent,
+                                 text=("Show valid channels only "
+                                       "(they resolve online)"),
+                                 variable=show_var, value="show_valid")
+    show_all.grid(row=start, column=1, sticky=tk.W)
+    show_valid.grid(row=start+1, column=1, sticky=tk.W)
+
+
 def setup_check_support(parent,
                         show_ch_var=None,
                         show_claims_var=None,
