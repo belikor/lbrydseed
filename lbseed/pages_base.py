@@ -503,7 +503,7 @@ class ListChSubsPage:
                                            "if the number of channels "
                                            "and claims is large."),
                                    start=start+2)
-        spin_num.set(4)
+        spin_num.set(5)
         spin_num["from_"] = 1
         spin_num["to"] = 20
 
@@ -519,8 +519,8 @@ class ListChSubsPage:
         frame2.grid(row=start+1, column=1, sticky=tk.W + tk.E + tk.N)
 
         blocks.setup_radio_ch_subs_valid(frame2,
-                                         show_var=self.rad_subs_valid,
-                                         start=1)
+                                         show_var=self.rad_subs_show,
+                                         start=0)
 
         chck_cid = ttk.Checkbutton(parent,
                                    variable=self.check_subs_claim_id,

@@ -364,14 +364,14 @@ class Application(ttk.Frame,
         self.print_done(print_msg=True)
 
     def list_ch_subs(self):
-        """Print the subscribed channels in the texbox."""
+        """Print the subscribed channels in the textbox."""
         if not res.server_exists(server=self.server_var.get()):
             return False
 
         content = \
             actions.list_ch_subs(action="subscriptions",
                                  shared=self.rad_subs_shared.get(),
-                                 show=self.rad_subs_valid.get(),
+                                 show=self.rad_subs_show.get(),
                                  threads=self.spin_subs_threads.get(),
                                  claim_id=self.check_subs_claim_id.get())
 
@@ -379,6 +379,7 @@ class Application(ttk.Frame,
         self.print_done(print_msg=True)
 
     def list_ch_subs_claims(self):
+        """Print the subscribed channels' latest claims in the textbox."""
         if not res.server_exists(server=self.server_var.get()):
             return False
 
@@ -390,7 +391,7 @@ class Application(ttk.Frame,
             actions.list_ch_subs(action="latest_claims",
                                  number=self.spin_subs_claim_num.get(),
                                  shared=self.rad_subs_shared.get(),
-                                 show=self.rad_subs_valid.get(),
+                                 show=self.rad_subs_show.get(),
                                  threads=self.spin_subs_threads.get(),
                                  claim_id=self.check_subs_claim_id.get(),
                                  title=self.check_subs_title.get())
