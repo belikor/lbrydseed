@@ -215,6 +215,21 @@ from each of our subscribed channels.
 
 ![lbrydseed_list_subscriptions](./img/g_lbrydseed_subscribed_channels.png)
 
+Press `"List channel peers"` to show the peer information
+for the latest claims from the indicated channel.
+
+![lbrydseed_peers_channel](./img/g_lbrydseed_peers_channel.png)
+
+Press `"List channels peers"` to show the peer information
+for the latest claims from the indicated channels.
+
+![lbrydseed_peers_multi_channels](./img/g_lbrydseed_peers_multi_channels.png)
+
+Press `"List subscribed channels peers"` to show the peer information
+for the latest claims of the channels in our subscription list.
+
+![lbrydseed_peers_subscriptions](./img/g_lbrydseed_peers_subscriptions.png)
+
 Enter the name or claim ID of various claims, then press `"Delete claims"`.
 
 ![lbrydseed_delete_single](./img/g_lbrydseed_delete_single.png)
