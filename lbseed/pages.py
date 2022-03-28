@@ -44,13 +44,13 @@ import tkinter as tk
 
 import lbseed.resolve as res
 from .pages_base import (ConfigPage,
-                         DownloadChPage, DownloadSinglePage,
                          ListPage, ListInvalidPage, ListChPage,
                          ListChSubsPage,
                          ListChPeersPage, ListChsPeersPage,
                          ListSubsPeersPage,
                          DeleteSinglePage, DeleteChPage,
                          SupportListPage, SupportAddPage)
+from .pages_down import DownloadChPage, DownloadSinglePage
 from .pages_adv import (SeedPage, ControllingClaimsPage,
                         TrendPage, SearchPage)
 
@@ -232,8 +232,6 @@ class Variables:
 
 # Use the classes to prevent warnings by code checkers (flake8)
 True if ConfigPage else False
-True if DownloadChPage else False
-True if DownloadSinglePage else False
 True if ListPage else False
 True if ListInvalidPage else False
 True if ListChPage else False
@@ -245,6 +243,9 @@ True if DeleteSinglePage else False
 True if DeleteChPage else False
 True if SupportListPage else False
 True if SupportAddPage else False
+
+True if DownloadChPage else False
+True if DownloadSinglePage else False
 
 True if SeedPage else False
 True if ControllingClaimsPage else False
