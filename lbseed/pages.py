@@ -51,8 +51,8 @@ from .pages_peers import (ListChPeersPage, ListChsPeersPage,
                           ListSubsPeersPage)
 from .pages_del import DeleteSinglePage, DeleteChPage
 from .pages_support import SupportListPage, SupportAddPage
-from .pages_adv import (SeedPage, ControllingClaimsPage,
-                        TrendPage, SearchPage)
+from .pages_search import TrendPage, SearchPage
+from .pages_adv import SeedPage, ControllingClaimsPage
 
 
 class Variables:
@@ -251,7 +251,8 @@ True if DeleteChPage else False
 True if SupportListPage else False
 True if SupportAddPage else False
 
-True if SeedPage else False
-True if ControllingClaimsPage else False
 True if TrendPage else False
 True if SearchPage else False
+
+True if SeedPage else False
+True if ControllingClaimsPage else False

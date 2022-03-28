@@ -46,8 +46,8 @@ class Application(ttk.Frame,
                   pages.ListSubsPeersPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
                   pages.SupportListPage, pages.SupportAddPage,
-                  pages.SeedPage, pages.ControllingClaimsPage,
-                  pages.TrendPage, pages.SearchPage):
+                  pages.TrendPage, pages.SearchPage,
+                  pages.SeedPage, pages.ControllingClaimsPage):
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
@@ -185,7 +185,7 @@ class Application(ttk.Frame,
                 self.switch_tr_all()
             elif self.chck_tr_claim_t.get() in ("channel", "collection",
                                                 "livestream"):
-                self.deactivate_tr_checks()
+                self.deact_tr_checks()
                 self.switch_tr_various()
         elif page == "Search":
             if self.chck_tr_claim_t.get() in ("stream", "repost"):
@@ -193,7 +193,7 @@ class Application(ttk.Frame,
                 self.switch_sr_all()
             elif self.chck_tr_claim_t.get() in ("channel", "collection",
                                                 "livestream"):
-                self.deactivate_sr_checks()
+                self.deact_sr_checks()
                 self.switch_sr_various()
 
     def print_done(self, print_msg=True):
