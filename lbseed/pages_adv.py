@@ -23,21 +23,21 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER         #
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
-"""Mixin classes that add the different pages to the main graphical interface.
+"""Mixin classes that add advanced pages to the main graphical interface.
 
 These classes should not be instantiatied directly. They are just used
 in a multiple inheritance, or mixin pattern, to provide the necessary
 building command to build the specific page in the main interface.
 
 ::
-    class DownloadSinglePage:
-        def setup_page_dch(self, parent):
+    class SeedPage:
+        def setup_page_seed(self, parent):
             ...
 
-    class Application(ttk.Frame, DownloadSinglePage):
+    class Application(ttk.Frame, SeedPage):
         def __init__(self, root):
-            page_dch = ttk.Frame(root)
-            self.setup_page_dch(page_dch)
+            page_seed_ratio = ttk.Frame(root)
+            self.setup_page_seed(page_seed_ratio)
 """
 
 import tkinter as tk
