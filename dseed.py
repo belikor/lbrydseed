@@ -663,6 +663,12 @@ def main(argv=None):
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
     root.title("lbrydseed")
+
+    # Set up icon for all top levels
+    root.iconphoto(True, tk.PhotoImage(file="lbrydseed.png"))
+    # root.tk.call("wm", "iconphoto", root._w,
+    #              tk.PhotoImage(file="lbrydseed.png"))
+
     # The quit method is explicit because we create a second toplevel,
     # and it causes problems when we try to close the window
     root.protocol("WM_DELETE_WINDOW", root.quit)
