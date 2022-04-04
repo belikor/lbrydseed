@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=lbrydseed
+Exec=dseed.py
+Icon=lbrydseed
+Type=Application
+Categories=Network;X-LBRY;
+Terminal=true
+MimeType=text/x-python3;
+StartupNotify=true
