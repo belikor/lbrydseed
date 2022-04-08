@@ -86,3 +86,28 @@ class SettingsPage:
         self.textbox_settings = blocks.setup_textbox(parent,
                                                      font=self.txt_font)
         self.textbox_settings.insert("1.0", "(settings)")
+
+
+class StatusPage:
+    """Mixin class to provide the status page to the application."""
+    def setup_page_status(self, parent):
+        self.setup_top_status(parent)
+        self.setup_info_status(parent)
+
+    def setup_top_status(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_st(frame, start=0)
+
+    def setup_grid_top_st(self, parent, start=0):
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Get LBRY status",
+                                b_command=self.get_lbry_status,
+                                l_text=("Get information "
+                                        "on the running 'lbrynet' daemon"),
+                                start=start)
+
+    def setup_info_status(self, parent, start=0):
+        self.textbox_status = blocks.setup_textbox(parent, font=self.txt_font)
+        self.textbox_status.insert("1.0", "(status)")

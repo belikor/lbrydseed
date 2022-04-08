@@ -25,6 +25,7 @@
 # --------------------------------------------------------------------------- #
 """Methods to actually do something with the interface."""
 from lbseed.act_cfg import get_lbrynet_settings
+from lbseed.act_cfg import get_lbrynet_status
 from lbseed.act_download import download_ch
 from lbseed.act_download import download_claims
 from lbseed.act_list import print_claims
@@ -44,6 +45,7 @@ from lbseed.act_others import seeding_ratio
 from lbseed.act_others import show_claims_bids
 
 True if get_lbrynet_settings else False
+True if get_lbrynet_status else False
 True if download_ch else False
 True if download_claims else False
 True if print_claims else False

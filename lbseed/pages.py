@@ -43,7 +43,7 @@ building command to build the specific page in the main interface.
 import tkinter as tk
 
 import lbseed.resolve as res
-from lbseed.pages_base import SettingsPage
+from lbseed.pages_base import SettingsPage, StatusPage
 from lbseed.pages_down import DownloadChPage, DownloadSinglePage
 from lbseed.pages_lists import (ListPage, ListInvalidPage, ListChPage,
                                 ListChSubsPage)
@@ -232,6 +232,7 @@ class Variables:
 
 # Use the classes to prevent warnings by code checkers (flake8)
 True if SettingsPage else False
+True if StatusPage else False
 
 True if DownloadChPage else False
 True if DownloadSinglePage else False

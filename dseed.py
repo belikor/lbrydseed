@@ -38,7 +38,7 @@ import lbseed.actions as actions
 
 class Application(ttk.Frame,
                   pages.Variables,
-                  pages.SettingsPage,
+                  pages.SettingsPage, pages.StatusPage,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListPage, pages.ListInvalidPage, pages.ListChPage,
                   pages.ListChSubsPage,
@@ -63,8 +63,15 @@ class Application(ttk.Frame,
         self.note = ttk.Notebook(parent)
         self.note.pack(fill="both", expand=True)
 
-        page_settings = ttk.Frame(self.note)
-        self.note.add(page_settings, text="General")
+        page_s_gen = ttk.Frame(self.note)
+        self.note.add(page_s_gen, text="General")
+
+        self.note_sub_gen = ttk.Notebook(page_s_gen)
+        page_settings = ttk.Frame(self.note_sub_gen)
+        page_status = ttk.Frame(self.note_sub_gen)
+        self.note_sub_gen.add(page_settings, text="Settings")
+        self.note_sub_gen.add(page_status, text="Status")
+        self.note_sub_gen.pack(fill="both", expand=True)
 
         page_s_d = ttk.Frame(self.note)
         self.note.add(page_s_d, text="Download")
@@ -151,6 +158,7 @@ class Application(ttk.Frame,
 
         # Built from the mixin `Page` classes
         self.setup_page_settings(page_settings)
+        self.setup_page_status(page_status)
         self.setup_page_dch(page_dch)
         self.setup_page_d(page_d)
         self.setup_page_list(page_list)
@@ -211,6 +219,18 @@ class Application(ttk.Frame,
         self.textbox_settings["state"] = "normal"
         self.textbox_settings.replace("1.0", tk.END, content)
         self.textbox_settings["state"] = "disabled"
+        self.print_done(print_msg=True)
+
+    def get_lbry_status(self):
+        """Get the status of the currently running daemon."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        content = actions.get_lbrynet_status(server=self.server_var.get())
+
+        self.textbox_status["state"] = "normal"
+        self.textbox_status.replace("1.0", tk.END, content)
+        self.textbox_status["state"] = "disabled"
         self.print_done(print_msg=True)
 
     def validate_ch(self, print_msg=True):
