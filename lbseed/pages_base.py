@@ -39,20 +39,25 @@ building command to build the specific page in the main interface.
             page_dch = ttk.Frame(root)
             self.setup_page_dch(page_dch)
 """
-
+import tkinter as tk
 import tkinter.ttk as ttk
 
 import lbseed.blocks as blocks
 
 
-class ConfigPage:
+class SettingsPage:
     """Mixin class to provide the configuration page to the application."""
-    def setup_page_cfg(self, parent):
+    def setup_page_settings(self, parent):
+        self.setup_top_settings(parent)
+        self.setup_textbox_settings(parent)
+
+    def setup_top_settings(self, parent):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
-        self.setup_top_config(frame, start=0)
+        self.setup_grid_top_settings(frame, start=0)
+        self.setup_info_settings(frame, start=2)
 
-    def setup_top_config(self, parent, start=0):
+    def setup_grid_top_settings(self, parent, start=0):
         entry, label = \
             blocks.setup_entry_gen(parent,
                                    font=self.e_font,
@@ -61,3 +66,23 @@ class ConfigPage:
                                            "It defaults to localhost:5279"),
                                    start=start)
         entry["width"] = self.b_width
+
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Get LBRY settings",
+                                b_command=self.get_lbry_settings,
+                                l_text=("Get the settings for "
+                                        "the 'lbrynet' daemon"),
+                                start=start+1)
+
+    def setup_info_settings(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("The settings that aren't specified "
+                               "in the 'config' file "
+                               "will use their default values."))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_settings(self, parent, start=0):
+        self.textbox_settings = blocks.setup_textbox(parent,
+                                                     font=self.txt_font)
+        self.textbox_settings.insert("1.0", "(settings)")
