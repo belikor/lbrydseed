@@ -28,9 +28,8 @@ import lbrytools as lbryt
 
 
 def download_ch(resolved_chs,
-                repost=True,
                 ddir=None, own_dir=False, save_file=True,
-                proceed=False,
+                repost=True,
                 print_msg=True,
                 server="http://localhost:5279"):
     """Download claims from channels."""
@@ -61,8 +60,8 @@ def download_ch(resolved_chs,
 
 
 def download_claims(claims,
-                    repost=True,
                     ddir=None, own_dir=False, save_file=True,
+                    repost=True,
                     print_msg=True,
                     server="http://localhost:5279"):
     """Download individual claims."""

@@ -40,8 +40,8 @@ class Application(ttk.Frame,
                   pages.Variables,
                   pages.SettingsPage, pages.StatusPage,
                   pages.DownloadChPage, pages.DownloadSinglePage,
-                  pages.ListPage, pages.ListInvalidPage, pages.ListChPage,
-                  pages.ListChSubsPage,
+                  pages.ListDownPage, pages.ListDownInvalidPage,
+                  pages.ListChPage, pages.ListChSubsPage,
                   pages.ListChPeersPage, pages.ListChsPeersPage,
                   pages.ListSubsPeersPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
@@ -89,12 +89,12 @@ class Application(ttk.Frame,
         self.note.add(page_s_list, text="List claims")
 
         self.note_sub_list = ttk.Notebook(page_s_list)
-        page_list = ttk.Frame(self.note_sub_list)
-        page_list_inv = ttk.Frame(self.note_sub_list)
+        page_down_list = ttk.Frame(self.note_sub_list)
+        page_down_list_inv = ttk.Frame(self.note_sub_list)
         page_ch_claims = ttk.Frame(self.note_sub_list)
         page_ch_subs = ttk.Frame(self.note_sub_list)
-        self.note_sub_list.add(page_list, text="List downloaded claims")
-        self.note_sub_list.add(page_list_inv, text="List invalid claims")
+        self.note_sub_list.add(page_down_list, text="List downloaded claims")
+        self.note_sub_list.add(page_down_list_inv, text="List invalid claims")
         self.note_sub_list.add(page_ch_claims, text="List channel claims")
         self.note_sub_list.add(page_ch_subs, text="Subscribed channels")
         self.note_sub_list.pack(fill="both", expand=True)
@@ -163,8 +163,8 @@ class Application(ttk.Frame,
         self.setup_page_dch(page_dch)
         self.setup_page_d(page_d)
 
-        self.setup_page_list(page_list)
-        self.setup_page_list_inv(page_list_inv)
+        self.setup_page_down_list(page_down_list)
+        self.setup_page_down_list_inv(page_down_list_inv)
         self.setup_page_ch_claims(page_ch_claims)
         self.setup_page_ch_subs(page_ch_subs)
 
@@ -184,13 +184,6 @@ class Application(ttk.Frame,
         self.setup_page_seed(page_seed_ratio)
         self.setup_plot()
         self.setup_page_controlling(page_ctr_claims)
-
-    def update_checkbox(self, event):
-        page = self.note_sub_d.tab(self.note_sub_d.select())["text"]
-        if page == "Download channel":
-            self.chck_enable_dch(force_second_var=False)
-        elif page == "Download single":
-            self.chck_enable_d(force_second_var=False)
 
     def update_search_checkbox(self, event):
         page = self.note_sub_search.tab(self.note_sub_search.select())["text"]
@@ -240,6 +233,13 @@ class Application(ttk.Frame,
         self.textbox_status["state"] = "disabled"
         self.print_done(print_msg=True)
 
+    def update_checkbox(self, event):
+        page = self.note_sub_d.tab(self.note_sub_d.select())["text"]
+        if page == "Download channel":
+            self.chck_enable_dch(force_second_var=False)
+        elif page == "Download single":
+            self.chck_enable_d(force_second_var=False)
+
     def validate_ch(self, print_msg=True):
         """Validate the textbox with channels and numbers."""
         page = self.note.tab(self.note.select())["text"]
@@ -285,11 +285,10 @@ class Application(ttk.Frame,
 
         resolved_chs = self.resolve_ch(print_msg=False)
         actions.download_ch(resolved_chs,
-                            repost=self.check_d_repost.get(),
                             ddir=self.entry_d_dir.get(),
                             own_dir=self.check_d_own_dir.get(),
                             save_file=self.check_d_save.get(),
-                            proceed=True,
+                            repost=self.check_d_repost.get(),
                             server=self.server_var.get())
 
         self.print_done(print_msg=True)
@@ -325,15 +324,15 @@ class Application(ttk.Frame,
 
         claims = self.resolve_claims(print_msg=False)
         actions.download_claims(claims,
-                                repost=self.check_d_repost.get(),
                                 ddir=self.entry_d_dir.get(),
                                 own_dir=self.check_d_own_dir.get(),
                                 save_file=self.check_d_save.get(),
+                                repost=self.check_d_repost.get(),
                                 server=self.server_var.get())
 
         self.print_done(print_msg=True)
 
-    def list_claims(self, invalid=False):
+    def list_d_claims(self, invalid=False):
         """Print the downloaded claims in the textbox."""
         if not res.server_exists(server=self.server_var.get()):
             return False
@@ -366,9 +365,9 @@ class Application(ttk.Frame,
             self.label_lst_inv_info.set(text)
         self.print_done(print_msg=True)
 
-    def list_inv_claims(self):
+    def list_d_claims_inv(self):
         """Print the invalid downloaded claims in the textbox."""
-        self.list_claims(invalid=True)
+        self.list_d_claims(invalid=True)
 
     def resolve_ch_list(self, print_msg=True):
         """Resolve the channel to make sure it exists."""

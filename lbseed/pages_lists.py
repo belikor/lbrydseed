@@ -46,9 +46,9 @@ import tkinter.ttk as ttk
 import lbseed.blocks as blocks
 
 
-class ListPage:
+class ListDownPage:
     """Mixin class to provide the list page to the application."""
-    def setup_page_list(self, parent):
+    def setup_page_down_list(self, parent):
         self.setup_top_list(parent)
         self.setup_textbox_list(parent)
 
@@ -65,7 +65,7 @@ class ListPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="List downloaded claims",
-                                b_command=self.list_claims,
+                                b_command=self.list_d_claims,
                                 l_text="List all locally downloaded claims",
                                 start=start)
 
@@ -75,7 +75,7 @@ class ListPage:
                                    text_var=self.entry_chan,
                                    l_text="Filter by channel name",
                                    start=start+1)
-        entry.bind("<<Activate>>", blocks.f_with_event(self.list_claims))
+        entry.bind("<<Activate>>", blocks.f_with_event(self.list_d_claims))
 
     def setup_grid_check_list(self, parent, start=0):
         blocks.setup_check_list(parent,
@@ -122,9 +122,9 @@ class ListPage:
                                                  font=self.txt_lst_font)
 
 
-class ListInvalidPage:
+class ListDownInvalidPage:
     """Mixin class to provide the list of invalid claims page."""
-    def setup_page_list_inv(self, parent):
+    def setup_page_down_list_inv(self, parent):
         self.setup_top_list_inv(parent)
         self.setup_textbox_list_inv(parent)
 
@@ -142,7 +142,7 @@ class ListInvalidPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="List invalid claims",
-                                b_command=self.list_inv_claims,
+                                b_command=self.list_d_claims_inv,
                                 l_text=("List all locally downloaded claims "
                                         "that have become 'invalid'.\n"
                                         "This operation may take "
@@ -157,7 +157,7 @@ class ListInvalidPage:
                                    text_var=self.entry_chan,
                                    l_text="Filter by channel name",
                                    start=start+1)
-        entry.bind("<<Activate>>", blocks.f_with_event(self.list_inv_claims))
+        entry.bind("<<Activate>>", blocks.f_with_event(self.list_d_claims_inv))
 
     def setup_grid_check_list_inv(self, parent, start=0):
         blocks.setup_check_list(parent,
