@@ -43,7 +43,7 @@ class Application(ttk.Frame,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListDownPage, pages.ListDownInvalidPage,
                   pages.ListChClaimsPage, pages.SubscribedChsPage,
-                  pages.ListPubChsPage,
+                  pages.ListPubChsPage, pages.ListPubClaimsPage,
                   pages.ListChPeersPage, pages.ListChsPeersPage,
                   pages.ListSubsPeersPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
@@ -96,11 +96,13 @@ class Application(ttk.Frame,
         page_ch_claims = ttk.Frame(self.note_sub_list)
         page_subscr_chs = ttk.Frame(self.note_sub_list)
         page_pub_chs = ttk.Frame(self.note_sub_list)
+        page_pub_claims = ttk.Frame(self.note_sub_list)
         self.note_sub_list.add(page_down_list, text="List downloaded claims")
         self.note_sub_list.add(page_down_list_inv, text="List invalid claims")
         self.note_sub_list.add(page_ch_claims, text="List channel claims")
         self.note_sub_list.add(page_subscr_chs, text="Subscribed channels")
         self.note_sub_list.add(page_pub_chs, text="Created channels")
+        self.note_sub_list.add(page_pub_claims, text="Published claims")
         self.note_sub_list.pack(fill="both", expand=True)
 
         page_s_peers = ttk.Frame(self.note)
@@ -172,6 +174,7 @@ class Application(ttk.Frame,
         self.setup_page_ch_claims(page_ch_claims)
         self.setup_page_subscr_chs(page_subscr_chs)
         self.setup_page_pub_chs(page_pub_chs)
+        self.setup_page_pub_claims(page_pub_claims)
 
         self.setup_page_ch_peers(page_ch_peers)
         self.setup_page_chs_peers(page_chs_peers)
@@ -469,6 +472,47 @@ class Application(ttk.Frame,
         self.print_done(print_msg=print_msg)
 
         return output["channels"]
+
+    def fill_ch_list(self, print_msg=True):
+        """Print the claims defined in the wallet in the textbox."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        channels = self.list_pub_chs(print_msg=False)
+
+        combo_values = ["All", "Anonymous"]
+        for ch in channels:
+            combo_values.append(ch["name"])
+
+        self.combo_pub_ch["values"] = combo_values
+        self.print_done(print_msg=print_msg)
+
+    def list_pub_claims(self):
+        """Print the claims defined in the wallet in the textbox."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        self.fill_ch_list(print_msg=False)
+
+        output = actions.list_pub_claims(is_spent=self.chck_ch_spent.get(),
+                                         select=self.chck_pub_ch.get(),
+                                         updates=self.chck_ch_upd.get(),
+                                         claim_id=self.chck_ch_cid.get(),
+                                         addresses=self.chck_ch_addr.get(),
+                                         typ=self.chck_pub_types.get(),
+                                         amounts=self.chck_ch_amount.get(),
+                                         title=self.chck_pub_title.get(),
+                                         reverse=self.chck_pub_rev.get(),
+                                         server=self.server_var.get())
+
+        summary = output["summary"]
+        if summary:
+            content = summary + "\n" + output["content"]
+        else:
+            content = output["content"]
+
+        self.textbox_p_claims.replace("1.0", tk.END, content)
+        self.print_done(print_msg=True)
 
     def list_ch_peers(self):
         """Print the peers of the claims of a channel."""

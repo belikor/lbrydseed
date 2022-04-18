@@ -127,6 +127,10 @@ class VarsPublished:
         self.chck_ch_amount = tk.BooleanVar(value=True)
         self.chck_pub_rev = tk.BooleanVar(value=True)
 
+        self.chck_pub_ch = tk.StringVar(value=None)
+        self.chck_pub_types = tk.BooleanVar(value=True)
+        self.chck_pub_title = tk.BooleanVar(value=False)
+
 
 class VarsPeers:
     """Mixin class to provide variables for the peer pages."""

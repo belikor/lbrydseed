@@ -43,7 +43,7 @@ from lbseed.pages_base import SettingsPage, StatusPage
 from lbseed.pages_down import DownloadChPage, DownloadSinglePage
 from lbseed.pages_lists import (ListDownPage, ListDownInvalidPage,
                                 ListChClaimsPage, SubscribedChsPage,
-                                ListPubChsPage)
+                                ListPubChsPage, ListPubClaimsPage)
 from lbseed.pages_peers import (ListChPeersPage, ListChsPeersPage,
                                 ListSubsPeersPage)
 from lbseed.pages_del import DeleteSinglePage, DeleteChPage
@@ -64,6 +64,7 @@ True if ListDownInvalidPage else False
 True if ListChClaimsPage else False
 True if SubscribedChsPage else False
 True if ListPubChsPage else False
+True if ListPubClaimsPage else False
 
 True if ListChPeersPage else False
 True if ListChsPeersPage else False

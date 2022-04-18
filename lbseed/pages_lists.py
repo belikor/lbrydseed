@@ -438,3 +438,60 @@ class ListPubChsPage:
     def setup_textbox_p_chs(self, parent):
         self.textbox_p_chs = blocks.setup_textbox(parent,
                                                   font=self.txt_lst_font)
+
+
+class ListPubClaimsPage:
+    """Mixing class to provide the published claims page."""
+    def setup_page_pub_claims(self, parent):
+        self.setup_top_p_claims(parent)
+        self.setup_textbox_p_claims(parent)
+
+    def setup_top_p_claims(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_clms(frame, start=0)
+        self.setup_grid_check_clms(frame, start=3)
+
+    def setup_grid_top_clms(self, parent, start=0):
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Populate channel list",
+                                b_command=self.fill_ch_list,
+                                l_text=("Channels defined "
+                                        "in the default wallet"),
+                                start=start)
+
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="List published claims",
+                                b_command=self.list_pub_claims,
+                                l_text=("It will also populate "
+                                        "the list of channels"),
+                                start=start+1)
+
+        self.combo_pub_ch, lb = \
+            blocks.setup_combo_gen(parent,
+                                   width=self.b_width - 1,
+                                   variable=self.chck_pub_ch,
+                                   def_list=("All", "Anonymous"),
+                                   def_value="All",
+                                   l_text=("Show all claims, "
+                                           "or only the selected channel, "
+                                           "or only anonymous claims"),
+                                   start=start+2)
+
+    def setup_grid_check_clms(self, parent, start=0):
+        blocks.setup_check_claims(parent,
+                                  spent_var=self.chck_ch_spent,
+                                  update_var=self.chck_ch_upd,
+                                  cid_var=self.chck_ch_cid,
+                                  addr_var=self.chck_ch_addr,
+                                  type_var=self.chck_pub_types,
+                                  amount_var=self.chck_ch_amount,
+                                  title_var=self.chck_pub_title,
+                                  reverse_var=self.chck_pub_rev,
+                                  start=start)
+
+    def setup_textbox_p_claims(self, parent):
+        self.textbox_p_claims = blocks.setup_textbox(parent,
+                                                     font=self.txt_lst_font)

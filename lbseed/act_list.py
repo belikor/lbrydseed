@@ -159,3 +159,89 @@ def list_pub_chs(wallet_id="default_wallet", is_spent=False,
               "channels": output["channels"]}
 
     return output
+
+
+def list_pub_claims(wallet_id="default_wallet", is_spent=False,
+                    select=None,
+                    updates=False, claim_id=False, addresses=False,
+                    typ=False, amounts=True,
+                    title=False,
+                    reverse=False,
+                    server="http://localhost:5279"):
+    """Print created claims in the wallet."""
+    if select in ("All", "Anonymous"):
+        if select in "All":
+            channel = None
+            channel_id = None
+            anon = False
+        elif select in "Anonymous":
+            channel = None
+            channel_id = None
+            anon = True
+    else:
+        channel = select
+        channel_id = None
+        anon = False
+
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        output = lbryt.list_claims(wallet_id=wallet_id,
+                                   is_spent=is_spent,
+                                   channel=channel, channel_id=channel_id,
+                                   anon=anon,
+                                   updates=updates, claim_id=claim_id,
+                                   addresses=addresses,
+                                   typ=typ, amounts=amounts, ch_name=False,
+                                   title=title,
+                                   reverse=reverse, sanitize=True,
+                                   file=fp.name, fdate=False, sep=";",
+                                   server=server)
+        fp.seek(0)
+        content = fp.read()
+
+    n_chs = output["summary"]["n_channels"]
+    t_n_claims = output["summary"]["n_ch_claims"]
+    t_GB = output["summary"]["chs_size"]
+    t_hr = output["summary"]["chs_hr"]
+    t_mi = output["summary"]["chs_min"]
+    t_sec = output["summary"]["chs_sec"]
+    t_days = output["summary"]["chs_days"]
+    t_n_anon_claims = output["summary"]["n_anon_claims"]
+    t_anon_GB = output["summary"]["anon_size"]
+    t_anon_hr = output["summary"]["anon_hr"]
+    t_anon_mi = output["summary"]["anon_min"]
+    t_anon_sec = output["summary"]["anon_sec"]
+    t_anon_days = output["summary"]["anon_days"]
+
+    out1 = [f"Total unique channels: {n_chs}",
+            f"Total claims in channels: {t_n_claims}",
+            f"Total download size: {t_GB:.4f} GiB",
+            f"Total duration: {t_hr} h {t_mi} min {t_sec} s, "
+            f"or {t_days:.4f} days"]
+
+    out2 = [f"Anonymous unique claims: {t_n_anon_claims}",
+            f"Total download size of anonymous claims: {t_anon_GB:.4f} GiB",
+            "Total duration of anonymous claims: "
+            f"{t_anon_hr} h {t_anon_mi} min {t_anon_sec} s, "
+            f"or {t_anon_days:.4f} days"]
+
+    out = []
+
+    if t_n_claims > 0:
+        out += out1
+
+        if t_n_anon_claims > 0:
+            out += [40 * "-"]
+
+    if t_n_anon_claims > 0:
+        out += out2
+
+    if out:
+        out += [80 * "-"]
+
+    text = "\n".join(out)
+
+    output = {"summary": text,
+              "content": content,
+              "ch_claims": output["ch_claims"]}
+
+    return output
