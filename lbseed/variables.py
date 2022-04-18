@@ -116,6 +116,18 @@ class VarsSubscribedChs:
         self.spin_subs_threads = tk.IntVar(value=32)
 
 
+class VarsPublished:
+    """Mixin class to provide variables to the published claims."""
+    def setup_published_vars(self):
+        self.chck_ch_spent = tk.BooleanVar(value=False)
+        self.chck_ch_upd = tk.BooleanVar(value=False)
+        self.chck_ch_cid = tk.BooleanVar(value=False)
+        self.chck_ch_addr = tk.BooleanVar(value=False)
+        self.chck_ch_acc = tk.BooleanVar(value=False)
+        self.chck_ch_amount = tk.BooleanVar(value=True)
+        self.chck_pub_rev = tk.BooleanVar(value=True)
+
+
 class VarsPeers:
     """Mixin class to provide variables for the peer pages."""
     def setup_peers_vars(self):
@@ -203,6 +215,7 @@ class Variables(VarsWidgets,
                 VarsListDownload,
                 VarsListChClaims,
                 VarsSubscribedChs,
+                VarsPublished,
                 VarsPeers,
                 VarsDelete,
                 VarsSupports,
@@ -217,6 +230,7 @@ class Variables(VarsWidgets,
         super().setup_list_d_vars()
         super().setup_list_ch_vars()
         super().setup_subscribed_chs_vars()
+        super().setup_published_vars()
         super().setup_peers_vars()
         super().setup_delete_vars()
         super().setup_support_vars()

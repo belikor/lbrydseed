@@ -302,6 +302,58 @@ def setup_radio_ch_subs_valid2(parent,
     show_valid.grid(row=start+1, column=1, sticky=tk.W)
 
 
+def setup_check_chs_claims(parent,
+                           spent_var=None,
+                           update_var=None,
+                           cid_var=None,
+                           addr_var=None,
+                           acc_var=None,
+                           amount_var=None,
+                           reverse_var=None,
+                           start=0):
+    """Setup the checkbuttons to list channel claims."""
+    chck_spent = ttk.Checkbutton(parent,
+                                 variable=spent_var,
+                                 text=("Show spent transactions\n"
+                                       "(it may show expired claims)"))
+    chck_spent.grid(row=start, column=0, sticky=tk.W)
+
+    chck_up = ttk.Checkbutton(parent,
+                              variable=update_var,
+                              text="Show time of last update")
+    chck_up.grid(row=start+1, column=0, sticky=tk.W)
+
+    chck_cid = ttk.Checkbutton(parent,
+                               variable=cid_var,
+                               text=("Show claim ID "
+                                     "(40-character string)"))
+    chck_cid.grid(row=start, column=1, sticky=tk.W)
+
+    chck_addr = ttk.Checkbutton(parent,
+                                variable=addr_var,
+                                text=("Show addresses "
+                                      "(34-character string)"))
+    chck_addr.grid(row=start+1, column=1, sticky=tk.W)
+
+    chck_acc = ttk.Checkbutton(parent,
+                               variable=acc_var,
+                               text=("Show accounts "
+                                     "(34-character string)"))
+    chck_acc.grid(row=start+2, column=1, sticky=tk.W)
+
+    chck_amount = ttk.Checkbutton(parent,
+                                  variable=amount_var,
+                                  text=("Show amounts "
+                                        "(base and total)"))
+    chck_amount.grid(row=start+3, column=1, sticky=tk.W)
+
+    chck_rv = ttk.Checkbutton(parent,
+                              variable=reverse_var,
+                              text=("Show in descending order "
+                                    "(newer items first, older last)"))
+    chck_rv.grid(row=start+4, column=1, sticky=tk.W)
+
+
 def setup_check_support(parent,
                         show_ch_var=None,
                         show_claims_var=None,

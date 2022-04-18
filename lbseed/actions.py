@@ -31,6 +31,7 @@ from lbseed.act_download import download_claims
 from lbseed.act_list import print_claims
 from lbseed.act_list import print_ch_claims
 from lbseed.act_list import list_text_size
+from lbseed.act_list import list_pub_chs
 from lbseed.act_channels import list_ch_subs
 from lbseed.act_peers import list_peers
 from lbseed.act_peers import list_ch_peers
@@ -51,6 +52,7 @@ True if download_claims else False
 True if print_claims else False
 True if print_ch_claims else False
 True if list_text_size else False
+True if list_pub_chs else False
 True if list_ch_subs else False
 True if list_peers else False
 True if list_ch_peers else False

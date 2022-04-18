@@ -124,3 +124,38 @@ def list_text_size(number, size, seconds):
             f"or {days:.4f} days")
 
     return text
+
+
+def list_pub_chs(wallet_id="default_wallet", is_spent=False,
+                 updates=False, claim_id=False, addresses=True,
+                 accounts=False, amounts=True,
+                 reverse=False,
+                 server="http://localhost:5279"):
+    """Print all created channels in the wallet."""
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        output = lbryt.list_channels(wallet_id=wallet_id,
+                                     is_spent=is_spent,
+                                     updates=updates, claim_id=claim_id,
+                                     addresses=addresses,
+                                     accounts=accounts, amounts=amounts,
+                                     reverse=reverse, sanitize=True,
+                                     file=fp.name, fdate=False, sep=";",
+                                     server=server)
+        fp.seek(0)
+        content = fp.read()
+
+    n_claims = output["summary"]["n_claims"]
+    t_base_amount = output["summary"]["base_amount"]
+    total_amount = output["summary"]["total_amount"]
+
+    out = [f"Total claims in channels: {n_claims}",
+           f"Total base stake on all channels: {t_base_amount:14.8f}",
+           f"Total stake on all channels:      {total_amount:14.8f}",
+           80 * "-"]
+    text = "\n".join(out)
+
+    output = {"summary": text,
+              "content": content,
+              "channels": output["channels"]}
+
+    return output

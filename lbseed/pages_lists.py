@@ -402,3 +402,39 @@ class SubscribedChsPage:
         self.textbox_ch_subs_list = \
             blocks.setup_textbox(parent,
                                  font=self.txt_lst_font)
+
+
+class ListPubChsPage:
+    """Mixin class to provide the created channels page."""
+    def setup_page_pub_chs(self, parent):
+        self.setup_top_p_chs(parent)
+        self.setup_textbox_p_chs(parent)
+
+    def setup_top_p_chs(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_cl_ch(frame, start=0)
+        self.setup_grid_check_chs(frame, start=1)
+
+    def setup_grid_top_cl_ch(self, parent, start=0):
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="List created channels",
+                                b_command=self.list_pub_chs,
+                                l_text=("In the default wallet"),
+                                start=start)
+
+    def setup_grid_check_chs(self, parent, start=0):
+        blocks.setup_check_chs_claims(parent,
+                                      spent_var=self.chck_ch_spent,
+                                      update_var=self.chck_ch_upd,
+                                      cid_var=self.chck_ch_cid,
+                                      addr_var=self.chck_ch_addr,
+                                      acc_var=self.chck_ch_acc,
+                                      amount_var=self.chck_ch_amount,
+                                      reverse_var=self.chck_pub_rev,
+                                      start=start)
+
+    def setup_textbox_p_chs(self, parent):
+        self.textbox_p_chs = blocks.setup_textbox(parent,
+                                                  font=self.txt_lst_font)
