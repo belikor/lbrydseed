@@ -80,34 +80,18 @@ class VarsDownload:
         self.check_d_repost = tk.BooleanVar(value=True)
 
 
-class Variables(VarsWidgets,
-                VarsSettings,
-                VarsDownload):
-    """Mixin class to provide variables to the application."""
-    def setup_vars(self):
-        super().setup_widget_vars()
-        super().setup_settings_vars()
-        super().setup_download_vars()
-
+class VarsListDownload:
+    """Mixin class to provide variables for the list downlading pages."""
+    def setup_list_d_vars(self):
         self.entry_chan = tk.StringVar()
+        self.check_lst_blks = tk.BooleanVar(value=False)
+        self.check_lst_cid = tk.BooleanVar(value=False)
+        self.check_lst_blobs = tk.BooleanVar(value=True)
+        self.check_lst_size = tk.BooleanVar(value=True)
+        self.check_lst_show_ch = tk.BooleanVar(value=True)
+        self.rad_lst_name = tk.StringVar(value="name")
+        self.check_lst_reverse = tk.BooleanVar(value=True)
 
-        self.del_what_var = tk.StringVar()
-        self.del_what_var.set("media")
-
-        self.check_lst_blks = tk.BooleanVar()
-        self.check_lst_blks.set(False)
-        self.check_lst_cid = tk.BooleanVar()
-        self.check_lst_cid.set(False)
-        self.check_lst_blobs = tk.BooleanVar()
-        self.check_lst_blobs.set(True)
-        self.check_lst_size = tk.BooleanVar()
-        self.check_lst_size.set(True)
-        self.check_lst_show_ch = tk.BooleanVar()
-        self.check_lst_show_ch.set(True)
-        self.rad_lst_name = tk.StringVar()
-        self.rad_lst_name.set("name")
-        self.check_lst_reverse = tk.BooleanVar()
-        self.check_lst_reverse.set(True)
         self.label_lst_info = tk.StringVar()
         self.label_lst_info.set("Claims: 0; "
                                 "total size: 0 GB; "
@@ -116,6 +100,21 @@ class Variables(VarsWidgets,
         self.label_lst_inv_info.set("Claims: 0; "
                                     "total size: 0 GB; "
                                     "total duration: 0 h")
+
+
+class Variables(VarsWidgets,
+                VarsSettings,
+                VarsDownload,
+                VarsListDownload):
+    """Mixin class to provide variables to the application."""
+    def setup_vars(self):
+        super().setup_widget_vars()
+        super().setup_settings_vars()
+        super().setup_download_vars()
+        super().setup_list_d_vars()
+
+        self.del_what_var = tk.StringVar()
+        self.del_what_var.set("media")
 
         self.rad_subs_shared = tk.StringVar()
         self.rad_subs_shared.set("shared")
