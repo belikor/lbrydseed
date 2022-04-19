@@ -300,7 +300,7 @@ class ListChPage:
 
 
 class ListChSubsPage:
-    """Mixing class to provide the list command for subscribed channels."""
+    """Mixin class to provide the list command for subscribed channels."""
     def setup_page_ch_subs(self, parent):
         self.setup_top_ch_subs_list(parent)
         self.setup_textbox_ch_subs_list(parent)

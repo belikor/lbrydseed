@@ -149,9 +149,9 @@ class Application(ttk.Frame,
 
         note_sub_adv = ttk.Notebook(page_s_adv)
         page_seed_ratio = ttk.Frame(note_sub_adv)
-        page_claims = ttk.Frame(note_sub_adv)
+        page_ctr_claims = ttk.Frame(note_sub_adv)
         note_sub_adv.add(page_seed_ratio, text="Seeding ratio")
-        note_sub_adv.add(page_claims, text="Controlling claims")
+        note_sub_adv.add(page_ctr_claims, text="Controlling claims")
         note_sub_adv.pack(fill="both", expand=True)
 
         self.note.select(page_s_d)
@@ -159,24 +159,31 @@ class Application(ttk.Frame,
         # Built from the mixin `Page` classes
         self.setup_page_settings(page_settings)
         self.setup_page_status(page_status)
+
         self.setup_page_dch(page_dch)
         self.setup_page_d(page_d)
+
         self.setup_page_list(page_list)
         self.setup_page_list_inv(page_list_inv)
         self.setup_page_ch_claims(page_ch_claims)
         self.setup_page_ch_subs(page_ch_subs)
+
         self.setup_page_ch_peers(page_ch_peers)
         self.setup_page_chs_peers(page_chs_peers)
         self.setup_page_subs_peers(page_subs_peers)
+
         self.setup_page_del(page_del)
         self.setup_page_delch(page_delch)
+
         self.setup_page_supports(page_supports)
         self.setup_page_add_supports(page_add_supports)
+
         self.setup_page_trend(page_trend)
         self.setup_page_search(page_search)
+
         self.setup_page_seed(page_seed_ratio)
         self.setup_plot()
-        self.setup_page_controlling(page_claims)
+        self.setup_page_controlling(page_ctr_claims)
 
     def update_checkbox(self, event):
         page = self.note_sub_d.tab(self.note_sub_d.select())["text"]
@@ -327,7 +334,7 @@ class Application(ttk.Frame,
         self.print_done(print_msg=True)
 
     def list_claims(self, invalid=False):
-        """Print the claims in the textbox."""
+        """Print the downloaded claims in the textbox."""
         if not res.server_exists(server=self.server_var.get()):
             return False
 
@@ -360,6 +367,7 @@ class Application(ttk.Frame,
         self.print_done(print_msg=True)
 
     def list_inv_claims(self):
+        """Print the invalid downloaded claims in the textbox."""
         self.list_claims(invalid=True)
 
     def resolve_ch_list(self, print_msg=True):
@@ -585,6 +593,7 @@ class Application(ttk.Frame,
         self.print_done(print_msg=True)
 
     def controlling_claims(self):
+        """Print the information of the controlling claims."""
         content = \
             actions.show_claims_bids(show_controlling=self.check_c_contr.get(),
                                      show_non_controlling=self.check_c_non_contr.get(),
