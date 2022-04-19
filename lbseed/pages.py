@@ -102,16 +102,36 @@ class VarsListDownload:
                                     "total duration: 0 h")
 
 
+class VarsListChClaims:
+    """Mixin class to provide variables for the list channel claims page."""
+    def setup_list_ch_vars(self):
+        self.entry_chl_chan = tk.StringVar(value="@lbry:3f")
+        self.spin_chl_num = tk.IntVar(value=0)
+        self.chck_chl_blk = tk.BooleanVar(value=False)
+        self.chck_chl_cid = tk.BooleanVar(value=False)
+        self.chck_chl_type = tk.BooleanVar(value=True)
+        self.chck_chl_chname = tk.BooleanVar(value=False)
+        self.chck_chl_title = tk.BooleanVar(value=False)
+        self.chck_chl_reverse = tk.BooleanVar(value=True)
+        self.chck_chl_reverse.set(True)
+        self.label_chl_info = tk.StringVar()
+        self.label_chl_info.set("Claims: 0; "
+                                "total size: 0 GB; "
+                                "total duration: 0 h")
+
+
 class Variables(VarsWidgets,
                 VarsSettings,
                 VarsDownload,
-                VarsListDownload):
+                VarsListDownload,
+                VarsListChClaims):
     """Mixin class to provide variables to the application."""
     def setup_vars(self):
         super().setup_widget_vars()
         super().setup_settings_vars()
         super().setup_download_vars()
         super().setup_list_d_vars()
+        super().setup_list_ch_vars()
 
         self.del_what_var = tk.StringVar()
         self.del_what_var.set("media")
@@ -219,27 +239,6 @@ class Variables(VarsWidgets,
         self.search_entry_tags = tk.StringVar()
         self.label_sch_info = tk.StringVar()
         self.label_sch_info.set("Page: -")
-
-        self.entry_chl_chan = tk.StringVar()
-        self.entry_chl_chan.set("@lbry:3f")
-        self.spin_chl_num = tk.IntVar()
-        self.spin_chl_num.set(0)
-        self.chck_chl_blk = tk.BooleanVar()
-        self.chck_chl_blk.set(False)
-        self.chck_chl_cid = tk.BooleanVar()
-        self.chck_chl_cid.set(False)
-        self.chck_chl_type = tk.BooleanVar()
-        self.chck_chl_type.set(False)
-        self.chck_chl_chname = tk.BooleanVar()
-        self.chck_chl_chname.set(False)
-        self.chck_chl_title = tk.BooleanVar()
-        self.chck_chl_title.set(False)
-        self.chck_chl_reverse = tk.BooleanVar()
-        self.chck_chl_reverse.set(True)
-        self.label_chl_info = tk.StringVar()
-        self.label_chl_info.set("Claims: 0; "
-                                "total size: 0 GB; "
-                                "total duration: 0 h")
 
 
 # Use the classes to prevent warnings by code checkers (flake8)
