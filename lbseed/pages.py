@@ -55,16 +55,27 @@ from lbseed.pages_search import TrendPage, SearchPage
 from lbseed.pages_adv import SeedPage, ControllingClaimsPage
 
 
-class Variables:
-    """Mixin class to provide variables to the application."""
-    def setup_vars(self):
+class VarsWidgets:
+    """Mixin class to provide variables for the widgets."""
+    def setup_widget_vars(self):
         self.e_font = tk.font.Font(family="monospace", size=10)
         self.b_width = 26
         self.txt_font = tk.font.Font(family="monospace")
         self.txt_lst_font = tk.font.Font(family="monospace", size=9)
 
-        self.server_var = tk.StringVar()
-        self.server_var.set("http://localhost:5279")
+
+class VarsSettings:
+    """Mixin class to provide variables for the settings page."""
+    def setup_settings_vars(self):
+        self.server_var = tk.StringVar(value="http://localhost:5279")
+
+
+class Variables(VarsWidgets,
+                VarsSettings):
+    """Mixin class to provide variables to the application."""
+    def setup_vars(self):
+        super().setup_widget_vars()
+        super().setup_settings_vars()
 
         self.entry_d_dir = tk.StringVar()
         server = res.get_download_dir(server=self.server_var.get())
