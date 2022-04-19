@@ -70,22 +70,24 @@ class VarsSettings:
         self.server_var = tk.StringVar(value="http://localhost:5279")
 
 
+class VarsDownload:
+    """Mixin class to provide variables for the download page."""
+    def setup_download_vars(self):
+        server = res.get_download_dir(server=self.server_var.get())
+        self.entry_d_dir = tk.StringVar(value=server)
+        self.check_d_own_dir = tk.BooleanVar(value=True)
+        self.check_d_save = tk.BooleanVar(value=True)
+        self.check_d_repost = tk.BooleanVar(value=True)
+
+
 class Variables(VarsWidgets,
-                VarsSettings):
+                VarsSettings,
+                VarsDownload):
     """Mixin class to provide variables to the application."""
     def setup_vars(self):
         super().setup_widget_vars()
         super().setup_settings_vars()
-
-        self.entry_d_dir = tk.StringVar()
-        server = res.get_download_dir(server=self.server_var.get())
-        self.entry_d_dir.set(server)
-        self.check_d_repost = tk.BooleanVar()
-        self.check_d_repost.set(True)
-        self.check_d_own_dir = tk.BooleanVar()
-        self.check_d_own_dir.set(True)
-        self.check_d_save = tk.BooleanVar()
-        self.check_d_save.set(True)
+        super().setup_download_vars()
 
         self.entry_chan = tk.StringVar()
 
