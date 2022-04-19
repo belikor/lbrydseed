@@ -219,7 +219,7 @@ class ListDownInvalidPage:
                                                      font=self.txt_lst_font)
 
 
-class ListChPage:
+class ListChClaimsPage:
     """Mixin class to provide the list channel claims to the application."""
     def setup_page_ch_claims(self, parent):
         self.setup_top_ch_list(parent)
