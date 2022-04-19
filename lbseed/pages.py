@@ -120,11 +120,23 @@ class VarsListChClaims:
                                 "total duration: 0 h")
 
 
+class VarsSubscribedChs:
+    """Mixin class to provide variables for the subscribed channels page."""
+    def setup_subscribed_chs_vars(self):
+        self.spin_subs_claim_num = tk.IntVar(value=5)
+        self.rad_subs_shared = tk.StringVar(value="shared")
+        self.rad_subs_show = tk.StringVar(value="show_valid")
+        self.check_subs_claim_id = tk.BooleanVar(value=False)
+        self.check_subs_title = tk.BooleanVar(value=True)
+        self.spin_subs_threads = tk.IntVar(value=32)
+
+
 class Variables(VarsWidgets,
                 VarsSettings,
                 VarsDownload,
                 VarsListDownload,
-                VarsListChClaims):
+                VarsListChClaims,
+                VarsSubscribedChs):
     """Mixin class to provide variables to the application."""
     def setup_vars(self):
         super().setup_widget_vars()
@@ -132,22 +144,10 @@ class Variables(VarsWidgets,
         super().setup_download_vars()
         super().setup_list_d_vars()
         super().setup_list_ch_vars()
+        super().setup_subscribed_chs_vars()
 
         self.del_what_var = tk.StringVar()
         self.del_what_var.set("media")
-
-        self.rad_subs_shared = tk.StringVar()
-        self.rad_subs_shared.set("shared")
-        self.rad_subs_show = tk.StringVar()
-        self.rad_subs_show.set("show_valid")
-        self.spin_subs_threads = tk.IntVar()
-        self.spin_subs_threads.set(32)
-        self.spin_subs_claim_num = tk.IntVar()
-        self.spin_subs_claim_num.set(5)
-        self.check_subs_claim_id = tk.BooleanVar()
-        self.check_subs_claim_id.set(False)
-        self.check_subs_title = tk.BooleanVar()
-        self.check_subs_title.set(True)
 
         self.spin_ch_peers_num = tk.IntVar()
         self.spin_ch_peers_num.set(50)
