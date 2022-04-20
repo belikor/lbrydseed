@@ -131,12 +131,32 @@ class VarsSubscribedChs:
         self.spin_subs_threads = tk.IntVar(value=32)
 
 
+class VarsPeers:
+    """Mixin class to provide variables for the peer pages."""
+    def setup_peers_vars(self):
+        # self.entry_chl_chan = tk.StringVar(value="@lbry:3f")
+        self.spin_ch_peers_num = tk.IntVar(value=50)
+        # self.spin_subs_threads = tk.IntVar(value=32)
+        self.chck_ch_peers_cid = tk.BooleanVar(value=False)
+        self.chck_ch_peers_type = tk.BooleanVar(value=True)
+        self.chck_ch_peers_title = tk.BooleanVar(value=False)
+
+        self.spin_ch_threads = tk.IntVar(value=16)
+        self.spin_claim_threads = tk.IntVar(value=32)
+
+        self.spin_ch_subs_threads = tk.IntVar(value=32)
+        self.spin_c_subs_threads = tk.IntVar(value=16)
+        self.rad_subs_pr_shared = tk.StringVar(value="shared")
+        self.rad_subs_pr_show = tk.StringVar(value="show_all")
+
+
 class Variables(VarsWidgets,
                 VarsSettings,
                 VarsDownload,
                 VarsListDownload,
                 VarsListChClaims,
-                VarsSubscribedChs):
+                VarsSubscribedChs,
+                VarsPeers):
     """Mixin class to provide variables to the application."""
     def setup_vars(self):
         super().setup_widget_vars()
@@ -145,32 +165,10 @@ class Variables(VarsWidgets,
         super().setup_list_d_vars()
         super().setup_list_ch_vars()
         super().setup_subscribed_chs_vars()
+        super().setup_peers_vars()
 
         self.del_what_var = tk.StringVar()
         self.del_what_var.set("media")
-
-        self.spin_ch_peers_num = tk.IntVar()
-        self.spin_ch_peers_num.set(50)
-        self.chck_ch_peers_cid = tk.BooleanVar()
-        self.chck_ch_peers_cid.set(False)
-        self.chck_ch_peers_type = tk.BooleanVar()
-        self.chck_ch_peers_type.set(True)
-        self.chck_ch_peers_title = tk.BooleanVar()
-        self.chck_ch_peers_title.set(False)
-
-        self.spin_ch_threads = tk.IntVar()
-        self.spin_ch_threads.set(16)
-        self.spin_claim_threads = tk.IntVar()
-        self.spin_claim_threads.set(32)
-
-        self.spin_ch_subs_threads = tk.IntVar()
-        self.spin_ch_subs_threads.set(32)
-        self.spin_c_subs_threads = tk.IntVar()
-        self.spin_c_subs_threads.set(16)
-        self.rad_subs_pr_shared = tk.StringVar()
-        self.rad_subs_pr_shared.set("shared")
-        self.rad_subs_pr_show = tk.StringVar()
-        self.rad_subs_pr_show.set("show_all")
 
         self.check_s_ch = tk.BooleanVar()
         self.check_s_ch.set(False)
