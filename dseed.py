@@ -41,7 +41,7 @@ class Application(ttk.Frame,
                   pages.SettingsPage, pages.StatusPage,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListDownPage, pages.ListDownInvalidPage,
-                  pages.ListChClaimsPage, pages.ListChSubsPage,
+                  pages.ListChClaimsPage, pages.SubscribedChsPage,
                   pages.ListChPeersPage, pages.ListChsPeersPage,
                   pages.ListSubsPeersPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
@@ -92,11 +92,11 @@ class Application(ttk.Frame,
         page_down_list = ttk.Frame(self.note_sub_list)
         page_down_list_inv = ttk.Frame(self.note_sub_list)
         page_ch_claims = ttk.Frame(self.note_sub_list)
-        page_ch_subs = ttk.Frame(self.note_sub_list)
+        page_subscr_chs = ttk.Frame(self.note_sub_list)
         self.note_sub_list.add(page_down_list, text="List downloaded claims")
         self.note_sub_list.add(page_down_list_inv, text="List invalid claims")
         self.note_sub_list.add(page_ch_claims, text="List channel claims")
-        self.note_sub_list.add(page_ch_subs, text="Subscribed channels")
+        self.note_sub_list.add(page_subscr_chs, text="Subscribed channels")
         self.note_sub_list.pack(fill="both", expand=True)
 
         page_s_peers = ttk.Frame(self.note)
@@ -166,7 +166,7 @@ class Application(ttk.Frame,
         self.setup_page_down_list(page_down_list)
         self.setup_page_down_list_inv(page_down_list_inv)
         self.setup_page_ch_claims(page_ch_claims)
-        self.setup_page_ch_subs(page_ch_subs)
+        self.setup_page_subscr_chs(page_subscr_chs)
 
         self.setup_page_ch_peers(page_ch_peers)
         self.setup_page_chs_peers(page_chs_peers)
@@ -423,7 +423,7 @@ class Application(ttk.Frame,
         self.label_chl_info.set(text)
         self.print_done(print_msg=True)
 
-    def list_ch_subs(self):
+    def list_subscr_chs(self):
         """Print the subscribed channels in the textbox."""
         if not res.server_exists(server=self.server_var.get()):
             return False
@@ -438,7 +438,7 @@ class Application(ttk.Frame,
         self.textbox_ch_subs_list.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
-    def list_ch_subs_claims(self):
+    def list_subscr_chs_claims(self):
         """Print the subscribed channels' latest claims in the textbox."""
         if not res.server_exists(server=self.server_var.get()):
             return False

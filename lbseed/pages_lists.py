@@ -299,9 +299,9 @@ class ListChClaimsPage:
                                                     font=self.txt_lst_font)
 
 
-class ListChSubsPage:
+class SubscribedChsPage:
     """Mixin class to provide the list command for subscribed channels."""
-    def setup_page_ch_subs(self, parent):
+    def setup_page_subscr_chs(self, parent):
         self.setup_top_ch_subs_list(parent)
         self.setup_textbox_ch_subs_list(parent)
 
@@ -317,7 +317,7 @@ class ListChSubsPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="List subscribed channels",
-                                b_command=self.list_ch_subs,
+                                b_command=self.list_subscr_chs,
                                 l_text=("(a) The subscribed channels "
                                         "reside in the wallet file\n"
                                         "but they are resolved online "
@@ -327,7 +327,7 @@ class ListChSubsPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="List subscribed channels claims",
-                                b_command=self.list_ch_subs_claims,
+                                b_command=self.list_subscr_chs_claims,
                                 l_text=("(b) The newest claims "
                                         "for each channel will be shown"),
                                 start=start+1)
@@ -335,7 +335,7 @@ class ListChSubsPage:
         spin_num, label = \
             blocks.setup_spin_page(parent,
                                    s_text_var=self.spin_subs_claim_num,
-                                   s_command=self.list_ch_subs_claims,
+                                   s_command=self.list_subscr_chs_claims,
                                    l_text=("(b) Number of claims to show "
                                            "per channel.\n"
                                            "It will take various minutes "
@@ -380,7 +380,7 @@ class ListChSubsPage:
         spin_num, label = \
             blocks.setup_spin_page(parent,
                                    s_text_var=self.spin_subs_threads,
-                                   s_command=self.list_ch_subs,
+                                   s_command=self.list_subscr_chs,
                                    l_text=("Number of threads to resolve "
                                            "the channels; "
                                            "use 0 to avoid threads"),
