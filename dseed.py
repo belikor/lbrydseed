@@ -531,7 +531,8 @@ class Application(ttk.Frame,
             return False
 
         claims = self.resolve_claims(print_msg=False)
-        actions.delete_claims(claims, what=self.del_what_var.get(),
+        actions.delete_claims(claims,
+                              what=self.rad_delete_what.get(),
                               server=self.server_var.get())
 
         self.print_done(print_msg=True)
@@ -543,7 +544,7 @@ class Application(ttk.Frame,
 
         resolved_chs = self.resolve_ch(print_msg=False)
         actions.clean_ch(resolved_chs,
-                         what=self.del_what_var.get(),
+                         what=self.rad_delete_what.get(),
                          server=self.server_var.get())
 
         self.print_done(print_msg=True)

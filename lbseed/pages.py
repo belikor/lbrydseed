@@ -150,13 +150,20 @@ class VarsPeers:
         self.rad_subs_pr_show = tk.StringVar(value="show_all")
 
 
+class VarsDelete:
+    """Mixin class to provide variables for the deleting pages."""
+    def setup_delete_vars(self):
+        self.rad_delete_what = tk.StringVar(value="media")
+
+
 class Variables(VarsWidgets,
                 VarsSettings,
                 VarsDownload,
                 VarsListDownload,
                 VarsListChClaims,
                 VarsSubscribedChs,
-                VarsPeers):
+                VarsPeers,
+                VarsDelete):
     """Mixin class to provide variables to the application."""
     def setup_vars(self):
         super().setup_widget_vars()
@@ -166,9 +173,7 @@ class Variables(VarsWidgets,
         super().setup_list_ch_vars()
         super().setup_subscribed_chs_vars()
         super().setup_peers_vars()
-
-        self.del_what_var = tk.StringVar()
-        self.del_what_var.set("media")
+        super().setup_delete_vars()
 
         self.check_s_ch = tk.BooleanVar()
         self.check_s_ch.set(False)
