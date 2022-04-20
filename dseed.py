@@ -471,7 +471,7 @@ class Application(ttk.Frame,
         output = \
             actions.list_peers(channel=self.entry_chl_chan.get(),
                                number=self.spin_ch_peers_num.get(),
-                               threads=self.spin_subs_threads.get(),
+                               threads=self.spin_ch_peers_threads.get(),
                                claim_id=self.chck_ch_peers_cid.get(),
                                typ=self.chck_ch_peers_type.get(),
                                title=self.chck_ch_peers_title.get(),
@@ -492,8 +492,8 @@ class Application(ttk.Frame,
 
         output = \
             actions.list_ch_peers(resolved_chs,
-                                  ch_threads=self.spin_ch_threads.get(),
-                                  claim_threads=self.spin_claim_threads.get(),
+                                  ch_threads=self.spin_chs_ch_threads.get(),
+                                  claim_threads=self.spin_chs_cl_threads.get(),
                                   server=self.server_var.get())
 
         content = output["summary"]
@@ -515,8 +515,8 @@ class Application(ttk.Frame,
             actions.list_subs_peers(number=self.spin_ch_peers_num.get(),
                                     shared=self.rad_subs_pr_shared.get(),
                                     show=self.rad_subs_pr_show.get(),
-                                    ch_threads=self.spin_ch_subs_threads.get(),
-                                    c_threads=self.spin_c_subs_threads.get(),
+                                    ch_threads=self.spin_subs_ch_threads.get(),
+                                    c_threads=self.spin_subs_cl_threads.get(),
                                     server=self.server_var.get())
 
         content = output["summary"]

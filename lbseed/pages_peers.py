@@ -98,7 +98,7 @@ class ListChPeersPage:
 
         spin_num, label = \
             blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_subs_threads,
+                                   s_text_var=self.spin_ch_peers_threads,
                                    s_command=self.list_ch_peers,
                                    l_text=("Number of threads to process "
                                            "claims in parallel "
@@ -195,7 +195,7 @@ class ListChsPeersPage:
 
         spin_num, label = \
             blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_ch_threads,
+                                   s_text_var=self.spin_chs_ch_threads,
                                    s_command=self.list_chs_peers,
                                    l_text=("Number of threads to process "
                                            "channels in parallel; "
@@ -207,7 +207,7 @@ class ListChsPeersPage:
 
         spin_num, label = \
             blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_claim_threads,
+                                   s_text_var=self.spin_chs_cl_threads,
                                    s_command=self.list_chs_peers,
                                    l_text=("Number of threads to process "
                                            "claims in parallel "
@@ -286,7 +286,7 @@ class ListSubsPeersPage:
 
         spin_num, label = \
             blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_ch_subs_threads,
+                                   s_text_var=self.spin_subs_ch_threads,
                                    s_command=self.list_subs_peers,
                                    l_text=("Number of threads to process "
                                            "channels in parallel; "
@@ -298,7 +298,7 @@ class ListSubsPeersPage:
 
         spin_num, label = \
             blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_c_subs_threads,
+                                   s_text_var=self.spin_subs_cl_threads,
                                    s_command=self.list_subs_peers,
                                    l_text=("Number of threads to process "
                                            "claims in parallel "

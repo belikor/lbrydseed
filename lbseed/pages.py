@@ -136,16 +136,16 @@ class VarsPeers:
     def setup_peers_vars(self):
         # self.entry_chl_chan = tk.StringVar(value="@lbry:3f")
         self.spin_ch_peers_num = tk.IntVar(value=50)
-        # self.spin_subs_threads = tk.IntVar(value=32)
+        self.spin_ch_peers_threads = tk.IntVar(value=32)
         self.chck_ch_peers_cid = tk.BooleanVar(value=False)
         self.chck_ch_peers_type = tk.BooleanVar(value=True)
         self.chck_ch_peers_title = tk.BooleanVar(value=False)
 
-        self.spin_ch_threads = tk.IntVar(value=16)
-        self.spin_claim_threads = tk.IntVar(value=32)
+        self.spin_chs_ch_threads = tk.IntVar(value=16)
+        self.spin_chs_cl_threads = tk.IntVar(value=32)
 
-        self.spin_ch_subs_threads = tk.IntVar(value=32)
-        self.spin_c_subs_threads = tk.IntVar(value=16)
+        self.spin_subs_ch_threads = tk.IntVar(value=32)
+        self.spin_subs_cl_threads = tk.IntVar(value=16)
         self.rad_subs_pr_shared = tk.StringVar(value="shared")
         self.rad_subs_pr_show = tk.StringVar(value="show_all")
 
