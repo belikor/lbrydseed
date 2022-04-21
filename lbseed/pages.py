@@ -192,6 +192,12 @@ class VarsTrending:
         self.label_sch_info = tk.StringVar(value="Page: -")
 
 
+class VarsSeeding:
+    """Mixin class to provide variables for the seeding page."""
+    def setup_seeding_vars(self):
+        self.check_seed_plot = tk.BooleanVar(value=False)
+
+
 class Variables(VarsWidgets,
                 VarsSettings,
                 VarsDownload,
@@ -201,7 +207,8 @@ class Variables(VarsWidgets,
                 VarsPeers,
                 VarsDelete,
                 VarsSupports,
-                VarsTrending):
+                VarsTrending,
+                VarsSeeding):
     """Mixin class to provide variables to the application."""
     def setup_vars(self):
         super().setup_widget_vars()
@@ -214,9 +221,7 @@ class Variables(VarsWidgets,
         super().setup_delete_vars()
         super().setup_support_vars()
         super().setup_trending_vars()
-
-        self.check_seed_plot = tk.BooleanVar()
-        self.check_seed_plot.set(False)
+        super().setup_seeding_vars()
 
         self.check_c_contr = tk.BooleanVar()
         self.check_c_contr.set(False)
