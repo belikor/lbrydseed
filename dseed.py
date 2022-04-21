@@ -565,50 +565,6 @@ class Application(ttk.Frame,
         self.textbox_supports.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
-    def seeding_ratio(self):
-        """Print estimated seeding ratio from the log files."""
-        frame = None
-
-        if self.check_seed_plot.get():
-            if not hasattr(self, "top_plot"):
-                # This is normally not called because the plot toplevel
-                # is already set up by `SeedPage.setup_page_seed`
-                frame = self.setup_plot()
-                frame.deiconify()
-            elif hasattr(self, "top_plot"):
-                if self.top_plot.children:
-                    # We remove the content before reusing the toplevel
-                    frame = self.remove_plot()
-                else:
-                    # The toplevel is empty, so we just use it
-                    frame = self.top_plot
-                frame.deiconify()
-
-        content = \
-            actions.seeding_ratio(frame=frame,
-                                  plot_hst_var=self.check_seed_plot.get(),
-                                  server=self.server_var.get())
-
-        self.textbox_seed.replace("1.0", tk.END, content)
-        self.print_done(print_msg=True)
-
-    def controlling_claims(self):
-        """Print the information of the controlling claims."""
-        content = \
-            actions.show_claims_bids(show_controlling=self.check_c_contr.get(),
-                                     show_non_controlling=self.check_c_non_contr.get(),
-                                     skip_repost=self.check_c_skip_repost.get(),
-                                     channels_only=self.check_c_ch_only.get(),
-                                     show_claim_id=self.check_c_cid.get(),
-                                     show_repost_status=self.check_c_is_repost.get(),
-                                     show_competing=self.check_c_competing.get(),
-                                     show_reposts=self.check_c_reposts.get(),
-                                     compact=self.check_c_compact.get(),
-                                     server=self.server_var.get())
-
-        self.textbox_controlling.replace("1.0", tk.END, content)
-        self.print_done(print_msg=True)
-
     def validate_g_claims(self, print_msg=True):
         """Validate the textbox with claims and numbers."""
         text = self.textbox_add_support.get("1.0", tk.END)
@@ -654,6 +610,50 @@ class Application(ttk.Frame,
                              invalid=self.check_s_supp_inv.get(),
                              server=self.server_var.get())
 
+        self.print_done(print_msg=True)
+
+    def seeding_ratio(self):
+        """Print estimated seeding ratio from the log files."""
+        frame = None
+
+        if self.check_seed_plot.get():
+            if not hasattr(self, "top_plot"):
+                # This is normally not called because the plot toplevel
+                # is already set up by `SeedPage.setup_page_seed`
+                frame = self.setup_plot()
+                frame.deiconify()
+            elif hasattr(self, "top_plot"):
+                if self.top_plot.children:
+                    # We remove the content before reusing the toplevel
+                    frame = self.remove_plot()
+                else:
+                    # The toplevel is empty, so we just use it
+                    frame = self.top_plot
+                frame.deiconify()
+
+        content = \
+            actions.seeding_ratio(frame=frame,
+                                  plot_hst_var=self.check_seed_plot.get(),
+                                  server=self.server_var.get())
+
+        self.textbox_seed.replace("1.0", tk.END, content)
+        self.print_done(print_msg=True)
+
+    def controlling_claims(self):
+        """Print the information of the controlling claims."""
+        content = \
+            actions.show_claims_bids(show_controlling=self.check_c_contr.get(),
+                                     show_non_controlling=self.check_c_non_contr.get(),
+                                     skip_repost=self.check_c_skip_repost.get(),
+                                     channels_only=self.check_c_ch_only.get(),
+                                     show_claim_id=self.check_c_cid.get(),
+                                     show_repost_status=self.check_c_is_repost.get(),
+                                     show_competing=self.check_c_competing.get(),
+                                     show_reposts=self.check_c_reposts.get(),
+                                     compact=self.check_c_compact.get(),
+                                     server=self.server_var.get())
+
+        self.textbox_controlling.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
     def show_trending_claims(self):

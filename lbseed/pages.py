@@ -156,6 +156,19 @@ class VarsDelete:
         self.rad_delete_what = tk.StringVar(value="media")
 
 
+class VarsSupports:
+    """Mixin class to provide variables for the support pages."""
+    def setup_support_vars(self):
+        self.check_s_ch = tk.BooleanVar(value=False)
+        self.check_s_claims = tk.BooleanVar(value=True)
+        self.check_s_cid = tk.BooleanVar(value=False)
+        self.check_s_combine = tk.BooleanVar(value=True)
+        self.check_s_invalid = tk.BooleanVar(value=False)
+
+        self.rad_s_support = tk.StringVar(value="create")
+        self.check_s_supp_inv = tk.BooleanVar(value=False)
+
+
 class Variables(VarsWidgets,
                 VarsSettings,
                 VarsDownload,
@@ -163,7 +176,8 @@ class Variables(VarsWidgets,
                 VarsListChClaims,
                 VarsSubscribedChs,
                 VarsPeers,
-                VarsDelete):
+                VarsDelete,
+                VarsSupports):
     """Mixin class to provide variables to the application."""
     def setup_vars(self):
         super().setup_widget_vars()
@@ -174,22 +188,7 @@ class Variables(VarsWidgets,
         super().setup_subscribed_chs_vars()
         super().setup_peers_vars()
         super().setup_delete_vars()
-
-        self.check_s_ch = tk.BooleanVar()
-        self.check_s_ch.set(False)
-        self.check_s_claims = tk.BooleanVar()
-        self.check_s_claims.set(True)
-        self.check_s_cid = tk.BooleanVar()
-        self.check_s_cid.set(False)
-        self.check_s_combine = tk.BooleanVar()
-        self.check_s_combine.set(True)
-        self.check_s_invalid = tk.BooleanVar()
-        self.check_s_invalid.set(False)
-
-        self.rad_s_support = tk.StringVar()
-        self.rad_s_support.set("create")
-        self.check_s_supp_inv = tk.BooleanVar()
-        self.check_s_supp_inv.set(False)
+        super().setup_support_vars()
 
         self.check_seed_plot = tk.BooleanVar()
         self.check_seed_plot.set(False)
