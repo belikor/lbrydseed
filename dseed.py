@@ -31,13 +31,14 @@ import tkinter.font
 import tkinter.ttk as ttk
 
 import lbseed.pages as pages
+import lbseed.variables as var
 import lbseed.resolve as res
 import lbseed.validate as val
 import lbseed.actions as actions
 
 
 class Application(ttk.Frame,
-                  pages.Variables,
+                  var.Variables,
                   pages.SettingsPage, pages.StatusPage,
                   pages.DownloadChPage, pages.DownloadSinglePage,
                   pages.ListDownPage, pages.ListDownInvalidPage,
