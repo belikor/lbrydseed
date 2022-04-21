@@ -169,6 +169,29 @@ class VarsSupports:
         self.check_s_supp_inv = tk.BooleanVar(value=False)
 
 
+class VarsTrending:
+    """Mixin class to provide variables for the trending pages."""
+    def setup_trending_vars(self):
+        self.spin_page = tk.IntVar(value=1)
+        self.chck_tr_cid = tk.BooleanVar(value=False)
+        self.rad_tr_claim = tk.StringVar(value="stream")
+
+        self.chck_tr_all = tk.BooleanVar(value=False)
+        self.chck_tr_vid = tk.BooleanVar(value=True)
+        self.chck_tr_audio = tk.BooleanVar(value=False)
+        self.chck_tr_doc = tk.BooleanVar(value=True)
+        self.chck_tr_img = tk.BooleanVar(value=False)
+        self.chck_tr_bin = tk.BooleanVar(value=False)
+        self.chck_tr_model = tk.BooleanVar(value=False)
+
+        self.label_tr_info = tk.StringVar(value="Page: -")
+
+        self.search_entry = tk.StringVar(value="text to search")
+        self.search_entry_tags = tk.StringVar()
+
+        self.label_sch_info = tk.StringVar(value="Page: -")
+
+
 class Variables(VarsWidgets,
                 VarsSettings,
                 VarsDownload,
@@ -177,7 +200,8 @@ class Variables(VarsWidgets,
                 VarsSubscribedChs,
                 VarsPeers,
                 VarsDelete,
-                VarsSupports):
+                VarsSupports,
+                VarsTrending):
     """Mixin class to provide variables to the application."""
     def setup_vars(self):
         super().setup_widget_vars()
@@ -189,6 +213,7 @@ class Variables(VarsWidgets,
         super().setup_peers_vars()
         super().setup_delete_vars()
         super().setup_support_vars()
+        super().setup_trending_vars()
 
         self.check_seed_plot = tk.BooleanVar()
         self.check_seed_plot.set(False)
@@ -211,36 +236,6 @@ class Variables(VarsWidgets,
         self.check_c_reposts.set(True)
         self.check_c_compact = tk.BooleanVar()
         self.check_c_compact.set(True)
-
-        self.spin_page = tk.IntVar()
-        self.spin_page.set(1)
-        self.chck_tr_claim_t = tk.StringVar()
-        self.chck_tr_claim_t.set("stream")
-
-        self.chck_tr_cid = tk.BooleanVar()
-        self.chck_tr_cid.set(False)
-        self.chck_tr_all = tk.BooleanVar()
-        self.chck_tr_all.set(False)
-        self.chck_tr_vid = tk.BooleanVar()
-        self.chck_tr_vid.set(True)
-        self.chck_tr_audio = tk.BooleanVar()
-        self.chck_tr_audio.set(False)
-        self.chck_tr_doc = tk.BooleanVar()
-        self.chck_tr_doc.set(True)
-        self.chck_tr_img = tk.BooleanVar()
-        self.chck_tr_img.set(False)
-        self.chck_tr_bin = tk.BooleanVar()
-        self.chck_tr_bin.set(False)
-        self.chck_tr_model = tk.BooleanVar()
-        self.chck_tr_model.set(False)
-        self.label_tr_info = tk.StringVar()
-        self.label_tr_info.set("Page: -")
-
-        self.search_entry = tk.StringVar()
-        self.search_entry.set("text to search")
-        self.search_entry_tags = tk.StringVar()
-        self.label_sch_info = tk.StringVar()
-        self.label_sch_info.set("Page: -")
 
 
 # Use the classes to prevent warnings by code checkers (flake8)

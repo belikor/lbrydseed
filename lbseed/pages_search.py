@@ -90,7 +90,7 @@ class TrendPage:
         frame.grid(row=start, column=col, sticky=tk.W + tk.E + tk.N)
 
         blocks.setup_radio_trend_claims(frame,
-                                        claim_type_var=self.chck_tr_claim_t,
+                                        claim_type_var=self.rad_tr_claim,
                                         activate_func=self.activate_tr_checks,
                                         deactivate_func=self.deact_tr_checks,
                                         start=0, col=0)
@@ -251,7 +251,7 @@ class SearchPage:
         frame.grid(row=start, column=col, sticky=tk.W + tk.E + tk.N)
 
         blocks.setup_radio_trend_claims(frame,
-                                        claim_type_var=self.chck_tr_claim_t,
+                                        claim_type_var=self.rad_tr_claim,
                                         activate_func=self.activate_sr_checks,
                                         deactivate_func=self.deact_sr_checks,
                                         start=0, col=0)

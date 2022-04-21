@@ -185,25 +185,6 @@ class Application(ttk.Frame,
         self.setup_plot()
         self.setup_page_controlling(page_ctr_claims)
 
-    def update_search_checkbox(self, event):
-        page = self.note_sub_search.tab(self.note_sub_search.select())["text"]
-        if page == "Trending claims":
-            if self.chck_tr_claim_t.get() in ("stream", "repost"):
-                self.activate_tr_checks()
-                self.switch_tr_all()
-            elif self.chck_tr_claim_t.get() in ("channel", "collection",
-                                                "livestream"):
-                self.deact_tr_checks()
-                self.switch_tr_various()
-        elif page == "Search":
-            if self.chck_tr_claim_t.get() in ("stream", "repost"):
-                self.activate_sr_checks()
-                self.switch_sr_all()
-            elif self.chck_tr_claim_t.get() in ("channel", "collection",
-                                                "livestream"):
-                self.deact_sr_checks()
-                self.switch_sr_various()
-
     def print_done(self, print_msg=True):
         if print_msg:
             print(40 * "-")
@@ -612,6 +593,67 @@ class Application(ttk.Frame,
 
         self.print_done(print_msg=True)
 
+    def update_search_checkbox(self, event):
+        page = self.note_sub_search.tab(self.note_sub_search.select())["text"]
+        if page == "Trending claims":
+            if self.rad_tr_claim.get() in ("stream", "repost"):
+                self.activate_tr_checks()
+                self.switch_tr_all()
+            elif self.rad_tr_claim.get() in ("channel", "collection",
+                                             "livestream"):
+                self.deact_tr_checks()
+                self.switch_tr_various()
+        elif page == "Search":
+            if self.rad_tr_claim.get() in ("stream", "repost"):
+                self.activate_sr_checks()
+                self.switch_sr_all()
+            elif self.rad_tr_claim.get() in ("channel", "collection",
+                                             "livestream"):
+                self.deact_sr_checks()
+                self.switch_sr_various()
+
+    def show_trending_claims(self):
+        """Get the trending claims."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        content = actions.print_trending(page=self.spin_page.get(),
+                                         claim_id=self.chck_tr_cid.get(),
+                                         claim_type=self.rad_tr_claim.get(),
+                                         video_stream=self.chck_tr_vid.get(),
+                                         audio_stream=self.chck_tr_audio.get(),
+                                         doc_stream=self.chck_tr_doc.get(),
+                                         img_stream=self.chck_tr_img.get(),
+                                         bin_stream=self.chck_tr_bin.get(),
+                                         model_stream=self.chck_tr_model.get(),
+                                         server=self.server_var.get())
+
+        self.label_tr_info.set("Page: " + str(self.spin_page.get()))
+        self.textbox_trend.replace("1.0", tk.END, content)
+        self.print_done(print_msg=True)
+
+    def show_search(self):
+        """Show the results of a search."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        content = actions.return_search(page=self.spin_page.get(),
+                                        text=self.search_entry.get(),
+                                        tags=self.search_entry_tags.get(),
+                                        claim_id=self.chck_tr_cid.get(),
+                                        claim_type=self.rad_tr_claim.get(),
+                                        video_stream=self.chck_tr_vid.get(),
+                                        audio_stream=self.chck_tr_audio.get(),
+                                        doc_stream=self.chck_tr_doc.get(),
+                                        img_stream=self.chck_tr_img.get(),
+                                        bin_stream=self.chck_tr_bin.get(),
+                                        model_stream=self.chck_tr_model.get(),
+                                        server=self.server_var.get())
+
+        self.label_sch_info.set("Page: " + str(self.spin_page.get()))
+        self.textbox_search.replace("1.0", tk.END, content)
+        self.print_done(print_msg=True)
+
     def seeding_ratio(self):
         """Print estimated seeding ratio from the log files."""
         frame = None
@@ -654,48 +696,6 @@ class Application(ttk.Frame,
                                      server=self.server_var.get())
 
         self.textbox_controlling.replace("1.0", tk.END, content)
-        self.print_done(print_msg=True)
-
-    def show_trending_claims(self):
-        """Get the trending claims."""
-        if not res.server_exists(server=self.server_var.get()):
-            return False
-
-        content = actions.print_trending(page=self.spin_page.get(),
-                                         claim_id=self.chck_tr_cid.get(),
-                                         claim_type=self.chck_tr_claim_t.get(),
-                                         video_stream=self.chck_tr_vid.get(),
-                                         audio_stream=self.chck_tr_audio.get(),
-                                         doc_stream=self.chck_tr_doc.get(),
-                                         img_stream=self.chck_tr_img.get(),
-                                         bin_stream=self.chck_tr_bin.get(),
-                                         model_stream=self.chck_tr_model.get(),
-                                         server=self.server_var.get())
-
-        self.label_tr_info.set("Page: " + str(self.spin_page.get()))
-        self.textbox_trend.replace("1.0", tk.END, content)
-        self.print_done(print_msg=True)
-
-    def show_search(self):
-        """Show the results of a search."""
-        if not res.server_exists(server=self.server_var.get()):
-            return False
-
-        content = actions.return_search(page=self.spin_page.get(),
-                                        text=self.search_entry.get(),
-                                        tags=self.search_entry_tags.get(),
-                                        claim_id=self.chck_tr_cid.get(),
-                                        claim_type=self.chck_tr_claim_t.get(),
-                                        video_stream=self.chck_tr_vid.get(),
-                                        audio_stream=self.chck_tr_audio.get(),
-                                        doc_stream=self.chck_tr_doc.get(),
-                                        img_stream=self.chck_tr_img.get(),
-                                        bin_stream=self.chck_tr_bin.get(),
-                                        model_stream=self.chck_tr_model.get(),
-                                        server=self.server_var.get())
-
-        self.label_sch_info.set("Page: " + str(self.spin_page.get()))
-        self.textbox_search.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
 
