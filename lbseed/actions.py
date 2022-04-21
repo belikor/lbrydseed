@@ -42,7 +42,7 @@ from lbseed.act_supports import add_supports
 from lbseed.act_search import print_trending
 from lbseed.act_search import return_search
 from lbseed.act_others import seeding_ratio
-from lbseed.act_others import show_claims_bids
+from lbseed.act_others import ctrl_claims
 
 True if get_lbrynet_settings else False
 True if get_lbrynet_status else False
@@ -62,4 +62,4 @@ True if add_supports else False
 True if print_trending else False
 True if return_search else False
 True if seeding_ratio else False
-True if show_claims_bids else False
+True if ctrl_claims else False

@@ -684,16 +684,16 @@ class Application(ttk.Frame,
     def controlling_claims(self):
         """Print the information of the controlling claims."""
         content = \
-            actions.show_claims_bids(show_controlling=self.check_c_contr.get(),
-                                     show_non_controlling=self.check_c_non_contr.get(),
-                                     skip_repost=self.check_c_skip_repost.get(),
-                                     channels_only=self.check_c_ch_only.get(),
-                                     show_claim_id=self.check_c_cid.get(),
-                                     show_repost_status=self.check_c_is_repost.get(),
-                                     show_competing=self.check_c_competing.get(),
-                                     show_reposts=self.check_c_reposts.get(),
-                                     compact=self.check_c_compact.get(),
-                                     server=self.server_var.get())
+            actions.ctrl_claims(show_contr=self.check_c_contr.get(),
+                                show_non_contr=self.check_c_non_contr.get(),
+                                skip_repost=self.check_c_skip_repost.get(),
+                                channels_only=self.check_c_ch_only.get(),
+                                show_claim_id=self.check_c_cid.get(),
+                                show_repost_st=self.check_c_is_repost.get(),
+                                show_competing=self.check_c_competing.get(),
+                                show_reposts=self.check_c_reposts.get(),
+                                compact=self.check_c_compact.get(),
+                                server=self.server_var.get())
 
         self.textbox_controlling.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)

@@ -198,6 +198,20 @@ class VarsSeeding:
         self.check_seed_plot = tk.BooleanVar(value=False)
 
 
+class VarsControlling:
+    """Mixin class to provide variables for the controlling claims page."""
+    def setup_controlling_vars(self):
+        self.check_c_contr = tk.BooleanVar(value=False)
+        self.check_c_non_contr = tk.BooleanVar(value=True)
+        self.check_c_skip_repost = tk.BooleanVar(value=False)
+        self.check_c_ch_only = tk.BooleanVar(value=False)
+        self.check_c_compact = tk.BooleanVar(value=True)
+        self.check_c_cid = tk.BooleanVar(value=False)
+        self.check_c_is_repost = tk.BooleanVar(value=True)
+        self.check_c_competing = tk.BooleanVar(value=True)
+        self.check_c_reposts = tk.BooleanVar(value=True)
+
+
 class Variables(VarsWidgets,
                 VarsSettings,
                 VarsDownload,
@@ -208,7 +222,8 @@ class Variables(VarsWidgets,
                 VarsDelete,
                 VarsSupports,
                 VarsTrending,
-                VarsSeeding):
+                VarsSeeding,
+                VarsControlling):
     """Mixin class to provide variables to the application."""
     def setup_vars(self):
         super().setup_widget_vars()
@@ -222,25 +237,7 @@ class Variables(VarsWidgets,
         super().setup_support_vars()
         super().setup_trending_vars()
         super().setup_seeding_vars()
-
-        self.check_c_contr = tk.BooleanVar()
-        self.check_c_contr.set(False)
-        self.check_c_non_contr = tk.BooleanVar()
-        self.check_c_non_contr.set(True)
-        self.check_c_skip_repost = tk.BooleanVar()
-        self.check_c_skip_repost.set(False)
-        self.check_c_ch_only = tk.BooleanVar()
-        self.check_c_ch_only.set(False)
-        self.check_c_cid = tk.BooleanVar()
-        self.check_c_cid.set(False)
-        self.check_c_is_repost = tk.BooleanVar()
-        self.check_c_is_repost.set(True)
-        self.check_c_competing = tk.BooleanVar()
-        self.check_c_competing.set(True)
-        self.check_c_reposts = tk.BooleanVar()
-        self.check_c_reposts.set(True)
-        self.check_c_compact = tk.BooleanVar()
-        self.check_c_compact.set(True)
+        super().setup_controlling_vars()
 
 
 # Use the classes to prevent warnings by code checkers (flake8)
