@@ -33,91 +33,23 @@ in a single plce.
 import tkinter as tk
 import tkinter.ttk as ttk
 
+from lbseed.blocks_base import focus_next_widget
+from lbseed.blocks_base import f_with_event
+from lbseed.blocks_base import set_up_default_channels
+from lbseed.blocks_base import set_up_default_claims
+from lbseed.blocks_base import setup_entry_gen
+from lbseed.blocks_base import setup_button_gen
+from lbseed.blocks_base import setup_combo_gen
+from lbseed.blocks_base import setup_textbox
 
-def focus_next_widget(event):
-    """Callback to focus on next widget when pressing <Tab>."""
-    event.widget.tk_focusNext().focus()
-    return "break"
-
-
-def f_with_event(function):
-    """Decorate a function so that it accepts an event."""
-    def function_with_event(event, **kwargs):
-        function(**kwargs)
-    return function_with_event
-
-
-def set_up_default_channels(clean_up=False):
-    """Block of text to populate a Text widget."""
-    channels = ["@my-favorite-channel, 5",
-                "@OdyseeHelp#b, 4",
-                "@lbry:3f, 6"]
-
-    if clean_up:
-        channels = ["@OdyseeHelp, 2",
-                    "@my-favorite-channel-vmv, 15",
-                    "@lbry, 1",
-                    "@The-Best-Channel-ABC, 5"]
-
-    channels = "\n".join(channels)
-    return channels
-
-
-def set_up_default_claims(clean_up=False):
-    """Block of text to populate a Text widget."""
-    claims = ["this-is-a-fake-claim",
-              "livestream-tutorial:b",
-              "abcd0000efgh0000ijkl0000mopq0000rstu0000",
-              "8e16d91185aa4f1cd797f93d7714de2a22622759",
-              "LBRYPlaylists#d"]
-
-    if clean_up:
-        claims = ["abcd0000efgh0000ijkl0000mopq0000rstu0000",
-                  "LBRYPlaylists#d",
-                  "this-is-a-fake-claim",
-                  "livestream-tutorial:b",
-                  "8e16d91185aa4f1cd797f93d7714de2a22622759"]
-
-    claims = "\n".join(claims)
-    return claims
-
-
-def setup_entry_gen(parent,
-                    font=None,
-                    text_var=None,
-                    l_text="Side text",
-                    start=0):
-    """Setup for a generic entry field with a label next to it."""
-    entry = ttk.Entry(parent,
-                      textvariable=text_var,
-                      font=font)
-    entry.grid(row=start, column=0, sticky=tk.W + tk.E)
-    entry.bind("<<Activate>>", focus_next_widget)
-
-    label = ttk.Label(parent, text=l_text)
-    label.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-    return entry, label
-
-
-def setup_button_gen(parent,
-                     width=26,
-                     b_text="Button text",
-                     b_command=None,
-                     l_text="Side text",
-                     start=0):
-    """Setup for a generic button with a label next to it."""
-    button = ttk.Button(parent,
-                        text=b_text,
-                        width=width,
-                        command=b_command)
-    button.grid(row=start, column=0)
-    button.bind("<<Activate>>", f_with_event(b_command))
-
-    label = ttk.Label(parent, text=l_text)
-    label.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-    return button, label
+True if focus_next_widget else False
+True if f_with_event else False
+True if set_up_default_channels else False
+True if set_up_default_claims else False
+True if setup_entry_gen else False
+True if setup_button_gen else False
+True if setup_combo_gen else False
+True if setup_textbox else False
 
 
 def setup_check_download(parent,
@@ -352,27 +284,6 @@ def setup_check_chs_claims(parent,
                               text=("Show in descending order "
                                     "(newer items first, older last)"))
     chck_rv.grid(row=start+4, column=1, sticky=tk.W)
-
-
-def setup_combo_gen(parent,
-                    width=20,
-                    variable=None,
-                    def_list=None,
-                    def_value=None,
-                    l_text="Side text",
-                    start=0):
-    """Set up generic combobox with default list."""
-    combo = ttk.Combobox(parent,
-                         textvariable=variable,
-                         width=width)
-    combo.grid(row=start, column=0, sticky=tk.W + tk.E)
-    combo["values"] = def_list
-    combo.set(def_value)
-
-    label = ttk.Label(parent, text=l_text)
-    label.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-    return combo, label
 
 
 def setup_check_claims(parent,
@@ -775,27 +686,3 @@ def info_search(parent, start=0):
                            "In order to download these claims "
                            "use their claim ID."))
     info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
-
-
-def setup_textbox(parent,
-                  font="monospace",
-                  width=70, height=12):
-    """Setup for the textboxes, including scrollbars and Text widget."""
-    hsrl = ttk.Scrollbar(parent, orient="horizontal")
-    hsrl.pack(side=tk.BOTTOM, fill=tk.X)
-    vsrl = ttk.Scrollbar(parent)
-    vsrl.pack(side=tk.RIGHT, fill=tk.Y)
-
-    textbox = tk.Text(parent,
-                      xscrollcommand=hsrl.set,
-                      yscrollcommand=vsrl.set,
-                      font=font,
-                      width=width, height=height,
-                      wrap=tk.NONE)
-    textbox.bind("<Tab>", focus_next_widget)
-
-    textbox.pack(side="top", fill="both", expand=True)
-
-    hsrl.config(command=textbox.xview)
-    vsrl.config(command=textbox.yview)
-    return textbox
