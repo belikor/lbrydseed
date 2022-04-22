@@ -47,6 +47,10 @@ from lbseed.blocks_down_del import setup_check_download
 from lbseed.blocks_down_del import setup_radio_delete
 from lbseed.blocks_down_del import info_claims
 
+from lbseed.blocks_list import setup_check_list
+from lbseed.blocks_list import setup_radio_list
+from lbseed.blocks_list import setup_check_ch_list
+
 True if focus_next_widget else False
 True if f_with_event else False
 True if set_up_default_channels else False
@@ -61,103 +65,9 @@ True if setup_check_download else False
 True if setup_radio_delete else False
 True if info_claims else False
 
-
-def setup_check_list(parent,
-                     blocks_var=None,
-                     cid_var=None,
-                     blobs_var=None,
-                     size_var=None,
-                     show_ch_var=None,
-                     start=0):
-    """Setup the checkbuttons to list various properties."""
-    chck_blks = ttk.Checkbutton(parent,
-                                variable=blocks_var,
-                                text="Show block height")
-    chck_blks.grid(row=start, column=1, sticky=tk.W)
-
-    chck_cid = ttk.Checkbutton(parent,
-                               variable=cid_var,
-                               text="Show claim ID (40-character string)")
-    chck_cid.grid(row=start+1, column=1, sticky=tk.W)
-
-    chck_blobs = ttk.Checkbutton(parent,
-                                 variable=blobs_var,
-                                 text=("Show number of blobs "
-                                       "(each blob is 2 MB)"))
-    chck_blobs.grid(row=start+2, column=1, sticky=tk.W)
-
-    chck_size = ttk.Checkbutton(parent,
-                                variable=size_var,
-                                text=("Show length of claim (mm:ss) "
-                                      "and total size (MB)"))
-    chck_size.grid(row=start+3, column=1, sticky=tk.W)
-
-    chck_ch = ttk.Checkbutton(parent,
-                              variable=show_ch_var,
-                              text="Show signing channel of the claim")
-    chck_ch.grid(row=start+4, column=1, sticky=tk.W)
-
-
-def setup_radio_list(parent,
-                     name_var=None,
-                     start=0):
-    """Set up the radiobuttons to choose what to display as name."""
-    name = ttk.Radiobutton(parent,
-                           text="Show claim name",
-                           variable=name_var, value="name")
-    title = ttk.Radiobutton(parent,
-                            text="Show claim title",
-                            variable=name_var, value="title")
-    path = ttk.Radiobutton(parent,
-                           text="Show path of the existing media file",
-                           variable=name_var, value="path")
-    name.grid(row=start, column=1, sticky=tk.W)
-    title.grid(row=start+1, column=1, sticky=tk.W)
-    path.grid(row=start+2, column=1, sticky=tk.W)
-
-
-def setup_check_ch_list(parent,
-                        blocks_var=None,
-                        cid_var=None,
-                        type_var=None,
-                        chname_var=None,
-                        title_var=None,
-                        reverse_var=None,
-                        start=0):
-    """Setup the checkbuttons to control displaying properties of claims."""
-    chck_blocks = ttk.Checkbutton(parent,
-                                  variable=blocks_var,
-                                  text=("Show the creation block "
-                                        "and block height of the claim"))
-    chck_blocks.grid(row=start, column=1, sticky=tk.W)
-
-    chck_cid = ttk.Checkbutton(parent,
-                               variable=cid_var,
-                               text="Show claim ID (40-character string)")
-    chck_cid.grid(row=start+1, column=1, sticky=tk.W)
-
-    chck_type = ttk.Checkbutton(parent,
-                                variable=type_var,
-                                text=("Show the type of claim, stream, "
-                                      "and media, if available"))
-    chck_type.grid(row=start+2, column=1, sticky=tk.W)
-
-    chck_chname = ttk.Checkbutton(parent,
-                                  variable=chname_var,
-                                  text=("Show the name of the channel"))
-    chck_chname.grid(row=start+3, column=1, sticky=tk.W)
-
-    chck_chname = ttk.Checkbutton(parent,
-                                  variable=title_var,
-                                  text=("Show the claim 'title' "
-                                        "instead of the claim 'name'"))
-    chck_chname.grid(row=start+4, column=1, sticky=tk.W)
-
-    chck_reverse = ttk.Checkbutton(parent,
-                                   variable=reverse_var,
-                                   text=("Show in descending order "
-                                         "(newer items first, older last)"))
-    chck_reverse.grid(row=start+5, column=1, sticky=tk.W)
+True if setup_check_list else False
+True if setup_radio_list else False
+True if setup_check_ch_list else False
 
 
 def setup_radio_ch_subs_shared(parent,
