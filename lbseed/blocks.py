@@ -51,6 +51,10 @@ from lbseed.blocks_list import setup_check_list
 from lbseed.blocks_list import setup_radio_list
 from lbseed.blocks_list import setup_check_ch_list
 
+from lbseed.blocks_subscribed import setup_radio_ch_subs_shared
+from lbseed.blocks_subscribed import setup_radio_ch_subs_valid
+from lbseed.blocks_subscribed import setup_radio_ch_subs_valid2
+
 True if focus_next_widget else False
 True if f_with_event else False
 True if set_up_default_channels else False
@@ -69,54 +73,9 @@ True if setup_check_list else False
 True if setup_radio_list else False
 True if setup_check_ch_list else False
 
-
-def setup_radio_ch_subs_shared(parent,
-                               shared_var=None,
-                               start=0):
-    """Set up the radiobuttons to choose what database to display."""
-    shared = ttk.Radiobutton(parent,
-                             text="Shared database",
-                             variable=shared_var, value="shared")
-    local = ttk.Radiobutton(parent,
-                            text="Local database",
-                            variable=shared_var, value="local")
-    shared.grid(row=start, column=1, sticky=tk.W)
-    local.grid(row=start+1, column=1, sticky=tk.W)
-
-
-def setup_radio_ch_subs_valid(parent,
-                              show_var=None,
-                              start=0):
-    """Set up the radiobuttons to choose what channels to display."""
-    show_all = ttk.Radiobutton(parent,
-                               text="Show all channels",
-                               variable=show_var, value="show_all")
-    show_valid = ttk.Radiobutton(parent,
-                                 text=("Show valid channels only "
-                                       "(they resolve online)"),
-                                 variable=show_var, value="show_valid")
-    show_invalid = ttk.Radiobutton(parent,
-                                   text=("Show invalid channels only "
-                                         "(they were removed)"),
-                                   variable=show_var, value="show_invalid")
-    show_all.grid(row=start, column=1, sticky=tk.W)
-    show_valid.grid(row=start+1, column=1, sticky=tk.W)
-    show_invalid.grid(row=start+2, column=1, sticky=tk.W)
-
-
-def setup_radio_ch_subs_valid2(parent,
-                               show_var=None,
-                               start=0):
-    """Set up the radiobuttons to choose what channels to display."""
-    show_all = ttk.Radiobutton(parent,
-                               text="Show all channels",
-                               variable=show_var, value="show_all")
-    show_valid = ttk.Radiobutton(parent,
-                                 text=("Show valid channels only "
-                                       "(they resolve online)"),
-                                 variable=show_var, value="show_valid")
-    show_all.grid(row=start, column=1, sticky=tk.W)
-    show_valid.grid(row=start+1, column=1, sticky=tk.W)
+True if setup_radio_ch_subs_shared else False
+True if setup_radio_ch_subs_valid else False
+True if setup_radio_ch_subs_valid2 else False
 
 
 def setup_check_chs_claims(parent,
