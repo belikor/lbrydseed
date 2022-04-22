@@ -55,6 +55,9 @@ from lbseed.blocks_subscribed import setup_radio_ch_subs_shared
 from lbseed.blocks_subscribed import setup_radio_ch_subs_valid
 from lbseed.blocks_subscribed import setup_radio_ch_subs_valid2
 
+from lbseed.blocks_claims import setup_check_chs_claims
+from lbseed.blocks_claims import setup_check_claims
+
 True if focus_next_widget else False
 True if f_with_event else False
 True if set_up_default_channels else False
@@ -77,116 +80,8 @@ True if setup_radio_ch_subs_shared else False
 True if setup_radio_ch_subs_valid else False
 True if setup_radio_ch_subs_valid2 else False
 
-
-def setup_check_chs_claims(parent,
-                           spent_var=None,
-                           update_var=None,
-                           cid_var=None,
-                           addr_var=None,
-                           acc_var=None,
-                           amount_var=None,
-                           reverse_var=None,
-                           start=0):
-    """Setup the checkbuttons to list channel claims."""
-    chck_spent = ttk.Checkbutton(parent,
-                                 variable=spent_var,
-                                 text=("Show spent transactions\n"
-                                       "(it may show expired claims)"))
-    chck_spent.grid(row=start, column=0, sticky=tk.W)
-
-    chck_up = ttk.Checkbutton(parent,
-                              variable=update_var,
-                              text="Show time of last update")
-    chck_up.grid(row=start+1, column=0, sticky=tk.W)
-
-    chck_cid = ttk.Checkbutton(parent,
-                               variable=cid_var,
-                               text=("Show claim ID "
-                                     "(40-character string)"))
-    chck_cid.grid(row=start, column=1, sticky=tk.W)
-
-    chck_addr = ttk.Checkbutton(parent,
-                                variable=addr_var,
-                                text=("Show addresses "
-                                      "(34-character string)"))
-    chck_addr.grid(row=start+1, column=1, sticky=tk.W)
-
-    chck_acc = ttk.Checkbutton(parent,
-                               variable=acc_var,
-                               text=("Show accounts "
-                                     "(34-character string)"))
-    chck_acc.grid(row=start+2, column=1, sticky=tk.W)
-
-    chck_amount = ttk.Checkbutton(parent,
-                                  variable=amount_var,
-                                  text=("Show amounts "
-                                        "(base and total)"))
-    chck_amount.grid(row=start+3, column=1, sticky=tk.W)
-
-    chck_rv = ttk.Checkbutton(parent,
-                              variable=reverse_var,
-                              text=("Show in descending order "
-                                    "(newer items first, older last)"))
-    chck_rv.grid(row=start+4, column=1, sticky=tk.W)
-
-
-def setup_check_claims(parent,
-                       spent_var=None,
-                       update_var=None,
-                       cid_var=None,
-                       addr_var=None,
-                       type_var=None,
-                       amount_var=None,
-                       title_var=None,
-                       reverse_var=None,
-                       start=0):
-    """Setup the checkbuttons to list claims."""
-    chck_spent = ttk.Checkbutton(parent,
-                                 variable=spent_var,
-                                 text=("Show spent transactions\n"
-                                       "(it may show expired claims)"))
-    chck_spent.grid(row=start, column=0, sticky=tk.W)
-
-    chck_up = ttk.Checkbutton(parent,
-                              variable=update_var,
-                              text="Show time of last update")
-    chck_up.grid(row=start+1, column=0, sticky=tk.W)
-
-    chck_cid = ttk.Checkbutton(parent,
-                               variable=cid_var,
-                               text=("Show claim ID "
-                                     "(40-character string)"))
-    chck_cid.grid(row=start, column=1, sticky=tk.W)
-
-    chck_addr = ttk.Checkbutton(parent,
-                                variable=addr_var,
-                                text=("Show addresses "
-                                      "(34-character string)"))
-    chck_addr.grid(row=start+1, column=1, sticky=tk.W)
-
-    chck_typ = ttk.Checkbutton(parent,
-                               variable=type_var,
-                               text=("Show the type of claim, "
-                                     "stream, and media, if available"))
-    chck_typ.grid(row=start+2, column=1, sticky=tk.W)
-
-    chck_amount = ttk.Checkbutton(parent,
-                                  variable=amount_var,
-                                  text=("Show amounts "
-                                        "(base and total)"))
-    chck_amount.grid(row=start+3, column=1, sticky=tk.W)
-
-    chck_title = ttk.Checkbutton(parent,
-                                 variable=title_var,
-                                 text=("Show the claim 'title' "
-                                       "instead of the claim 'name'"))
-    chck_title.grid(row=start+4, column=1, sticky=tk.W)
-
-    chck_rv = ttk.Checkbutton(parent,
-                              variable=reverse_var,
-                              text=("Show in descending order "
-                                    "(newer items first, older last)"))
-    chck_rv.grid(row=start+5, column=1, sticky=tk.W)
+True if setup_check_chs_claims else False
+True if setup_check_claims else False
 
 
 def setup_check_support(parent,
