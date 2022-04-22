@@ -258,16 +258,14 @@ class ListChClaimsPage:
                                         "and going back in time"),
                                 start=start+2)
 
-        spin_num, label = \
-            blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_chl_num,
-                                   s_command=self.list_ch_claims,
-                                   l_text=("Number of claims to display; "
-                                           "use 0 to display all"),
-                                   start=start+3)
-        spin_num.set(0)
-        spin_num["from_"] = 0.0
-        spin_num["to"] = 100E3
+        blocks.setup_spin_gen(parent,
+                              frm=0, to=100E3, incr=1,
+                              default=0,
+                              s_text_var=self.spin_chl_num,
+                              s_command=self.list_ch_claims,
+                              l_text=("Number of claims to display; "
+                                      "use 0 to display all"),
+                              start=start+3)
 
     def setup_grid_check_ch_list(self, parent, start=0):
         blocks.setup_check_ch_list(parent,
@@ -332,20 +330,18 @@ class SubscribedChsPage:
                                         "for each channel will be shown"),
                                 start=start+1)
 
-        spin_num, label = \
-            blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_subs_claim_num,
-                                   s_command=self.list_subscr_chs_claims,
-                                   l_text=("(b) Number of claims to show "
-                                           "per channel.\n"
-                                           "It will take various minutes "
-                                           "to load the full list\n"
-                                           "if the number of channels "
-                                           "and claims is large."),
-                                   start=start+2)
-        spin_num.set(5)
-        spin_num["from_"] = 1
-        spin_num["to"] = 20
+        blocks.setup_spin_gen(parent,
+                              frm=1, to=20, incr=1,
+                              default=5,
+                              s_text_var=self.spin_subs_claim_num,
+                              s_command=self.list_subscr_chs_claims,
+                              l_text=("(b) Number of claims to show "
+                                      "per channel.\n"
+                                      "It will take various minutes "
+                                      "to load the full list\n"
+                                      "if the number of channels "
+                                      "and claims is large."),
+                              start=start+2)
 
     def setup_grid_rad_ch_subs(self, parent, start=0):
         frame = ttk.Frame(parent, relief="groove", borderwidth=2)
@@ -377,17 +373,15 @@ class SubscribedChsPage:
         chck_t.grid(row=start+3, column=1, sticky=tk.W)
 
     def setup_grid_spin_subs(self, parent, start=0):
-        spin_num, label = \
-            blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_subs_threads,
-                                   s_command=self.list_subscr_chs,
-                                   l_text=("Number of threads to resolve "
-                                           "the channels; "
-                                           "use 0 to avoid threads"),
-                                   start=start)
-        spin_num.set(32)
-        spin_num["from_"] = 0
-        spin_num["to"] = 256
+        blocks.setup_spin_gen(parent,
+                              frm=0, to=256, incr=1,
+                              default=32,
+                              s_text_var=self.spin_subs_threads,
+                              s_command=self.list_subscr_chs,
+                              l_text=("Number of threads to resolve "
+                                      "the channels; "
+                                      "use 0 to avoid threads"),
+                              start=start)
 
     def setup_info_ch_subs(self, parent, start=0):
         info = ttk.Label(parent,

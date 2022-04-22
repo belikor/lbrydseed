@@ -118,6 +118,27 @@ def setup_button_gen(parent,
     return button, label
 
 
+def setup_spin_gen(parent,
+                   frm=1.0, to=20.0, incr=1.0,
+                   default=1,
+                   s_text_var=None,
+                   s_command=None,
+                   l_text="Label spin",
+                   start=0):
+    """Setup a generic spinbox to choose an integer, like a page."""
+    spin = ttk.Spinbox(parent,
+                       from_=frm, to=to, increment=incr,
+                       textvariable=s_text_var)
+    spin.set(default)
+    spin.grid(row=start, column=0, sticky=tk.W + tk.E)
+    spin.bind("<<Activate>>", f_with_event(s_command))
+
+    label = ttk.Label(parent, text=l_text)
+    label.grid(row=start, column=1, sticky=tk.W, padx=2)
+
+    return spin, label
+
+
 def setup_combo_gen(parent,
                     width=20,
                     variable=None,

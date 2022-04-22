@@ -39,6 +39,7 @@ from lbseed.blocks_base import set_up_default_channels
 from lbseed.blocks_base import set_up_default_claims
 from lbseed.blocks_base import setup_entry_gen
 from lbseed.blocks_base import setup_button_gen
+from lbseed.blocks_base import setup_spin_gen
 from lbseed.blocks_base import setup_combo_gen
 from lbseed.blocks_base import setup_textbox
 
@@ -48,6 +49,7 @@ True if set_up_default_channels else False
 True if set_up_default_claims else False
 True if setup_entry_gen else False
 True if setup_button_gen else False
+True if setup_spin_gen else False
 True if setup_combo_gen else False
 True if setup_textbox else False
 
@@ -507,25 +509,6 @@ def setup_check_trend(parent,
 
     return (chck_all,
             chck_vid, chck_audio, chck_doc, chck_img, chck_bin, chck_model)
-
-
-def setup_spin_page(parent,
-                    s_text_var=None,
-                    s_command=None,
-                    l_text="Label spin",
-                    start=0):
-    """Setup a generic spinbox to choose a page to search."""
-    spin = ttk.Spinbox(parent,
-                       from_=1.0, to=20.0, increment=1.0,
-                       textvariable=s_text_var)
-    spin.set("1")
-    spin.grid(row=start, column=0, sticky=tk.W + tk.E)
-    spin.bind("<<Activate>>", f_with_event(s_command))
-
-    label = ttk.Label(parent, text=l_text)
-    label.grid(row=start, column=1, sticky=tk.W, padx=2)
-
-    return spin, label
 
 
 def setup_radio_delete(parent,

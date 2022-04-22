@@ -85,29 +85,25 @@ class ListChPeersPage:
                                         "and going back in time"),
                                 start=start+2)
 
-        spin_num, label = \
-            blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_ch_peers_num,
-                                   s_command=self.list_ch_peers,
-                                   l_text=("Number of claims to display; "
-                                           "use 0 to display all"),
-                                   start=start+3)
-        spin_num.set(50)
-        spin_num["from_"] = 0
-        spin_num["to"] = 100E3
+        blocks.setup_spin_gen(parent,
+                              frm=0, to=100E3, incr=1,
+                              default=50,
+                              s_text_var=self.spin_ch_peers_num,
+                              s_command=self.list_ch_peers,
+                              l_text=("Number of claims to display; "
+                                      "use 0 to display all"),
+                              start=start+3)
 
-        spin_num, label = \
-            blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_ch_peers_threads,
-                                   s_command=self.list_ch_peers,
-                                   l_text=("Number of threads to process "
-                                           "claims in parallel "
-                                           "and find peers; "
-                                           "use 0 to avoid threads"),
-                                   start=start+4)
-        spin_num.set(32)
-        spin_num["from_"] = 0
-        spin_num["to"] = 256
+        blocks.setup_spin_gen(parent,
+                              frm=0, to=256, incr=1,
+                              default=32,
+                              s_text_var=self.spin_ch_peers_threads,
+                              s_command=self.list_ch_peers,
+                              l_text=("Number of threads to process "
+                                      "claims in parallel "
+                                      "and find peers; "
+                                      "use 0 to avoid threads"),
+                              start=start+4)
 
     def setup_grid_top_ch_peers_opt(self, parent, start=0):
         chck_cid = ttk.Checkbutton(parent,
@@ -193,30 +189,26 @@ class ListChsPeersPage:
                                         "and going back in time"),
                                 start=start+2)
 
-        spin_num, label = \
-            blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_chs_ch_threads,
-                                   s_command=self.list_chs_peers,
-                                   l_text=("Number of threads to process "
-                                           "channels in parallel; "
-                                           "use 0 to avoid threads"),
-                                   start=start+3)
-        spin_num.set(16)
-        spin_num["from_"] = 0
-        spin_num["to"] = 256
+        blocks.setup_spin_gen(parent,
+                              frm=0, to=256, incr=1,
+                              default=16,
+                              s_text_var=self.spin_chs_ch_threads,
+                              s_command=self.list_chs_peers,
+                              l_text=("Number of threads to process "
+                                      "channels in parallel; "
+                                      "use 0 to avoid threads"),
+                              start=start+3)
 
-        spin_num, label = \
-            blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_chs_cl_threads,
-                                   s_command=self.list_chs_peers,
-                                   l_text=("Number of threads to process "
-                                           "claims in parallel "
-                                           "and find peers; "
-                                           "use 0 to avoid threads"),
-                                   start=start+4)
-        spin_num.set(32)
-        spin_num["from_"] = 0
-        spin_num["to"] = 256
+        blocks.setup_spin_gen(parent,
+                              frm=0, to=256, incr=1,
+                              default=32,
+                              s_text_var=self.spin_chs_cl_threads,
+                              s_command=self.list_chs_peers,
+                              l_text=("Number of threads to process "
+                                      "claims in parallel "
+                                      "and find peers; "
+                                      "use 0 to avoid threads"),
+                              start=start+4)
 
     def setup_info_chs_peers(self, parent, start=0):
         info = ttk.Label(parent,
@@ -272,42 +264,36 @@ class ListSubsPeersPage:
                                         "and going back in time"),
                                 start=start)
 
-        spin_num, label = \
-            blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_ch_peers_num,
-                                   s_command=self.list_subs_peers,
-                                   l_text=("Number of claims to search "
-                                           "for peers in each subscribed "
-                                           "channel"),
-                                   start=start+1)
-        spin_num.set(50)
-        spin_num["from_"] = 0
-        spin_num["to"] = 100E3
+        blocks.setup_spin_gen(parent,
+                              frm=0, to=100E3, incr=1,
+                              default=50,
+                              s_text_var=self.spin_ch_peers_num,
+                              s_command=self.list_subs_peers,
+                              l_text=("Number of claims to search "
+                                      "for peers in each subscribed "
+                                      "channel"),
+                              start=start+1)
 
-        spin_num, label = \
-            blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_subs_ch_threads,
-                                   s_command=self.list_subs_peers,
-                                   l_text=("Number of threads to process "
-                                           "channels in parallel; "
-                                           "use 0 to avoid threads"),
-                                   start=start+2)
-        spin_num.set(32)
-        spin_num["from_"] = 0
-        spin_num["to"] = 256
+        blocks.setup_spin_gen(parent,
+                              frm=0, to=256, incr=1,
+                              default=32,
+                              s_text_var=self.spin_subs_ch_threads,
+                              s_command=self.list_subs_peers,
+                              l_text=("Number of threads to process "
+                                      "channels in parallel; "
+                                      "use 0 to avoid threads"),
+                              start=start+2)
 
-        spin_num, label = \
-            blocks.setup_spin_page(parent,
-                                   s_text_var=self.spin_subs_cl_threads,
-                                   s_command=self.list_subs_peers,
-                                   l_text=("Number of threads to process "
-                                           "claims in parallel "
-                                           "and find peers; "
-                                           "use 0 to avoid threads"),
-                                   start=start+3)
-        spin_num.set(16)
-        spin_num["from_"] = 0
-        spin_num["to"] = 256
+        blocks.setup_spin_gen(parent,
+                              frm=0, to=256, incr=1,
+                              default=16,
+                              s_text_var=self.spin_subs_cl_threads,
+                              s_command=self.list_subs_peers,
+                              l_text=("Number of threads to process "
+                                      "claims in parallel "
+                                      "and find peers; "
+                                      "use 0 to avoid threads"),
+                              start=start+3)
 
     def setup_grid_top_subs_peers_opt(self, parent, start=0):
         frame = ttk.Frame(parent, relief="groove", borderwidth=2)

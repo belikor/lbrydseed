@@ -69,12 +69,13 @@ class TrendPage:
                                         "in the network"),
                                 start=start)
 
-        spin, lb = blocks.setup_spin_page(parent,
-                                          s_text_var=self.spin_page,
-                                          s_command=self.show_trending_claims,
-                                          l_text=("Page to search"),
-                                          start=start+1)
-
+        spin, lb = blocks.setup_spin_gen(parent,
+                                         frm=1, to=20, incr=1,
+                                         default=1,
+                                         s_text_var=self.spin_page,
+                                         s_command=self.show_trending_claims,
+                                         l_text=("Page to search"),
+                                         start=start+1)
         spin["width"] = 25
         spin.grid_forget()
         spin.grid(row=start+1, column=0)
@@ -212,11 +213,13 @@ class SearchPage:
                                         "so they aren't very accurate."),
                                 start=start)
 
-        spin, lb = blocks.setup_spin_page(parent,
-                                          s_text_var=self.spin_page,
-                                          s_command=self.show_search,
-                                          l_text=("Page to search"),
-                                          start=start+1)
+        spin, lb = blocks.setup_spin_gen(parent,
+                                         frm=1, to=20, incr=1,
+                                         default=1,
+                                         s_text_var=self.spin_page,
+                                         s_command=self.show_search,
+                                         l_text=("Page to search"),
+                                         start=start+1)
         spin["width"] = 25
         spin.grid_forget()
         spin.grid(row=start+1, column=0)
