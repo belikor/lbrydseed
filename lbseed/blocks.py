@@ -43,6 +43,10 @@ from lbseed.blocks_base import setup_spin_gen
 from lbseed.blocks_base import setup_combo_gen
 from lbseed.blocks_base import setup_textbox
 
+from lbseed.blocks_down_del import setup_check_download
+from lbseed.blocks_down_del import setup_radio_delete
+from lbseed.blocks_down_del import info_claims
+
 True if focus_next_widget else False
 True if f_with_event else False
 True if set_up_default_channels else False
@@ -53,40 +57,9 @@ True if setup_spin_gen else False
 True if setup_combo_gen else False
 True if setup_textbox else False
 
-
-def setup_check_download(parent,
-                         repost_var=None,
-                         own_dir_var=None,
-                         save_var=None,
-                         enable_command=None,
-                         start=0):
-    """Setup for the checkbuttons to modify the download of claims."""
-    chk_repost = ttk.Checkbutton(parent,
-                                 variable=repost_var,
-                                 text=("Download the original claims "
-                                       "if the claims are reposts,\n"
-                                       "otherwise skip them"))
-    chk_repost.grid(row=start, column=1, sticky=tk.W, pady=2)
-
-    chk_save = ttk.Checkbutton(parent,
-                               variable=save_var,
-                               text=("Save the media file "
-                                     "(mp4, mkv, mp3, etc.), "
-                                     "otherwise only the blobs "
-                                     "will be downloaded.\n"
-                                     "Only the blobs are necessary to seed "
-                                     "the content."),
-                               command=enable_command)
-    chk_save.grid(row=start+1, column=1, sticky=tk.W, pady=2)
-
-    chk_owndir = ttk.Checkbutton(parent,
-                                 variable=own_dir_var,
-                                 text=("Place the media file "
-                                       "inside a subdirectory named after "
-                                       "the channel"))
-    chk_owndir.grid(row=start+2, column=1, sticky=tk.W, pady=2)
-
-    return chk_save, chk_owndir
+True if setup_check_download else False
+True if setup_radio_delete else False
+True if info_claims else False
 
 
 def setup_check_list(parent,
@@ -511,27 +484,6 @@ def setup_check_trend(parent,
             chck_vid, chck_audio, chck_doc, chck_img, chck_bin, chck_model)
 
 
-def setup_radio_delete(parent,
-                       del_what_var=None,
-                       start=0):
-    """Setup the radiobuttons to choose how to delete claims."""
-    media = ttk.Radiobutton(parent,
-                            text=("Delete media "
-                                  "(keep seeding the claim)"),
-                            variable=del_what_var, value="media")
-    blobs = ttk.Radiobutton(parent,
-                            text=("Delete blobs "
-                                  "(keep media in download directory)"),
-                            variable=del_what_var, value="blobs")
-    both = ttk.Radiobutton(parent,
-                           text=("Delete both "
-                                 "(completely remove the claim)"),
-                           variable=del_what_var, value="both")
-    media.grid(row=start, column=1, sticky=tk.W)
-    blobs.grid(row=start+1, column=1, sticky=tk.W)
-    both.grid(row=start+2, column=1, sticky=tk.W)
-
-
 def setup_radio_support(parent,
                         support_how_var=None,
                         support_inv_var=None,
@@ -638,15 +590,6 @@ def setup_radio_trend_claims(parent,
     r_live.grid(row=start+4, column=col, sticky=tk.W)
 
     return r_stream, r_channel, r_repost, r_collect, r_live
-
-
-def info_claims(parent, start=0):
-    """Setup instructions when dealing with individual claims."""
-    info = ttk.Label(parent,
-                     text=("Add one claim per row; this should be "
-                           "a claim name or a claim ID "
-                           "(40-character string)."))
-    info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
 
 def info_search(parent, start=0):
