@@ -29,10 +29,6 @@ Instead of repeating this code in the main application class,
 these functions allow us to save on typing, and make changes quickly
 in a single plce.
 """
-
-import tkinter as tk
-import tkinter.ttk as ttk
-
 from lbseed.blocks_base import focus_next_widget
 from lbseed.blocks_base import f_with_event
 from lbseed.blocks_base import set_up_default_channels
@@ -65,6 +61,10 @@ from lbseed.blocks_trending import setup_radio_trend_claims
 from lbseed.blocks_trending import setup_check_trend
 from lbseed.blocks_trending import info_search
 
+from lbseed.blocks_controlling import setup_check_controlling
+from lbseed.blocks_controlling import setup_check_contr_compact
+
+# Use the methods to prevent warnings by code checkers (flake8)
 True if focus_next_widget else False
 True if f_with_event else False
 True if set_up_default_channels else False
@@ -97,73 +97,5 @@ True if setup_radio_trend_claims else False
 True if setup_check_trend else False
 True if info_search else False
 
-
-def setup_check_controlling(parent,
-                            contr_var=None,
-                            non_contr_var=None,
-                            skip_repost_var=None,
-                            ch_only_var=None,
-                            start=0):
-    """Setup the checkbuttons to show controlling claims."""
-    chck_contr = ttk.Checkbutton(parent,
-                                 variable=contr_var,
-                                 text=("Show controlling claims "
-                                       "(highest bids)"))
-    chck_contr.grid(row=start, column=1, sticky=tk.W)
-
-    chck_non_contr = ttk.Checkbutton(parent,
-                                     variable=non_contr_var,
-                                     text=("Show non-controlling claims "
-                                           "(lower bids)"))
-    chck_non_contr.grid(row=start+1, column=1, sticky=tk.W)
-
-    chck_repost = ttk.Checkbutton(parent,
-                                  variable=skip_repost_var,
-                                  text="Skip reposts")
-    chck_repost.grid(row=start+2, column=1, sticky=tk.W)
-
-    chck_channel = ttk.Checkbutton(parent,
-                                   variable=ch_only_var,
-                                   text="Only show channels")
-    chck_channel.grid(row=start+3, column=1, sticky=tk.W)
-
-
-def setup_check_contr_compact(parent,
-                              compact_var=None,
-                              compact_command=None,
-                              cid_var=None,
-                              is_repost_var=None,
-                              n_competing_var=None,
-                              n_reposts_var=None,
-                              start=0):
-    """Setup the checkbuttons that work only with the compact option."""
-    chck_compact = ttk.Checkbutton(parent,
-                                   variable=compact_var,
-                                   text=("Compact information "
-                                         "(one claim per row)"),
-                                   command=compact_command)
-    chck_compact.grid(row=start, column=1, sticky=tk.W)
-
-    chck_claim_id = ttk.Checkbutton(parent,
-                                    variable=cid_var,
-                                    text="Show claim ID")
-    chck_claim_id.grid(row=start+1, column=1, sticky=tk.W)
-
-    chck_is_repost = ttk.Checkbutton(parent,
-                                     variable=is_repost_var,
-                                     text="Indicate if the claim is a repost")
-    chck_is_repost.grid(row=start+2, column=1, sticky=tk.W)
-
-    chck_competing = ttk.Checkbutton(parent,
-                                     variable=n_competing_var,
-                                     text=("Show how many competing claims "
-                                           "there are with the same name"))
-    chck_competing.grid(row=start+3, column=1, sticky=tk.W)
-
-    chck_reposts = ttk.Checkbutton(parent,
-                                   variable=n_reposts_var,
-                                   text=("Show how many reposts "
-                                         "there are of this claim"))
-    chck_reposts.grid(row=start+4, column=1, sticky=tk.W)
-
-    return chck_claim_id, chck_is_repost, chck_competing, chck_reposts
+True if setup_check_controlling else False
+True if setup_check_contr_compact else False
