@@ -17,6 +17,7 @@ including:
 - download individual claims or the latest claims from a list of channels
 - list all claims belonging to a channel, and the latest claims
   in our subscribed channels
+- list all our created channels and our published claims
 - list all our downloaded claims
 - show information on the peers that host the content of a channel
   in the network

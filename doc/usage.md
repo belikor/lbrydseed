@@ -30,12 +30,12 @@ and then press `"Download claims"`.
 
 Press `"List download claims"` to display all claims downloaded to the system.
 
-![lbrydseed_list_claims](../img/g_lbrydseed_list_claims.png)
+![lbrydseed_list_down_claims](../img/g_lbrydseed_list_down_claims.png)
 
 Press `"List invalid claims"` to display all invalid claims,
 previously downloaded but no longer available online.
 
-![lbrydseed_list_invalid](../img/g_lbrydseed_list_invalid.png)
+![lbrydseed_list_down_invalid](../img/g_lbrydseed_list_down_invalid.png)
 
 Press `"List channel claims"` to display all claims from a single channel.
 
@@ -46,7 +46,17 @@ that are in our wallet file.
 Press `"List subscribed channels claims"` to list the latest claims
 from each of our subscribed channels.
 
-![lbrydseed_list_subscriptions](../img/g_lbrydseed_subscribed_channels.png)
+![lbrydseed_list_subscribed_chs](../img/g_lbrydseed_subscribed_channels.png)
+
+Press `"List created channels"` to display the channels that were defined
+with the current wallet.
+
+![lbrydseed_created_channels](../img/g_lbrydseed_created_channels.png)
+
+Press `"List published claims"` to display the claims that were defined
+with the current wallet, under a channel or outside of it (anonymously).
+
+![lbrydseed_published_claims](../img/g_lbrydseed_published_claims.png)
 
 [Go back to _Content_](#content)
 
