@@ -146,6 +146,28 @@ class VarsControlling:
         self.check_c_reposts = tk.BooleanVar(value=True)
 
 
+class VarsComments:
+    """Mixin class to provide variables for the seeding page."""
+    def setup_comments_vars(self):
+        srv = "https://comments.odysee.com/api/v2"
+        self.cmnt_server_def = tk.StringVar(value=srv)
+        self.cmnt_server = tk.StringVar(value=srv)
+        self.comment_claim = None
+        self.comments = []
+        self.cmnt_list = tk.StringVar()
+        self.cmnt_index = tk.IntVar(value=0)
+        self.comment_id = None
+
+        author = "(None)"
+        self.last_cmnt_author = tk.StringVar(value=author)
+        self.cmb_rep_author = tk.StringVar(value=author)
+        self.rad_rep_opt = tk.StringVar(value="create")
+        self.rad_rep_curr = tk.StringVar(value="reply")
+        self.last_rad_rep_opt = tk.StringVar(value="create")
+        self.last_cmnt = tk.StringVar()
+        self.lab_rep_status = tk.StringVar(value="Status: no claim lodaded")
+
+
 class VarsPeers:
     """Mixin class to provide variables for the peer pages."""
     def setup_peers_vars(self):
@@ -221,6 +243,7 @@ class Variables(VarsWidgets,
                 VarsSubscribedChs,
                 VarsPublished,
                 VarsControlling,
+                VarsComments,
                 VarsPeers,
                 VarsSeeding,
                 VarsDelete,
@@ -236,6 +259,7 @@ class Variables(VarsWidgets,
         super().setup_subscribed_chs_vars()
         super().setup_published_vars()
         super().setup_controlling_vars()
+        super().setup_comments_vars()
         super().setup_peers_vars()
         super().setup_seeding_vars()
         super().setup_delete_vars()

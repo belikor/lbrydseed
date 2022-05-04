@@ -37,6 +37,7 @@ from lbseed.blocks_base import setup_entry_gen
 from lbseed.blocks_base import setup_button_gen
 from lbseed.blocks_base import setup_spin_gen
 from lbseed.blocks_base import setup_combo_gen
+from lbseed.blocks_base import setup_listbox_gen
 from lbseed.blocks_base import setup_textbox
 
 from lbseed.blocks_down_del import setup_check_download
@@ -73,6 +74,7 @@ True if setup_entry_gen else False
 True if setup_button_gen else False
 True if setup_spin_gen else False
 True if setup_combo_gen else False
+True if setup_listbox_gen else False
 True if setup_textbox else False
 
 True if setup_check_download else False

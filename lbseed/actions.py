@@ -38,6 +38,11 @@ from lbseed.act_list import list_pub_chs
 from lbseed.act_list import list_pub_claims
 from lbseed.act_list import ctrl_claims
 
+from lbseed.act_comments import list_comments
+from lbseed.act_comments import show_comment
+from lbseed.act_comments import show_no_comment
+from lbseed.act_comments import act_comment
+
 from lbseed.act_peers import list_peers
 from lbseed.act_peers import list_ch_peers
 from lbseed.act_peers import list_subs_peers
@@ -65,6 +70,11 @@ True if list_ch_subs else False
 True if list_pub_chs else False
 True if list_pub_claims else False
 True if ctrl_claims else False
+
+True if list_comments else False
+True if show_comment else False
+True if show_no_comment else False
+True if act_comment else False
 
 True if list_peers else False
 True if list_ch_peers else False

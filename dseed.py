@@ -45,6 +45,7 @@ class Application(ttk.Frame,
                   pages.ListChClaimsPage, pages.SubscribedChsPage,
                   pages.ListPubChsPage, pages.ListPubClaimsPage,
                   pages.ControllingClaimsPage,
+                  pages.CommentsPage,
                   pages.ListChPeersPage, pages.ListChsPeersPage,
                   pages.ListSubsPeersPage, pages.SeedPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
@@ -106,6 +107,9 @@ class Application(ttk.Frame,
         self.note_sub_list.add(page_pub_claims, text="Published claims")
         self.note_sub_list.add(page_ctr_claims, text="Controlling claims")
         self.note_sub_list.pack(fill="both", expand=True)
+
+        page_s_comments = ttk.Frame(self.note)
+        self.note.add(page_s_comments, text="Comments")
 
         page_s_peers = ttk.Frame(self.note)
         self.note.add(page_s_peers, text="Peers")
@@ -177,6 +181,8 @@ class Application(ttk.Frame,
         self.setup_page_pub_chs(page_pub_chs)
         self.setup_page_pub_claims(page_pub_claims)
         self.setup_page_controlling(page_ctr_claims)
+
+        self.setup_page_cmnt(page_s_comments)
 
         self.setup_page_ch_peers(page_ch_peers)
         self.setup_page_chs_peers(page_chs_peers)
@@ -531,6 +537,195 @@ class Application(ttk.Frame,
 
         self.textbox_controlling.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
+
+    def default_comm_server(self):
+        """Set up default comment server."""
+        self.cmnt_server.set(self.cmnt_server_def.get())
+
+    def resolve_clm_cmnt(self, print_msg=True):
+        """Resolve the claim in order to create a comment for it."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        text = self.textbox_cmnt_claim.get("1.0", tk.END)
+
+        claims = res.resolve_claims(text,
+                                    repost=self.check_d_repost.get(),
+                                    print_msg=print_msg,
+                                    server=self.server_var.get())
+
+        self.print_done(print_msg=print_msg)
+
+        return claims
+
+    def list_comments(self):
+        """Print the existing comments below a claim."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        claims = self.resolve_clm_cmnt(print_msg=False)
+
+        if not claims[0]:
+            print("No valid claim")
+            self.print_done(print_msg=True)
+            return {"error_no_claim": True}
+
+        result = actions.list_comments(claim=claims[0],
+                                       comm_server=self.cmnt_server.get(),
+                                       server=self.server_var.get())
+
+        self.comment_claim = result["claim"]
+        self.comments = result["comments"]
+        self.comment_id = None
+
+        self.cmnt_list.set(result["lines"])
+        self.lab_cmnt_num["text"] = result["text"]
+
+        self.lstbox_cmnt.selection_clear(0, tk.END)
+        self.lstbox_cmnt.selection_set(0)
+        self.lstbox_cmnt.see(0)
+        self.lstbox_cmnt.focus()
+
+        self.lab_rep_status.set("Status: claim lodaded")
+        self.show_comment(print_msg=False)
+        self.print_done(print_msg=True)
+
+        return {"claim": self.comment_claim}
+
+    def show_comment(self, print_msg=True):
+        """Show full comment depending on the selected element on the list."""
+        if not self.comment_claim:
+            print("(no claim loaded)")
+            self.print_done(print_msg=True)
+            return {"error_no_claim": True}
+
+        idxs = self.lstbox_cmnt.curselection()
+
+        if len(idxs) == 1:
+            self.cmnt_index.set(int(idxs[0]))
+            self.lstbox_cmnt.see(self.cmnt_index.get())
+
+            cmnt_data = self.comments[self.cmnt_index.get()]
+            cmnt_data["index"] = self.cmnt_index.get()
+            cmnt_data["claim"] = self.comment_claim
+            self.comment_id = cmnt_data["comment_id"]
+            content = actions.show_comment(cmnt_data)
+
+            rep_bx = self.textbox_cmnt_rep.get("1.0", tk.END)
+            option = self.rad_rep_opt.get()
+            last_option = self.last_rad_rep_opt.get()
+            curr_comm = cmnt_data["comment"]
+            last_comm = self.last_cmnt.get()
+
+            if option in ("create") and last_option in ("edit", "abandon"):
+                self.textbox_cmnt_rep.replace("1.0", tk.END, last_comm)
+            elif option in ("edit", "abandon"):
+                if last_comm != rep_bx and last_option in ("create"):
+                    self.last_cmnt.set(rep_bx)
+
+                if option in ("edit"):
+                    self.textbox_cmnt_rep.replace("1.0", tk.END, curr_comm)
+                elif option in ("abandon"):
+                    self.textbox_cmnt_rep["state"] = "normal"
+                    self.textbox_cmnt_rep.replace("1.0", tk.END, curr_comm)
+                    self.textbox_cmnt_rep["state"] = "disabled"
+
+            # print("previous:", last_option)
+            # print("current: ", option)
+            print(self.cmnt_index.get() + 1,
+                  self.lstbox_cmnt.get(self.cmnt_index.get()))
+
+            if last_option not in option:
+                self.last_rad_rep_opt.set(option)
+                print("updated: ", self.last_rad_rep_opt.get())
+        else:
+            content = actions.show_no_comment(self.comment_claim)
+
+        self.textbox_cmnt.replace("1.0", tk.END, content)
+        self.textbox_cmnt2.replace("1.0", tk.END, content)
+
+        self.print_done(print_msg=print_msg)
+
+        return {"claim": self.comment_claim,
+                "index": self.cmnt_index.get(),
+                "comment_id": self.comment_id}
+
+    def fill_ch_comment(self):
+        """Fill the list of channels to use for creating comments."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        channels = self.list_pub_chs(print_msg=False)
+
+        combo_values = []
+        for ch in channels:
+            ch_name = ch["canonical_url"].split("lbry://")[1]
+            combo_values.append(ch_name)
+
+        if not combo_values:
+            combo_values = ["(None)"]
+
+        self.cmb_author_cmnt["values"] = combo_values
+
+        if self.last_cmnt_author.get() not in ("(None)"):
+            self.cmb_rep_author.set(self.last_cmnt_author.get())
+        else:
+            self.cmb_rep_author.set(combo_values[0])
+
+        return channels
+
+    def cmb_cmnt_deselect(self, *args):
+        self.last_cmnt_author.set(self.cmb_rep_author.get())
+
+    def reply_actions(self):
+        """Open the new toplevel to reply to the comment."""
+        if not self.comment_claim:
+            print("(no claim loaded)")
+            self.print_done(print_msg=True)
+            return {"error_no_claim": True}
+
+        channels = self.fill_ch_comment()
+        if not channels:
+            print("No channels defined.\n"
+                  "At least one channel must be available.")
+            self.print_done(print_msg=True)
+            return False
+
+        frame = None
+        if not hasattr(self, "top_reply"):
+            # This is normally not called because the toplevel
+            # is already set up by `CommentsPage.setup_page_cmnt`
+            frame = self.setup_reply()
+            frame.deiconify()
+        elif hasattr(self, "top_reply"):
+            frame = self.top_reply
+            frame.deiconify()
+
+        self.print_done(print_msg=True)
+
+    def act_comment(self):
+        """Perform action on the comment, create, edit, remove."""
+        if self.cmb_rep_author.get() in ("(None)"):
+            self.cmb_rep_author.set(None)
+
+        cmnt_in = {"claim": self.comment_claim,
+                   "new_comment": self.textbox_cmnt_rep.get("1.0", tk.END),
+                   "author": self.cmb_rep_author.get(),
+                   "comment_id": self.comment_id}
+
+        output = actions.act_comment(cmnt_in=cmnt_in,
+                                     action=self.rad_rep_opt.get(),
+                                     cmnt_reply=self.rad_rep_curr.get(),
+                                     comm_server=self.cmnt_server.get(),
+                                     server=self.server_var.get())
+
+        self.lab_rep_status.set(output["status"])
+        self.print_done(print_msg=True)
+
+        # Refresh the list of comments after 0.85 s
+        self.after(850, self.list_comments)
+        self.rad_rep_opt.set("create")
+        self.activate_rep(show=False)  # Already shown by list_comments
 
     def list_ch_peers(self):
         """Print the peers of the claims of a channel."""

@@ -160,6 +160,30 @@ def setup_combo_gen(parent,
     return combo, label
 
 
+def setup_listbox_gen(parent,
+                      font="monospace",
+                      width=70, height=12,
+                      list_var=None):
+    """Setup for listboxes, including scrollbars and Listbox widget."""
+    hsrl = ttk.Scrollbar(parent, orient="horizontal")
+    hsrl.pack(side=tk.BOTTOM, fill=tk.X)
+    vsrl = ttk.Scrollbar(parent)
+    vsrl.pack(side=tk.RIGHT, fill=tk.Y)
+
+    lstbox = tk.Listbox(parent,
+                        xscrollcommand=hsrl.set,
+                        yscrollcommand=vsrl.set,
+                        font=font,
+                        width=width, height=height,
+                        listvariable=list_var)
+
+    lstbox.pack(side="top", fill="both", expand=True)
+
+    hsrl.config(command=lstbox.xview)
+    vsrl.config(command=lstbox.yview)
+    return lstbox
+
+
 def setup_textbox(parent,
                   font="monospace",
                   width=70, height=12):
