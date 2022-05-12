@@ -132,6 +132,20 @@ class VarsPublished:
         self.chck_pub_title = tk.BooleanVar(value=False)
 
 
+class VarsControlling:
+    """Mixin class to provide variables for the controlling claims page."""
+    def setup_controlling_vars(self):
+        self.check_c_contr = tk.BooleanVar(value=False)
+        self.check_c_non_contr = tk.BooleanVar(value=True)
+        self.check_c_skip_repost = tk.BooleanVar(value=False)
+        self.check_c_ch_only = tk.BooleanVar(value=False)
+        self.check_c_compact = tk.BooleanVar(value=True)
+        self.check_c_cid = tk.BooleanVar(value=False)
+        self.check_c_is_repost = tk.BooleanVar(value=True)
+        self.check_c_competing = tk.BooleanVar(value=True)
+        self.check_c_reposts = tk.BooleanVar(value=True)
+
+
 class VarsPeers:
     """Mixin class to provide variables for the peer pages."""
     def setup_peers_vars(self):
@@ -199,20 +213,6 @@ class VarsTrending:
         self.label_sch_info = tk.StringVar(value="Page: -")
 
 
-class VarsControlling:
-    """Mixin class to provide variables for the controlling claims page."""
-    def setup_controlling_vars(self):
-        self.check_c_contr = tk.BooleanVar(value=False)
-        self.check_c_non_contr = tk.BooleanVar(value=True)
-        self.check_c_skip_repost = tk.BooleanVar(value=False)
-        self.check_c_ch_only = tk.BooleanVar(value=False)
-        self.check_c_compact = tk.BooleanVar(value=True)
-        self.check_c_cid = tk.BooleanVar(value=False)
-        self.check_c_is_repost = tk.BooleanVar(value=True)
-        self.check_c_competing = tk.BooleanVar(value=True)
-        self.check_c_reposts = tk.BooleanVar(value=True)
-
-
 class Variables(VarsWidgets,
                 VarsSettings,
                 VarsDownload,
@@ -220,12 +220,12 @@ class Variables(VarsWidgets,
                 VarsListChClaims,
                 VarsSubscribedChs,
                 VarsPublished,
+                VarsControlling,
                 VarsPeers,
                 VarsSeeding,
                 VarsDelete,
                 VarsSupports,
-                VarsTrending,
-                VarsControlling):
+                VarsTrending):
     """Mixin class to provide variables to the application."""
     def setup_vars(self):
         super().setup_widget_vars()
@@ -235,9 +235,9 @@ class Variables(VarsWidgets,
         super().setup_list_ch_vars()
         super().setup_subscribed_chs_vars()
         super().setup_published_vars()
+        super().setup_controlling_vars()
         super().setup_peers_vars()
         super().setup_seeding_vars()
         super().setup_delete_vars()
         super().setup_support_vars()
         super().setup_trending_vars()
-        super().setup_controlling_vars()

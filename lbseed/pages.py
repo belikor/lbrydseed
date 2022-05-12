@@ -43,14 +43,13 @@ from lbseed.pages_base import SettingsPage, StatusPage
 from lbseed.pages_down import DownloadChPage, DownloadSinglePage
 from lbseed.pages_lists import (ListDownPage, ListDownInvalidPage,
                                 ListChClaimsPage, SubscribedChsPage,
-                                ListPubChsPage, ListPubClaimsPage)
+                                ListPubChsPage, ListPubClaimsPage,
+                                ControllingClaimsPage)
 from lbseed.pages_peers import (ListChPeersPage, ListChsPeersPage,
                                 ListSubsPeersPage, SeedPage)
 from lbseed.pages_del import DeleteSinglePage, DeleteChPage
 from lbseed.pages_support import SupportListPage, SupportAddPage
 from lbseed.pages_search import TrendPage, SearchPage
-from lbseed.pages_adv import ControllingClaimsPage
-
 
 # Use the classes to prevent warnings by code checkers (flake8)
 True if SettingsPage else False
@@ -65,6 +64,7 @@ True if ListChClaimsPage else False
 True if SubscribedChsPage else False
 True if ListPubChsPage else False
 True if ListPubClaimsPage else False
+True if ControllingClaimsPage else False
 
 True if ListChPeersPage else False
 True if ListChsPeersPage else False
@@ -79,5 +79,3 @@ True if SupportAddPage else False
 
 True if TrendPage else False
 True if SearchPage else False
-
-True if ControllingClaimsPage else False

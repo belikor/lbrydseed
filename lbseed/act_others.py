@@ -2,7 +2,7 @@
 # --------------------------------------------------------------------------- #
 # The MIT License (MIT)                                                       #
 #                                                                             #
-# Copyright (c) 2021 Eliud Cabrera Castillo <e.cabrera-castillo@tum.de>       #
+# Copyright (c) 2022 Eliud Cabrera Castillo <e.cabrera-castillo@tum.de>       #
 #                                                                             #
 # Permission is hereby granted, free of charge, to any person obtaining       #
 # a copy of this software and associated documentation files                  #
@@ -23,39 +23,4 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER         #
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
-"""Other methods with the interface."""
-import tempfile
-
-import lbrytools as lbryt
-
-
-def ctrl_claims(show_contr=False,
-                show_non_contr=True,
-                skip_repost=False,
-                channels_only=False,
-                show_claim_id=False,
-                show_repost_st=True,
-                show_competing=True,
-                show_reposts=True,
-                compact=False,
-                server="http://localhost:5279"):
-    """List the claims that we have and share a name with others.
-
-    See if we have the controlling claim with the highest bid.
-    """
-    with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.claims_bids(show_controlling=show_contr,
-                          show_non_controlling=show_non_contr,
-                          skip_repost=skip_repost,
-                          channels_only=channels_only,
-                          show_claim_id=show_claim_id,
-                          show_repost_status=show_repost_st,
-                          show_competing=show_competing,
-                          show_reposts=show_reposts,
-                          compact=compact,
-                          file=fp.name, fdate=False, sep=";",
-                          server=server)
-        fp.seek(0)
-        content = fp.read()
-
-    return content
+"""Other methods for the interface that may not fit in other modules."""

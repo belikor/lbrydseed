@@ -245,3 +245,35 @@ def list_pub_claims(wallet_id="default_wallet", is_spent=False,
               "ch_claims": output["ch_claims"]}
 
     return output
+
+
+def ctrl_claims(show_contr=False,
+                show_non_contr=True,
+                skip_repost=False,
+                channels_only=False,
+                show_claim_id=False,
+                show_repost_st=True,
+                show_competing=True,
+                show_reposts=True,
+                compact=False,
+                server="http://localhost:5279"):
+    """List the claims that we have and share a name with others.
+
+    See if we have the controlling claim with the highest bid.
+    """
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        lbryt.claims_bids(show_controlling=show_contr,
+                          show_non_controlling=show_non_contr,
+                          skip_repost=skip_repost,
+                          channels_only=channels_only,
+                          show_claim_id=show_claim_id,
+                          show_repost_status=show_repost_st,
+                          show_competing=show_competing,
+                          show_reposts=show_reposts,
+                          compact=compact,
+                          file=fp.name, fdate=False, sep=";",
+                          server=server)
+        fp.seek(0)
+        content = fp.read()
+
+    return content

@@ -44,12 +44,12 @@ class Application(ttk.Frame,
                   pages.ListDownPage, pages.ListDownInvalidPage,
                   pages.ListChClaimsPage, pages.SubscribedChsPage,
                   pages.ListPubChsPage, pages.ListPubClaimsPage,
+                  pages.ControllingClaimsPage,
                   pages.ListChPeersPage, pages.ListChsPeersPage,
                   pages.ListSubsPeersPage, pages.SeedPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
                   pages.SupportListPage, pages.SupportAddPage,
-                  pages.TrendPage, pages.SearchPage,
-                  pages.ControllingClaimsPage):
+                  pages.TrendPage, pages.SearchPage):
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
@@ -97,12 +97,14 @@ class Application(ttk.Frame,
         page_subscr_chs = ttk.Frame(self.note_sub_list)
         page_pub_chs = ttk.Frame(self.note_sub_list)
         page_pub_claims = ttk.Frame(self.note_sub_list)
-        self.note_sub_list.add(page_down_list, text="List downloaded claims")
-        self.note_sub_list.add(page_down_list_inv, text="List invalid claims")
-        self.note_sub_list.add(page_ch_claims, text="List channel claims")
+        page_ctr_claims = ttk.Frame(self.note_sub_list)
+        self.note_sub_list.add(page_down_list, text="Downloaded claims")
+        self.note_sub_list.add(page_down_list_inv, text="Invalid claims")
+        self.note_sub_list.add(page_ch_claims, text="Channel claims")
         self.note_sub_list.add(page_subscr_chs, text="Subscribed channels")
         self.note_sub_list.add(page_pub_chs, text="Created channels")
         self.note_sub_list.add(page_pub_claims, text="Published claims")
+        self.note_sub_list.add(page_ctr_claims, text="Controlling claims")
         self.note_sub_list.pack(fill="both", expand=True)
 
         page_s_peers = ttk.Frame(self.note)
@@ -152,13 +154,12 @@ class Application(ttk.Frame,
         self.note_sub_search.bind("<<NotebookTabChanged>>",
                                   self.update_search_checkbox)
 
-        page_s_adv = ttk.Frame(self.note)
-        self.note.add(page_s_adv, text="Advanced")
-
-        note_sub_adv = ttk.Notebook(page_s_adv)
-        page_ctr_claims = ttk.Frame(note_sub_adv)
-        note_sub_adv.add(page_ctr_claims, text="Controlling claims")
-        note_sub_adv.pack(fill="both", expand=True)
+        # page_s_other = ttk.Frame(self.note)
+        # self.note.add(page_s_other, text="Other")
+        # lb_other = ttk.Label(page_s_other,
+        #                      text=("Functions that don't fit "
+        #                            "a better category will be placed here"))
+        # lb_other.pack(pady=4)
 
         self.note.select(page_s_d)
 
@@ -175,6 +176,7 @@ class Application(ttk.Frame,
         self.setup_page_subscr_chs(page_subscr_chs)
         self.setup_page_pub_chs(page_pub_chs)
         self.setup_page_pub_claims(page_pub_claims)
+        self.setup_page_controlling(page_ctr_claims)
 
         self.setup_page_ch_peers(page_ch_peers)
         self.setup_page_chs_peers(page_chs_peers)
@@ -190,8 +192,6 @@ class Application(ttk.Frame,
 
         self.setup_page_trend(page_trend)
         self.setup_page_search(page_search)
-
-        self.setup_page_controlling(page_ctr_claims)
 
     def print_done(self, print_msg=True):
         if print_msg:
@@ -514,6 +514,23 @@ class Application(ttk.Frame,
         self.textbox_p_claims.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
+    def controlling_claims(self):
+        """Print the information of the controlling claims."""
+        content = \
+            actions.ctrl_claims(show_contr=self.check_c_contr.get(),
+                                show_non_contr=self.check_c_non_contr.get(),
+                                skip_repost=self.check_c_skip_repost.get(),
+                                channels_only=self.check_c_ch_only.get(),
+                                show_claim_id=self.check_c_cid.get(),
+                                show_repost_st=self.check_c_is_repost.get(),
+                                show_competing=self.check_c_competing.get(),
+                                show_reposts=self.check_c_reposts.get(),
+                                compact=self.check_c_compact.get(),
+                                server=self.server_var.get())
+
+        self.textbox_controlling.replace("1.0", tk.END, content)
+        self.print_done(print_msg=True)
+
     def list_ch_peers(self):
         """Print the peers of the claims of a channel."""
         if not res.server_exists(server=self.server_var.get()):
@@ -753,23 +770,6 @@ class Application(ttk.Frame,
 
         self.label_sch_info.set("Page: " + str(self.spin_page.get()))
         self.textbox_search.replace("1.0", tk.END, content)
-        self.print_done(print_msg=True)
-
-    def controlling_claims(self):
-        """Print the information of the controlling claims."""
-        content = \
-            actions.ctrl_claims(show_contr=self.check_c_contr.get(),
-                                show_non_contr=self.check_c_non_contr.get(),
-                                skip_repost=self.check_c_skip_repost.get(),
-                                channels_only=self.check_c_ch_only.get(),
-                                show_claim_id=self.check_c_cid.get(),
-                                show_repost_st=self.check_c_is_repost.get(),
-                                show_competing=self.check_c_competing.get(),
-                                show_reposts=self.check_c_reposts.get(),
-                                compact=self.check_c_compact.get(),
-                                server=self.server_var.get())
-
-        self.textbox_controlling.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
 
