@@ -151,6 +151,12 @@ class VarsPeers:
         self.rad_subs_pr_show = tk.StringVar(value="show_all")
 
 
+class VarsSeeding:
+    """Mixin class to provide variables for the seeding page."""
+    def setup_seeding_vars(self):
+        self.check_seed_plot = tk.BooleanVar(value=False)
+
+
 class VarsDelete:
     """Mixin class to provide variables for the deleting pages."""
     def setup_delete_vars(self):
@@ -193,12 +199,6 @@ class VarsTrending:
         self.label_sch_info = tk.StringVar(value="Page: -")
 
 
-class VarsSeeding:
-    """Mixin class to provide variables for the seeding page."""
-    def setup_seeding_vars(self):
-        self.check_seed_plot = tk.BooleanVar(value=False)
-
-
 class VarsControlling:
     """Mixin class to provide variables for the controlling claims page."""
     def setup_controlling_vars(self):
@@ -221,10 +221,10 @@ class Variables(VarsWidgets,
                 VarsSubscribedChs,
                 VarsPublished,
                 VarsPeers,
+                VarsSeeding,
                 VarsDelete,
                 VarsSupports,
                 VarsTrending,
-                VarsSeeding,
                 VarsControlling):
     """Mixin class to provide variables to the application."""
     def setup_vars(self):
@@ -236,8 +236,8 @@ class Variables(VarsWidgets,
         super().setup_subscribed_chs_vars()
         super().setup_published_vars()
         super().setup_peers_vars()
+        super().setup_seeding_vars()
         super().setup_delete_vars()
         super().setup_support_vars()
         super().setup_trending_vars()
-        super().setup_seeding_vars()
         super().setup_controlling_vars()

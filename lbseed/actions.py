@@ -26,44 +26,58 @@
 """Methods to actually do something with the interface."""
 from lbseed.act_cfg import get_lbrynet_settings
 from lbseed.act_cfg import get_lbrynet_status
+
 from lbseed.act_download import download_ch
 from lbseed.act_download import download_claims
+
 from lbseed.act_list import print_claims
 from lbseed.act_list import print_ch_claims
 from lbseed.act_list import list_text_size
 from lbseed.act_list import list_pub_chs
 from lbseed.act_list import list_pub_claims
 from lbseed.act_channels import list_ch_subs
+
 from lbseed.act_peers import list_peers
 from lbseed.act_peers import list_ch_peers
 from lbseed.act_peers import list_subs_peers
+from lbseed.act_peers import seeding_ratio
+
 from lbseed.act_delete import delete_claims
 from lbseed.act_delete import clean_ch
+
 from lbseed.act_supports import list_supports
 from lbseed.act_supports import add_supports
+
 from lbseed.act_search import print_trending
 from lbseed.act_search import return_search
-from lbseed.act_others import seeding_ratio
+
 from lbseed.act_others import ctrl_claims
 
 True if get_lbrynet_settings else False
 True if get_lbrynet_status else False
+
 True if download_ch else False
 True if download_claims else False
+
 True if print_claims else False
 True if print_ch_claims else False
 True if list_text_size else False
 True if list_pub_chs else False
 True if list_pub_claims else False
 True if list_ch_subs else False
+
 True if list_peers else False
 True if list_ch_peers else False
 True if list_subs_peers else False
+True if seeding_ratio else False
+
 True if delete_claims else False
 True if clean_ch else False
+
 True if list_supports else False
 True if add_supports else False
+
 True if print_trending else False
 True if return_search else False
-True if seeding_ratio else False
+
 True if ctrl_claims else False

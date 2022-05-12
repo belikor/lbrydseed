@@ -45,11 +45,11 @@ class Application(ttk.Frame,
                   pages.ListChClaimsPage, pages.SubscribedChsPage,
                   pages.ListPubChsPage, pages.ListPubClaimsPage,
                   pages.ListChPeersPage, pages.ListChsPeersPage,
-                  pages.ListSubsPeersPage,
+                  pages.ListSubsPeersPage, pages.SeedPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
                   pages.SupportListPage, pages.SupportAddPage,
                   pages.TrendPage, pages.SearchPage,
-                  pages.SeedPage, pages.ControllingClaimsPage):
+                  pages.ControllingClaimsPage):
     def __init__(self, root):
         # Initialize and show the main frame
         super().__init__(root)  # Frame(root)
@@ -112,9 +112,11 @@ class Application(ttk.Frame,
         page_ch_peers = ttk.Frame(self.note_sub_peers)
         page_chs_peers = ttk.Frame(self.note_sub_peers)
         page_subs_peers = ttk.Frame(self.note_sub_peers)
+        page_seed_ratio = ttk.Frame(self.note_sub_peers)
         self.note_sub_peers.add(page_ch_peers, text="Channel peers")
         self.note_sub_peers.add(page_chs_peers, text="Multiple channel peers")
         self.note_sub_peers.add(page_subs_peers, text="Subscription peers")
+        self.note_sub_peers.add(page_seed_ratio, text="Seeding ratio")
         self.note_sub_peers.pack(fill="both", expand=True)
 
         page_s_del = ttk.Frame(self.note)
@@ -154,9 +156,7 @@ class Application(ttk.Frame,
         self.note.add(page_s_adv, text="Advanced")
 
         note_sub_adv = ttk.Notebook(page_s_adv)
-        page_seed_ratio = ttk.Frame(note_sub_adv)
         page_ctr_claims = ttk.Frame(note_sub_adv)
-        note_sub_adv.add(page_seed_ratio, text="Seeding ratio")
         note_sub_adv.add(page_ctr_claims, text="Controlling claims")
         note_sub_adv.pack(fill="both", expand=True)
 
@@ -179,6 +179,8 @@ class Application(ttk.Frame,
         self.setup_page_ch_peers(page_ch_peers)
         self.setup_page_chs_peers(page_chs_peers)
         self.setup_page_subs_peers(page_subs_peers)
+        self.setup_page_seed(page_seed_ratio)
+        self.setup_plot()
 
         self.setup_page_del(page_del)
         self.setup_page_delch(page_delch)
@@ -189,8 +191,6 @@ class Application(ttk.Frame,
         self.setup_page_trend(page_trend)
         self.setup_page_search(page_search)
 
-        self.setup_page_seed(page_seed_ratio)
-        self.setup_plot()
         self.setup_page_controlling(page_ctr_claims)
 
     def print_done(self, print_msg=True):
@@ -580,6 +580,33 @@ class Application(ttk.Frame,
         self.textbox_subs_peers.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
+    def seeding_ratio(self):
+        """Print estimated seeding ratio from the log files."""
+        frame = None
+
+        if self.check_seed_plot.get():
+            if not hasattr(self, "top_plot"):
+                # This is normally not called because the plot toplevel
+                # is already set up by `SeedPage.setup_page_seed`
+                frame = self.setup_plot()
+                frame.deiconify()
+            elif hasattr(self, "top_plot"):
+                if self.top_plot.children:
+                    # We remove the content before reusing the toplevel
+                    frame = self.remove_plot()
+                else:
+                    # The toplevel is empty, so we just use it
+                    frame = self.top_plot
+                frame.deiconify()
+
+        content = \
+            actions.seeding_ratio(frame=frame,
+                                  plot_hst_var=self.check_seed_plot.get(),
+                                  server=self.server_var.get())
+
+        self.textbox_seed.replace("1.0", tk.END, content)
+        self.print_done(print_msg=True)
+
     def delete_claims(self):
         """Delete the claims in the textbox."""
         if not res.server_exists(server=self.server_var.get()):
@@ -726,33 +753,6 @@ class Application(ttk.Frame,
 
         self.label_sch_info.set("Page: " + str(self.spin_page.get()))
         self.textbox_search.replace("1.0", tk.END, content)
-        self.print_done(print_msg=True)
-
-    def seeding_ratio(self):
-        """Print estimated seeding ratio from the log files."""
-        frame = None
-
-        if self.check_seed_plot.get():
-            if not hasattr(self, "top_plot"):
-                # This is normally not called because the plot toplevel
-                # is already set up by `SeedPage.setup_page_seed`
-                frame = self.setup_plot()
-                frame.deiconify()
-            elif hasattr(self, "top_plot"):
-                if self.top_plot.children:
-                    # We remove the content before reusing the toplevel
-                    frame = self.remove_plot()
-                else:
-                    # The toplevel is empty, so we just use it
-                    frame = self.top_plot
-                frame.deiconify()
-
-        content = \
-            actions.seeding_ratio(frame=frame,
-                                  plot_hst_var=self.check_seed_plot.get(),
-                                  server=self.server_var.get())
-
-        self.textbox_seed.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
     def controlling_claims(self):

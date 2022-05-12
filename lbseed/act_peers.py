@@ -161,3 +161,18 @@ def list_subs_peers(number=2,
 
     return {"lines": lines,
             "summary": summary}
+
+
+def seeding_ratio(frame=None, plot_hst_var=True,
+                  server="http://localhost:5279"):
+    """List seeding ratio estimate."""
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        lbryt.print_blobs_ratio(data_dir=None,
+                                plot_hst=plot_hst_var,
+                                file=fp.name, fdate=False, sep=";",
+                                tk_frame=frame,
+                                server=server)
+        fp.seek(0)
+        content = fp.read()
+
+    return content

@@ -46,65 +46,6 @@ import tkinter.ttk as ttk
 import lbseed.blocks as blocks
 
 
-class SeedPage:
-    """Mixin class to provide the seeding page to the application."""
-    def setup_page_seed(self, parent):
-        self.setup_top_seed(parent)
-        self.setup_textbox_seed(parent)
-        self.setup_plot()
-
-    def setup_top_seed(self, parent):
-        frame = ttk.Frame(parent)
-        frame.pack(padx=4, pady=4)
-        self.setup_grid_button_seed(frame, start=0)
-        self.setup_grid_check_seed(frame, start=1)
-        self.setup_info_seed(frame, start=2)
-
-    def setup_grid_button_seed(self, parent, start=0):
-        blocks.setup_button_gen(parent,
-                                width=self.b_width,
-                                b_text="Display seeding ratio",
-                                b_command=self.seeding_ratio,
-                                l_text=("This is an estimation of uploaded "
-                                        "and downloaded blobs\n"
-                                        "based on information found "
-                                        "in the log files."),
-                                start=start)
-
-    def setup_grid_check_seed(self, parent, start=0):
-        chk_plot = ttk.Checkbutton(parent,
-                                   variable=self.check_seed_plot,
-                                   text=("Plot histograms of blob activity "
-                                         "(requires Matplotlib)"))
-        chk_plot.grid(row=start, column=1, sticky=tk.W)
-
-    def setup_info_seed(self, parent, start=0):
-        info = ttk.Label(parent,
-                         text=("If uploaded blobs is 0, "
-                               "make sure the ports 3333 and 4444 "
-                               "are forwarded in your router."))
-        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
-
-    def setup_textbox_seed(self, parent):
-        self.textbox_seed = blocks.setup_textbox(parent,
-                                                 font=self.txt_lst_font)
-
-    def setup_plot(self):
-        self.top_plot = tk.Toplevel()
-        self.top_plot.withdraw()
-        self.top_plot.title("Upload/download seeding ratio")
-        self.top_plot.protocol("WM_DELETE_WINDOW", self.remove_plot)
-        return self.top_plot
-
-    def remove_plot(self):
-        self.top_plot.withdraw()
-
-        values = list(self.top_plot.children.values())
-        for v in values:
-            v.destroy()
-        return self.top_plot
-
-
 class ControllingClaimsPage:
     """Mixin class to provide the controlling claims page."""
     def setup_page_controlling(self, parent):
