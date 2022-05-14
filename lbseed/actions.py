@@ -33,7 +33,7 @@ from lbseed.act_download import download_claims
 from lbseed.act_list import print_claims
 from lbseed.act_list import print_ch_claims
 from lbseed.act_list import list_text_size
-from lbseed.act_channels import list_ch_subs
+from lbseed.act_list import list_ch_subs
 from lbseed.act_list import list_pub_chs
 from lbseed.act_list import list_pub_claims
 from lbseed.act_list import ctrl_claims
