@@ -54,15 +54,15 @@ from lbseed.blocks_subscribed import setup_radio_ch_subs_valid2
 from lbseed.blocks_claims import setup_check_chs_claims
 from lbseed.blocks_claims import setup_check_claims
 
+from lbseed.blocks_controlling import setup_check_contr
+from lbseed.blocks_controlling import setup_check_contr_compact
+
 from lbseed.blocks_supports import setup_check_support
 from lbseed.blocks_supports import setup_radio_support
 
 from lbseed.blocks_trending import setup_radio_trend_claims
 from lbseed.blocks_trending import setup_check_trend
 from lbseed.blocks_trending import info_search
-
-from lbseed.blocks_controlling import setup_check_controlling
-from lbseed.blocks_controlling import setup_check_contr_compact
 
 # Use the methods to prevent warnings by code checkers (flake8)
 True if focus_next_widget else False
@@ -90,12 +90,12 @@ True if setup_radio_ch_subs_valid2 else False
 True if setup_check_chs_claims else False
 True if setup_check_claims else False
 
+True if setup_check_contr else False
+True if setup_check_contr_compact else False
+
 True if setup_check_support else False
 True if setup_radio_support else False
 
 True if setup_radio_trend_claims else False
 True if setup_check_trend else False
 True if info_search else False
-
-True if setup_check_controlling else False
-True if setup_check_contr_compact else False

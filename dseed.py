@@ -523,7 +523,7 @@ class Application(ttk.Frame,
                                 channels_only=self.check_c_ch_only.get(),
                                 show_claim_id=self.check_c_cid.get(),
                                 show_repost_st=self.check_c_is_repost.get(),
-                                show_competing=self.check_c_competing.get(),
+                                show_competing=self.check_c_compete.get(),
                                 show_reposts=self.check_c_reposts.get(),
                                 compact=self.check_c_compact.get(),
                                 server=self.server_var.get())

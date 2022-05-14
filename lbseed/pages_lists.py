@@ -518,12 +518,12 @@ class ControllingClaimsPage:
                                 start=start)
 
     def setup_grid_check_contr(self, parent, start=0):
-        blocks.setup_check_controlling(parent,
-                                       contr_var=self.check_c_contr,
-                                       non_contr_var=self.check_c_non_contr,
-                                       skip_repost_var=self.check_c_skip_repost,
-                                       ch_only_var=self.check_c_ch_only,
-                                       start=start)
+        blocks.setup_check_contr(parent,
+                                 contr_var=self.check_c_contr,
+                                 non_contr_var=self.check_c_non_contr,
+                                 skip_repost_var=self.check_c_skip_repost,
+                                 ch_only_var=self.check_c_ch_only,
+                                 start=start)
 
     def setup_grid_check_contr_compact(self, parent, start=0):
         frame = ttk.Frame(parent, relief="groove", borderwidth=2)
@@ -535,11 +535,11 @@ class ControllingClaimsPage:
          self.chck_reposts) = \
             blocks.setup_check_contr_compact(frame,
                                              compact_var=self.check_c_compact,
-                                             compact_command=self.compact_disable,
+                                             compact_cmd=self.compact_disable,
                                              cid_var=self.check_c_cid,
-                                             is_repost_var=self.check_c_is_repost,
-                                             n_competing_var=self.check_c_competing,
-                                             n_reposts_var=self.check_c_reposts,
+                                             is_rep_var=self.check_c_is_repost,
+                                             n_compet_var=self.check_c_compete,
+                                             n_rep_var=self.check_c_reposts,
                                              start=0)
 
     def compact_disable(self):

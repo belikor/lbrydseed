@@ -142,7 +142,7 @@ class VarsControlling:
         self.check_c_compact = tk.BooleanVar(value=True)
         self.check_c_cid = tk.BooleanVar(value=False)
         self.check_c_is_repost = tk.BooleanVar(value=True)
-        self.check_c_competing = tk.BooleanVar(value=True)
+        self.check_c_compete = tk.BooleanVar(value=True)
         self.check_c_reposts = tk.BooleanVar(value=True)
 
 

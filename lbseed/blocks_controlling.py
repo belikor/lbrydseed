@@ -28,12 +28,12 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
-def setup_check_controlling(parent,
-                            contr_var=None,
-                            non_contr_var=None,
-                            skip_repost_var=None,
-                            ch_only_var=None,
-                            start=0):
+def setup_check_contr(parent,
+                      contr_var=None,
+                      non_contr_var=None,
+                      skip_repost_var=None,
+                      ch_only_var=None,
+                      start=0):
     """Setup the checkbuttons to show controlling claims."""
     chck_contr = ttk.Checkbutton(parent,
                                  variable=contr_var,
@@ -60,18 +60,18 @@ def setup_check_controlling(parent,
 
 def setup_check_contr_compact(parent,
                               compact_var=None,
-                              compact_command=None,
+                              compact_cmd=None,
                               cid_var=None,
-                              is_repost_var=None,
-                              n_competing_var=None,
-                              n_reposts_var=None,
+                              is_rep_var=None,
+                              n_compet_var=None,
+                              n_rep_var=None,
                               start=0):
     """Setup the checkbuttons that work only with the compact option."""
     chck_compact = ttk.Checkbutton(parent,
                                    variable=compact_var,
                                    text=("Compact information "
                                          "(one claim per row)"),
-                                   command=compact_command)
+                                   command=compact_cmd)
     chck_compact.grid(row=start, column=1, sticky=tk.W)
 
     chck_claim_id = ttk.Checkbutton(parent,
@@ -80,18 +80,18 @@ def setup_check_contr_compact(parent,
     chck_claim_id.grid(row=start+1, column=1, sticky=tk.W)
 
     chck_is_repost = ttk.Checkbutton(parent,
-                                     variable=is_repost_var,
+                                     variable=is_rep_var,
                                      text="Indicate if the claim is a repost")
     chck_is_repost.grid(row=start+2, column=1, sticky=tk.W)
 
     chck_competing = ttk.Checkbutton(parent,
-                                     variable=n_competing_var,
+                                     variable=n_compet_var,
                                      text=("Show how many competing claims "
                                            "there are with the same name"))
     chck_competing.grid(row=start+3, column=1, sticky=tk.W)
 
     chck_reposts = ttk.Checkbutton(parent,
-                                   variable=n_reposts_var,
+                                   variable=n_rep_var,
                                    text=("Show how many reposts "
                                          "there are of this claim"))
     chck_reposts.grid(row=start+4, column=1, sticky=tk.W)
