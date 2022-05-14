@@ -482,7 +482,8 @@ class Application(ttk.Frame,
 
         combo_values = ["All", "Anonymous"]
         for ch in channels:
-            combo_values.append(ch["name"])
+            ch_name = ch["canonical_url"].split("lbry://")[1]
+            combo_values.append(ch_name)
 
         self.combo_pub_ch["values"] = combo_values
         self.print_done(print_msg=print_msg)
