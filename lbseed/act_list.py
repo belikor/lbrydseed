@@ -29,12 +29,35 @@ import tempfile
 import lbrytools as lbryt
 
 
-def print_claims(blocks=False, cid=False, blobs=True, size=True,
-                 show_channel=False,
-                 show_out="name", channel=None,
-                 invalid=False,
-                 reverse=False,
-                 server="http://localhost:5279"):
+def list_text_size(info):
+    """Calculate size and duration of the claims."""
+    number = len(info["claims"])
+    size = info["size"]
+    seconds = info["duration"]
+
+    size_gb = size/(1024**3)
+    hrs = seconds / 3600
+    days = hrs / 24
+
+    hr = seconds // 3600
+    mi = (seconds % 3600) // 60
+    sec = (seconds % 3600) % 60
+
+    m = [f"Claims: {number}",
+         f"Total size: {size_gb:.4f} GB",
+         f"Total duration: {hr} h {mi} min {sec} s, "
+         f"or {days:.4f} days"]
+
+    text = "\n".join(m)
+    return text
+
+
+def list_claims(blocks=False, cid=False, blobs=True, size=True,
+                show_channel=False,
+                show_out="name", channel=None,
+                invalid=False,
+                reverse=False,
+                server="http://localhost:5279"):
     """Print all downloaded claims to a temporary file and read that file."""
     if show_out in ("name"):
         name = True
@@ -52,7 +75,14 @@ def print_claims(blocks=False, cid=False, blobs=True, size=True,
     output = lbryt.sort_items_size(reverse=False, invalid=invalid,
                                    server=server)
     if not output:
-        return False, 0, 0, 0
+        output = {"claims": [],
+                  "size": 0,
+                  "duration": 0}
+
+        text = list_text_size(output)
+
+        return {"content": False,
+                "text": text}
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         lbryt.print_items(output["claims"],
@@ -67,18 +97,22 @@ def print_claims(blocks=False, cid=False, blobs=True, size=True,
                           server=server)
         fp.seek(0)
         content = fp.read()
-    return content, len(output["claims"]), output["size"], output["duration"]
+
+    text = list_text_size(output)
+
+    return {"content": content,
+            "text": text}
 
 
-def print_ch_claims(channel,
-                    number=0,
-                    blocks=False, claim_id=False,
-                    typ=False, ch_name=False,
-                    title=False,
-                    start=1, end=0,
-                    reverse=False,
-                    last_height=99_000_900,
-                    server="http://localhost:5279"):
+def list_ch_claims(channel,
+                   number=0,
+                   blocks=False, claim_id=False,
+                   typ=False, ch_name=False,
+                   title=False,
+                   start=1, end=0,
+                   reverse=False,
+                   last_height=99_000_900,
+                   server="http://localhost:5279"):
     """Print all or a certain number of claims for a specified channel."""
     if number:
         output = lbryt.ch_search_n_claims(channel,
@@ -93,7 +127,14 @@ def print_ch_claims(channel,
                                             server=server)
 
     if not output:
-        return False, 0, 0, 0
+        output = {"claims": [],
+                  "size": 0,
+                  "duration": 0}
+
+        text = list_text_size(output)
+
+        return {"content": False,
+                "text": text}
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         lbryt.print_sch_claims(output["claims"],
@@ -105,25 +146,11 @@ def print_ch_claims(channel,
                                file=fp.name, fdate=False, sep=";")
         fp.seek(0)
         content = fp.read()
-    return content, len(output["claims"]), output["size"], output["duration"]
 
+    text = list_text_size(output)
 
-def list_text_size(number, size, seconds):
-    """Calculate size and duration of the claims."""
-    size_gb = size/(1024**3)
-    hrs = seconds / 3600
-    days = hrs / 24
-
-    hr = seconds // 3600
-    mi = (seconds % 3600) // 60
-    sec = (seconds % 3600) % 60
-
-    text = (f"Claims: {number}; "
-            f"total size: {size_gb:.4f} GB; "
-            f"total duration: {hr} h {mi} min {sec} s, "
-            f"or {days:.4f} days")
-
-    return text
+    return {"content": content,
+            "text": text}
 
 
 def list_ch_subs(action="subscriptions",

@@ -335,29 +335,30 @@ class Application(ttk.Frame,
         if self.entry_chan.get():
             self.check_lst_show_ch.set(True)
 
-        content, number, size, seconds = \
-            actions.print_claims(blocks=self.check_lst_blks.get(),
-                                 cid=self.check_lst_cid.get(),
-                                 blobs=self.check_lst_blobs.get(),
-                                 size=self.check_lst_size.get(),
-                                 show_channel=self.check_lst_show_ch.get(),
-                                 show_out=self.rad_lst_name.get(),
-                                 channel=self.entry_chan.get(),
-                                 invalid=invalid,
-                                 reverse=self.check_lst_reverse.get(),
-                                 server=self.server_var.get())
+        output = \
+            actions.list_claims(blocks=self.check_lst_blks.get(),
+                                cid=self.check_lst_cid.get(),
+                                blobs=self.check_lst_blobs.get(),
+                                size=self.check_lst_size.get(),
+                                show_channel=self.check_lst_show_ch.get(),
+                                show_out=self.rad_lst_name.get(),
+                                channel=self.entry_chan.get(),
+                                invalid=invalid,
+                                reverse=self.check_lst_reverse.get(),
+                                server=self.server_var.get())
 
-        if not content:
-            content = "No claims found"
+        if not output["content"]:
+            output["content"] = "No claims found"
 
-        text = actions.list_text_size(number, size, seconds)
+        content = output["text"] + "\n"
+        content += 80 * "-" + "\n"
+        content += output["content"]
 
         if not invalid:
             self.textbox_list.replace("1.0", tk.END, content)
-            self.label_lst_info.set(text)
         else:
             self.textbox_list_inv.replace("1.0", tk.END, content)
-            self.label_lst_inv_info.set(text)
+
         self.print_done(print_msg=True)
 
     def list_d_claims_inv(self):
@@ -400,22 +401,24 @@ class Application(ttk.Frame,
         if not channel:
             return False
 
-        content, number, size, seconds = \
-            actions.print_ch_claims(channel,
-                                    number=self.spin_chl_num.get(),
-                                    blocks=self.chck_chl_blk.get(),
-                                    claim_id=self.chck_chl_cid.get(),
-                                    typ=self.chck_chl_type.get(),
-                                    ch_name=self.chck_chl_chname.get(),
-                                    title=self.chck_chl_title.get(),
-                                    start=1, end=0,
-                                    reverse=self.chck_chl_reverse.get(),
-                                    server=self.server_var.get())
+        output = \
+            actions.list_ch_claims(channel,
+                                   number=self.spin_chl_num.get(),
+                                   blocks=self.chck_chl_blk.get(),
+                                   claim_id=self.chck_chl_cid.get(),
+                                   typ=self.chck_chl_type.get(),
+                                   ch_name=self.chck_chl_chname.get(),
+                                   title=self.chck_chl_title.get(),
+                                   start=1, end=0,
+                                   reverse=self.chck_chl_reverse.get(),
+                                   server=self.server_var.get())
 
-        text = actions.list_text_size(number, size, seconds)
+        content = output["text"] + "\n"
+        content += 80 * "-" + "\n"
+        content += output["content"]
 
         self.textbox_ch_list.replace("1.0", tk.END, content)
-        self.label_chl_info.set(text)
+
         self.print_done(print_msg=True)
 
     def list_subscr_chs(self):

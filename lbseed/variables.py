@@ -77,15 +77,6 @@ class VarsListDownload:
         self.rad_lst_name = tk.StringVar(value="name")
         self.check_lst_reverse = tk.BooleanVar(value=True)
 
-        self.label_lst_info = tk.StringVar()
-        self.label_lst_info.set("Claims: 0; "
-                                "total size: 0 GB; "
-                                "total duration: 0 h")
-        self.label_lst_inv_info = tk.StringVar()
-        self.label_lst_inv_info.set("Claims: 0; "
-                                    "total size: 0 GB; "
-                                    "total duration: 0 h")
-
 
 class VarsListChClaims:
     """Mixin class to provide variables for the list channel claims page."""
@@ -99,10 +90,6 @@ class VarsListChClaims:
         self.chck_chl_title = tk.BooleanVar(value=False)
         self.chck_chl_reverse = tk.BooleanVar(value=True)
         self.chck_chl_reverse.set(True)
-        self.label_chl_info = tk.StringVar()
-        self.label_chl_info.set("Claims: 0; "
-                                "total size: 0 GB; "
-                                "total duration: 0 h")
 
 
 class VarsSubscribedChs:

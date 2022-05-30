@@ -114,9 +114,6 @@ class ListDownPage:
                                "video and audio files."))
         desc.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
-        info = ttk.Label(parent, textvariable=self.label_lst_info)
-        info.grid(row=start+1, column=0, columnspan=2, sticky=tk.W)
-
     def setup_textbox_list(self, parent):
         self.textbox_list = blocks.setup_textbox(parent,
                                                  font=self.txt_lst_font)
@@ -211,9 +208,6 @@ class ListDownInvalidPage:
                                "video and audio files."))
         desc.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
-        info = ttk.Label(parent, textvariable=self.label_lst_inv_info)
-        info.grid(row=start+1, column=0, columnspan=2, sticky=tk.W)
-
     def setup_textbox_list_inv(self, parent):
         self.textbox_list_inv = blocks.setup_textbox(parent,
                                                      font=self.txt_lst_font)
@@ -288,9 +282,6 @@ class ListChClaimsPage:
                                "claims that have a duration, such as "
                                "video and audio files."))
         desc.grid(row=start, column=0, columnspan=2, sticky=tk.W)
-
-        info = ttk.Label(parent, textvariable=self.label_chl_info)
-        info.grid(row=start+1, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_ch_list(self, parent):
         self.textbox_ch_list = blocks.setup_textbox(parent,
