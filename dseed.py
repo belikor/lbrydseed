@@ -24,6 +24,7 @@
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
 """Small application to download claims from LBRY channels."""
+import os.path
 import platform
 import sys
 import tkinter as tk
@@ -978,10 +979,13 @@ def main(argv=None):
     root.rowconfigure(0, weight=1)
     root.title("lbrydseed")
 
+    idir = os.path.dirname(os.path.abspath(__file__))
+    img = os.path.join(idir, "lbrydseed.png")
+    icon = tk.PhotoImage(file=img)
+
     # Set up icon for all top levels
-    root.iconphoto(True, tk.PhotoImage(file="lbrydseed.png"))
-    # root.tk.call("wm", "iconphoto", root._w,
-    #              tk.PhotoImage(file="lbrydseed.png"))
+    root.iconphoto(True, icon)
+    # root.tk.call("wm", "iconphoto", root._w, icon)
 
     # The quit method is explicit because we create a second toplevel,
     # and it causes problems when we try to close the window
