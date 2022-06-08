@@ -12,6 +12,7 @@ Go back to the [_README_](../README.md).
 - [Updating](#updating)
 - [System wide installation](#system-wide-installation)
 - [Optional](#optional)
+- [AppImage](#appimage)
 
 ## Basic installation
 
@@ -199,5 +200,17 @@ python setup.py sdist
 python setup.py clean
 python setup.py clean --all
 ```
+
+[Go back to _Content_](#content)
+
+## AppImage
+
+We can create an AppImage by running single script.
+```sh
+bash create_appimage.sh
+```
+
+It will create an `AppDir` directory which will be used with `appimagetool`
+to create the final AppImage.
 
 [Go back to _Content_](#content)

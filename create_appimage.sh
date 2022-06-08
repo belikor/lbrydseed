@@ -2,10 +2,10 @@
 set -x
 
 OPWD=$(pwd)
-APPD=AppImg
+APPD=appimgtools
 
 # Change manually as needed
-VER=0.90
+VER=0.9
 
 # Version of Python; it depends on the plugin
 PYVER=3.8
