@@ -368,8 +368,8 @@ class SeedPage:
     def setup_info_seed(self, parent, start=0):
         info = ttk.Label(parent,
                          text=("If uploaded blobs is 0, "
-                               "make sure the ports 3333 and 4444 "
-                               "are forwarded in your router."))
+                               "make sure port 4444 (TCP/UDP) "
+                               "is forwarded in your router."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_seed(self, parent):
