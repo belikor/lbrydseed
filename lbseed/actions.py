@@ -24,8 +24,8 @@
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
 """Methods to actually do something with the interface."""
-from lbseed.act_cfg import get_lbrynet_settings
-from lbseed.act_cfg import get_lbrynet_status
+from lbseed.act_cfg import list_lbrynet_settings
+from lbseed.act_cfg import list_lbrynet_status
 
 from lbseed.act_download import download_ch
 from lbseed.act_download import download_claims
@@ -56,8 +56,8 @@ from lbseed.act_supports import add_supports
 from lbseed.act_search import print_trending
 from lbseed.act_search import return_search
 
-True if get_lbrynet_settings else False
-True if get_lbrynet_status else False
+True if list_lbrynet_settings else False
+True if list_lbrynet_status else False
 
 True if download_ch else False
 True if download_claims else False

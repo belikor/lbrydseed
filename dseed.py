@@ -210,7 +210,7 @@ class Application(ttk.Frame,
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        content = actions.get_lbrynet_settings(server=self.server_var.get())
+        content = actions.list_lbrynet_settings(server=self.server_var.get())
 
         self.textbox_settings["state"] = "normal"
         self.textbox_settings.replace("1.0", tk.END, content)
@@ -222,7 +222,7 @@ class Application(ttk.Frame,
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        content = actions.get_lbrynet_status(server=self.server_var.get())
+        content = actions.list_lbrynet_status(server=self.server_var.get())
 
         self.textbox_status["state"] = "normal"
         self.textbox_status.replace("1.0", tk.END, content)
