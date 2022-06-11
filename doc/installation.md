@@ -205,12 +205,13 @@ python setup.py clean --all
 
 ## AppImage
 
-We can create an AppImage by running single script.
+We can create an AppImage by running a single script:
 ```sh
 bash create_appimage.sh
 ```
 
-It will create an `AppDir` directory which will be used with `appimagetool`
-to create the final AppImage.
+It will download some auxiliary tools and plugins, then it will create
+an `AppDir` directory to be used with the downloaded `appimagetool`
+to produce the final AppImage.
 
 [Go back to _Content_](#content)
