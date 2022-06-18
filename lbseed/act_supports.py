@@ -70,12 +70,12 @@ def add_supports(resolved_claims, support_style="create",
         invalids = all_supports['invalid_supports']
 
     for num, resolved_claim in enumerate(resolved_claims, start=1):
-        claim = resolved_claim["resolved"]
         number = resolved_claim["number"]
 
         if invalid:
-            name = claim
+            name = resolved_claim["claim"]
         else:
+            claim = resolved_claim["resolved"]
             name = claim["name"]
 
         print(f"Claim {num}/{n_claims}, {name}")

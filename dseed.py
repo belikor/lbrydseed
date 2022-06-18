@@ -886,6 +886,7 @@ class Application(ttk.Frame,
 
         if self.check_s_supp_inv.get():
             validated_claims = self.validate_g_claims(print_msg=True)
+            resolved_claims = validated_claims
             print("Assuming the claims are 'invalid' claims, "
                   "so they won't be resolved online.")
         else:
