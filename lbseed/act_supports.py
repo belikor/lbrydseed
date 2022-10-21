@@ -34,6 +34,8 @@ def list_supports(show_ch=False,
                   show_cid=False,
                   show_combined=True,
                   show_invalid=False,
+                  sanitize=True,
+                  threads=32,
                   print_msg=True,
                   server="http://localhost:5279"):
     """List supports."""
@@ -47,6 +49,8 @@ def list_supports(show_ch=False,
                             combine=show_combined,
                             claims=show_claims,
                             channels=show_ch,
+                            sanitize=sanitize,
+                            threads=threads,
                             file=fp.name, fdate=False, sep=";",
                             server=server)
         fp.seek(0)
@@ -56,6 +60,7 @@ def list_supports(show_ch=False,
 
 def add_supports(resolved_claims, support_style="create",
                  invalid=False,
+                 threads=32,
                  print_msg=True,
                  server="http://localhost:5279"):
     """Add supports to the claims."""
@@ -66,7 +71,8 @@ def add_supports(resolved_claims, support_style="create",
     n_claims = len(resolved_claims)
 
     if invalid:
-        all_supports = lbryt.get_all_supports(server=server)
+        all_supports = lbryt.get_all_supports(threads=threads,
+                                              server=server)
         invalids = all_supports['invalid_supports']
 
     for num, resolved_claim in enumerate(resolved_claims, start=1):
@@ -88,11 +94,13 @@ def add_supports(resolved_claims, support_style="create",
                 result = lbryt.abandon_support_inv(invalids=invalids,
                                                    cid=name,
                                                    keep=number,
+                                                   threads=threads,
                                                    server=server)
                 if not result:
                     lbryt.abandon_support_inv(invalids=invalids,
                                               name=name,
                                               keep=number,
+                                              threads=threads,
                                               server=server)
             else:
                 lbryt.abandon_support(cid=claim["claim_id"],
