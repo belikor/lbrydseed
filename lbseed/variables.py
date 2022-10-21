@@ -194,6 +194,7 @@ class VarsSupports:
         self.check_s_cid = tk.BooleanVar(value=False)
         self.check_s_combine = tk.BooleanVar(value=True)
         self.check_s_invalid = tk.BooleanVar(value=False)
+        self.spin_s_threads = tk.IntVar(value=32)
 
         self.rad_s_support = tk.StringVar(value="create")
         self.check_s_supp_inv = tk.BooleanVar(value=False)

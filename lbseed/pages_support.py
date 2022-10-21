@@ -57,7 +57,8 @@ class SupportListPage:
         frame.pack(padx=4, pady=4)
         self.setup_grid_button_support(frame, start=0)
         self.setup_grid_check_support(frame, start=1)
-        self.setup_info_support(frame, start=6)
+        self.setup_grid_threads_support(frame, start=6)
+        self.setup_info_support(frame, start=7)
 
     def setup_grid_button_support(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -75,6 +76,18 @@ class SupportListPage:
                                    show_invalid_var=self.check_s_invalid,
                                    combine_var=self.check_s_combine,
                                    start=start)
+
+    def setup_grid_threads_support(self, parent, start=0):
+        blocks.setup_spin_gen(parent,
+                              frm=0, to=256, incr=1,
+                              default=32,
+                              s_text_var=self.spin_s_threads,
+                              s_command=self.list_supports,
+                              l_text=("Number of threads to process "
+                                      "claims in parallel "
+                                      "and find peers; "
+                                      "use 0 to avoid threads"),
+                              start=start)
 
     def setup_info_support(self, parent, start=0):
         info = ttk.Label(parent,

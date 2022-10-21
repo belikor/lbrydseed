@@ -862,6 +862,7 @@ class Application(ttk.Frame,
                                   show_cid=self.check_s_cid.get(),
                                   show_combined=self.check_s_combine.get(),
                                   show_invalid=self.check_s_invalid.get(),
+                                  threads=self.spin_s_threads.get(),
                                   server=self.server_var.get())
 
         self.textbox_supports.replace("1.0", tk.END, content)
@@ -911,6 +912,7 @@ class Application(ttk.Frame,
         actions.add_supports(resolved_claims,
                              support_style=self.rad_s_support.get(),
                              invalid=self.check_s_supp_inv.get(),
+                             threads=self.spin_s_threads.get(),
                              server=self.server_var.get())
 
         self.print_done(print_msg=True)
