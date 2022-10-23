@@ -132,8 +132,9 @@ class ListDownInvalidPage:
         self.setup_grid_check_list_inv(frame, start=2)
         self.setup_grid_radio_list_inv(frame, start=7)
         self.setup_grid_check_inv_reverse(frame, start=8)
-        self.setup_grid_info_list_inv(frame, start=9)
-        self.setup_info_list_inv(frame, start=10)
+        self.setup_grid_threads_list(frame, start=9)
+        self.setup_grid_info_list_inv(frame, start=10)
+        self.setup_info_list_inv(frame, start=11)
 
     def setup_grid_top_list_inv(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -180,6 +181,17 @@ class ListDownInvalidPage:
                             text=("Show in descending order "
                                   "(newer items first, older last)"))
         chk_reverse.grid(row=start, column=1, sticky=tk.W, pady=2)
+
+    def setup_grid_threads_list(self, parent, start=0):
+        blocks.setup_spin_gen(parent,
+                              frm=0, to=512, incr=1,
+                              default=32,
+                              s_text_var=self.spin_lst_threads,
+                              s_command=self.list_d_claims_inv,
+                              l_text=("Number of threads to resolve "
+                                      "claims in parallel; "
+                                      "use 0 to avoid threads"),
+                              start=start)
 
     def setup_grid_info_list_inv(self, parent, start=0):
         info = ttk.Label(parent,

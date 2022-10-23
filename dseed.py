@@ -346,6 +346,7 @@ class Application(ttk.Frame,
                                 channel=self.entry_chan.get(),
                                 invalid=invalid,
                                 reverse=self.check_lst_reverse.get(),
+                                threads=self.spin_lst_threads.get(),
                                 server=self.server_var.get())
 
         if not output["content"]:

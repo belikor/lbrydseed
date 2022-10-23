@@ -76,6 +76,7 @@ class VarsListDownload:
         self.check_lst_show_ch = tk.BooleanVar(value=True)
         self.rad_lst_name = tk.StringVar(value="name")
         self.check_lst_reverse = tk.BooleanVar(value=True)
+        self.spin_lst_threads = tk.IntVar(value=32)
 
 
 class VarsListChClaims:
