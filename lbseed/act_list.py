@@ -57,6 +57,7 @@ def list_claims(blocks=False, cid=False, blobs=True, size=True,
                 show_out="name", channel=None,
                 invalid=False,
                 reverse=False,
+                threads=32,
                 server="http://localhost:5279"):
     """Print all downloaded claims to a temporary file and read that file."""
     if show_out in ("name"):
@@ -72,33 +73,24 @@ def list_claims(blocks=False, cid=False, blobs=True, size=True,
         title = False
         path = True
 
-    output = lbryt.sort_items_size(reverse=False, invalid=invalid,
-                                   server=server)
-    if not output:
-        output = {"claims": [],
-                  "size": 0,
-                  "duration": 0}
-
-        text = list_text_size(output)
-
-        return {"content": False,
-                "text": text}
-
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.print_items(output["claims"],
-                          show="all",
-                          blocks=blocks, cid=cid, blobs=blobs, size=size,
-                          typ=False, ch=show_channel, ch_online=False,
-                          name=name, title=title, path=path,
-                          sanitize=True,
-                          start=1, end=0, channel=channel,
-                          reverse=reverse,
-                          file=fp.name, fdate=False, sep=";",
-                          server=server)
+        claims = lbryt.print_summary(show="all",
+                                     blocks=blocks, cid=cid, blobs=blobs,
+                                     size=size,
+                                     typ=False, ch=show_channel,
+                                     ch_online=False,
+                                     name=name, title=title, path=path,
+                                     sanitize=True,
+                                     start=1, end=0, channel=channel,
+                                     invalid=invalid,
+                                     reverse=reverse,
+                                     threads=threads,
+                                     file=fp.name, fdate=False, sep=";",
+                                     server=server)
         fp.seek(0)
         content = fp.read()
 
-    text = list_text_size(output)
+    text = claims["text"]
 
     return {"content": content,
             "text": text}
