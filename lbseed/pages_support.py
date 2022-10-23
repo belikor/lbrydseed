@@ -79,7 +79,7 @@ class SupportListPage:
 
     def setup_grid_threads_support(self, parent, start=0):
         blocks.setup_spin_gen(parent,
-                              frm=0, to=256, incr=1,
+                              frm=0, to=512, incr=1,
                               default=32,
                               s_text_var=self.spin_s_threads,
                               s_command=self.list_supports,

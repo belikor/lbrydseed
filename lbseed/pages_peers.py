@@ -95,7 +95,7 @@ class ListChPeersPage:
                               start=start+3)
 
         blocks.setup_spin_gen(parent,
-                              frm=0, to=256, incr=1,
+                              frm=0, to=512, incr=1,
                               default=32,
                               s_text_var=self.spin_ch_peers_threads,
                               s_command=self.list_ch_peers,
@@ -190,7 +190,7 @@ class ListChsPeersPage:
                                 start=start+2)
 
         blocks.setup_spin_gen(parent,
-                              frm=0, to=256, incr=1,
+                              frm=0, to=512, incr=1,
                               default=16,
                               s_text_var=self.spin_chs_ch_threads,
                               s_command=self.list_chs_peers,
@@ -200,7 +200,7 @@ class ListChsPeersPage:
                               start=start+3)
 
         blocks.setup_spin_gen(parent,
-                              frm=0, to=256, incr=1,
+                              frm=0, to=512, incr=1,
                               default=32,
                               s_text_var=self.spin_chs_cl_threads,
                               s_command=self.list_chs_peers,
@@ -275,7 +275,7 @@ class ListSubsPeersPage:
                               start=start+1)
 
         blocks.setup_spin_gen(parent,
-                              frm=0, to=256, incr=1,
+                              frm=0, to=512, incr=1,
                               default=32,
                               s_text_var=self.spin_subs_ch_threads,
                               s_command=self.list_subs_peers,
@@ -285,7 +285,7 @@ class ListSubsPeersPage:
                               start=start+2)
 
         blocks.setup_spin_gen(parent,
-                              frm=0, to=256, incr=1,
+                              frm=0, to=512, incr=1,
                               default=16,
                               s_text_var=self.spin_subs_cl_threads,
                               s_command=self.list_subs_peers,

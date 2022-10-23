@@ -377,7 +377,7 @@ class SubscribedChsPage:
 
     def setup_grid_spin_subs(self, parent, start=0):
         blocks.setup_spin_gen(parent,
-                              frm=0, to=256, incr=1,
+                              frm=0, to=512, incr=1,
                               default=32,
                               s_text_var=self.spin_subs_threads,
                               s_command=self.list_subscr_chs,
