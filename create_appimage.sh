@@ -15,35 +15,52 @@ PYVER=3.8
 mkdir -p "${APPD}"
 
 # Base AppImage creation tool used by high-level tools
-if [ ! -f "${APPD}/appimagetool-x86_64.AppImage" ]
+APPTOOL="appimagetool-x86_64.AppImage"
+TOOL_R="https://github.com/AppImage/AppImageKit"
+TOOL_URL="${TOOL_R}/releases/download/continuous"
+
+if [ ! -f "${APPD}/${APPTOOL}" ]
 then
-    wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O "${APPD}/appimagetool-x86_64.AppImage"
-    chmod +x "${APPD}/appimagetool-x86_64.AppImage"
+    wget "${TOOL_URL}/${APPTOOL}" -O "${APPD}/${APPTOOL}"
+    chmod +x "${APPD}/${APPTOOL}"
 fi
 
-# Higher level tool to create AppImages by using plugins; it already has the base `appimagetool`
-if [ ! -f "${APPD}/linuxdeploy-x86_64.AppImage" ]
+# Higher level tool to create AppImages by using plugins;
+# it already has the base `appimagetool`
+DEPTOOL="linuxdeploy-x86_64.AppImage"
+TOOLDEP_R="https://github.com/linuxdeploy/linuxdeploy"
+TOOLDEP_URL="${TOOLDEP_R}/releases/download/continuous"
+
+if [ ! -f "${APPD}/${DEPTOOL}" ]
 then
-    wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage -O "${APPD}/linuxdeploy-x86_64.AppImage"
-    chmod +x "${APPD}/linuxdeploy-x86_64.AppImage"
+    wget "${TOOLDEP_URL}/${DEPTOOL}" -O "${APPD}/${DEPTOOL}"
+    chmod +x "${APPD}/${DEPTOOL}"
 fi
 
 # Plugin necessary to create AppImages with Python
-if [ ! -f "${APPD}/linuxdeploy-plugin-python-x86_64.AppImage" ]
+DEPTOOL_PY="linuxdeploy-plugin-python-x86_64.AppImage"
+DEPTOOL_PY_R="https://github.com/niess/linuxdeploy-plugin-python"
+DEPTOOL_PY_URL="${DEPTOOL_PY_R}/releases/download/continuous"
+
+if [ ! -f "${APPD}/${DEPTOOL_PY}" ]
 then
-    wget https://github.com/niess/linuxdeploy-plugin-python/releases/download/continuous/linuxdeploy-plugin-python-x86_64.AppImage -O "${APPD}/linuxdeploy-plugin-python-x86_64.AppImage"
-    chmod +x "${APPD}/linuxdeploy-plugin-python-x86_64.AppImage"
+    wget "${DEPTOOL_PY_URL}/${DEPTOOL_PY}" -O "${APPD}/${DEPTOOL_PY}"
+    chmod +x "${APPD}/${DEPTOOL_PY}"
 fi
 
 # Alternative.
 # AppImage builder to create AppImages from the packages of the operating system
-if [ ! -f "${APPD}/appimage-builder-x86_64.AppImage" ]
+APPBUILDER="appimage-builder-x86_64.AppImage"
+BUILDER_R="https://github.com/AppImageCrafters/appimage-builder"
+BUILDER_URL="${BUILDER_R}/releases/download/v1.0.0-beta.1"
+
+if [ ! -f "${APPD}/${APPBUILDER}" ]
 then
-    wget https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.0.0-beta.1/appimage-builder-1.0.0-677acbd-x86_64.AppImage -O "${APPD}/appimage-builder-x86_64.AppImage"
-    chmod +x "${APPD}/appimage-builder-x86_64.AppImage"
+    wget "${BUILDER_URL}/appimage-builder-1.0.0-677acbd-x86_64.AppImage" -O "${APPD}/${APPBUILDER}"
+    chmod +x "${APPD}/${APPBUILDER}"
 fi
 
-# "${APPD}/appimage-builder-x86_64.AppImage"
+# "${APPD}/${APPBUILDER}"
 
 # ---------------------------------------------------------------------------
 
@@ -60,7 +77,7 @@ AppDir="${OPWD}/AppDir"
 # with certain packages.
 # Include some modules installed by `pip`.
 PIP_REQUIREMENTS="requests emoji regex Pillow matplotlib" VERSION=${VER} \
-"${APPD}/linuxdeploy-x86_64.AppImage" --appdir "${AppDir}" \
+"${APPD}/${DEPTOOL}" --appdir "${AppDir}" \
     --plugin python -i "${OPWD}/lbrydseed.svg" -d "${OPWD}/lbrydseed.desktop"
 
 # Produce the final AppImage; it doesn't work well for our case
@@ -98,4 +115,4 @@ chmod +x "${AppDir}/AppRun"
 cp "${OPWD}/lbrydseed.png" "${AppDir}/usr/bin/"
 
 # Produce the final AppImage if the `AppDir` directory has everything it needs
-"${APPD}/appimagetool-x86_64.AppImage" "${AppDir}" "${OPWD}/lbrydseed-${VER}-x86_64.AppImage"
+"${APPD}/${APPTOOL}" "${AppDir}" "${OPWD}/lbrydseed-${VER}-x86_64.AppImage"
