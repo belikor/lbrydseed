@@ -29,68 +29,32 @@ import tempfile
 import lbrytools as lbryt
 
 
-def list_peers(channel=None, number=2, threads=32,
-               claim_id=False, typ=True, title=False,
-               sanitize=True,
-               server="http://localhost:5279"):
+def list_ch_peers(channel=None, number=2, threads=32,
+                  claim_id=False, typ=True, title=False,
+                  pars=False, sanitize=True,
+                  server="http://localhost:5279"):
     """Print peers for claims into a temporary file and read that file."""
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        peers_info = lbryt.list_peers(channel=channel, number=number,
-                                      threads=threads,
-                                      print_msg=False,
-                                      claim_id=claim_id, typ=typ, title=title,
-                                      sanitize=sanitize,
-                                      file=fp.name, fdate=False, sep=";",
-                                      server=server)
+        peers_info = lbryt.list_ch_peers(channel=channel, number=number,
+                                         threads=threads, inline=not pars,
+                                         print_msg=False,
+                                         claim_id=claim_id, typ=typ,
+                                         title=title,
+                                         sanitize=sanitize,
+                                         file=fp.name, fdate=False, sep=";",
+                                         server=server)
         fp.seek(0)
         lines = fp.read()
 
-    if peers_info["n_streams"] < 1:
-        return {"lines": "No downloadable claims in this channel",
-                "summary": ""}
+    summary = peers_info["summary"]
 
-    n_claims = peers_info["n_claims"]
-    n_streams = peers_info["n_streams"]
-    total_size = peers_info["total_size"]
-    total_seconds = peers_info["total_duration"]
-    streams_with_hosts = peers_info["streams_with_hosts"]
-    total_peers = peers_info["total_peers"]
-    n_nodes = len(peers_info["unique_nodes"])
-
-    if peers_info["local_node"]:
-        n_nodes = f"{n_nodes} + 1"
-
-    peer_ratio = peers_info["peer_ratio"]
-    hosting_coverage = peers_info["hosting_coverage"] * 100
-
-    total_size_gb = total_size / (1024**3)
-    days = (total_seconds / 3600) / 24
-    hr = total_seconds // 3600
-    mi = (total_seconds % 3600) // 60
-    sec = (total_seconds % 3600) % 60
-    duration = f"{hr} h {mi} min {sec} s, or {days:.4f} days"
-
-    out = [f"Channel: {channel}",
-           f"Claims searched: {n_claims}",
-           f"Downloadable streams: {n_streams}",
-           f"- Streams that have at least one host: {streams_with_hosts}",
-           f"- Size of streams: {total_size_gb:.4f} GiB",
-           f"- Duration of streams: {duration}",
-           "",
-           f"Total peers in all searched claims: {total_peers}",
-           f"Total unique peers (nodes) hosting streams: {n_nodes}",
-           f"Average number of peers per stream: {peer_ratio:.4f}",
-           f"Hosting coverage: {hosting_coverage:.2f}%"]
-
-    summary = "\n".join(out)
-
-    return {"lines": lines,
-            "summary": summary}
+    return {"summary": summary,
+            "lines": lines}
 
 
-def list_ch_peers(resolved_chs,
-                  ch_threads=8, claim_threads=32,
-                  server="http://localhost:5279"):
+def list_chs_peers(resolved_chs,
+                   ch_threads=8, cl_threads=32,
+                   server="http://localhost:5279"):
     """Print peers for claims into a temporary file and read that file."""
     i_channels = []
 
@@ -105,26 +69,24 @@ def list_ch_peers(resolved_chs,
         i_channels.append([channel, number])
 
     if not i_channels:
-        return {"lines": "Invalid list of channels",
-                "summary": "at least one channel must exist"}
+        return {"summary": "Invalid list of channels",
+                "lines": "At least one channel must exist"}
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        ch_peers_info = lbryt.list_ch_peers(channels=i_channels,
-                                            number=None, shuffle=False,
-                                            ch_threads=ch_threads,
-                                            claim_threads=claim_threads,
-                                            file=fp.name, fdate=False, sep=";",
-                                            server=server)
+        ch_peers_info = lbryt.list_chs_peers(channels=i_channels,
+                                             number=None, shuffle=False,
+                                             ch_threads=ch_threads,
+                                             claim_threads=cl_threads,
+                                             file=fp.name, fdate=False,
+                                             sep=";",
+                                             server=server)
         fp.seek(0)
         lines = fp.read()
 
-    with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.print_ch_p_summary(ch_peers_info, file=fp.name, fdate=False)
-        fp.seek(0)
-        summary = fp.read()
+        summary = ch_peers_info["summary"]
 
-    return {"lines": lines,
-            "summary": summary}
+    return {"summary": summary,
+            "lines": lines}
 
 
 def list_subs_peers(number=2,
@@ -148,19 +110,16 @@ def list_subs_peers(number=2,
                                                  shared=database, valid=valid,
                                                  ch_threads=ch_threads,
                                                  claim_threads=c_threads,
-                                                 file=fp.name,
-                                                 fdate=False, sep=";",
+                                                 file=fp.name, fdate=False,
+                                                 sep=";",
                                                  server=server)
         fp.seek(0)
         lines = fp.read()
 
-    with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.print_ch_p_summary(ch_peers_info, file=fp.name, fdate=False)
-        fp.seek(0)
-        summary = fp.read()
+        summary = ch_peers_info["summary"]
 
-    return {"lines": lines,
-            "summary": summary}
+    return {"summary": summary,
+            "lines": lines}
 
 
 def seeding_ratio(frame=None, plot_hst_var=True,

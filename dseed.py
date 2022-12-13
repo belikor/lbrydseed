@@ -745,13 +745,15 @@ class Application(ttk.Frame,
             return False
 
         output = \
-            actions.list_peers(channel=self.entry_chl_chan.get(),
-                               number=self.spin_ch_peers_num.get(),
-                               threads=self.spin_ch_peers_threads.get(),
-                               claim_id=self.chck_ch_peers_cid.get(),
-                               typ=self.chck_ch_peers_type.get(),
-                               title=self.chck_ch_peers_title.get(),
-                               server=self.server_var.get())
+            actions.list_ch_peers(channel=self.entry_chl_chan.get(),
+                                  number=self.spin_ch_peers_num.get(),
+                                  threads=self.spin_ch_peers_threads.get(),
+                                  claim_id=self.chck_ch_peers_cid.get(),
+                                  typ=self.chck_ch_peers_type.get(),
+                                  title=self.chck_ch_peers_title.get(),
+                                  pars=False,
+                                  sanitize=True,
+                                  server=self.server_var.get())
 
         content = output["summary"] + "\n"
         content += 80 * "-" + "\n"
@@ -767,12 +769,12 @@ class Application(ttk.Frame,
         resolved_chs = self.resolve_ch(print_msg=False)
 
         output = \
-            actions.list_ch_peers(resolved_chs,
-                                  ch_threads=self.spin_chs_ch_threads.get(),
-                                  claim_threads=self.spin_chs_cl_threads.get(),
-                                  server=self.server_var.get())
+            actions.list_chs_peers(resolved_chs,
+                                   ch_threads=self.spin_chs_ch_threads.get(),
+                                   cl_threads=self.spin_chs_cl_threads.get(),
+                                   server=self.server_var.get())
 
-        content = output["summary"]
+        content = output["summary"] + "\n"
         content += 80 * "-" + "\n"
         content += output["lines"]
         self.textbox_chs_peers_out.replace("1.0", tk.END, content)
@@ -795,7 +797,7 @@ class Application(ttk.Frame,
                                     c_threads=self.spin_subs_cl_threads.get(),
                                     server=self.server_var.get())
 
-        content = output["summary"]
+        content = output["summary"] + "\n"
         content += 80 * "-" + "\n"
         content += output["lines"]
         self.textbox_subs_peers.replace("1.0", tk.END, content)
