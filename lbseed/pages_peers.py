@@ -57,7 +57,7 @@ class ListChPeersPage:
         frame.pack(padx=4, pady=4)
         self.setup_grid_top_ch_peers(frame, start=0)
         self.setup_grid_top_ch_peers_opt(frame, start=5)
-        self.setup_info_ch_peers(frame, start=8)
+        self.setup_info_ch_peers(frame, start=9)
 
     def setup_grid_top_ch_peers(self, parent, start=0):
         entry, label = \
@@ -106,22 +106,42 @@ class ListChPeersPage:
                               start=start+4)
 
     def setup_grid_top_ch_peers_opt(self, parent, start=0):
-        chck_cid = ttk.Checkbutton(parent,
-                                   variable=self.chck_ch_peers_cid,
-                                   text="Show claim ID (40-character string)")
-        chck_cid.grid(row=start, column=1, sticky=tk.W)
+        self.chck_prs_cid = \
+            ttk.Checkbutton(parent,
+                            variable=self.chck_ch_peers_cid,
+                            text="Show claim ID (40-character string)")
+        self.chck_prs_cid.grid(row=start, column=1, sticky=tk.W)
 
-        chck_typ = ttk.Checkbutton(parent,
-                                   variable=self.chck_ch_peers_type,
-                                   text=("Show the type of claim, "
-                                         "and media, if available"))
-        chck_typ.grid(row=start+1, column=1, sticky=tk.W)
+        self.chck_prs_typ = ttk.Checkbutton(parent,
+                                            variable=self.chck_ch_peers_type,
+                                            text=("Show the type of claim, "
+                                                  "and media, if available"))
+        self.chck_prs_typ.grid(row=start+1, column=1, sticky=tk.W)
 
-        chck_title = ttk.Checkbutton(parent,
-                                     variable=self.chck_ch_peers_title,
-                                     text=("Show the claim 'title' "
-                                           "instead of the claim 'name'"))
-        chck_title.grid(row=start+2, column=1, sticky=tk.W)
+        self.chck_prs_title = \
+            ttk.Checkbutton(parent,
+                            variable=self.chck_ch_peers_title,
+                            text=("Show the claim 'title' "
+                                  "instead of the claim 'name'"))
+        self.chck_prs_title.grid(row=start+2, column=1, sticky=tk.W)
+
+        chck_pars = ttk.Checkbutton(parent,
+                                    variable=self.chck_peers_pars,
+                                    command=self.peers_ch_enable,
+                                    text=("Show a paragraph of information "
+                                          "for each claim instead "
+                                          "of a single line"))
+        chck_pars.grid(row=start+3, column=1, sticky=tk.W)
+
+    def peers_ch_enable(self):
+        if self.chck_peers_pars.get():
+            self.chck_prs_cid["state"] = "disabled"
+            self.chck_prs_typ["state"] = "disabled"
+            self.chck_prs_title["state"] = "disabled"
+        else:
+            self.chck_prs_cid["state"] = "normal"
+            self.chck_prs_typ["state"] = "normal"
+            self.chck_prs_title["state"] = "normal"
 
     def setup_info_ch_peers(self, parent, start=0):
         info = ttk.Label(parent,

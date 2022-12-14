@@ -751,7 +751,7 @@ class Application(ttk.Frame,
                                   claim_id=self.chck_ch_peers_cid.get(),
                                   typ=self.chck_ch_peers_type.get(),
                                   title=self.chck_ch_peers_title.get(),
-                                  pars=False,
+                                  pars=self.chck_peers_pars.get(),
                                   sanitize=True,
                                   server=self.server_var.get())
 

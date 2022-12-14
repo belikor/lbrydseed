@@ -165,6 +165,7 @@ class VarsPeers:
         self.chck_ch_peers_cid = tk.BooleanVar(value=False)
         self.chck_ch_peers_type = tk.BooleanVar(value=True)
         self.chck_ch_peers_title = tk.BooleanVar(value=False)
+        self.chck_peers_pars = tk.BooleanVar(value=False)
 
         self.spin_chs_ch_threads = tk.IntVar(value=16)
         self.spin_chs_cl_threads = tk.IntVar(value=32)
