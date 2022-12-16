@@ -29,6 +29,43 @@ import tempfile
 import lbrytools as lbryt
 
 
+def list_m_peers(claims=None,
+                 threads=32,
+                 claim_id=False, typ=True, title=False,
+                 pars=False, sanitize=True,
+                 server="http://localhost:5279"):
+    """Print peers for claims into a temporary file and read that file."""
+    res_claims = []
+
+    for claim in claims:
+        if not claim:
+            continue
+
+        res_claims.append(claim)
+
+    if not res_claims:
+        return {"summary": "Invalid list of claims",
+                "lines": "At least one claim must exist"}
+
+    with tempfile.NamedTemporaryFile(mode="w+") as fp:
+        peers_info = lbryt.list_m_peers(claims=res_claims,
+                                        resolve=False,
+                                        threads=threads, inline=not pars,
+                                        print_msg=False,
+                                        claim_id=claim_id, typ=typ,
+                                        title=title,
+                                        sanitize=sanitize,
+                                        file=fp.name, fdate=False, sep=";",
+                                        server=server)
+        fp.seek(0)
+        lines = fp.read()
+
+    summary = peers_info["summary"]
+
+    return {"summary": summary,
+            "lines": lines}
+
+
 def list_ch_peers(channel=None, number=2, threads=32,
                   claim_id=False, typ=True, title=False,
                   pars=False, sanitize=True,

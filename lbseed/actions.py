@@ -42,6 +42,7 @@ from lbseed.act_comments import show_comment
 from lbseed.act_comments import show_no_comment
 from lbseed.act_comments import act_comment
 
+from lbseed.act_peers import list_m_peers
 from lbseed.act_peers import list_ch_peers
 from lbseed.act_peers import list_chs_peers
 from lbseed.act_peers import list_subs_peers
@@ -74,6 +75,7 @@ True if show_comment else False
 True if show_no_comment else False
 True if act_comment else False
 
+True if list_m_peers else False
 True if list_ch_peers else False
 True if list_chs_peers else False
 True if list_subs_peers else False

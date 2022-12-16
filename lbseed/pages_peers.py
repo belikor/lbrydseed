@@ -46,6 +46,122 @@ import tkinter.ttk as ttk
 import lbseed.blocks as blocks
 
 
+class ListClsPeersPage:
+    """Mixin class to provide the list of peers for a list of claims."""
+    def setup_page_cls_peers(self, parent):
+        self.setup_top_cls_peers(parent)
+        frame1 = ttk.Frame(parent)
+        frame1.pack(padx=4, pady=4, fill="both", expand=False)
+        frame2 = ttk.Frame(parent)
+        frame2.pack(padx=4, pady=4, fill="both", expand=True)
+        self.setup_textbox_cls_peers(frame1)
+        self.setup_textbox_cls_peers_out(frame2)
+
+    def setup_top_cls_peers(self, parent):
+        frame = ttk.Frame(parent)
+        frame.pack(padx=4, pady=4)
+        self.setup_grid_top_cls_peers(frame, start=0)
+        self.setup_grid_top_cls_peers_opt(frame, start=5)
+        self.setup_info_cls_peers(frame, start=9)
+
+    def setup_grid_top_cls_peers(self, parent, start=0):
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="Resolve online",
+                                b_command=self.resolve_claims,
+                                l_text="Confirm that the claims exist",
+                                start=start)
+
+        blocks.setup_button_gen(parent,
+                                width=self.b_width,
+                                b_text="List claim peers",
+                                b_command=self.list_cls_peers,
+                                l_text="List peers for the claims",
+                                start=start+1)
+
+        blocks.setup_spin_gen(parent,
+                              frm=0, to=512, incr=1,
+                              default=32,
+                              s_text_var=self.spin_cls_peers_threads,
+                              s_command=self.list_cls_peers,
+                              l_text=("Number of threads to process "
+                                      "claims in parallel "
+                                      "and find peers; "
+                                      "use 0 to avoid threads"),
+                              start=start+2)
+
+    def setup_grid_top_cls_peers_opt(self, parent, start=0):
+        self.chck_prs_cl_cid = \
+            ttk.Checkbutton(parent,
+                            variable=self.chck_cls_peers_cid,
+                            text="Show claim ID (40-character string)")
+        self.chck_prs_cl_cid.grid(row=start, column=1, sticky=tk.W)
+
+        self.chck_prs_cl_typ = \
+            ttk.Checkbutton(parent,
+                            variable=self.chck_cls_peers_type,
+                            text=("Show the type of claim, "
+                                  "and media, if available"))
+        self.chck_prs_cl_typ.grid(row=start+1, column=1, stick=tk.W)
+
+        self.chck_prs_cl_title = \
+            ttk.Checkbutton(parent,
+                            variable=self.chck_cls_peers_title,
+                            text=("Show the claim 'title' "
+                                  "instead of the claim 'name'"))
+        self.chck_prs_cl_title.grid(row=start+2, column=1, sticky=tk.W)
+
+        chck_pars = ttk.Checkbutton(parent,
+                                    variable=self.chck_peers_pars,
+                                    command=self.peers_cls_enable,
+                                    text=("Show a paragraph of information "
+                                          "for each claim instead "
+                                          "of a single line"))
+        chck_pars.grid(row=start+3, column=1, sticky=tk.W)
+
+    def peers_cls_enable(self):
+        if self.chck_peers_pars.get():
+            self.chck_prs_cl_cid["state"] = "disabled"
+            self.chck_prs_cl_typ["state"] = "disabled"
+            self.chck_prs_cl_title["state"] = "disabled"
+        else:
+            self.chck_prs_cl_cid["state"] = "normal"
+            self.chck_prs_cl_typ["state"] = "normal"
+            self.chck_prs_cl_title["state"] = "normal"
+
+    def setup_info_cls_peers(self, parent, start=0):
+        info = ttk.Label(parent,
+                         text=("Only downloadable claims (streams) "
+                               "can be shared in the network, "
+                               "and are able to have peers.\n"
+                               "Other types of claims "
+                               "(channels, reposts, playlists, livestreams, "
+                               "etc.) "
+                               "will not count toward total number of peers\n"
+                               "nor size nor duration.\n"
+                               "When hosted is 'True' we have the first "
+                               "or second blobs of the stream, "
+                               "so we are one of the peers\n"
+                               "hosting the file in the network. "
+                               "When listing the unique peers, the + 1 "
+                               "indicates that we are one\n"
+                               "of those peers."))
+        info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
+
+    def setup_textbox_cls_peers(self, parent):
+        channels = blocks.set_up_default_claims()
+        self.textbox_cls_peers = blocks.setup_textbox(parent,
+                                                      height=10,
+                                                      font=self.txt_font)
+        self.textbox_cls_peers.insert("1.0", channels)
+
+    def setup_textbox_cls_peers_out(self, parent):
+        self.textbox_cls_peers_out = \
+            blocks.setup_textbox(parent,
+                                 font=self.txt_lst_font)
+        self.textbox_cls_peers_out.insert("1.0", "(peer information)")
+
+
 class ListChPeersPage:
     """Mixing class to provide the list of peers for a channel."""
     def setup_page_ch_peers(self, parent):

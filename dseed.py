@@ -47,6 +47,7 @@ class Application(ttk.Frame,
                   pages.ListPubChsPage, pages.ListPubClaimsPage,
                   pages.ControllingClaimsPage,
                   pages.CommentsPage,
+                  pages.ListClsPeersPage,
                   pages.ListChPeersPage, pages.ListChsPeersPage,
                   pages.ListSubsPeersPage, pages.SeedPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
@@ -86,8 +87,8 @@ class Application(ttk.Frame,
         self.note_sub_d.add(page_dch, text="Download channel")
         self.note_sub_d.add(page_d, text="Download single")
         self.note_sub_d.pack(fill="both", expand=True)
-
-        self.note_sub_d.bind("<<NotebookTabChanged>>", self.update_checkbox)
+        self.note_sub_d.bind("<<NotebookTabChanged>>",
+                             self.update_d_checkbox)
 
         page_s_list = ttk.Frame(self.note)
         self.note.add(page_s_list, text="List claims")
@@ -116,15 +117,19 @@ class Application(ttk.Frame,
         self.note.add(page_s_peers, text="Peers")
 
         self.note_sub_peers = ttk.Notebook(page_s_peers)
+        page_cls_peers = ttk.Frame(self.note_sub_peers)
         page_ch_peers = ttk.Frame(self.note_sub_peers)
         page_chs_peers = ttk.Frame(self.note_sub_peers)
         page_subs_peers = ttk.Frame(self.note_sub_peers)
         page_seed_ratio = ttk.Frame(self.note_sub_peers)
+        self.note_sub_peers.add(page_cls_peers, text="Claim peers")
         self.note_sub_peers.add(page_ch_peers, text="Channel peers")
         self.note_sub_peers.add(page_chs_peers, text="Multiple channel peers")
         self.note_sub_peers.add(page_subs_peers, text="Subscription peers")
         self.note_sub_peers.add(page_seed_ratio, text="Seeding ratio")
         self.note_sub_peers.pack(fill="both", expand=True)
+        self.note_sub_peers.bind("<<NotebookTabChanged>>",
+                                 self.update_peers_checkbox)
 
         page_s_del = ttk.Frame(self.note)
         self.note.add(page_s_del, text="Delete")
@@ -185,6 +190,7 @@ class Application(ttk.Frame,
 
         self.setup_page_cmnt(page_s_comments)
 
+        self.setup_page_cls_peers(page_cls_peers)
         self.setup_page_ch_peers(page_ch_peers)
         self.setup_page_chs_peers(page_chs_peers)
         self.setup_page_subs_peers(page_subs_peers)
@@ -229,12 +235,19 @@ class Application(ttk.Frame,
         self.textbox_status["state"] = "disabled"
         self.print_done(print_msg=True)
 
-    def update_checkbox(self, event):
+    def update_d_checkbox(self, event):
         page = self.note_sub_d.tab(self.note_sub_d.select())["text"]
         if page == "Download channel":
             self.chck_enable_dch(force_second_var=False)
         elif page == "Download single":
             self.chck_enable_d(force_second_var=False)
+
+    def update_peers_checkbox(self, event):
+        page = self.note_sub_peers.tab(self.note_sub_peers.select())["text"]
+        if page == "Claim peers":
+            self.peers_cls_enable()
+        elif page == "Channel peers":
+            self.peers_ch_enable()
 
     def validate_ch(self, print_msg=True):
         """Validate the textbox with channels and numbers."""
@@ -303,6 +316,8 @@ class Application(ttk.Frame,
             text = self.textbox_d.get("1.0", tk.END)
         elif page == "Delete":
             text = self.textbox_del.get("1.0", tk.END)
+        elif page == "Peers":
+            text = self.textbox_cls_peers.get("1.0", tk.END)
 
         claims = res.resolve_claims(text,
                                     repost=self.check_d_repost.get(),
@@ -734,6 +749,28 @@ class Application(ttk.Frame,
         self.after(850, self.list_comments)
         self.rad_rep_opt.set("create")
         self.activate_rep(show=False)  # Already shown by list_comments
+
+    def list_cls_peers(self):
+        """Print the peers of the claims in the textbox."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        claims = self.resolve_claims(print_msg=False)
+        output = \
+            actions.list_m_peers(claims=claims,
+                                 threads=self.spin_cls_peers_threads.get(),
+                                 claim_id=self.chck_cls_peers_cid.get(),
+                                 typ=self.chck_cls_peers_type.get(),
+                                 title=self.chck_cls_peers_title.get(),
+                                 pars=self.chck_peers_pars.get(),
+                                 sanitize=True,
+                                 server=self.server_var.get())
+
+        content = output["summary"] + "\n"
+        content += 80 * "-" + "\n"
+        content += output["lines"]
+        self.textbox_cls_peers_out.replace("1.0", tk.END, content)
+        self.print_done(print_msg=True)
 
     def list_ch_peers(self):
         """Print the peers of the claims of a channel."""

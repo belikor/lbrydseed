@@ -46,7 +46,8 @@ from lbseed.pages_lists import (ListDownPage, ListDownInvalidPage,
                                 ListPubChsPage, ListPubClaimsPage,
                                 ControllingClaimsPage)
 from lbseed.pages_comments import CommentsPage
-from lbseed.pages_peers import (ListChPeersPage, ListChsPeersPage,
+from lbseed.pages_peers import (ListClsPeersPage,
+                                ListChPeersPage, ListChsPeersPage,
                                 ListSubsPeersPage, SeedPage)
 from lbseed.pages_del import DeleteSinglePage, DeleteChPage
 from lbseed.pages_support import SupportListPage, SupportAddPage
@@ -69,6 +70,7 @@ True if ControllingClaimsPage else False
 
 True if CommentsPage else False
 
+True if ListClsPeersPage else False
 True if ListChPeersPage else False
 True if ListChsPeersPage else False
 True if ListSubsPeersPage else False
