@@ -159,13 +159,14 @@ class VarsComments:
 class VarsPeers:
     """Mixin class to provide variables for the peer pages."""
     def setup_peers_vars(self):
+        self.spin_cls_peers_threads = tk.IntVar(value=32)
+        self.chck_cls_peers_cid = tk.BooleanVar(value=False)
+        self.chck_cls_peers_type = tk.BooleanVar(value=True)
+        self.chck_cls_peers_title = tk.BooleanVar(value=False)
+        self.chck_peers_pars = tk.BooleanVar(value=False)
+
         # self.entry_chl_chan = tk.StringVar(value="@lbry:3f")
         self.spin_ch_peers_num = tk.IntVar(value=50)
-        self.spin_ch_peers_threads = tk.IntVar(value=32)
-        self.chck_ch_peers_cid = tk.BooleanVar(value=False)
-        self.chck_ch_peers_type = tk.BooleanVar(value=True)
-        self.chck_ch_peers_title = tk.BooleanVar(value=False)
-        self.chck_peers_pars = tk.BooleanVar(value=False)
 
         self.spin_chs_ch_threads = tk.IntVar(value=16)
         self.spin_chs_cl_threads = tk.IntVar(value=32)

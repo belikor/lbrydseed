@@ -97,7 +97,7 @@ class ListChPeersPage:
         blocks.setup_spin_gen(parent,
                               frm=0, to=512, incr=1,
                               default=32,
-                              s_text_var=self.spin_ch_peers_threads,
+                              s_text_var=self.spin_cls_peers_threads,
                               s_command=self.list_ch_peers,
                               l_text=("Number of threads to process "
                                       "claims in parallel "
@@ -108,19 +108,19 @@ class ListChPeersPage:
     def setup_grid_top_ch_peers_opt(self, parent, start=0):
         self.chck_prs_cid = \
             ttk.Checkbutton(parent,
-                            variable=self.chck_ch_peers_cid,
+                            variable=self.chck_cls_peers_cid,
                             text="Show claim ID (40-character string)")
         self.chck_prs_cid.grid(row=start, column=1, sticky=tk.W)
 
         self.chck_prs_typ = ttk.Checkbutton(parent,
-                                            variable=self.chck_ch_peers_type,
+                                            variable=self.chck_cls_peers_type,
                                             text=("Show the type of claim, "
                                                   "and media, if available"))
         self.chck_prs_typ.grid(row=start+1, column=1, sticky=tk.W)
 
         self.chck_prs_title = \
             ttk.Checkbutton(parent,
-                            variable=self.chck_ch_peers_title,
+                            variable=self.chck_cls_peers_title,
                             text=("Show the claim 'title' "
                                   "instead of the claim 'name'"))
         self.chck_prs_title.grid(row=start+2, column=1, sticky=tk.W)
