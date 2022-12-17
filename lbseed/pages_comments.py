@@ -270,8 +270,10 @@ class CommentsPage(CommentsReplyPage):
         self.textbox_cmnt_claim = blocks.setup_textbox(parent,
                                                        height=4,
                                                        font=self.txt_font)
-        content = ("a-gigantic-bread-that-gets-better-with:8\n"
-                   "1e2433bb6fcfcc338e7b2a73c60cd74a4d029c4a")
+        content = ("please-stop-using-windows...#f\n"
+                   "debunking-the-candle-challenge:f\n"
+                   "83a23b2e2f20bf9af0d46ad38132e745c35d9ff4\n"
+                   "vim-alchemy-with-macros")
         self.textbox_cmnt_claim.replace("1.0", tk.END, content)
 
     def setup_rep_btn(self, parent):
