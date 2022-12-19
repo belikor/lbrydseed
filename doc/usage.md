@@ -78,6 +78,11 @@ create a reply to an existing comment, edit a comment, or abandon a comment.
 
 ## Peers
 
+Press `"List claim peers"` to show the peer information
+for the indicated claims.
+
+![lbrydseed_peers_claims](../img/g_lbrydseed_peers_claims.png)
+
 Press `"List channel peers"` to show the peer information
 for the latest claims from the indicated channel.
 
