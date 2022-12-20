@@ -14,6 +14,7 @@
 This is a simple graphical interface that allows us
 to do many operations with multiple claims and channels in the LBRY network,
 including:
+
 - download individual claims or the latest claims from a list of channels
 - list all claims belonging to a channel, and the latest claims
   in our subscribed channels
@@ -84,6 +85,7 @@ Ideally, this collection of tools can be merged into the official
 LBRY sources so that everybody has access to them.
 Where possible, the tools should also be available from a graphical
 interface such as the LBRY Desktop application.
+
 * [lbryio/lbry-sdk](https://github.com/lbryio/lbry-sdk)
 * [lbryio/lbry-desktop](https://github.com/lbryio/lbry-desktop)
 
