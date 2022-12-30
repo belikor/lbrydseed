@@ -64,7 +64,7 @@ class TrendPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="Show trending claims",
-                                b_command=self.show_trending_claims,
+                                b_command=self.list_trending_claims,
                                 l_text=("Display trending claims "
                                         "in the network"),
                                 start=start)
@@ -73,7 +73,7 @@ class TrendPage:
                                          frm=1, to=20, incr=1,
                                          default=1,
                                          s_text_var=self.spin_page,
-                                         s_command=self.show_trending_claims,
+                                         s_command=self.list_trending_claims,
                                          l_text=("Page to search"),
                                          start=start+1)
         spin["width"] = 25
@@ -205,7 +205,7 @@ class SearchPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="Search",
-                                b_command=self.show_search,
+                                b_command=self.list_search,
                                 l_text=("Search claims in the network.\n"
                                         "These results are obtained from "
                                         "the 'claim_search' method\n"
@@ -217,7 +217,7 @@ class SearchPage:
                                          frm=1, to=20, incr=1,
                                          default=1,
                                          s_text_var=self.spin_page,
-                                         s_command=self.show_search,
+                                         s_command=self.list_search,
                                          l_text=("Page to search"),
                                          start=start+1)
         spin["width"] = 25
@@ -234,14 +234,14 @@ class SearchPage:
                                                       "no results."),
                                               start=start)
         entry["width"] = 42
-        entry.bind("<<Activate>>", blocks.f_with_event(self.show_search))
+        entry.bind("<<Activate>>", blocks.f_with_event(self.list_search))
 
         tags, label = blocks.setup_entry_gen(parent, font=None,
                                              text_var=self.search_entry_tags,
                                              l_text="Tags separated by commas",
                                              start=start+1)
         tags["width"] = 42
-        tags.bind("<<Activate>>", blocks.f_with_event(self.show_search))
+        tags.bind("<<Activate>>", blocks.f_with_event(self.list_search))
 
     def setup_grid_chck_search_top(self, parent, start=0):
         chck_cid = ttk.Checkbutton(parent,

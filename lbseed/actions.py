@@ -54,8 +54,8 @@ from lbseed.act_delete import clean_ch
 from lbseed.act_supports import list_supports
 from lbseed.act_supports import add_supports
 
-from lbseed.act_search import print_trending
-from lbseed.act_search import return_search
+from lbseed.act_search import list_trending
+from lbseed.act_search import list_search
 
 True if list_lbrynet_settings else False
 True if list_lbrynet_status else False
@@ -87,5 +87,5 @@ True if clean_ch else False
 True if list_supports else False
 True if add_supports else False
 
-True if print_trending else False
-True if return_search else False
+True if list_trending else False
+True if list_search else False

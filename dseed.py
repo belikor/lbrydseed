@@ -976,34 +976,12 @@ class Application(ttk.Frame,
                 self.deact_sr_checks()
                 self.switch_sr_various()
 
-    def show_trending_claims(self):
+    def list_trending_claims(self):
         """Get the trending claims."""
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        content = actions.print_trending(page=self.spin_page.get(),
-                                         claim_id=self.chck_tr_cid.get(),
-                                         claim_type=self.rad_tr_claim.get(),
-                                         video_stream=self.chck_tr_vid.get(),
-                                         audio_stream=self.chck_tr_audio.get(),
-                                         doc_stream=self.chck_tr_doc.get(),
-                                         img_stream=self.chck_tr_img.get(),
-                                         bin_stream=self.chck_tr_bin.get(),
-                                         model_stream=self.chck_tr_model.get(),
-                                         server=self.server_var.get())
-
-        self.label_tr_info.set("Page: " + str(self.spin_page.get()))
-        self.textbox_trend.replace("1.0", tk.END, content)
-        self.print_done(print_msg=True)
-
-    def show_search(self):
-        """Show the results of a search."""
-        if not res.server_exists(server=self.server_var.get()):
-            return False
-
-        content = actions.return_search(page=self.spin_page.get(),
-                                        text=self.search_entry.get(),
-                                        tags=self.search_entry_tags.get(),
+        content = actions.list_trending(page=self.spin_page.get(),
                                         claim_id=self.chck_tr_cid.get(),
                                         claim_type=self.rad_tr_claim.get(),
                                         video_stream=self.chck_tr_vid.get(),
@@ -1012,7 +990,31 @@ class Application(ttk.Frame,
                                         img_stream=self.chck_tr_img.get(),
                                         bin_stream=self.chck_tr_bin.get(),
                                         model_stream=self.chck_tr_model.get(),
+                                        sanitize=True,
                                         server=self.server_var.get())
+
+        self.label_tr_info.set("Page: " + str(self.spin_page.get()))
+        self.textbox_trend.replace("1.0", tk.END, content)
+        self.print_done(print_msg=True)
+
+    def list_search(self):
+        """Show the results of a search."""
+        if not res.server_exists(server=self.server_var.get()):
+            return False
+
+        content = actions.list_search(page=self.spin_page.get(),
+                                      text=self.search_entry.get(),
+                                      tags=self.search_entry_tags.get(),
+                                      claim_id=self.chck_tr_cid.get(),
+                                      claim_type=self.rad_tr_claim.get(),
+                                      video_stream=self.chck_tr_vid.get(),
+                                      audio_stream=self.chck_tr_audio.get(),
+                                      doc_stream=self.chck_tr_doc.get(),
+                                      img_stream=self.chck_tr_img.get(),
+                                      bin_stream=self.chck_tr_bin.get(),
+                                      model_stream=self.chck_tr_model.get(),
+                                      sanitize=True,
+                                      server=self.server_var.get())
 
         self.label_sch_info.set("Page: " + str(self.spin_page.get()))
         self.textbox_search.replace("1.0", tk.END, content)

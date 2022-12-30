@@ -29,46 +29,45 @@ import tempfile
 import lbrytools as lbryt
 
 
-def print_trending(page=1,
-                   claim_id=False,
-                   claim_type=None,
-                   video_stream=False,
-                   audio_stream=False,
-                   doc_stream=False,
-                   img_stream=False,
-                   bin_stream=False,
-                   model_stream=False,
-                   server="http://localhost:5279"):
+def list_trending(page=1,
+                  claim_id=False,
+                  claim_type=None,
+                  video_stream=False, audio_stream=False,
+                  doc_stream=False, img_stream=False,
+                  bin_stream=False, model_stream=False,
+                  sanitize=True,
+                  server="http://localhost:5279"):
     """Print trending claims in the network with different options."""
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.print_trending_claims(page=page,
-                                    trending="trending_mixed",
-                                    claim_id=claim_id,
-                                    claim_type=claim_type,
-                                    video_stream=video_stream,
-                                    audio_stream=audio_stream,
-                                    doc_stream=doc_stream,
-                                    img_stream=img_stream,
-                                    bin_stream=bin_stream,
-                                    model_stream=model_stream,
-                                    sanitize=True,
-                                    file=fp.name, fdate=False, sep=";",
-                                    server=server)
+        lbryt.list_trending_claims(page=page,
+                                   trending="trending_mixed",
+                                   claim_id=claim_id,
+                                   claim_type=claim_type,
+                                   video_stream=video_stream,
+                                   audio_stream=audio_stream,
+                                   doc_stream=doc_stream,
+                                   img_stream=img_stream,
+                                   bin_stream=bin_stream,
+                                   model_stream=model_stream,
+                                   sanitize=sanitize,
+                                   file=fp.name, fdate=False, sep=";",
+                                   server=server)
         fp.seek(0)
         content = fp.read()
 
     return content
 
 
-def return_search(page=1,
-                  text="lbry",
-                  tags=None,
-                  claim_id=False,
-                  claim_type=None,
-                  video_stream=False, audio_stream=False,
-                  doc_stream=False, img_stream=False,
-                  bin_stream=False, model_stream=False,
-                  server="http://localhost:5279"):
+def list_search(page=1,
+                text="lbry",
+                tags=None,
+                claim_id=False,
+                claim_type=None,
+                video_stream=False, audio_stream=False,
+                doc_stream=False, img_stream=False,
+                bin_stream=False, model_stream=False,
+                sanitize=True,
+                server="http://localhost:5279"):
     """Print the result of the claim search in the network."""
     if tags:
         tags = tags.split(",")
@@ -77,21 +76,21 @@ def return_search(page=1,
         tags = []
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.print_search_claims(page=page,
-                                  order="release_time",
-                                  text=text,
-                                  tags=tags,
-                                  claim_id=claim_id,
-                                  claim_type=claim_type,
-                                  video_stream=video_stream,
-                                  audio_stream=audio_stream,
-                                  doc_stream=doc_stream,
-                                  img_stream=img_stream,
-                                  bin_stream=bin_stream,
-                                  model_stream=model_stream,
-                                  sanitize=True,
-                                  file=fp.name, fdate=False, sep=";",
-                                  server=server)
+        lbryt.list_search_claims(page=page,
+                                 order="release_time",
+                                 text=text,
+                                 tags=tags,
+                                 claim_id=claim_id,
+                                 claim_type=claim_type,
+                                 video_stream=video_stream,
+                                 audio_stream=audio_stream,
+                                 doc_stream=doc_stream,
+                                 img_stream=img_stream,
+                                 bin_stream=bin_stream,
+                                 model_stream=model_stream,
+                                 sanitize=sanitize,
+                                 file=fp.name, fdate=False, sep=";",
+                                 server=server)
         fp.seek(0)
         content = fp.read()
 
