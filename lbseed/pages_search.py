@@ -225,23 +225,49 @@ class SearchPage:
         spin.grid(row=start+1, column=0)
 
     def setup_grid_entry_search(self, parent, start=0):
-        entry, label = blocks.setup_entry_gen(parent, font=None,
-                                              text_var=self.search_entry,
-                                              l_text=("String to search. "
-                                                      "Use fewer terms, "
-                                                      "as many words\n"
-                                                      "may produce "
-                                                      "no results."),
-                                              start=start)
-        entry["width"] = 42
+        frame1 = ttk.Frame(parent)
+        frame1.grid(row=start, columnspan=2, sticky=tk.W, pady=6)
+
+        lb1 = ttk.Label(frame1, text="Text:", width=5)
+
+        entry = ttk.Entry(frame1,
+                          width=40,
+                          textvariable=self.search_entry,
+                          font=None)
+
         entry.bind("<<Activate>>", blocks.f_with_event(self.list_search))
 
-        tags, label = blocks.setup_entry_gen(parent, font=None,
-                                             text_var=self.search_entry_tags,
-                                             l_text="Tags separated by commas",
-                                             start=start+1)
-        tags["width"] = 42
+        lb1r = ttk.Label(frame1, text=("String to search. "
+                                       "Use a small number of terms, "
+                                       "as using many words\n"
+                                       "may produce no results.\n"
+                                       "Surround the entire "
+                                       "string with double "
+                                       'quotation "marks"\n'
+                                       "to search that string exactly."))
+
+        lb1.grid(row=0, column=0, sticky=tk.N)
+        entry.grid(row=0, column=1, sticky=tk.N)
+        lb1r.grid(row=0, column=2, padx=3)
+
+        frame2 = ttk.Frame(parent)
+        frame2.grid(row=start+1, columnspan=2, sticky=tk.W, pady=6)
+
+        lb2 = ttk.Label(frame2, text="Tags:", width=5)
+
+        tags = ttk.Entry(frame2,
+                         width=40,
+                         textvariable=self.search_entry_tags,
+                         font=None)
+
         tags.bind("<<Activate>>", blocks.f_with_event(self.list_search))
+
+        lb2r = ttk.Label(frame2, text=("Tags to search separated by commas "
+                                       "(food, nature, music, etc.)."))
+
+        lb2.grid(row=0, column=0)
+        tags.grid(row=0, column=1)
+        lb2r.grid(row=0, column=2, padx=3)
 
     def setup_grid_chck_search_top(self, parent, start=0):
         chck_cid = ttk.Checkbutton(parent,
