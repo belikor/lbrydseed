@@ -207,6 +207,7 @@ class VarsTrending:
     """Mixin class to provide variables for the trending pages."""
     def setup_trending_vars(self):
         self.spin_page = tk.IntVar(value=0)
+        self.spin_tr_threads = tk.IntVar(value=32)
         self.chck_tr_cid = tk.BooleanVar(value=False)
         self.rad_tr_claim = tk.StringVar(value="stream")
 

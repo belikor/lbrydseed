@@ -29,7 +29,8 @@ import tempfile
 import lbrytools as lbryt
 
 
-def list_trending(page=0,
+def list_trending(threads=32,
+                  page=0,
                   claim_id=False,
                   claim_type=None,
                   video_stream=False, audio_stream=False,
@@ -40,7 +41,8 @@ def list_trending(page=0,
     """Print trending claims in the network with different options."""
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         claims_info = \
-            lbryt.list_trending_claims(page=page,
+            lbryt.list_trending_claims(threads=threads,
+                                       page=page,
                                        trending="trending_mixed",
                                        claim_id=claim_id,
                                        claim_type=claim_type,
@@ -64,7 +66,8 @@ def list_trending(page=0,
             "lines": lines}
 
 
-def list_search(page=0,
+def list_search(threads=32,
+                page=0,
                 text="lbry",
                 tags=None,
                 claim_id=False,
@@ -83,7 +86,8 @@ def list_search(page=0,
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         claims_info = \
-            lbryt.list_search_claims(page=page,
+            lbryt.list_search_claims(threads=threads,
+                                     page=page,
                                      order="release_time",
                                      text=text,
                                      tags=tags,

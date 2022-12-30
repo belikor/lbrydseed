@@ -55,10 +55,10 @@ class TrendPage:
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
         self.setup_grid_button_trend(frame, start=0)
-        self.setup_grid_chck_trend_top(frame, start=2)
-        self.setup_grid_radio_trend_claims(frame, start=3, col=0)
-        self.setup_grid_chck_trend_streams(frame, start=3, col=1)
-        self.setup_info_trend(frame, start=4)
+        self.setup_grid_chck_trend_top(frame, start=3)
+        self.setup_grid_radio_trend_claims(frame, start=4, col=0)
+        self.setup_grid_chck_trend_streams(frame, start=4, col=1)
+        self.setup_info_trend(frame, start=5)
 
     def setup_grid_button_trend(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -81,6 +81,19 @@ class TrendPage:
         spin["width"] = 25
         spin.grid_forget()
         spin.grid(row=start+1, column=0)
+
+        sp, lb = blocks.setup_spin_gen(parent,
+                                       frm=0, to=512, incr=1,
+                                       default=32,
+                                       s_text_var=self.spin_tr_threads,
+                                       s_command=self.list_trending_claims,
+                                       l_text=("Number of threads to resolve "
+                                               "pages in parallel; "
+                                               "use 0 to avoid threads"),
+                                       start=start+2)
+        sp["width"] = 25
+        sp.grid_forget()
+        sp.grid(row=start+2, column=0)
 
     def setup_grid_chck_trend_top(self, parent, start=0):
         chck_cid = ttk.Checkbutton(parent,
@@ -194,11 +207,11 @@ class SearchPage:
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
         self.setup_grid_button_search(frame, start=0)
-        self.setup_grid_entry_search(frame, start=2)
-        self.setup_grid_chck_search_top(frame, start=4)
-        self.setup_grid_radio_search_claims(frame, start=5, col=0)
-        self.setup_grid_chck_search_stream(frame, start=5, col=1)
-        self.setup_info_search(frame, start=6)
+        self.setup_grid_entry_search(frame, start=3)
+        self.setup_grid_chck_search_top(frame, start=5)
+        self.setup_grid_radio_search_claims(frame, start=6, col=0)
+        self.setup_grid_chck_search_stream(frame, start=6, col=1)
+        self.setup_info_search(frame, start=7)
 
     def setup_grid_button_search(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -224,6 +237,19 @@ class SearchPage:
         spin["width"] = 25
         spin.grid_forget()
         spin.grid(row=start+1, column=0)
+
+        sp, lb = blocks.setup_spin_gen(parent,
+                                       frm=0, to=512, incr=1,
+                                       default=32,
+                                       s_text_var=self.spin_tr_threads,
+                                       s_command=self.list_search,
+                                       l_text=("Number of threads to resolve "
+                                               "pages in parallel; "
+                                               "use 0 to avoid threads"),
+                                       start=start+2)
+        sp["width"] = 25
+        sp.grid_forget()
+        sp.grid(row=start+2, column=0)
 
     def setup_grid_entry_search(self, parent, start=0):
         frame1 = ttk.Frame(parent)

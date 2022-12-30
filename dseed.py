@@ -981,7 +981,8 @@ class Application(ttk.Frame,
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        output = actions.list_trending(page=self.spin_page.get(),
+        output = actions.list_trending(threads=self.spin_tr_threads.get(),
+                                       page=self.spin_page.get(),
                                        claim_id=self.chck_tr_cid.get(),
                                        claim_type=self.rad_tr_claim.get(),
                                        video_stream=self.chck_tr_vid.get(),
@@ -1006,7 +1007,8 @@ class Application(ttk.Frame,
         if not res.server_exists(server=self.server_var.get()):
             return False
 
-        output = actions.list_search(page=self.spin_page.get(),
+        output = actions.list_search(threads=self.spin_tr_threads.get(),
+                                     page=self.spin_page.get(),
                                      text=self.search_entry.get(),
                                      tags=self.search_entry_tags.get(),
                                      claim_id=self.chck_tr_cid.get(),
