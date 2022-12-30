@@ -208,7 +208,9 @@ class VarsTrending:
     def setup_trending_vars(self):
         self.spin_page = tk.IntVar(value=0)
         self.spin_tr_threads = tk.IntVar(value=32)
+        self.chck_tr_release = tk.BooleanVar(value=False)
         self.chck_tr_cid = tk.BooleanVar(value=False)
+        self.chck_tr_title = tk.BooleanVar(value=False)
         self.rad_tr_claim = tk.StringVar(value="stream")
 
         self.chck_tr_all = tk.BooleanVar(value=False)

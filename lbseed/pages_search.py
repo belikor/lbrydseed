@@ -56,9 +56,9 @@ class TrendPage:
         frame.pack(padx=4, pady=4)
         self.setup_grid_button_trend(frame, start=0)
         self.setup_grid_chck_trend_top(frame, start=3)
-        self.setup_grid_radio_trend_claims(frame, start=4, col=0)
-        self.setup_grid_chck_trend_streams(frame, start=4, col=1)
-        self.setup_info_trend(frame, start=5)
+        self.setup_grid_radio_trend_claims(frame, start=6, col=0)
+        self.setup_grid_chck_trend_streams(frame, start=6, col=1)
+        self.setup_info_trend(frame, start=7)
 
     def setup_grid_button_trend(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -96,10 +96,23 @@ class TrendPage:
         sp.grid(row=start+2, column=0)
 
     def setup_grid_chck_trend_top(self, parent, start=0):
+        chck_time = ttk.Checkbutton(parent,
+                                    variable=self.chck_tr_release,
+                                    text=("Show release time (streams) "
+                                          "or creation time (non-streams)"))
+        chck_time.grid(row=start, column=1, sticky=tk.W)
+
         chck_cid = ttk.Checkbutton(parent,
                                    variable=self.chck_tr_cid,
-                                   text=("Show claim ID"))
-        chck_cid.grid(row=start, column=1, sticky=tk.W)
+                                   text=("Show claim ID "
+                                         "(40-character string)"))
+        chck_cid.grid(row=start+1, column=1, sticky=tk.W)
+
+        chck_title = ttk.Checkbutton(parent,
+                                     variable=self.chck_tr_title,
+                                     text=("Show the claim 'title' "
+                                           "instead of the claim 'name'"))
+        chck_title.grid(row=start+2, column=1, sticky=tk.W)
 
     def setup_grid_radio_trend_claims(self, parent, start=0, col=1):
         frame = ttk.Frame(parent, relief="groove", borderwidth=2)
@@ -209,9 +222,9 @@ class SearchPage:
         self.setup_grid_button_search(frame, start=0)
         self.setup_grid_entry_search(frame, start=3)
         self.setup_grid_chck_search_top(frame, start=5)
-        self.setup_grid_radio_search_claims(frame, start=6, col=0)
-        self.setup_grid_chck_search_stream(frame, start=6, col=1)
-        self.setup_info_search(frame, start=7)
+        self.setup_grid_radio_search_claims(frame, start=8, col=0)
+        self.setup_grid_chck_search_stream(frame, start=8, col=1)
+        self.setup_info_search(frame, start=9)
 
     def setup_grid_button_search(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -297,10 +310,23 @@ class SearchPage:
         lb2r.grid(row=0, column=2, padx=3)
 
     def setup_grid_chck_search_top(self, parent, start=0):
+        chck_time = ttk.Checkbutton(parent,
+                                    variable=self.chck_tr_release,
+                                    text=("Show release time (streams) "
+                                          "or creation time (non-streams)"))
+        chck_time.grid(row=start, column=1, sticky=tk.W)
+
         chck_cid = ttk.Checkbutton(parent,
                                    variable=self.chck_tr_cid,
-                                   text=("Show claim ID"))
-        chck_cid.grid(row=start, column=1, sticky=tk.W)
+                                   text=("Show claim ID "
+                                         "(40-character string)"))
+        chck_cid.grid(row=start+1, column=1, sticky=tk.W)
+
+        chck_title = ttk.Checkbutton(parent,
+                                     variable=self.chck_tr_title,
+                                     text=("Show the claim 'title' "
+                                           "instead of the claim 'name'"))
+        chck_title.grid(row=start+2, column=1, sticky=tk.W)
 
     def setup_grid_radio_search_claims(self, parent, start=0, col=1):
         frame = ttk.Frame(parent, relief="groove", borderwidth=2)
