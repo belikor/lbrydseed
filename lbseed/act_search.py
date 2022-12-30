@@ -29,7 +29,7 @@ import tempfile
 import lbrytools as lbryt
 
 
-def list_trending(page=1,
+def list_trending(page=0,
                   claim_id=False,
                   claim_type=None,
                   video_stream=False, audio_stream=False,
@@ -64,7 +64,7 @@ def list_trending(page=1,
             "lines": lines}
 
 
-def list_search(page=1,
+def list_search(page=0,
                 text="lbry",
                 tags=None,
                 claim_id=False,

@@ -70,11 +70,13 @@ class TrendPage:
                                 start=start)
 
         spin, lb = blocks.setup_spin_gen(parent,
-                                         frm=1, to=20, incr=1,
-                                         default=1,
+                                         frm=0, to=20, incr=1,
+                                         default=0,
                                          s_text_var=self.spin_page,
                                          s_command=self.list_trending_claims,
-                                         l_text=("Page to search"),
+                                         l_text=("Page to search; "
+                                                 "use 0 to display all pages\n"
+                                                 "(1000 claims maximum)"),
                                          start=start+1)
         spin["width"] = 25
         spin.grid_forget()
@@ -211,11 +213,13 @@ class SearchPage:
                                 start=start)
 
         spin, lb = blocks.setup_spin_gen(parent,
-                                         frm=1, to=20, incr=1,
-                                         default=1,
+                                         frm=0, to=20, incr=1,
+                                         default=0,
                                          s_text_var=self.spin_page,
                                          s_command=self.list_search,
-                                         l_text=("Page to search"),
+                                         l_text=("Page to search; "
+                                                 "use 0 to display all pages\n"
+                                                 "(1000 claims maximum)"),
                                          start=start+1)
         spin["width"] = 25
         spin.grid_forget()
