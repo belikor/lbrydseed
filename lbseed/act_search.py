@@ -39,23 +39,29 @@ def list_trending(page=1,
                   server="http://localhost:5279"):
     """Print trending claims in the network with different options."""
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.list_trending_claims(page=page,
-                                   trending="trending_mixed",
-                                   claim_id=claim_id,
-                                   claim_type=claim_type,
-                                   video_stream=video_stream,
-                                   audio_stream=audio_stream,
-                                   doc_stream=doc_stream,
-                                   img_stream=img_stream,
-                                   bin_stream=bin_stream,
-                                   model_stream=model_stream,
-                                   sanitize=sanitize,
-                                   file=fp.name, fdate=False, sep=";",
-                                   server=server)
+        claims_info = \
+            lbryt.list_trending_claims(page=page,
+                                       trending="trending_mixed",
+                                       claim_id=claim_id,
+                                       claim_type=claim_type,
+                                       video_stream=video_stream,
+                                       audio_stream=audio_stream,
+                                       doc_stream=doc_stream,
+                                       img_stream=img_stream,
+                                       bin_stream=bin_stream,
+                                       model_stream=model_stream,
+                                       sanitize=sanitize,
+                                       file=fp.name, fdate=False, sep=";",
+                                       server=server)
         fp.seek(0)
-        content = fp.read()
+        lines = fp.read()
 
-    return content
+    summary = claims_info["summary"]
+    searched = claims_info["searched"]
+
+    return {"summary": summary,
+            "searched": searched,
+            "lines": lines}
 
 
 def list_search(page=1,
@@ -76,22 +82,28 @@ def list_search(page=1,
         tags = []
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.list_search_claims(page=page,
-                                 order="release_time",
-                                 text=text,
-                                 tags=tags,
-                                 claim_id=claim_id,
-                                 claim_type=claim_type,
-                                 video_stream=video_stream,
-                                 audio_stream=audio_stream,
-                                 doc_stream=doc_stream,
-                                 img_stream=img_stream,
-                                 bin_stream=bin_stream,
-                                 model_stream=model_stream,
-                                 sanitize=sanitize,
-                                 file=fp.name, fdate=False, sep=";",
-                                 server=server)
+        claims_info = \
+            lbryt.list_search_claims(page=page,
+                                     order="release_time",
+                                     text=text,
+                                     tags=tags,
+                                     claim_id=claim_id,
+                                     claim_type=claim_type,
+                                     video_stream=video_stream,
+                                     audio_stream=audio_stream,
+                                     doc_stream=doc_stream,
+                                     img_stream=img_stream,
+                                     bin_stream=bin_stream,
+                                     model_stream=model_stream,
+                                     sanitize=sanitize,
+                                     file=fp.name, fdate=False, sep=";",
+                                     server=server)
         fp.seek(0)
-        content = fp.read()
+        lines = fp.read()
 
-    return content
+    summary = claims_info["summary"]
+    searched = claims_info["searched"]
+
+    return {"summary": summary,
+            "searched": searched,
+            "lines": lines}

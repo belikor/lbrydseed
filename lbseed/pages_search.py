@@ -178,9 +178,6 @@ class TrendPage:
     def setup_info_trend(self, parent, start=0):
         blocks.info_search(parent, start=start)
 
-        page = ttk.Label(parent, textvariable=self.label_tr_info)
-        page.grid(row=start+1, column=0, columnspan=2, sticky=tk.W)
-
     def setup_textbox_trend(self, parent):
         self.textbox_trend = blocks.setup_textbox(parent,
                                                   font=self.txt_lst_font)
@@ -366,9 +363,6 @@ class SearchPage:
 
     def setup_info_search(self, parent, start=0):
         blocks.info_search(parent, start=start)
-
-        page = ttk.Label(parent, textvariable=self.label_sch_info)
-        page.grid(row=start+1, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_search(self, parent):
         self.textbox_search = blocks.setup_textbox(parent,

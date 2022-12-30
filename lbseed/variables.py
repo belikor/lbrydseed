@@ -218,12 +218,8 @@ class VarsTrending:
         self.chck_tr_bin = tk.BooleanVar(value=False)
         self.chck_tr_model = tk.BooleanVar(value=False)
 
-        self.label_tr_info = tk.StringVar(value="Page: -")
-
         self.search_entry = tk.StringVar(value="text to search")
         self.search_entry_tags = tk.StringVar()
-
-        self.label_sch_info = tk.StringVar(value="Page: -")
 
 
 class Variables(VarsWidgets,
