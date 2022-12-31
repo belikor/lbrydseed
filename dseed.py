@@ -364,12 +364,12 @@ class Application(ttk.Frame,
                                 threads=self.spin_lst_threads.get(),
                                 server=self.server_var.get())
 
-        if not output["content"]:
-            output["content"] = "No claims found"
+        if not output["lines"]:
+            output["lines"] = "No claims found"
 
-        content = output["text"] + "\n"
+        content = output["summary"] + "\n"
         content += 80 * "-" + "\n"
-        content += output["content"]
+        content += output["lines"]
 
         if not invalid:
             self.textbox_list.replace("1.0", tk.END, content)

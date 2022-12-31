@@ -88,12 +88,12 @@ def list_claims(blocks=False, cid=False, blobs=True, size=True,
                                      file=fp.name, fdate=False, sep=";",
                                      server=server)
         fp.seek(0)
-        content = fp.read()
+        lines = fp.read()
 
-    text = claims["text"]
+    summary = claims["summary"]
 
-    return {"content": content,
-            "text": text}
+    return {"summary": summary,
+            "lines": lines}
 
 
 def list_ch_claims(channel,
