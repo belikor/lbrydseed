@@ -29,29 +29,6 @@ import tempfile
 import lbrytools as lbryt
 
 
-def list_text_size(info):
-    """Calculate size and duration of the claims."""
-    number = len(info["claims"])
-    size = info["size"]
-    seconds = info["duration"]
-
-    size_gb = size/(1024**3)
-    hrs = seconds / 3600
-    days = hrs / 24
-
-    hr = seconds // 3600
-    mi = (seconds % 3600) // 60
-    sec = (seconds % 3600) % 60
-
-    m = [f"Claims: {number}",
-         f"Total size: {size_gb:.4f} GB",
-         f"Total duration: {hr} h {mi} min {sec} s, "
-         f"or {days:.4f} days"]
-
-    text = "\n".join(m)
-    return text
-
-
 def list_d_claims(blocks=False, cid=False, blobs=True, size=True,
                   show_channel=False,
                   show_out="name", channel=None,
@@ -104,47 +81,31 @@ def list_ch_claims(channel,
                    typ=False, ch_name=False,
                    title=False,
                    start=1, end=0,
+                   sanitize=True,
                    reverse=False,
                    last_height=99_000_900,
                    server="http://localhost:5279"):
     """Print all or a certain number of claims for a specified channel."""
-    if number:
-        output = lbryt.ch_search_n_claims(channel,
-                                          number=number,
-                                          last_height=last_height,
-                                          reverse=False,
-                                          server=server)
-    else:
-        output = lbryt.ch_search_all_claims(channel,
-                                            last_height=last_height,
-                                            reverse=False,
-                                            server=server)
-
-    if not output:
-        output = {"claims": [],
-                  "size": 0,
-                  "duration": 0}
-
-        text = list_text_size(output)
-
-        return {"content": False,
-                "text": text}
-
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        lbryt.print_sch_claims(output["claims"],
-                               blocks=blocks, claim_id=claim_id,
-                               typ=typ, ch_name=ch_name,
-                               title=title, sanitize=True,
-                               start=start, end=end,
-                               reverse=reverse,
-                               file=fp.name, fdate=False, sep=";")
+        claims_info = \
+            lbryt.list_ch_claims(channel,
+                                 number=number,
+                                 blocks=blocks, claim_id=claim_id,
+                                 typ=typ, ch_name=ch_name,
+                                 title=title,
+                                 start=start, end=end,
+                                 sanitize=sanitize,
+                                 reverse=reverse,
+                                 last_height=last_height,
+                                 file=fp.name, fdate=False, sep=";",
+                                 server=server)
         fp.seek(0)
-        content = fp.read()
+        lines = fp.read()
 
-    text = list_text_size(output)
+    summary = claims_info["summary"]
 
-    return {"content": content,
-            "text": text}
+    return {"summary": summary,
+            "lines": lines}
 
 
 def list_ch_subs(action="subscriptions",

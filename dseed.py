@@ -430,12 +430,12 @@ class Application(ttk.Frame,
                                    reverse=self.chck_chl_reverse.get(),
                                    server=self.server_var.get())
 
-        if not output["content"]:
-            output["content"] = "No claims found"
+        if not output["lines"]:
+            output["lines"] = "No claims found"
 
-        content = output["text"] + "\n"
+        content = output["summary"] + "\n"
         content += 80 * "-" + "\n"
-        content += output["content"]
+        content += output["lines"]
 
         self.textbox_ch_list.replace("1.0", tk.END, content)
 
