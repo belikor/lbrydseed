@@ -52,13 +52,14 @@ def list_text_size(info):
     return text
 
 
-def list_claims(blocks=False, cid=False, blobs=True, size=True,
-                show_channel=False,
-                show_out="name", channel=None,
-                invalid=False,
-                reverse=False,
-                threads=32,
-                server="http://localhost:5279"):
+def list_d_claims(blocks=False, cid=False, blobs=True, size=True,
+                  show_channel=False,
+                  show_out="name", channel=None,
+                  invalid=False,
+                  reverse=False,
+                  threads=32,
+                  sanitize=True,
+                  server="http://localhost:5279"):
     """Print all downloaded claims to a temporary file and read that file."""
     if show_out in ("name"):
         name = True
@@ -74,23 +75,24 @@ def list_claims(blocks=False, cid=False, blobs=True, size=True,
         path = True
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        claims = lbryt.print_summary(show="all",
-                                     blocks=blocks, cid=cid, blobs=blobs,
-                                     size=size,
-                                     typ=False, ch=show_channel,
-                                     ch_online=False,
-                                     name=name, title=title, path=path,
-                                     sanitize=True,
-                                     start=1, end=0, channel=channel,
-                                     invalid=invalid,
-                                     reverse=reverse,
-                                     threads=threads,
-                                     file=fp.name, fdate=False, sep=";",
-                                     server=server)
+        claims_info = \
+            lbryt.print_summary(show="all",
+                                blocks=blocks, cid=cid, blobs=blobs,
+                                size=size,
+                                typ=False, ch=show_channel,
+                                ch_online=False,
+                                name=name, title=title, path=path,
+                                sanitize=sanitize,
+                                start=1, end=0, channel=channel,
+                                invalid=invalid,
+                                reverse=reverse,
+                                threads=threads,
+                                file=fp.name, fdate=False, sep=";",
+                                server=server)
         fp.seek(0)
         lines = fp.read()
 
-    summary = claims["summary"]
+    summary = claims_info["summary"]
 
     return {"summary": summary,
             "lines": lines}
