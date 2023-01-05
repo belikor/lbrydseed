@@ -792,6 +792,9 @@ class Application(ttk.Frame,
                                   sanitize=True,
                                   server=self.server_var.get())
 
+        if not output["lines"]:
+            output["lines"] = "No claims found"
+
         content = output["summary"] + "\n"
         content += 80 * "-" + "\n"
         content += output["lines"]
