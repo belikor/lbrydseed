@@ -83,44 +83,72 @@ def setup_radio_list(parent,
 
 
 def setup_check_ch_list(parent,
-                        blocks_var=None,
+                        create_var=None,
+                        height_var=None,
+                        release_var=None,
                         cid_var=None,
                         type_var=None,
                         chname_var=None,
+                        sizes_var=None,
+                        fees_var=None,
                         title_var=None,
                         reverse_var=None,
                         start=0):
     """Setup the checkbuttons to control displaying properties of claims."""
-    chck_blocks = ttk.Checkbutton(parent,
-                                  variable=blocks_var,
-                                  text=("Show the creation block "
-                                        "and block height of the claim"))
-    chck_blocks.grid(row=start, column=1, sticky=tk.W)
+    chck_create = ttk.Checkbutton(parent,
+                                  variable=create_var,
+                                  text=("Show the creation block height\n"
+                                        "and creation time"))
+    chck_create.grid(row=start, column=0, sticky=tk.W)
+
+    chck_height = ttk.Checkbutton(parent,
+                                  variable=height_var,
+                                  text=("Show the block height "
+                                        "and timestamp"))
+    chck_height.grid(row=start+1, column=0, sticky=tk.W)
+
+    chck_release = ttk.Checkbutton(parent,
+                                   variable=release_var,
+                                   text=("Show the release time"))
+    chck_release.grid(row=start+2, column=0, sticky=tk.W)
 
     chck_cid = ttk.Checkbutton(parent,
                                variable=cid_var,
                                text="Show claim ID (40-character string)")
-    chck_cid.grid(row=start+1, column=1, sticky=tk.W)
+    chck_cid.grid(row=start+3, column=0, sticky=tk.W)
 
     chck_type = ttk.Checkbutton(parent,
                                 variable=type_var,
                                 text=("Show the type of claim, stream, "
-                                      "and media, if available"))
-    chck_type.grid(row=start+2, column=1, sticky=tk.W)
+                                      "and media,\n"
+                                      "if applicable"))
+    chck_type.grid(row=start+4, column=0, sticky=tk.W)
 
     chck_chname = ttk.Checkbutton(parent,
                                   variable=chname_var,
                                   text=("Show the name of the channel"))
-    chck_chname.grid(row=start+3, column=1, sticky=tk.W)
+    chck_chname.grid(row=start, column=1, sticky=tk.W)
 
-    chck_chname = ttk.Checkbutton(parent,
-                                  variable=title_var,
-                                  text=("Show the claim 'title' "
-                                        "instead of the claim 'name'"))
-    chck_chname.grid(row=start+4, column=1, sticky=tk.W)
+    chck_size = ttk.Checkbutton(parent,
+                                variable=sizes_var,
+                                text=("Show the duration and size, "
+                                      "if applicable"))
+    chck_size.grid(row=start+1, column=1, sticky=tk.W)
+
+    chck_fees = ttk.Checkbutton(parent,
+                                variable=fees_var,
+                                text=("Show the fee to access the claim, "
+                                      "if applicable"))
+    chck_fees.grid(row=start+2, column=1, sticky=tk.W)
+
+    chck_title = ttk.Checkbutton(parent,
+                                 variable=title_var,
+                                 text=("Show the claim 'title' "
+                                       "instead of the claim 'name'"))
+    chck_title.grid(row=start+3, column=1, sticky=tk.W)
 
     chck_reverse = ttk.Checkbutton(parent,
                                    variable=reverse_var,
                                    text=("Show in descending order "
                                          "(newer items first, older last)"))
-    chck_reverse.grid(row=start+5, column=1, sticky=tk.W)
+    chck_reverse.grid(row=start+4, column=1, sticky=tk.W)

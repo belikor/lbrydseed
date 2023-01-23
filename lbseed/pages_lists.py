@@ -236,7 +236,7 @@ class ListChClaimsPage:
         frame.pack(padx=4, pady=4)
         self.setup_grid_top_ch_list(frame, start=0)
         self.setup_grid_check_ch_list(frame, start=4)
-        self.setup_info_ch_list(frame, start=10)
+        self.setup_info_ch_list(frame, start=9)
 
     def setup_grid_top_ch_list(self, parent, start=0):
         entry, label = \
@@ -246,6 +246,10 @@ class ListChClaimsPage:
                                    l_text="Channel to inspect",
                                    start=start)
         entry.bind("<<Activate>>", blocks.f_with_event(self.list_ch_claims))
+
+        entry["width"] = 31
+        entry.grid_forget()
+        entry.grid(row=start, column=0)
 
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
@@ -264,35 +268,54 @@ class ListChClaimsPage:
                                         "and going back in time"),
                                 start=start+2)
 
-        blocks.setup_spin_gen(parent,
-                              frm=0, to=100E3, incr=1,
-                              default=0,
-                              s_text_var=self.spin_chl_num,
-                              s_command=self.list_ch_claims,
-                              l_text=("Number of claims to display; "
-                                      "use 0 to display all"),
-                              start=start+3)
+        spin, lb = \
+            blocks.setup_spin_gen(parent,
+                                  frm=0, to=100E3, incr=1,
+                                  default=0,
+                                  s_text_var=self.spin_chl_num,
+                                  s_command=self.list_ch_claims,
+                                  l_text=("Number of claims to display; "
+                                          "use 0 to display all"),
+                                  start=start+3)
+
+        spin["width"] = 25
+        spin.grid_forget()
+        spin.grid(row=start+3, column=0)
 
     def setup_grid_check_ch_list(self, parent, start=0):
         blocks.setup_check_ch_list(parent,
-                                   blocks_var=self.chck_chl_blk,
+                                   create_var=self.chck_chl_create,
+                                   height_var=self.chck_chl_height,
+                                   release_var=self.chck_chl_rels,
                                    cid_var=self.chck_chl_cid,
                                    type_var=self.chck_chl_type,
                                    chname_var=self.chck_chl_chname,
+                                   sizes_var=self.chck_chl_sizes,
+                                   fees_var=self.chck_chl_fees,
                                    title_var=self.chck_chl_title,
                                    reverse_var=self.chck_chl_reverse,
                                    start=start)
 
     def setup_info_ch_list(self, parent, start=0):
         desc = ttk.Label(parent,
-                         text=("The 'size' corresponds to the size "
+                         text=("'Creation' time corresponds to the time "
+                               "the claim was initially created.\n"
+                               "'Timestamp' is the time the claim "
+                               "was last modified.\n"
+                               "'Release' time is the time the content "
+                               "was originally released to the public, even "
+                               "if the claim was created later.\n"
+                               "Only 'streams' have release time, for other "
+                               "claims the creation time is displayed.\n"
+                               "\n"
+                               "The 'duration' considers only those "
+                               "claims that have a duration, such as "
+                               "video and audio files.\n"
+                               "The 'size' corresponds to the size "
                                "of the downloaded blobs; "
                                "if all media files were to exist\n"
                                "the files would take double the space "
-                               "on the hard drive.\n"
-                               "The 'duration' considers only those "
-                               "claims that have a duration, such as "
-                               "video and audio files."))
+                               "on the hard drive."))
         desc.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_ch_list(self, parent):

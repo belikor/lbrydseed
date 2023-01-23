@@ -421,11 +421,16 @@ class Application(ttk.Frame,
         output = \
             actions.list_ch_claims(channel,
                                    number=self.spin_chl_num.get(),
-                                   blocks=self.chck_chl_blk.get(),
+                                   create=self.chck_chl_create.get(),
+                                   height=self.chck_chl_height.get(),
+                                   release=self.chck_chl_rels.get(),
                                    claim_id=self.chck_chl_cid.get(),
                                    typ=self.chck_chl_type.get(),
                                    ch_name=self.chck_chl_chname.get(),
+                                   sizes=self.chck_chl_sizes.get(),
+                                   fees=self.chck_chl_fees.get(),
                                    title=self.chck_chl_title.get(),
+                                   sanitize=True,
                                    start=1, end=0,
                                    reverse=self.chck_chl_reverse.get(),
                                    server=self.server_var.get())
@@ -438,7 +443,6 @@ class Application(ttk.Frame,
         content += output["lines"]
 
         self.textbox_ch_list.replace("1.0", tk.END, content)
-
         self.print_done(print_msg=True)
 
     def list_subscr_chs(self):

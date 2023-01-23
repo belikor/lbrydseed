@@ -84,13 +84,16 @@ class VarsListChClaims:
     def setup_list_ch_vars(self):
         self.entry_chl_chan = tk.StringVar(value="@lbry:3f")
         self.spin_chl_num = tk.IntVar(value=0)
-        self.chck_chl_blk = tk.BooleanVar(value=False)
+        self.chck_chl_create = tk.BooleanVar(value=False)
+        self.chck_chl_height = tk.BooleanVar(value=False)
+        self.chck_chl_rels = tk.BooleanVar(value=True)
         self.chck_chl_cid = tk.BooleanVar(value=False)
         self.chck_chl_type = tk.BooleanVar(value=True)
         self.chck_chl_chname = tk.BooleanVar(value=False)
+        self.chck_chl_sizes = tk.BooleanVar(value=True)
+        self.chck_chl_fees = tk.BooleanVar(value=True)
         self.chck_chl_title = tk.BooleanVar(value=False)
         self.chck_chl_reverse = tk.BooleanVar(value=True)
-        self.chck_chl_reverse.set(True)
 
 
 class VarsSubscribedChs:
