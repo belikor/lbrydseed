@@ -56,9 +56,9 @@ class TrendPage:
         frame.pack(padx=4, pady=4)
         self.setup_grid_button_trend(frame, start=0)
         self.setup_grid_chck_trend_top(frame, start=3)
-        self.setup_grid_radio_trend_claims(frame, start=6, col=0)
-        self.setup_grid_chck_trend_streams(frame, start=6, col=1)
-        self.setup_info_trend(frame, start=7)
+        self.setup_grid_radio_trend_claims(frame, start=8, col=0)
+        self.setup_grid_chck_trend_streams(frame, start=8, col=1)
+        self.setup_info_trend(frame, start=9)
 
     def setup_grid_button_trend(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -96,23 +96,17 @@ class TrendPage:
         sp.grid(row=start+2, column=0)
 
     def setup_grid_chck_trend_top(self, parent, start=0):
-        chck_time = ttk.Checkbutton(parent,
-                                    variable=self.chck_tr_release,
-                                    text=("Show release time (streams) "
-                                          "or creation time (non-streams)"))
-        chck_time.grid(row=start, column=1, sticky=tk.W)
-
-        chck_cid = ttk.Checkbutton(parent,
-                                   variable=self.chck_tr_cid,
-                                   text=("Show claim ID "
-                                         "(40-character string)"))
-        chck_cid.grid(row=start+1, column=1, sticky=tk.W)
-
-        chck_title = ttk.Checkbutton(parent,
-                                     variable=self.chck_tr_title,
-                                     text=("Show the claim 'title' "
-                                           "instead of the claim 'name'"))
-        chck_title.grid(row=start+2, column=1, sticky=tk.W)
+        blocks.setup_check_trend_fields(parent,
+                                        create_var=self.chck_tr_create,
+                                        height_var=self.chck_tr_height,
+                                        release_var=self.chck_tr_release,
+                                        cid_var=self.chck_tr_cid,
+                                        type_var=self.chck_tr_typ,
+                                        chname_var=self.chck_tr_chname,
+                                        sizes_var=self.chck_tr_sizes,
+                                        fees_var=self.chck_tr_fees,
+                                        title_var=self.chck_tr_title,
+                                        start=start)
 
     def setup_grid_radio_trend_claims(self, parent, start=0, col=1):
         frame = ttk.Frame(parent, relief="groove", borderwidth=2)
@@ -161,17 +155,17 @@ class TrendPage:
          self.tr_chck_img,
          self.tr_chck_bin,
          self.tr_chck_model) = \
-            blocks.setup_check_trend(frame,
-                                     all_var=self.chck_tr_all,
-                                     all_command=self.switch_tr_all,
-                                     video_var=self.chck_tr_vid,
-                                     audio_var=self.chck_tr_audio,
-                                     doc_var=self.chck_tr_doc,
-                                     image_var=self.chck_tr_img,
-                                     bin_var=self.chck_tr_bin,
-                                     model_var=self.chck_tr_model,
-                                     not_all_command=self.switch_tr_various,
-                                     start=0, col=0)
+            blocks.setup_check_trend_typ(frame,
+                                         all_var=self.chck_tr_all,
+                                         all_command=self.switch_tr_all,
+                                         video_var=self.chck_tr_vid,
+                                         audio_var=self.chck_tr_audio,
+                                         doc_var=self.chck_tr_doc,
+                                         image_var=self.chck_tr_img,
+                                         bin_var=self.chck_tr_bin,
+                                         model_var=self.chck_tr_model,
+                                         not_all_cmd=self.switch_tr_various,
+                                         start=0, col=0)
 
     def switch_tr_all(self):
         """Change variables if all claims are considered."""
@@ -222,9 +216,9 @@ class SearchPage:
         self.setup_grid_button_search(frame, start=0)
         self.setup_grid_entry_search(frame, start=3)
         self.setup_grid_chck_search_top(frame, start=5)
-        self.setup_grid_radio_search_claims(frame, start=8, col=0)
-        self.setup_grid_chck_search_stream(frame, start=8, col=1)
-        self.setup_info_search(frame, start=9)
+        self.setup_grid_radio_search_claims(frame, start=10, col=0)
+        self.setup_grid_chck_search_stream(frame, start=10, col=1)
+        self.setup_info_search(frame, start=11)
 
     def setup_grid_button_search(self, parent, start=0):
         blocks.setup_button_gen(parent,
@@ -310,23 +304,17 @@ class SearchPage:
         lb2r.grid(row=0, column=2, padx=3)
 
     def setup_grid_chck_search_top(self, parent, start=0):
-        chck_time = ttk.Checkbutton(parent,
-                                    variable=self.chck_tr_release,
-                                    text=("Show release time (streams) "
-                                          "or creation time (non-streams)"))
-        chck_time.grid(row=start, column=1, sticky=tk.W)
-
-        chck_cid = ttk.Checkbutton(parent,
-                                   variable=self.chck_tr_cid,
-                                   text=("Show claim ID "
-                                         "(40-character string)"))
-        chck_cid.grid(row=start+1, column=1, sticky=tk.W)
-
-        chck_title = ttk.Checkbutton(parent,
-                                     variable=self.chck_tr_title,
-                                     text=("Show the claim 'title' "
-                                           "instead of the claim 'name'"))
-        chck_title.grid(row=start+2, column=1, sticky=tk.W)
+        blocks.setup_check_trend_fields(parent,
+                                        create_var=self.chck_tr_create,
+                                        height_var=self.chck_tr_height,
+                                        release_var=self.chck_tr_release,
+                                        cid_var=self.chck_tr_cid,
+                                        type_var=self.chck_tr_typ,
+                                        chname_var=self.chck_tr_chname,
+                                        sizes_var=self.chck_tr_sizes,
+                                        fees_var=self.chck_tr_fees,
+                                        title_var=self.chck_tr_title,
+                                        start=start)
 
     def setup_grid_radio_search_claims(self, parent, start=0, col=1):
         frame = ttk.Frame(parent, relief="groove", borderwidth=2)
@@ -375,17 +363,17 @@ class SearchPage:
          self.sr_chck_img,
          self.sr_chck_bin,
          self.sr_chck_model) = \
-            blocks.setup_check_trend(frame,
-                                     all_var=self.chck_tr_all,
-                                     all_command=self.switch_sr_all,
-                                     video_var=self.chck_tr_vid,
-                                     audio_var=self.chck_tr_audio,
-                                     doc_var=self.chck_tr_doc,
-                                     image_var=self.chck_tr_img,
-                                     bin_var=self.chck_tr_bin,
-                                     model_var=self.chck_tr_model,
-                                     not_all_command=self.switch_sr_various,
-                                     start=0, col=0)
+            blocks.setup_check_trend_typ(frame,
+                                         all_var=self.chck_tr_all,
+                                         all_command=self.switch_sr_all,
+                                         video_var=self.chck_tr_vid,
+                                         audio_var=self.chck_tr_audio,
+                                         doc_var=self.chck_tr_doc,
+                                         image_var=self.chck_tr_img,
+                                         bin_var=self.chck_tr_bin,
+                                         model_var=self.chck_tr_model,
+                                         not_all_cmd=self.switch_sr_various,
+                                         start=0, col=0)
 
     def switch_sr_all(self):
         """Change variables if all claims are considered."""

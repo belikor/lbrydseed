@@ -61,8 +61,9 @@ from lbseed.blocks_controlling import setup_check_contr_compact
 from lbseed.blocks_supports import setup_check_support
 from lbseed.blocks_supports import setup_radio_support
 
+from lbseed.blocks_trending import setup_check_trend_fields
 from lbseed.blocks_trending import setup_radio_trend_claims
-from lbseed.blocks_trending import setup_check_trend
+from lbseed.blocks_trending import setup_check_trend_typ
 from lbseed.blocks_trending import info_search
 
 # Use the methods to prevent warnings by code checkers (flake8)
@@ -98,6 +99,7 @@ True if setup_check_contr_compact else False
 True if setup_check_support else False
 True if setup_radio_support else False
 
+True if setup_check_trend_fields else False
 True if setup_radio_trend_claims else False
-True if setup_check_trend else False
+True if setup_check_trend_typ else False
 True if info_search else False

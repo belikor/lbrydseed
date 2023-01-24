@@ -28,12 +28,78 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
+def setup_check_trend_fields(parent,
+                             create_var=None,
+                             height_var=None,
+                             release_var=None,
+                             cid_var=None,
+                             type_var=None,
+                             chname_var=None,
+                             sizes_var=None,
+                             fees_var=None,
+                             title_var=None,
+                             start=0):
+    """Set up the checkboxes for the fields displayed."""
+    chck_create = ttk.Checkbutton(parent,
+                                  variable=create_var,
+                                  text=("Show the creation block height "
+                                        "and creation time"))
+    chck_create.grid(row=start, column=0, sticky=tk.W)
+
+    chck_height = ttk.Checkbutton(parent,
+                                  variable=height_var,
+                                  text=("Show the block height "
+                                        "and timestamp"))
+    chck_height.grid(row=start+1, column=0, sticky=tk.W)
+
+    chck_release = ttk.Checkbutton(parent,
+                                   variable=release_var,
+                                   text="Show release time")
+    chck_release.grid(row=start+2, column=0, sticky=tk.W)
+
+    chck_cid = ttk.Checkbutton(parent,
+                               variable=cid_var,
+                               text=("Show claim ID "
+                                     "(40-character string)"))
+    chck_cid.grid(row=start+3, column=0, sticky=tk.W)
+
+    chck_type = ttk.Checkbutton(parent,
+                                variable=type_var,
+                                text=("Show the type of claim, stream, "
+                                      "and media,\n"
+                                      "if applicable"))
+    chck_type.grid(row=start+4, column=0, sticky=tk.W)
+
+    chck_chname = ttk.Checkbutton(parent,
+                                  variable=chname_var,
+                                  text=("Show the name of the channel"))
+    chck_chname.grid(row=start, column=1, sticky=tk.W)
+
+    chck_size = ttk.Checkbutton(parent,
+                                variable=sizes_var,
+                                text=("Show the duration and size, "
+                                      "if applicable"))
+    chck_size.grid(row=start+1, column=1, sticky=tk.W)
+
+    chck_fees = ttk.Checkbutton(parent,
+                                variable=fees_var,
+                                text=("Show the fee to access the claim, "
+                                      "if applicable"))
+    chck_fees.grid(row=start+2, column=1, sticky=tk.W)
+
+    chck_title = ttk.Checkbutton(parent,
+                                 variable=title_var,
+                                 text=("Show the claim 'title' "
+                                       "instead of the claim 'name'"))
+    chck_title.grid(row=start+3, column=1, sticky=tk.W)
+
+
 def setup_radio_trend_claims(parent,
                              claim_type_var=None,
                              activate_func=None,
                              deactivate_func=None,
                              start=0, col=1):
-    """Setup the radiobuttons to determine what to search."""
+    """Set up the radiobuttons to determine what to search."""
     r_stream = ttk.Radiobutton(parent,
                                text=("Search stream claims "
                                      "(downloadable content)"),
@@ -70,18 +136,18 @@ def setup_radio_trend_claims(parent,
     return r_stream, r_channel, r_repost, r_collect, r_live
 
 
-def setup_check_trend(parent,
-                      all_var=None,
-                      all_command=None,
-                      video_var=None,
-                      audio_var=None,
-                      doc_var=None,
-                      image_var=None,
-                      bin_var=None,
-                      model_var=None,
-                      not_all_command=None,
-                      start=0, col=1):
-    """Setup the checkbuttons for trending."""
+def setup_check_trend_typ(parent,
+                          all_var=None,
+                          all_command=None,
+                          video_var=None,
+                          audio_var=None,
+                          doc_var=None,
+                          image_var=None,
+                          bin_var=None,
+                          model_var=None,
+                          not_all_cmd=None,
+                          start=0, col=1):
+    """Set up the checkboxes for trending."""
     chck_all = ttk.Checkbutton(parent,
                                variable=all_var,
                                text=("All types of claims"),
@@ -91,37 +157,37 @@ def setup_check_trend(parent,
     chck_vid = ttk.Checkbutton(parent,
                                variable=video_var,
                                text=("Search video streams"),
-                               command=not_all_command)
+                               command=not_all_cmd)
     chck_vid.grid(row=start+1, column=col, sticky=tk.W)
 
     chck_audio = ttk.Checkbutton(parent,
                                  variable=audio_var,
                                  text=("Search audio streams"),
-                                 command=not_all_command)
+                                 command=not_all_cmd)
     chck_audio.grid(row=start+2, column=col, sticky=tk.W)
 
     chck_doc = ttk.Checkbutton(parent,
                                variable=doc_var,
                                text=("Search document streams"),
-                               command=not_all_command)
+                               command=not_all_cmd)
     chck_doc.grid(row=start+3, column=col, sticky=tk.W)
 
     chck_img = ttk.Checkbutton(parent,
                                variable=image_var,
                                text=("Search image streams"),
-                               command=not_all_command)
+                               command=not_all_cmd)
     chck_img.grid(row=start+4, column=col, sticky=tk.W)
 
     chck_bin = ttk.Checkbutton(parent,
                                variable=bin_var,
                                text=("Search binary streams"),
-                               command=not_all_command)
+                               command=not_all_cmd)
     chck_bin.grid(row=start+5, column=col, sticky=tk.W)
 
     chck_model = ttk.Checkbutton(parent,
                                  variable=model_var,
                                  text=("Search model streams"),
-                                 command=not_all_command)
+                                 command=not_all_cmd)
     chck_model.grid(row=start+6, column=col, sticky=tk.W)
 
     return (chck_all,
@@ -129,23 +195,14 @@ def setup_check_trend(parent,
 
 
 def info_search(parent, start=0):
-    """Setup information for trending and search."""
+    """Set up information for trending and search."""
     # unicode \u275A is a monospace black box
     info = ttk.Label(parent,
-                     text=("The information shown will be "
-                           "(1) the type of claim, "
-                           "(2) the type of stream (downloadable), \n"
-                           "(3) the media type (downloadable), "
-                           "(4) the channel name (if available), "
-                           "(5) the fee for accessing\n"
-                           "the claim, and (6) the name of the claim "
-                           "(or the name of the channel "
-                           "for channel claims).\n"
-                           "\n"
-                           "Many claims contain emojis and long unicode "
-                           "'grapheme clusters';\n"
-                           "to avoid problems with these symbols, they "
-                           "are replaced by the symbol '\u275A'.\n"
+                     text=("Many claims contain emojis and long unicode "
+                           "'grapheme clusters'; "
+                           "to avoid problems with these symbols,\n"
+                           "they are replaced by a black box "
+                           "symbol '\u275A'.\n"
                            "In order to download these claims "
                            "use their claim ID."))
     info.grid(row=start, column=0, columnspan=2, sticky=tk.W)

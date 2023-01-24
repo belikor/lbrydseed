@@ -211,9 +211,6 @@ class VarsTrending:
     def setup_trending_vars(self):
         self.spin_page = tk.IntVar(value=0)
         self.spin_tr_threads = tk.IntVar(value=32)
-        self.chck_tr_release = tk.BooleanVar(value=False)
-        self.chck_tr_cid = tk.BooleanVar(value=False)
-        self.chck_tr_title = tk.BooleanVar(value=False)
         self.rad_tr_claim = tk.StringVar(value="stream")
 
         self.chck_tr_all = tk.BooleanVar(value=False)
@@ -223,6 +220,16 @@ class VarsTrending:
         self.chck_tr_img = tk.BooleanVar(value=False)
         self.chck_tr_bin = tk.BooleanVar(value=False)
         self.chck_tr_model = tk.BooleanVar(value=False)
+
+        self.chck_tr_create = tk.BooleanVar(value=False)
+        self.chck_tr_height = tk.BooleanVar(value=False)
+        self.chck_tr_release = tk.BooleanVar(value=True)
+        self.chck_tr_cid = tk.BooleanVar(value=False)
+        self.chck_tr_typ = tk.BooleanVar(value=True)
+        self.chck_tr_chname = tk.BooleanVar(value=True)
+        self.chck_tr_sizes = tk.BooleanVar(value=True)
+        self.chck_tr_fees = tk.BooleanVar(value=True)
+        self.chck_tr_title = tk.BooleanVar(value=False)
 
         self.search_entry = tk.StringVar(value="text to search")
         self.search_entry_tags = tk.StringVar()
