@@ -206,9 +206,9 @@ class VarsSupports:
         self.check_s_supp_inv = tk.BooleanVar(value=False)
 
 
-class VarsTrending:
+class VarsSearching:
     """Mixin class to provide variables for the trending pages."""
-    def setup_trending_vars(self):
+    def setup_searching_vars(self):
         self.spin_page = tk.IntVar(value=0)
         self.spin_tr_threads = tk.IntVar(value=32)
         self.rad_tr_claim = tk.StringVar(value="stream")
@@ -248,7 +248,7 @@ class Variables(VarsWidgets,
                 VarsSeeding,
                 VarsDelete,
                 VarsSupports,
-                VarsTrending):
+                VarsSearching):
     """Mixin class to provide variables to the application."""
     def setup_vars(self):
         super().setup_widget_vars()
@@ -264,4 +264,4 @@ class Variables(VarsWidgets,
         super().setup_seeding_vars()
         super().setup_delete_vars()
         super().setup_support_vars()
-        super().setup_trending_vars()
+        super().setup_searching_vars()

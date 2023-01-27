@@ -61,10 +61,10 @@ from lbseed.blocks_controlling import setup_check_contr_compact
 from lbseed.blocks_supports import setup_check_support
 from lbseed.blocks_supports import setup_radio_support
 
-from lbseed.blocks_trending import setup_check_trend_fields
-from lbseed.blocks_trending import setup_radio_trend_claims
-from lbseed.blocks_trending import setup_check_trend_typ
-from lbseed.blocks_trending import info_search
+from lbseed.blocks_search import setup_check_trend_fields
+from lbseed.blocks_search import setup_radio_trend_claims
+from lbseed.blocks_search import setup_check_trend_typ
+from lbseed.blocks_search import info_search
 
 # Use the methods to prevent warnings by code checkers (flake8)
 True if focus_next_widget else False
