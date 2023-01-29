@@ -97,15 +97,15 @@ class TrendPage:
 
     def setup_grid_chck_trend_top(self, parent, start=0):
         blocks.setup_check_trend_fields(parent,
-                                        create_var=self.chck_tr_create,
-                                        height_var=self.chck_tr_height,
-                                        release_var=self.chck_tr_release,
-                                        cid_var=self.chck_tr_cid,
-                                        type_var=self.chck_tr_typ,
-                                        chname_var=self.chck_tr_chname,
-                                        sizes_var=self.chck_tr_sizes,
-                                        fees_var=self.chck_tr_fees,
-                                        title_var=self.chck_tr_title,
+                                        create_var=self.chck_sr_create,
+                                        height_var=self.chck_sr_height,
+                                        release_var=self.chck_sr_release,
+                                        cid_var=self.chck_sr_cid,
+                                        type_var=self.chck_sr_typ,
+                                        chname_var=self.chck_sr_chname,
+                                        sizes_var=self.chck_sr_sizes,
+                                        fees_var=self.chck_sr_fees,
+                                        title_var=self.chck_sr_title,
                                         start=start)
 
     def setup_grid_radio_trend_claims(self, parent, start=0, col=1):
@@ -305,15 +305,15 @@ class SearchPage:
 
     def setup_grid_chck_search_top(self, parent, start=0):
         blocks.setup_check_trend_fields(parent,
-                                        create_var=self.chck_tr_create,
-                                        height_var=self.chck_tr_height,
-                                        release_var=self.chck_tr_release,
-                                        cid_var=self.chck_tr_cid,
-                                        type_var=self.chck_tr_typ,
-                                        chname_var=self.chck_tr_chname,
-                                        sizes_var=self.chck_tr_sizes,
-                                        fees_var=self.chck_tr_fees,
-                                        title_var=self.chck_tr_title,
+                                        create_var=self.chck_sr_create,
+                                        height_var=self.chck_sr_height,
+                                        release_var=self.chck_sr_release,
+                                        cid_var=self.chck_sr_cid,
+                                        type_var=self.chck_sr_typ,
+                                        chname_var=self.chck_sr_chname,
+                                        sizes_var=self.chck_sr_sizes,
+                                        fees_var=self.chck_sr_fees,
+                                        title_var=self.chck_sr_title,
                                         start=start)
 
     def setup_grid_radio_search_claims(self, parent, start=0, col=1):
