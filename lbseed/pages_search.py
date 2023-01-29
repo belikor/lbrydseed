@@ -72,7 +72,7 @@ class TrendPage:
         spin, lb = blocks.setup_spin_gen(parent,
                                          frm=0, to=20, incr=1,
                                          default=0,
-                                         s_text_var=self.spin_page,
+                                         s_text_var=self.spin_sr_page,
                                          s_command=self.list_trending_claims,
                                          l_text=("Page to search; "
                                                  "use 0 to display all pages\n"
@@ -85,7 +85,7 @@ class TrendPage:
         sp, lb = blocks.setup_spin_gen(parent,
                                        frm=0, to=512, incr=1,
                                        default=32,
-                                       s_text_var=self.spin_tr_threads,
+                                       s_text_var=self.spin_sr_threads,
                                        s_command=self.list_trending_claims,
                                        l_text=("Number of threads to resolve "
                                                "pages in parallel; "
@@ -113,7 +113,7 @@ class TrendPage:
         frame.grid(row=start, column=col, sticky=tk.W + tk.E + tk.N)
 
         blocks.setup_radio_trend_claims(frame,
-                                        claim_type_var=self.rad_tr_claim,
+                                        claim_type_var=self.rad_sr_claim,
                                         activate_func=self.activate_tr_checks,
                                         deactivate_func=self.deact_tr_checks,
                                         start=0, col=0)
@@ -235,7 +235,7 @@ class SearchPage:
         spin, lb = blocks.setup_spin_gen(parent,
                                          frm=0, to=20, incr=1,
                                          default=0,
-                                         s_text_var=self.spin_page,
+                                         s_text_var=self.spin_sr_page,
                                          s_command=self.list_search,
                                          l_text=("Page to search; "
                                                  "use 0 to display all pages\n"
@@ -248,7 +248,7 @@ class SearchPage:
         sp, lb = blocks.setup_spin_gen(parent,
                                        frm=0, to=512, incr=1,
                                        default=32,
-                                       s_text_var=self.spin_tr_threads,
+                                       s_text_var=self.spin_sr_threads,
                                        s_command=self.list_search,
                                        l_text=("Number of threads to resolve "
                                                "pages in parallel; "
@@ -266,7 +266,7 @@ class SearchPage:
 
         entry = ttk.Entry(frame1,
                           width=40,
-                          textvariable=self.search_entry,
+                          textvariable=self.sr_entry,
                           font=None)
 
         entry.bind("<<Activate>>", blocks.f_with_event(self.list_search))
@@ -291,7 +291,7 @@ class SearchPage:
 
         tags = ttk.Entry(frame2,
                          width=40,
-                         textvariable=self.search_entry_tags,
+                         textvariable=self.sr_entry_tags,
                          font=None)
 
         tags.bind("<<Activate>>", blocks.f_with_event(self.list_search))
@@ -321,7 +321,7 @@ class SearchPage:
         frame.grid(row=start, column=col, sticky=tk.W + tk.E + tk.N)
 
         blocks.setup_radio_trend_claims(frame,
-                                        claim_type_var=self.rad_tr_claim,
+                                        claim_type_var=self.rad_sr_claim,
                                         activate_func=self.activate_sr_checks,
                                         deactivate_func=self.deact_sr_checks,
                                         start=0, col=0)

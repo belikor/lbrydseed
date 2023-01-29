@@ -209,9 +209,12 @@ class VarsSupports:
 class VarsSearching:
     """Mixin class to provide variables for the trending pages."""
     def setup_searching_vars(self):
-        self.spin_page = tk.IntVar(value=0)
-        self.spin_tr_threads = tk.IntVar(value=32)
-        self.rad_tr_claim = tk.StringVar(value="stream")
+        self.spin_sr_page = tk.IntVar(value=0)
+        self.spin_sr_threads = tk.IntVar(value=32)
+        self.sr_entry = tk.StringVar(value="text to search")
+        self.sr_entry_tags = tk.StringVar()
+
+        self.rad_sr_claim = tk.StringVar(value="stream")
 
         self.chck_tr_all = tk.BooleanVar(value=False)
         self.chck_tr_vid = tk.BooleanVar(value=True)
@@ -230,9 +233,6 @@ class VarsSearching:
         self.chck_sr_sizes = tk.BooleanVar(value=True)
         self.chck_sr_fees = tk.BooleanVar(value=True)
         self.chck_sr_title = tk.BooleanVar(value=False)
-
-        self.search_entry = tk.StringVar(value="text to search")
-        self.search_entry_tags = tk.StringVar()
 
 
 class Variables(VarsWidgets,
