@@ -46,7 +46,50 @@ import tkinter.ttk as ttk
 import lbseed.blocks as blocks
 
 
-class TrendPage:
+class BaseSearch:
+    def set_stream_vars_false(self):
+        """Set 'all' to `True` and the individual types to `False`."""
+        self.chck_sr_all.set(True)
+
+        variables = [self.chck_sr_vid, self.chck_sr_audio,
+                     self.chck_sr_doc, self.chck_sr_img,
+                     self.chck_sr_bin, self.chck_sr_model]
+
+        for v in variables:
+            v.set(False)
+
+    def switch_vars_all(self):
+        """Change variables if all claims are considered."""
+        variables = [self.chck_sr_vid, self.chck_sr_audio,
+                     self.chck_sr_doc, self.chck_sr_img,
+                     self.chck_sr_bin, self.chck_sr_model]
+
+        if self.chck_sr_all.get():
+            for v in variables:
+                v.set(False)
+        else:
+            self.chck_sr_vid.set(True)
+            self.chck_sr_doc.set(True)
+
+    def switch_various(self):
+        """If any stream type is checked, it is not 'all' type anymore."""
+        if (self.chck_sr_vid.get()
+                or self.chck_sr_audio.get()
+                or self.chck_sr_doc.get()
+                or self.chck_sr_img.get()
+                or self.chck_sr_bin.get()
+                or self.chck_sr_model.get()):
+            self.chck_sr_all.set(False)
+        if (not self.chck_sr_vid.get()
+                and not self.chck_sr_audio.get()
+                and not self.chck_sr_doc.get()
+                and not self.chck_sr_img.get()
+                and not self.chck_sr_bin.get()
+                and not self.chck_sr_model.get()):
+            self.chck_sr_all.set(True)
+
+
+class TrendPage(BaseSearch):
     def setup_page_trend(self, parent):
         self.setup_top_trend(parent)
         self.setup_textbox_trend(parent)
@@ -119,42 +162,20 @@ class TrendPage:
                                         start=0, col=0)
 
     def deact_tr_checks(self):
-        self.chck_sr_all.set(True)
-        variables = [self.chck_sr_vid, self.chck_sr_audio,
-                     self.chck_sr_doc, self.chck_sr_img,
-                     self.chck_sr_bin, self.chck_sr_model]
+        self.set_stream_vars_false()
 
-        for v in variables:
-            v.set(False)
-
-        widgets = [self.tr_chck_all, self.tr_chck_vid,
-                   self.tr_chck_audio, self.tr_chck_doc,
-                   self.tr_chck_img, self.tr_chck_bin,
-                   self.tr_chck_model]
-
-        for widget in widgets:
+        for widget in self.tr_checks_typ:
             widget["state"] = "disabled"
 
     def activate_tr_checks(self):
-        widgets = [self.tr_chck_all, self.tr_chck_vid,
-                   self.tr_chck_audio, self.tr_chck_doc,
-                   self.tr_chck_img, self.tr_chck_bin,
-                   self.tr_chck_model]
-
-        for widget in widgets:
+        for widget in self.tr_checks_typ:
             widget["state"] = "enabled"
 
     def setup_grid_chck_trend_streams(self, parent, start=0, col=1):
         frame = ttk.Frame(parent, relief="groove", borderwidth=2)
         frame.grid(row=start, column=col, sticky=tk.W + tk.E + tk.N)
 
-        (self.tr_chck_all,
-         self.tr_chck_vid,
-         self.tr_chck_audio,
-         self.tr_chck_doc,
-         self.tr_chck_img,
-         self.tr_chck_bin,
-         self.tr_chck_model) = \
+        self.tr_checks_typ = \
             blocks.setup_check_trend_typ(frame,
                                          all_var=self.chck_sr_all,
                                          all_command=self.switch_tr_all,
@@ -169,33 +190,11 @@ class TrendPage:
 
     def switch_tr_all(self):
         """Change variables if all claims are considered."""
-        variables = [self.chck_sr_vid, self.chck_sr_audio,
-                     self.chck_sr_doc, self.chck_sr_img,
-                     self.chck_sr_bin, self.chck_sr_model]
-
-        if self.chck_sr_all.get():
-            for v in variables:
-                v.set(False)
-        else:
-            self.chck_sr_vid.set(True)
-            self.chck_sr_doc.set(True)
+        self.switch_vars_all()
 
     def switch_tr_various(self):
-        """If any stream checkbox is used, it is not all claims anymore."""
-        if (self.chck_sr_vid.get()
-                or self.chck_sr_audio.get()
-                or self.chck_sr_doc.get()
-                or self.chck_sr_img.get()
-                or self.chck_sr_bin.get()
-                or self.chck_sr_model.get()):
-            self.chck_sr_all.set(False)
-        if (not self.chck_sr_vid.get()
-                and not self.chck_sr_audio.get()
-                and not self.chck_sr_doc.get()
-                and not self.chck_sr_img.get()
-                and not self.chck_sr_bin.get()
-                and not self.chck_sr_model.get()):
-            self.chck_sr_all.set(True)
+        """If any stream type is checked, it is not 'all' type anymore."""
+        self.switch_various()
 
     def setup_info_trend(self, parent, start=0):
         blocks.info_search(parent, start=start)
@@ -205,7 +204,7 @@ class TrendPage:
                                                   font=self.txt_lst_font)
 
 
-class SearchPage:
+class SearchPage(BaseSearch):
     def setup_page_search(self, parent):
         self.setup_top_search(parent)
         self.setup_textbox_search(parent)
@@ -327,42 +326,20 @@ class SearchPage:
                                         start=0, col=0)
 
     def deact_sr_checks(self):
-        self.chck_sr_all.set(True)
-        variables = [self.chck_sr_vid, self.chck_sr_audio,
-                     self.chck_sr_doc, self.chck_sr_img,
-                     self.chck_sr_bin, self.chck_sr_model]
+        self.set_stream_vars_false()
 
-        for v in variables:
-            v.set(False)
-
-        widgets = [self.sr_chck_all, self.sr_chck_vid,
-                   self.sr_chck_audio, self.sr_chck_doc,
-                   self.sr_chck_img, self.sr_chck_bin,
-                   self.sr_chck_model]
-
-        for widget in widgets:
+        for widget in self.sr_checks_typ:
             widget["state"] = "disabled"
 
     def activate_sr_checks(self):
-        widgets = [self.sr_chck_all, self.sr_chck_vid,
-                   self.sr_chck_audio, self.sr_chck_doc,
-                   self.sr_chck_img, self.sr_chck_bin,
-                   self.sr_chck_model]
-
-        for widget in widgets:
+        for widget in self.sr_checks_typ:
             widget["state"] = "enabled"
 
     def setup_grid_chck_search_stream(self, parent, start=0, col=1):
         frame = ttk.Frame(parent, relief="groove", borderwidth=2)
         frame.grid(row=start, column=col, sticky=tk.W + tk.E + tk.N)
 
-        (self.sr_chck_all,
-         self.sr_chck_vid,
-         self.sr_chck_audio,
-         self.sr_chck_doc,
-         self.sr_chck_img,
-         self.sr_chck_bin,
-         self.sr_chck_model) = \
+        self.sr_checks_typ = \
             blocks.setup_check_trend_typ(frame,
                                          all_var=self.chck_sr_all,
                                          all_command=self.switch_sr_all,
@@ -377,33 +354,11 @@ class SearchPage:
 
     def switch_sr_all(self):
         """Change variables if all claims are considered."""
-        variables = [self.chck_sr_vid, self.chck_sr_audio,
-                     self.chck_sr_doc, self.chck_sr_img,
-                     self.chck_sr_bin, self.chck_sr_model]
-
-        if self.chck_sr_all.get():
-            for v in variables:
-                v.set(False)
-        else:
-            self.chck_sr_vid.set(True)
-            self.chck_sr_doc.set(True)
+        self.switch_vars_all()
 
     def switch_sr_various(self):
-        """If any stream checkbox is used, it is not all claims anymore."""
-        if (self.chck_sr_vid.get()
-                or self.chck_sr_audio.get()
-                or self.chck_sr_doc.get()
-                or self.chck_sr_img.get()
-                or self.chck_sr_bin.get()
-                or self.chck_sr_model.get()):
-            self.chck_sr_all.set(False)
-        if (not self.chck_sr_vid.get()
-                and not self.chck_sr_audio.get()
-                and not self.chck_sr_doc.get()
-                and not self.chck_sr_img.get()
-                and not self.chck_sr_bin.get()
-                and not self.chck_sr_model.get()):
-            self.chck_sr_all.set(True)
+        """If any stream type is checked, it is not 'all' type anymore."""
+        self.switch_various()
 
     def setup_info_search(self, parent, start=0):
         blocks.info_search(parent, start=start)
