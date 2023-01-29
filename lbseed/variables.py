@@ -216,13 +216,13 @@ class VarsSearching:
 
         self.rad_sr_claim = tk.StringVar(value="stream")
 
-        self.chck_tr_all = tk.BooleanVar(value=False)
-        self.chck_tr_vid = tk.BooleanVar(value=True)
-        self.chck_tr_audio = tk.BooleanVar(value=False)
-        self.chck_tr_doc = tk.BooleanVar(value=True)
-        self.chck_tr_img = tk.BooleanVar(value=False)
-        self.chck_tr_bin = tk.BooleanVar(value=False)
-        self.chck_tr_model = tk.BooleanVar(value=False)
+        self.chck_sr_all = tk.BooleanVar(value=False)
+        self.chck_sr_vid = tk.BooleanVar(value=True)
+        self.chck_sr_audio = tk.BooleanVar(value=False)
+        self.chck_sr_doc = tk.BooleanVar(value=True)
+        self.chck_sr_img = tk.BooleanVar(value=False)
+        self.chck_sr_bin = tk.BooleanVar(value=False)
+        self.chck_sr_model = tk.BooleanVar(value=False)
 
         self.chck_sr_create = tk.BooleanVar(value=False)
         self.chck_sr_height = tk.BooleanVar(value=False)

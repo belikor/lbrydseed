@@ -119,10 +119,10 @@ class TrendPage:
                                         start=0, col=0)
 
     def deact_tr_checks(self):
-        self.chck_tr_all.set(True)
-        variables = [self.chck_tr_vid, self.chck_tr_audio,
-                     self.chck_tr_doc, self.chck_tr_img,
-                     self.chck_tr_bin, self.chck_tr_model]
+        self.chck_sr_all.set(True)
+        variables = [self.chck_sr_vid, self.chck_sr_audio,
+                     self.chck_sr_doc, self.chck_sr_img,
+                     self.chck_sr_bin, self.chck_sr_model]
 
         for v in variables:
             v.set(False)
@@ -156,46 +156,46 @@ class TrendPage:
          self.tr_chck_bin,
          self.tr_chck_model) = \
             blocks.setup_check_trend_typ(frame,
-                                         all_var=self.chck_tr_all,
+                                         all_var=self.chck_sr_all,
                                          all_command=self.switch_tr_all,
-                                         video_var=self.chck_tr_vid,
-                                         audio_var=self.chck_tr_audio,
-                                         doc_var=self.chck_tr_doc,
-                                         image_var=self.chck_tr_img,
-                                         bin_var=self.chck_tr_bin,
-                                         model_var=self.chck_tr_model,
+                                         video_var=self.chck_sr_vid,
+                                         audio_var=self.chck_sr_audio,
+                                         doc_var=self.chck_sr_doc,
+                                         image_var=self.chck_sr_img,
+                                         bin_var=self.chck_sr_bin,
+                                         model_var=self.chck_sr_model,
                                          not_all_cmd=self.switch_tr_various,
                                          start=0, col=0)
 
     def switch_tr_all(self):
         """Change variables if all claims are considered."""
-        variables = [self.chck_tr_vid, self.chck_tr_audio,
-                     self.chck_tr_doc, self.chck_tr_img,
-                     self.chck_tr_bin, self.chck_tr_model]
+        variables = [self.chck_sr_vid, self.chck_sr_audio,
+                     self.chck_sr_doc, self.chck_sr_img,
+                     self.chck_sr_bin, self.chck_sr_model]
 
-        if self.chck_tr_all.get():
+        if self.chck_sr_all.get():
             for v in variables:
                 v.set(False)
         else:
-            self.chck_tr_vid.set(True)
-            self.chck_tr_doc.set(True)
+            self.chck_sr_vid.set(True)
+            self.chck_sr_doc.set(True)
 
     def switch_tr_various(self):
         """If any stream checkbox is used, it is not all claims anymore."""
-        if (self.chck_tr_vid.get()
-                or self.chck_tr_audio.get()
-                or self.chck_tr_doc.get()
-                or self.chck_tr_img.get()
-                or self.chck_tr_bin.get()
-                or self.chck_tr_model.get()):
-            self.chck_tr_all.set(False)
-        if (not self.chck_tr_vid.get()
-                and not self.chck_tr_audio.get()
-                and not self.chck_tr_doc.get()
-                and not self.chck_tr_img.get()
-                and not self.chck_tr_bin.get()
-                and not self.chck_tr_model.get()):
-            self.chck_tr_all.set(True)
+        if (self.chck_sr_vid.get()
+                or self.chck_sr_audio.get()
+                or self.chck_sr_doc.get()
+                or self.chck_sr_img.get()
+                or self.chck_sr_bin.get()
+                or self.chck_sr_model.get()):
+            self.chck_sr_all.set(False)
+        if (not self.chck_sr_vid.get()
+                and not self.chck_sr_audio.get()
+                and not self.chck_sr_doc.get()
+                and not self.chck_sr_img.get()
+                and not self.chck_sr_bin.get()
+                and not self.chck_sr_model.get()):
+            self.chck_sr_all.set(True)
 
     def setup_info_trend(self, parent, start=0):
         blocks.info_search(parent, start=start)
@@ -327,10 +327,10 @@ class SearchPage:
                                         start=0, col=0)
 
     def deact_sr_checks(self):
-        self.chck_tr_all.set(True)
-        variables = [self.chck_tr_vid, self.chck_tr_audio,
-                     self.chck_tr_doc, self.chck_tr_img,
-                     self.chck_tr_bin, self.chck_tr_model]
+        self.chck_sr_all.set(True)
+        variables = [self.chck_sr_vid, self.chck_sr_audio,
+                     self.chck_sr_doc, self.chck_sr_img,
+                     self.chck_sr_bin, self.chck_sr_model]
 
         for v in variables:
             v.set(False)
@@ -364,46 +364,46 @@ class SearchPage:
          self.sr_chck_bin,
          self.sr_chck_model) = \
             blocks.setup_check_trend_typ(frame,
-                                         all_var=self.chck_tr_all,
+                                         all_var=self.chck_sr_all,
                                          all_command=self.switch_sr_all,
-                                         video_var=self.chck_tr_vid,
-                                         audio_var=self.chck_tr_audio,
-                                         doc_var=self.chck_tr_doc,
-                                         image_var=self.chck_tr_img,
-                                         bin_var=self.chck_tr_bin,
-                                         model_var=self.chck_tr_model,
+                                         video_var=self.chck_sr_vid,
+                                         audio_var=self.chck_sr_audio,
+                                         doc_var=self.chck_sr_doc,
+                                         image_var=self.chck_sr_img,
+                                         bin_var=self.chck_sr_bin,
+                                         model_var=self.chck_sr_model,
                                          not_all_cmd=self.switch_sr_various,
                                          start=0, col=0)
 
     def switch_sr_all(self):
         """Change variables if all claims are considered."""
-        variables = [self.chck_tr_vid, self.chck_tr_audio,
-                     self.chck_tr_doc, self.chck_tr_img,
-                     self.chck_tr_bin, self.chck_tr_model]
+        variables = [self.chck_sr_vid, self.chck_sr_audio,
+                     self.chck_sr_doc, self.chck_sr_img,
+                     self.chck_sr_bin, self.chck_sr_model]
 
-        if self.chck_tr_all.get():
+        if self.chck_sr_all.get():
             for v in variables:
                 v.set(False)
         else:
-            self.chck_tr_vid.set(True)
-            self.chck_tr_doc.set(True)
+            self.chck_sr_vid.set(True)
+            self.chck_sr_doc.set(True)
 
     def switch_sr_various(self):
         """If any stream checkbox is used, it is not all claims anymore."""
-        if (self.chck_tr_vid.get()
-                or self.chck_tr_audio.get()
-                or self.chck_tr_doc.get()
-                or self.chck_tr_img.get()
-                or self.chck_tr_bin.get()
-                or self.chck_tr_model.get()):
-            self.chck_tr_all.set(False)
-        if (not self.chck_tr_vid.get()
-                and not self.chck_tr_audio.get()
-                and not self.chck_tr_doc.get()
-                and not self.chck_tr_img.get()
-                and not self.chck_tr_bin.get()
-                and not self.chck_tr_model.get()):
-            self.chck_tr_all.set(True)
+        if (self.chck_sr_vid.get()
+                or self.chck_sr_audio.get()
+                or self.chck_sr_doc.get()
+                or self.chck_sr_img.get()
+                or self.chck_sr_bin.get()
+                or self.chck_sr_model.get()):
+            self.chck_sr_all.set(False)
+        if (not self.chck_sr_vid.get()
+                and not self.chck_sr_audio.get()
+                and not self.chck_sr_doc.get()
+                and not self.chck_sr_img.get()
+                and not self.chck_sr_bin.get()
+                and not self.chck_sr_model.get()):
+            self.chck_sr_all.set(True)
 
     def setup_info_search(self, parent, start=0):
         blocks.info_search(parent, start=start)
