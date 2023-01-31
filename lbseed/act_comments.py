@@ -28,6 +28,7 @@ import tempfile
 import time
 
 import lbrytools as lbryt
+import lbrytools.funcs as funcs
 
 
 def get_r_list(comments, cmnt_info=None, indent=0, sanitize=False):
@@ -126,43 +127,31 @@ def show_comment(cmnt_data, sanitize=True):
     index = cmnt_data["index"] + 1
 
     claim_uri = cmnt_data["claim"]["canonical_url"]
-    if sanitize:
-        claim_uri = lbryt.sanitize_text(claim_uri)
 
-    if "releaset_time" in cmnt_data["claim"]["value"]:
-        claim_time = cmnt_data["claim"]["value"]["release_time"]
+    if "release_time" in cmnt_data["claim"]["value"]:
+        claim_time = int(cmnt_data["claim"]["value"]["release_time"])
     else:
-        claim_time = cmnt_data["claim"]["timestamp"]
+        claim_time = cmnt_data["claim"]["meta"]["creation_timestamp"]
 
-    claim_time = time.strftime("%Y-%m-%d_%H:%M:%S%z %A",
-                               time.localtime(claim_time))
-
-    cmt_time = cmnt_data["timestamp"]
-    cmt_time = time.strftime("%Y-%m-%d_%H:%M:%S%z %A",
-                             time.localtime(cmt_time))
+    claim_time = time.strftime(funcs.TFMT, time.gmtime(claim_time))
 
     claim_title = cmnt_data["claim"]["value"].get("title", "(None)")
-    if sanitize:
-        claim_title = lbryt.sanitize_text(claim_title)
+
+    cmt_time = cmnt_data["timestamp"]
+    cmt_time = time.strftime(funcs.TFMT, time.gmtime(cmt_time))
 
     sig_ts = int(cmnt_data["signing_ts"])
-    sig_ts = time.strftime("%Y-%m-%d_%H:%M:%S%z %A",
-                           time.localtime(sig_ts))
+    sig_ts = time.strftime(funcs.TFMT, time.gmtime(sig_ts))
 
     cmnt_author = cmnt_data["channel_name"]
-
-    if sanitize:
-        cmnt_author = lbryt.sanitize_text(cmnt_author)
 
     comment = cmnt_data["comment"]
 
     if sanitize:
+        claim_uri = lbryt.sanitize_text(claim_uri)
+        claim_title = lbryt.sanitize_text(claim_title)
+        cmnt_author = lbryt.sanitize_text(cmnt_author)
         comment = lbryt.sanitize_text(comment)
-
-    ch_name = cmnt_data["channel_name"]
-
-    if sanitize:
-        ch_name = lbryt.sanitize_text(ch_name)
 
     out = ["canonical_url: " + claim_uri,
            "claim_id: " + cmnt_data["claim"]["claim_id"],
@@ -193,19 +182,18 @@ def show_comment(cmnt_data, sanitize=True):
 def show_no_comment(claim, sanitize=True):
     """Get basic output when the claim has no comments."""
     claim_uri = claim["canonical_url"]
-    if sanitize:
-        claim_uri = lbryt.sanitize_text(claim_uri)
 
-    if "releaset_time" in claim["value"]:
-        claim_time = claim["value"]["release_time"]
+    if "release_time" in claim["value"]:
+        claim_time = int(claim["value"]["release_time"])
     else:
-        claim_time = claim["timestamp"]
+        claim_time = claim["meta"]["creation_timestamp"]
 
-    claim_time = time.strftime("%Y-%m-%d_%H:%M:%S%z %A",
-                               time.localtime(claim_time))
+    claim_time = time.strftime(funcs.TFMT, time.gmtime(claim_time))
 
     claim_title = claim["value"].get("title", "(None)")
+
     if sanitize:
+        claim_uri = lbryt.sanitize_text(claim_uri)
         claim_title = lbryt.sanitize_text(claim_title)
 
     out = ["canonical_url: " + claim_uri,
