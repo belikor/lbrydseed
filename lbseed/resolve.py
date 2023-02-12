@@ -77,22 +77,26 @@ def i_resolve_ch(validated_chs,
     return resolved_chs
 
 
-def resolve_claims(text, repost=True,
-                   print_msg=True,
-                   server="http://localhost:5279"):
+def i_resolve_claims(text,
+                     repost=True,
+                     print_msg=True,
+                     server="http://localhost:5279"):
     """Resolve claims to see if they actually exist."""
     split_lines = text.splitlines()
     lines = []
 
     for line in split_lines:
         item = line.strip()
+
         if " " in item:
             item = item.replace(" ", "")
+
         if not item:
             continue
+
         lines.append(item)
 
-    claims = []
+    resolved_claims = []
     out = []
 
     for num, line in enumerate(lines, start=1):
@@ -112,13 +116,14 @@ def resolve_claims(text, repost=True,
 
         line = f'"{line}"'
         out += [f'{num:2d}: item={line:58s}  {info}']
-        claims.append(result)
+        resolved_claims.append(result)
 
     if print_msg:
         print("Resolve claims")
         print(80 * "-")
         print("\n".join(out))
-    return claims
+
+    return resolved_claims
 
 
 def resolve_claims_supports(validated_claims,

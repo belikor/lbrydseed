@@ -320,10 +320,10 @@ class Application(ttk.Frame,
         elif page == "Peers":
             text = self.textbox_cls_peers.get("1.0", tk.END)
 
-        claims = res.resolve_claims(text,
-                                    repost=self.check_d_repost.get(),
-                                    print_msg=print_msg,
-                                    server=self.server_var.get())
+        claims = res.i_resolve_claims(text,
+                                      repost=self.check_d_repost.get(),
+                                      print_msg=print_msg,
+                                      server=self.server_var.get())
 
         self.print_done(print_msg=print_msg)
 
@@ -581,10 +581,10 @@ class Application(ttk.Frame,
 
         text = self.textbox_cmnt_claim.get("1.0", tk.END)
 
-        claims = res.resolve_claims(text,
-                                    repost=True,
-                                    print_msg=print_msg,
-                                    server=self.server_var.get())
+        claims = res.i_resolve_claims(text,
+                                      repost=True,
+                                      print_msg=print_msg,
+                                      server=self.server_var.get())
 
         self.print_done(print_msg=print_msg)
 
