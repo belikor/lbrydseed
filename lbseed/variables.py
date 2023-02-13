@@ -58,7 +58,8 @@ class VarsSettings:
 class VarsDownload:
     """Mixin class to provide variables for the download page."""
     def setup_download_vars(self):
-        server = res.get_download_dir(server=self.server_var.get())
+        server = res.get_download_dir(ddir=None,
+                                      server=self.server_var.get())
         self.entry_d_dir = tk.StringVar(value=server)
         self.check_d_own_dir = tk.BooleanVar(value=True)
         self.check_d_save = tk.BooleanVar(value=True)

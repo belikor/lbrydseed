@@ -24,42 +24,15 @@
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
 """Methods to resolve claims and channels."""
-import os
 import requests
 
 import lbrytools as lbryt
+from lbrytools import server_exists
+from lbrytools import get_download_dir
 
-
-def server_exists(server="http://localhost:5279"):
-    """Return True if the server is up, and False if not."""
-    try:
-        requests.post(server)
-    except requests.exceptions.ConnectionError:
-        print(f"Cannot establish connection to 'lbrynet' on {server}")
-        print("Start server with:")
-        print("  lbrynet start")
-        return False
-    return True
-
-
-def get_download_dir(server="http://localhost:5279"):
-    """Get the default download directory for lbrynet."""
-    if not server_exists(server=server):
-        return "~"
-
-    msg = {"method": "settings_get"}
-    out_set = requests.post(server, json=msg).json()
-    ddir = out_set["result"]["download_dir"]
-    return ddir
-
-
-def check_download_dir(ddir=None, server="http://localhost:5279"):
-    old_ddir = str(ddir)
-    if not os.path.exists(ddir):
-        ddir = get_download_dir(server=server)
-        print(f"Directory does not exist: {old_ddir}")
-        print(f"Default directory: {ddir}")
-    return ddir
+# Use of the method so that code checkers don't complain (flake)
+True if server_exists else False
+True if get_download_dir else False
 
 
 def resolve_ch(validated_chs, print_msg=True,

@@ -275,8 +275,8 @@ class Application(ttk.Frame,
 
         validated_chs = self.validate_ch(print_msg=False)
 
-        ddir = res.check_download_dir(ddir=self.entry_d_dir.get(),
-                                      server=self.server_var.get())
+        ddir = res.get_download_dir(ddir=self.entry_d_dir.get(),
+                                    server=self.server_var.get())
         self.entry_d_dir.set(ddir)
 
         resolved_chs = res.resolve_ch(validated_chs, print_msg=print_msg,
@@ -309,8 +309,8 @@ class Application(ttk.Frame,
         page = self.note.tab(self.note.select())["text"]
 
         if page == "Download":
-            ddir = res.check_download_dir(ddir=self.entry_d_dir.get(),
-                                          server=self.server_var.get())
+            ddir = res.get_download_dir(ddir=self.entry_d_dir.get(),
+                                        server=self.server_var.get())
             self.entry_d_dir.set(ddir)
             text = self.textbox_d.get("1.0", tk.END)
         elif page == "Delete":
