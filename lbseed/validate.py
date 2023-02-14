@@ -28,8 +28,17 @@
 
 def validate_input(text,
                    assume_channel=True, number_float=False,
-                   print_msg=False):
-    """Validate the text entered to get channels and numbers."""
+                   print_msg=False,
+                   sep=","):
+    """Validate the text entered to get claims and numbers.
+
+    The `text` has three parts, a claim input (name or claim ID), a separator,
+    and then a number:
+    ::
+        @name, 12345
+        some-claim, 333
+        abcd0000efgh0000ijkl0000mopq0000rstu0000, 7.07
+    """
     lines = text.splitlines()
 
     validated_claims = []
@@ -37,36 +46,40 @@ def validate_input(text,
     out = []
     num = 0
 
-    for claim in lines:
+    for line in lines:
         edited = False
 
-        parts = claim.split(",")
-        parts = [i.strip() for i in parts]
+        parts = line.split(sep)
+        parts = [part.strip() for part in parts]
 
-        claim_name = parts[0]
+        claim_input = parts[0]
+
         try:
             number = parts[1]
         except IndexError:
             number = 2
             edited = True
 
-        if " " in claim_name:
-            claim_name = claim_name.replace(" ", "")
+        if " " in claim_input:
+            claim_input = claim_input.replace(" ", "")
             edited = True
-        if '"' in claim_name:
-            claim_name = claim_name.replace('"', '')
+
+        if '"' in claim_input:
+            claim_input = claim_input.replace('"', '')
             edited = True
+
         if assume_channel:
-            if "'" in claim_name:
-                claim_name = claim_name.replace("'", "")
+            if "'" in claim_input:
+                claim_input = claim_input.replace("'", "")
                 edited = True
 
-        if not claim_name:
+        if not claim_input:
             continue
 
         if not number:
             number = 2
             edited = True
+
         try:
             if number_float:
                 number = round(float(number), 8)
@@ -76,18 +89,19 @@ def validate_input(text,
             number = 2
             edited = True
 
-        if assume_channel and not claim_name.startswith("@"):
-            claim_name = "@" + claim_name
+        if assume_channel and not claim_input.startswith("@"):
+            claim_input = "@" + claim_input
 
         num += 1
-        name = f'"{claim_name}"'
+        c_input = f'"{claim_input}"'
 
         if edited:
-            out += [f"{num:2d}: name={name:58s} number={number}  <-- edited"]
+            out += [f"{num:2d}: input={c_input:58s} number={number}  "
+                    "<-- edited"]
         else:
-            out += [f"{num:2d}: name={name:58s} number={number}"]
+            out += [f"{num:2d}: input={c_input:58s} number={number}"]
 
-        validated_claims.append({"claim": claim_name,
+        validated_claims.append({"claim_input": claim_input,
                                  "number": number})
 
     if print_msg:

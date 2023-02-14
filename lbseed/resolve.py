@@ -37,7 +37,7 @@ def i_resolve_chs(validated_chs,
     out = []
 
     for num, validated_ch in enumerate(validated_chs, start=1):
-        channel = validated_ch["claim"]
+        channel = validated_ch["claim_input"]
         number = validated_ch["number"]
 
         msg = {"method": "resolve",
@@ -136,7 +136,7 @@ def i_resolve_claims_supp(validated_claims,
     out = []
 
     for num, validated_claim in enumerate(validated_claims, start=1):
-        claim = validated_claim["claim"]
+        claim = validated_claim["claim_input"]
         number = validated_claim["number"]
 
         result = lbryt.search_item(claim, print_error=False,
