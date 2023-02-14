@@ -407,11 +407,11 @@ class Application(ttk.Frame,
 
         resolved_ch = resolved_chs[0]
 
-        if "NOT_FOUND" in resolved_ch["info"]:
+        if not resolved_ch["claim"]:
             self.print_done(print_msg=True)
             return False
 
-        ch_name = resolved_ch["info"].split("lbry://")[1]
+        ch_name = resolved_ch["claim"]["canonical_url"].split("lbry://")[1]
         self.print_done(print_msg=print_msg)
 
         return ch_name

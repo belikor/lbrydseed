@@ -40,14 +40,20 @@ def i_download_chs(resolved_chs,
     n_channels = len(resolved_chs)
 
     for num, resolved_ch in enumerate(resolved_chs, start=1):
-        channel = resolved_ch["claim"]
+        # claim_input = resolved_ch["claim_input"]
         number = resolved_ch["number"]
-        information = resolved_ch["info"]
+        claim = resolved_ch["claim"]
 
-        if "NOT_FOUND" in information or "not a valid url" in information:
+        if not claim:
             continue
 
-        print(f"Channel {num}/{n_channels}, '{information}'")
+        info = claim["canonical_url"]
+        channel = claim["canonical_url"].split("lbry://")[1]
+
+        if num > 1:
+            print(80 * "-")
+
+        print(f"Channel {num}/{n_channels}, {info}")
 
         lbryt.ch_download_latest(channel=channel,
                                  number=number,

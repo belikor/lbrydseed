@@ -24,8 +24,6 @@
 # DEALINGS IN THE SOFTWARE.                                                   #
 # --------------------------------------------------------------------------- #
 """Methods to resolve claims and channels."""
-import requests
-
 import lbrytools as lbryt
 
 
@@ -37,37 +35,38 @@ def i_resolve_chs(validated_chs,
     out = []
 
     for num, validated_ch in enumerate(validated_chs, start=1):
-        channel = validated_ch["claim_input"]
+        ch_input = validated_ch["claim_input"]
         number = validated_ch["number"]
 
-        msg = {"method": "resolve",
-               "params": {"urls": channel}}
-        output = requests.post(server, json=msg).json()
+        checked = lbryt.check(uri=ch_input,
+                              repost=True, offline=False,
+                              print_text=False, print_error=False,
+                              server=server)
 
-        if "error" in output:
-            info = output["error"]
+        if not checked["claim"]:
+            checked = lbryt.check(cid=ch_input,
+                                  repost=True, offline=False,
+                                  print_text=False, print_error=False,
+                                  server=server)
+
+        claim = checked["claim"]
+
+        if not claim:
+            info = "<-- claim not found"
         else:
-            item = output["result"][channel]
+            info = claim["canonical_url"]
 
-            if "error" in item:
-                error = item["error"]
-                if "name" in error:
-                    info = "{} {}".format(error["name"], error["text"])
-                else:
-                    info = error
-            else:
-                info = item["canonical_url"]
-
-        chan = f"'{channel}'"
+        c_input = f'"{ch_input}"'
 
         if number is None:
-            out += [f"{num:2d}: name={chan:58s}  {info}"]
+            out += [f"{num:2d}: input={c_input:58s}  {info}"]
         else:
-            out += [f"{num:2d}: name={chan:58s} number={number}  {info}"]
+            out += [f"{num:2d}: input={c_input:58s} number={number}  {info}"]
 
-        resolved_chs.append({"claim": channel,
+        resolved_chs.append({"claim_input": ch_input,
                              "number": number,
-                             "info": info})
+                             "claim": claim,
+                             "summary": checked["summary"]})
 
     if print_msg:
         print("Resolve channels")

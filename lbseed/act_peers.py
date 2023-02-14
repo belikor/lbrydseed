@@ -96,12 +96,14 @@ def i_list_chs_peers(resolved_chs,
     in_channels = []
 
     for resolved_ch in resolved_chs:
-        channel = resolved_ch["claim"]
+        # claim_input = resolved_ch["claim_input"]
         number = resolved_ch["number"]
-        information = resolved_ch["info"]
+        claim = resolved_ch["claim"]
 
-        if "NOT_FOUND" in information or "not a valid url" in information:
+        if not claim:
             continue
+
+        channel = claim["canonical_url"].split("lbry://")[1]
 
         in_channels.append([channel, number])
 
