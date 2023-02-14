@@ -132,7 +132,7 @@ class DeleteChPage:
 
     def setup_info_delch(self, parent, start=0):
         info = ttk.Label(parent,
-                         text=("Add a channel, a comma, "
+                         text=("Add a channel, a semicolon, "
                                "and the number of items to keep "
                                "from this channel.\n"
                                "The N newest claims (by publication date) "

@@ -177,7 +177,7 @@ class SupportAddPage:
                                "we can only add to it.\n"
                                "total = base + ours\n"
                                "\n"
-                               "Add a claim, a comma, "
+                               "Add a claim, a semicolon, "
                                "and then a number that represents "
                                "a support.\n"
                                "The minimum amount is 0.00000001; "
@@ -188,7 +188,7 @@ class SupportAddPage:
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_add_support(self, parent):
-        sep = ","
+        sep = ";"
 
         claims = ["mass-psychosis-how-an-entire-population"
                   + f"{sep}" + " 100",

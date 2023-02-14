@@ -47,7 +47,7 @@ def f_with_event(function):
 
 def set_up_default_channels(clean_up=False):
     """Block of text to populate a Text widget."""
-    sep = ","
+    sep = ";"
 
     channels = ["@OdyseeHelp#b" + f"{sep}" + " 4",
                 "@my-favorite-channel" + f"{sep}" + " 5",

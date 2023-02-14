@@ -29,15 +29,15 @@
 def validate_input(text,
                    assume_channel=True, number_float=False,
                    print_msg=False,
-                   sep=","):
+                   sep=";"):
     """Validate the text entered to get claims and numbers.
 
     The `text` has three parts, a claim input (name or claim ID), a separator,
     and then a number:
     ::
-        @name, 12345
-        some-claim, 333
-        abcd0000efgh0000ijkl0000mopq0000rstu0000, 7.07
+        @name; 12345
+        some-claim; 333
+        abcd0000efgh0000ijkl0000mopq0000rstu0000; 7.07
     """
     lines = text.splitlines()
 
