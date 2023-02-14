@@ -29,8 +29,9 @@ import requests
 import lbrytools as lbryt
 
 
-def resolve_ch(validated_chs, print_msg=True,
-               server="http://localhost:5279"):
+def i_resolve_ch(validated_chs,
+                 print_msg=True,
+                 server="http://localhost:5279"):
     """Resolve input channels to see if they in fact exist."""
     resolved_chs = []
     out = []

@@ -280,8 +280,9 @@ class Application(ttk.Frame,
                                     server=self.server_var.get())
         self.entry_d_dir.set(ddir)
 
-        resolved_chs = res.resolve_ch(validated_chs, print_msg=print_msg,
-                                      server=self.server_var.get())
+        resolved_chs = res.i_resolve_ch(validated_chs,
+                                        print_msg=print_msg,
+                                        server=self.server_var.get())
 
         self.print_done(print_msg=print_msg)
 
@@ -397,15 +398,17 @@ class Application(ttk.Frame,
         validated_chs = [{"claim": channel,
                           "number": None}]
 
-        resolved_chs = res.resolve_ch(validated_chs, print_msg=print_msg,
-                                      server=self.server_var.get())
+        resolved_chs = res.i_resolve_ch(validated_chs,
+                                        print_msg=print_msg,
+                                        server=self.server_var.get())
 
         resolved_ch = resolved_chs[0]
+
         if "NOT_FOUND" in resolved_ch["info"]:
             self.print_done(print_msg=True)
             return False
 
-        channel = resolved_ch["info"].lstrip("lbry://")
+        channel = resolved_ch["info"].split("lbry://")[1]
         self.print_done(print_msg=print_msg)
 
         return channel
