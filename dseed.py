@@ -907,9 +907,9 @@ class Application(ttk.Frame,
 
         resolved_chs = self.resolve_chs(print_msg=False)
 
-        actions.clean_ch(resolved_chs,
-                         what=self.rad_delete_what.get(),
-                         server=self.server_var.get())
+        actions.i_ch_cleanup(resolved_chs,
+                             what=self.rad_delete_what.get(),
+                             server=self.server_var.get())
 
         self.print_done(print_msg=True)
 

@@ -50,10 +50,10 @@ def delete_claims(claims, what="media",
             print()
 
 
-def clean_ch(resolved_chs,
-             what="media",
-             print_msg=True,
-             server="http://localhost:5279"):
+def i_ch_cleanup(resolved_chs,
+                 what="media",
+                 print_msg=True,
+                 server="http://localhost:5279"):
     """Delete claims from channels."""
     if print_msg:
         print("Delete claims from channels")
@@ -70,9 +70,11 @@ def clean_ch(resolved_chs,
             continue
 
         print(f"Channel {num}/{n_channels}, '{information}'")
+
         lbryt.ch_cleanup(channel=channel,
                          number=number,
                          what=what,
                          server=server)
+
         if num < n_channels:
             print()
