@@ -295,12 +295,12 @@ class Application(ttk.Frame,
 
         resolved_chs = self.resolve_chs(print_msg=False)
 
-        actions.download_ch(resolved_chs,
-                            ddir=self.entry_d_dir.get(),
-                            own_dir=self.check_d_own_dir.get(),
-                            save_file=self.check_d_save.get(),
-                            repost=self.check_d_repost.get(),
-                            server=self.server_var.get())
+        actions.i_download_ch(resolved_chs,
+                              ddir=self.entry_d_dir.get(),
+                              own_dir=self.check_d_own_dir.get(),
+                              save_file=self.check_d_save.get(),
+                              repost=self.check_d_repost.get(),
+                              server=self.server_var.get())
 
         self.print_done(print_msg=True)
 

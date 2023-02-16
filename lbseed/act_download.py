@@ -27,11 +27,11 @@
 import lbrytools as lbryt
 
 
-def download_ch(resolved_chs,
-                ddir=None, own_dir=False, save_file=True,
-                repost=True,
-                print_msg=True,
-                server="http://localhost:5279"):
+def i_download_ch(resolved_chs,
+                  ddir=None, own_dir=False, save_file=True,
+                  repost=True,
+                  print_msg=True,
+                  server="http://localhost:5279"):
     """Download claims from channels."""
     if print_msg:
         print("Download claims from channels")
@@ -55,6 +55,7 @@ def download_ch(resolved_chs,
                                  ddir=ddir, own_dir=own_dir,
                                  save_file=save_file,
                                  server=server)
+
         if num < n_channels:
             print()
 
