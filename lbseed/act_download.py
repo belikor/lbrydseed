@@ -60,11 +60,11 @@ def i_download_ch(resolved_chs,
             print()
 
 
-def download_claims(claims,
-                    ddir=None, own_dir=False, save_file=True,
-                    repost=True,
-                    print_msg=True,
-                    server="http://localhost:5279"):
+def i_download_claims(claims,
+                      ddir=None, own_dir=False, save_file=True,
+                      repost=True,
+                      print_msg=True,
+                      server="http://localhost:5279"):
     """Download individual claims."""
     if print_msg:
         print("Download claims")
@@ -77,11 +77,14 @@ def download_claims(claims,
             continue
 
         name = claim["name"]
+
         print(f"Claim {num}/{n_claims}, {name}")
+
         lbryt.download_single(cid=claim["claim_id"],
                               repost=repost,
                               ddir=ddir, own_dir=own_dir,
                               save_file=save_file,
                               server=server)
+
         if num < n_claims:
             print()

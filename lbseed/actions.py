@@ -28,7 +28,7 @@ from lbseed.act_cfg import list_lbrynet_settings
 from lbseed.act_cfg import list_lbrynet_status
 
 from lbseed.act_download import i_download_ch
-from lbseed.act_download import download_claims
+from lbseed.act_download import i_download_claims
 
 from lbseed.act_list import list_d_claims
 from lbseed.act_list import list_ch_claims
@@ -61,7 +61,7 @@ True if list_lbrynet_settings else False
 True if list_lbrynet_status else False
 
 True if i_download_ch else False
-True if download_claims else False
+True if i_download_claims else False
 
 True if list_d_claims else False
 True if list_ch_claims else False

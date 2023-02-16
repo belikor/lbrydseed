@@ -336,12 +336,13 @@ class Application(ttk.Frame,
             return False
 
         claims = self.resolve_claims(print_msg=False)
-        actions.download_claims(claims,
-                                ddir=self.entry_d_dir.get(),
-                                own_dir=self.check_d_own_dir.get(),
-                                save_file=self.check_d_save.get(),
-                                repost=self.check_d_repost.get(),
-                                server=self.server_var.get())
+
+        actions.i_download_claims(claims,
+                                  ddir=self.entry_d_dir.get(),
+                                  own_dir=self.check_d_own_dir.get(),
+                                  save_file=self.check_d_save.get(),
+                                  repost=self.check_d_repost.get(),
+                                  server=self.server_var.get())
 
         self.print_done(print_msg=True)
 
