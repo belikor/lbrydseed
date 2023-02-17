@@ -48,7 +48,7 @@ from lbseed.act_peers import list_chs_peers
 from lbseed.act_peers import list_subs_peers
 from lbseed.act_peers import seeding_ratio
 
-from lbseed.act_delete import delete_claims
+from lbseed.act_delete import i_delete_claims
 from lbseed.act_delete import i_ch_cleanup
 
 from lbseed.act_supports import list_supports
@@ -81,7 +81,7 @@ True if list_chs_peers else False
 True if list_subs_peers else False
 True if seeding_ratio else False
 
-True if delete_claims else False
+True if i_delete_claims else False
 True if i_ch_cleanup else False
 
 True if list_supports else False

@@ -894,9 +894,10 @@ class Application(ttk.Frame,
             return False
 
         claims = self.resolve_claims(print_msg=False)
-        actions.delete_claims(claims,
-                              what=self.rad_delete_what.get(),
-                              server=self.server_var.get())
+
+        actions.i_delete_claims(claims,
+                                what=self.rad_delete_what.get(),
+                                server=self.server_var.get())
 
         self.print_done(print_msg=True)
 

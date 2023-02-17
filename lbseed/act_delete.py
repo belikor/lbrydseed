@@ -27,9 +27,10 @@
 import lbrytools as lbryt
 
 
-def delete_claims(claims, what="media",
-                  print_msg=True,
-                  server="http://localhost:5279"):
+def i_delete_claims(claims,
+                    what="media",
+                    print_msg=True,
+                    server="http://localhost:5279"):
     """Delete individual claims."""
     if print_msg:
         print("Delete claims")
@@ -42,10 +43,13 @@ def delete_claims(claims, what="media",
             continue
 
         name = claim["name"]
+
         print(f"Claim {num}/{n_claims}, {name}")
+
         lbryt.delete_single(cid=claim["claim_id"],
                             what=what,
                             server=server)
+
         if num < n_claims:
             print()
 
