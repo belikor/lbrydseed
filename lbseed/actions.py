@@ -38,7 +38,7 @@ from lbseed.act_list import list_pub_claims
 from lbseed.act_list import ctrl_claims
 
 from lbseed.act_comments import i_list_comments
-from lbseed.act_comments import show_comment
+from lbseed.act_comments import i_show_comment
 from lbseed.act_comments import show_no_comment
 from lbseed.act_comments import act_comment
 
@@ -71,7 +71,7 @@ True if list_pub_claims else False
 True if ctrl_claims else False
 
 True if i_list_comments else False
-True if show_comment else False
+True if i_show_comment else False
 True if show_no_comment else False
 True if act_comment else False
 

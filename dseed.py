@@ -649,7 +649,7 @@ class Application(ttk.Frame,
             cmnt_data["index"] = self.cmnt_index.get()
             cmnt_data["claim"] = self.comment_claim
             self.comment_id = cmnt_data["comment_id"]
-            content = actions.show_comment(cmnt_data)
+            content = actions.i_show_comment(cmnt_data)
 
             rep_bx = self.textbox_cmnt_rep.get("1.0", tk.END)
             option = self.rad_rep_opt.get()

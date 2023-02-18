@@ -127,7 +127,7 @@ def i_list_comments(resolved_claim,
             "summary": summary}
 
 
-def show_comment(cmnt_data, sanitize=True):
+def i_show_comment(cmnt_data, sanitize=True):
     """Get the output of a single comment."""
     index = cmnt_data["index"] + 1
 
