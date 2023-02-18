@@ -143,27 +143,29 @@ def i_resolve_claims_supp(validated_claims,
     out = []
 
     for num, validated_claim in enumerate(validated_claims, start=1):
-        claim = validated_claim["claim_input"]
+        claim_input = validated_claim["claim_input"]
         number = validated_claim["number"]
 
-        result = lbryt.search_item(claim, print_error=False,
-                                   server=server)
+        checked = lbryt.check(uri=claim_input,
+                              repost=True, offline=False,
+                              print_text=False, print_error=False,
+                              server=server)
 
-        if not result:
-            result = lbryt.search_item(cid=claim, print_error=False,
-                                       server=server)
+        if not checked["claim"]:
+            checked = lbryt.check(cid=claim_input,
+                                  repost=True, offline=False,
+                                  print_text=False, print_error=False,
+                                  server=server)
 
-        if not result:
+        claim = checked["claim"]
+
+        if not claim:
             info = "<-- claim not found"
         else:
-            info = result["canonical_url"]
-
-            resolved_claims.append({"claim": claim,
-                                    "number": number,
-                                    "resolved": result})
+            info = claim["canonical_url"]
 
             if show_support:
-                supp = lbryt.get_base_support(info)
+                supp = lbryt.get_base_support(claim["canonical_url"])
 
                 existing = supp["existing_support"]
                 base = supp["base_support"]
@@ -174,9 +176,18 @@ def i_resolve_claims_supp(validated_claims,
                          f"base: {base:.8f}{sep} "
                          f"old: {old:.8f}")
 
-        claim = f'"{claim}"'
+        c_input = f'"{claim_input}"'
 
-        out += [f'{num:2d}: item={claim:58s}  {info}']
+        if number is None:
+            out += [f"{num:2d}: input={c_input:58s}  {info}"]
+        else:
+            out += [f"{num:2d}: input={c_input:58s} "
+                    f"number={number}{sep} {info}"]
+
+        resolved_claims.append({"claim_input": claim_input,
+                                "number": number,
+                                "claim": claim,
+                                "summary": checked["summary"]})
 
     if print_msg:
         print("Resolve claims")

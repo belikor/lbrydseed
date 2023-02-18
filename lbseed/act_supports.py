@@ -77,42 +77,48 @@ def i_update_supports(resolved_claims, support_style="create",
         invalids = all_supports['invalid_supports']
 
     for num, resolved_claim in enumerate(resolved_claims, start=1):
+        claim_input = resolved_claim["claim_input"]
         number = resolved_claim["number"]
+        claim = resolved_claim["claim"]
 
-        if invalid:
-            name = resolved_claim["claim"]
+        if invalid or not claim:
+            info = claim_input[:]
         else:
-            claim = resolved_claim["resolved"]
-            name = claim["name"]
+            info = claim["canonical_url"]
 
-        print(f"Claim {num}/{n_claims}, {name}")
-        if support_style in ("create"):
-            lbryt.create_support(cid=claim["claim_id"],
-                                 amount=number,
-                                 server=server)
-        elif support_style in ("abandon_change"):
-            if invalid:
-                result = lbryt.abandon_support_inv(invalids=invalids,
-                                                   cid=name,
-                                                   keep=number,
-                                                   threads=threads,
-                                                   server=server)
-                if not result:
-                    lbryt.abandon_support_inv(invalids=invalids,
-                                              name=name,
-                                              keep=number,
-                                              threads=threads,
-                                              server=server)
-            else:
+        if num > 1:
+            print(80 * "-")
+
+        print(f"Claim {num}/{n_claims}, {info}")
+
+        if claim:
+            if support_style in ("create"):
+                lbryt.create_support(cid=claim["claim_id"],
+                                     amount=number,
+                                     server=server)
+            elif support_style in ("abandon_change"):
                 lbryt.abandon_support(cid=claim["claim_id"],
                                       keep=number,
                                       server=server)
-        elif support_style in ("target"):
-            lbryt.target_support(cid=claim["claim_id"],
-                                 target=number,
-                                 server=server)
-        else:
-            print(f"Wrong option: {support_style}")
+            elif support_style in ("target"):
+                lbryt.target_support(cid=claim["claim_id"],
+                                     target=number,
+                                     server=server)
+        elif not claim and invalid:
+            result = lbryt.abandon_support_inv(invalids=invalids,
+                                               cid=info,
+                                               keep=number,
+                                               threads=threads,
+                                               server=server)
+
+            if not result:
+                lbryt.abandon_support_inv(invalids=invalids,
+                                          name=info,
+                                          keep=number,
+                                          threads=threads,
+                                          server=server)
+        elif not claim and not invalid:
+            print("Not a valid claim, skipping")
 
         if num < n_claims:
             print()
