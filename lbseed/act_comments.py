@@ -78,9 +78,9 @@ def get_r_list(comments, cmnt_info=None, indent=0, sanitize=False):
     return cmnt_info
 
 
-def list_comments(resolved_claim,
-                  comm_server="https://comments.odysee.com/api/v2",
-                  server="http://localhost:5279"):
+def i_list_comments(resolved_claim,
+                    comm_server="https://comments.odysee.com/api/v2",
+                    server="http://localhost:5279"):
     """Get all comments from a specific claim."""
     cid = resolved_claim["claim_id"]
 

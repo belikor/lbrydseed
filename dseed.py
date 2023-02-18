@@ -607,9 +607,9 @@ class Application(ttk.Frame,
             self.print_done(print_msg=True)
             return {"error_no_claim": True}
 
-        result = actions.list_comments(active_claim,
-                                       comm_server=self.cmnt_server.get(),
-                                       server=self.server_var.get())
+        result = actions.i_list_comments(active_claim,
+                                         comm_server=self.cmnt_server.get(),
+                                         server=self.server_var.get())
 
         self.comment_claim = result["claim"]
         self.comments = result["comments"]
