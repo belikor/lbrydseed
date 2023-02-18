@@ -679,7 +679,7 @@ class Application(ttk.Frame,
                 self.last_rad_rep_opt.set(option)
                 print("updated: ", self.last_rad_rep_opt.get())
         else:
-            content = actions.show_no_comment(self.comment_claim)
+            content = actions.i_show_no_comment(self.comment_claim)
 
         self.textbox_cmnt.replace("1.0", tk.END, content)
         self.textbox_cmnt2.replace("1.0", tk.END, content)

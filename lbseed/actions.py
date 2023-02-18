@@ -39,7 +39,7 @@ from lbseed.act_list import ctrl_claims
 
 from lbseed.act_comments import i_list_comments
 from lbseed.act_comments import i_show_comment
-from lbseed.act_comments import show_no_comment
+from lbseed.act_comments import i_show_no_comment
 from lbseed.act_comments import act_comment
 
 from lbseed.act_peers import list_m_peers
@@ -72,7 +72,7 @@ True if ctrl_claims else False
 
 True if i_list_comments else False
 True if i_show_comment else False
-True if show_no_comment else False
+True if i_show_no_comment else False
 True if act_comment else False
 
 True if list_m_peers else False

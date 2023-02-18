@@ -184,7 +184,7 @@ def i_show_comment(cmnt_data, sanitize=True):
     return content
 
 
-def show_no_comment(claim, sanitize=True):
+def i_show_no_comment(claim, sanitize=True):
     """Get basic output when the claim has no comments."""
     claim_uri = claim["canonical_url"]
 
