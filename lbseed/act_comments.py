@@ -213,12 +213,12 @@ def i_show_no_comment(claim, sanitize=True):
     return content
 
 
-def act_comment(cmnt_in,
-                action="create",
-                cmnt_reply="reply",
-                wallet_id="default_wallet",
-                comm_server="https://comments.odysee.com/api/v2",
-                server="http://localhost:5279"):
+def i_act_comment(cmnt_in,
+                  action="create",
+                  cmnt_reply="reply",
+                  wallet_id="default_wallet",
+                  comm_server="https://comments.odysee.com/api/v2",
+                  server="http://localhost:5279"):
     """Perform an action on the comment."""
     cid = cmnt_in["claim"]["claim_id"]
 

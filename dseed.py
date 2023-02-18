@@ -753,11 +753,11 @@ class Application(ttk.Frame,
                    "author": self.cmb_rep_author.get(),
                    "comment_id": self.comment_id}
 
-        output = actions.act_comment(cmnt_in=cmnt_in,
-                                     action=self.rad_rep_opt.get(),
-                                     cmnt_reply=self.rad_rep_curr.get(),
-                                     comm_server=self.cmnt_server.get(),
-                                     server=self.server_var.get())
+        output = actions.i_act_comment(cmnt_in,
+                                       action=self.rad_rep_opt.get(),
+                                       cmnt_reply=self.rad_rep_curr.get(),
+                                       comm_server=self.cmnt_server.get(),
+                                       server=self.server_var.get())
 
         self.lab_rep_status.set(output["status"])
         self.print_done(print_msg=True)
