@@ -37,11 +37,26 @@ def i_list_m_peers(resolved_claims,
     """Print peers for claims into a temporary file and read that file."""
     in_claims = []
 
-    for resolved_claim in resolved_claims:
-        if not resolved_claim:
-            continue
+    n_claims = len(resolved_claims)
 
-        in_claims.append(resolved_claim)
+    for num, resolved_claim in enumerate(resolved_claims, start=1):
+        claim_input = resolved_claim["claim_input"]
+        claim = resolved_claim["claim"]
+
+        if not claim:
+            info = claim_input[:]
+            in_claims.append({"resolved": False,
+                              "original": info})
+        else:
+            info = claim["canonical_url"]
+            in_claims.append(claim)
+
+        print(f"Claim {num}/{n_claims}, {info}")
+
+        if not claim:
+            print("Not a valid claim, no peers will be found")
+
+        print()
 
     if not in_claims:
         return {"summary": "Invalid list of claims",

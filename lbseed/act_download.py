@@ -84,18 +84,24 @@ def i_download_claims(resolved_claims,
     n_claims = len(resolved_claims)
 
     for num, resolved_claim in enumerate(resolved_claims, start=1):
-        if not resolved_claim:
-            continue
+        claim_input = resolved_claim["claim_input"]
+        claim = resolved_claim["claim"]
 
-        name = resolved_claim["name"]
+        if not claim:
+            info = claim_input[:]
+        else:
+            info = claim["canonical_url"]
 
-        print(f"Claim {num}/{n_claims}, {name}")
+        print(f"Claim {num}/{n_claims}, {info}")
 
-        lbryt.download_single(cid=resolved_claim["claim_id"],
-                              repost=repost,
-                              ddir=ddir, own_dir=own_dir,
-                              save_file=save_file,
-                              server=server)
+        if claim:
+            lbryt.download_single(cid=claim["claim_id"],
+                                  repost=repost,
+                                  ddir=ddir, own_dir=own_dir,
+                                  save_file=save_file,
+                                  server=server)
+        else:
+            print("Not a valid claim, skipping")
 
         if num < n_claims:
             print()

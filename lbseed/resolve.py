@@ -99,23 +99,31 @@ def i_resolve_claims(text,
     out = []
 
     for num, line in enumerate(lines, start=1):
-        result = lbryt.search_item(uri=line, repost=repost,
-                                   print_error=False,
-                                   server=server)
+        checked = lbryt.check(uri=line,
+                              repost=repost, offline=False,
+                              print_text=False, print_error=False,
+                              server=server)
 
-        if not result:
-            result = lbryt.search_item(cid=line, repost=repost,
-                                       print_error=False,
-                                       server=server)
+        if not checked["claim"]:
+            checked = lbryt.check(cid=line,
+                                  repost=repost, offline=False,
+                                  print_text=False, print_error=False,
+                                  server=server)
 
-        if not result:
+        claim = checked["claim"]
+
+        if not claim:
             info = "<-- claim not found"
         else:
-            info = result["canonical_url"]
+            info = claim["canonical_url"]
 
-        line = f'"{line}"'
-        out += [f'{num:2d}: item={line:58s}  {info}']
-        resolved_claims.append(result)
+        c_input = f'"{line}"'
+
+        out += [f'{num:2d}: input={c_input:58s}  {info}']
+
+        resolved_claims.append({"claim_input": line,
+                                "claim": claim,
+                                "summary": checked["summary"]})
 
     if print_msg:
         print("Resolve claims")

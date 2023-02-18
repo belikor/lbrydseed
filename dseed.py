@@ -604,7 +604,7 @@ class Application(ttk.Frame,
 
         resolved_claims = self.resolve_claim_cmnt(print_msg=False)
 
-        active_claim = resolved_claims[0]
+        active_claim = resolved_claims[0]["claim"]
 
         if not active_claim:
             print("No valid claim")
