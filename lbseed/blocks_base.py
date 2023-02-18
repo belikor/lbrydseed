@@ -75,15 +75,19 @@ def set_up_default_claims(clean_up=False):
     claims = ["this-is-a-fake-claim",
               "livestream-tutorial:b",
               "abcd0000efgh0000ijkl0000mopq0000rstu0000",
+              "blockchain-turns-5",
               "8e16d91185aa4f1cd797f93d7714de2a22622759",
-              "LBRYPlaylists#d"]
+              "LBRYPlaylists#d",
+              "@lbrytech#19/ieee#e"]
 
     if clean_up:
         claims = ["abcd0000efgh0000ijkl0000mopq0000rstu0000",
                   "LBRYPlaylists#d",
                   "this-is-a-fake-claim",
+                  "blockchain-turns-5",
                   "livestream-tutorial:b",
-                  "8e16d91185aa4f1cd797f93d7714de2a22622759"]
+                  "8e16d91185aa4f1cd797f93d7714de2a22622759",
+                  "@lbrytech#19/ieee#e"]
 
     claims = "\n".join(claims)
     return claims
