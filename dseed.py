@@ -617,7 +617,10 @@ class Application(ttk.Frame,
         self.lstbox_cmnt.see(0)
         self.lstbox_cmnt.focus()
 
-        self.lab_rep_status.set("Status: claim lodaded")
+        loaded = active_claim["canonical_url"].split("lbry://")[1]
+        loaded = '"' + hlp.sanitize_text(loaded) + '"'
+
+        self.lab_rep_status.set(f"Status: claim loaded, {loaded}")
         self.show_comment(print_msg=False)
         self.print_done(print_msg=True)
 

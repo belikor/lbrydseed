@@ -25,8 +25,10 @@
 # --------------------------------------------------------------------------- #
 """Basic auxiliary methods."""
 from lbrytools import (server_exists,
-                       get_download_dir)
+                       get_download_dir,
+                       sanitize_text)
 
 # Use of the method so that code checkers don't complain (flake)
 True if server_exists else False
 True if get_download_dir else False
+True if sanitize_text else False
