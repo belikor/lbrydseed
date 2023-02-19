@@ -828,10 +828,10 @@ class Application(ttk.Frame,
         resolved_chs = self.resolve_chs(print_msg=False)
 
         output = \
-            actions.list_chs_peers(resolved_chs,
-                                   ch_threads=self.spin_chs_ch_threads.get(),
-                                   cl_threads=self.spin_chs_cl_threads.get(),
-                                   server=self.server_var.get())
+            actions.i_list_chs_peers(resolved_chs,
+                                     ch_threads=self.spin_chs_ch_threads.get(),
+                                     cl_threads=self.spin_chs_cl_threads.get(),
+                                     server=self.server_var.get())
 
         content = output["summary"] + "\n"
         content += 80 * "-" + "\n"

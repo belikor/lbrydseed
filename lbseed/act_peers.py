@@ -89,11 +89,11 @@ def i_list_ch_peers(channel=None, number=2, threads=32,
             "lines": lines}
 
 
-def list_chs_peers(resolved_chs,
-                   ch_threads=8, cl_threads=32,
-                   server="http://localhost:5279"):
+def i_list_chs_peers(resolved_chs,
+                     ch_threads=8, cl_threads=32,
+                     server="http://localhost:5279"):
     """Print peers for claims into a temporary file and read that file."""
-    i_channels = []
+    in_channels = []
 
     for resolved_ch in resolved_chs:
         channel = resolved_ch["claim"]
@@ -103,14 +103,14 @@ def list_chs_peers(resolved_chs,
         if "NOT_FOUND" in information or "not a valid url" in information:
             continue
 
-        i_channels.append([channel, number])
+        in_channels.append([channel, number])
 
-    if not i_channels:
+    if not in_channels:
         return {"summary": "Invalid list of channels",
                 "lines": "At least one channel must exist"}
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
-        ch_peers_info = lbryt.list_chs_peers(channels=i_channels,
+        ch_peers_info = lbryt.list_chs_peers(channels=in_channels,
                                              number=None, shuffle=False,
                                              ch_threads=ch_threads,
                                              claim_threads=cl_threads,
