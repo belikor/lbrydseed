@@ -921,13 +921,13 @@ class Application(ttk.Frame,
             return False
 
         content = \
-            actions.list_supports(show_ch=self.check_s_ch.get(),
-                                  show_claims=self.check_s_claims.get(),
-                                  show_cid=self.check_s_cid.get(),
-                                  show_combined=self.check_s_combine.get(),
-                                  show_invalid=self.check_s_invalid.get(),
-                                  threads=self.spin_s_threads.get(),
-                                  server=self.server_var.get())
+            actions.i_list_supports(show_ch=self.check_s_ch.get(),
+                                    show_claims=self.check_s_claims.get(),
+                                    show_cid=self.check_s_cid.get(),
+                                    show_combined=self.check_s_combine.get(),
+                                    show_invalid=self.check_s_invalid.get(),
+                                    threads=self.spin_s_threads.get(),
+                                    server=self.server_var.get())
 
         self.textbox_supports.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)

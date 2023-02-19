@@ -29,15 +29,15 @@ import tempfile
 import lbrytools as lbryt
 
 
-def list_supports(show_ch=False,
-                  show_claims=True,
-                  show_cid=False,
-                  show_combined=True,
-                  show_invalid=False,
-                  sanitize=True,
-                  threads=32,
-                  print_msg=True,
-                  server="http://localhost:5279"):
+def i_list_supports(show_ch=False,
+                    show_claims=True,
+                    show_cid=False,
+                    show_combined=True,
+                    show_invalid=False,
+                    sanitize=True,
+                    threads=32,
+                    print_msg=True,
+                    server="http://localhost:5279"):
     """List supports."""
     if print_msg:
         print("List all supported claims")
@@ -55,6 +55,7 @@ def list_supports(show_ch=False,
                             server=server)
         fp.seek(0)
         content = fp.read()
+
     return content
 
 
