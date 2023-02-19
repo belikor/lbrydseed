@@ -967,18 +967,18 @@ class Application(ttk.Frame,
 
         return resolved_claims
 
-    def add_supports(self):
+    def update_supports(self):
         """Add supports to claims, either channels or streams."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         resolved_claims = self.resolve_g_claims(print_msg=False)
 
-        actions.add_supports(resolved_claims,
-                             support_style=self.rad_s_support.get(),
-                             invalid=self.check_s_supp_inv.get(),
-                             threads=self.spin_s_threads.get(),
-                             server=self.server_var.get())
+        actions.i_update_supports(resolved_claims,
+                                  support_style=self.rad_s_support.get(),
+                                  invalid=self.check_s_supp_inv.get(),
+                                  threads=self.spin_s_threads.get(),
+                                  server=self.server_var.get())
 
         self.print_done(print_msg=True)
 

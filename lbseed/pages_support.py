@@ -141,7 +141,7 @@ class SupportAddPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="Add or remove support",
-                                b_command=self.add_supports,
+                                b_command=self.update_supports,
                                 l_text=("Create a new support, "
                                         "add or remove support"),
                                 start=start+2)

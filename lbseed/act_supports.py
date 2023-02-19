@@ -59,14 +59,14 @@ def i_list_supports(show_ch=False,
     return content
 
 
-def add_supports(resolved_claims, support_style="create",
-                 invalid=False,
-                 threads=32,
-                 print_msg=True,
-                 server="http://localhost:5279"):
+def i_update_supports(resolved_claims, support_style="create",
+                      invalid=False,
+                      threads=32,
+                      print_msg=True,
+                      server="http://localhost:5279"):
     """Add supports to the claims."""
     if print_msg:
-        print("Add supports")
+        print("Update supports")
         print(80 * "-")
 
     n_claims = len(resolved_claims)

@@ -52,7 +52,7 @@ from lbseed.act_delete import i_delete_claims
 from lbseed.act_delete import i_ch_cleanup
 
 from lbseed.act_supports import i_list_supports
-from lbseed.act_supports import add_supports
+from lbseed.act_supports import i_update_supports
 
 from lbseed.act_search import list_trending
 from lbseed.act_search import list_search
@@ -85,7 +85,7 @@ True if i_delete_claims else False
 True if i_ch_cleanup else False
 
 True if i_list_supports else False
-True if add_supports else False
+True if i_update_supports else False
 
 True if list_trending else False
 True if list_search else False
