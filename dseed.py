@@ -801,15 +801,15 @@ class Application(ttk.Frame,
             return False
 
         output = \
-            actions.list_ch_peers(channel=self.entry_chl_chan.get(),
-                                  number=self.spin_ch_peers_num.get(),
-                                  threads=self.spin_cls_peers_threads.get(),
-                                  claim_id=self.chck_cls_peers_cid.get(),
-                                  typ=self.chck_cls_peers_type.get(),
-                                  title=self.chck_cls_peers_title.get(),
-                                  pars=self.chck_peers_pars.get(),
-                                  sanitize=True,
-                                  server=self.server_var.get())
+            actions.i_list_ch_peers(channel=channel,
+                                    number=self.spin_ch_peers_num.get(),
+                                    threads=self.spin_cls_peers_threads.get(),
+                                    claim_id=self.chck_cls_peers_cid.get(),
+                                    typ=self.chck_cls_peers_type.get(),
+                                    title=self.chck_cls_peers_title.get(),
+                                    pars=self.chck_peers_pars.get(),
+                                    sanitize=True,
+                                    server=self.server_var.get())
 
         if not output["lines"]:
             output["lines"] = "No claims found"

@@ -66,10 +66,10 @@ def i_list_m_peers(resolved_claims,
             "lines": lines}
 
 
-def list_ch_peers(channel=None, number=2, threads=32,
-                  claim_id=False, typ=True, title=False,
-                  pars=False, sanitize=True,
-                  server="http://localhost:5279"):
+def i_list_ch_peers(channel=None, number=2, threads=32,
+                    claim_id=False, typ=True, title=False,
+                    pars=False, sanitize=True,
+                    server="http://localhost:5279"):
     """Print peers for claims into a temporary file and read that file."""
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         peers_info = lbryt.list_ch_peers(channel=channel, number=number,
