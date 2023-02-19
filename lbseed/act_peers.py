@@ -159,8 +159,8 @@ def i_list_subs_peers(number=2,
             "lines": lines}
 
 
-def seeding_ratio(frame=None, plot_hst_var=True,
-                  server="http://localhost:5279"):
+def i_seeding_ratio(frame=None, plot_hst_var=True,
+                    server="http://localhost:5279"):
     """List seeding ratio estimate."""
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         lbryt.print_blobs_ratio(data_dir=None,

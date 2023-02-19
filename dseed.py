@@ -882,9 +882,9 @@ class Application(ttk.Frame,
                 frame.deiconify()
 
         content = \
-            actions.seeding_ratio(frame=frame,
-                                  plot_hst_var=self.check_seed_plot.get(),
-                                  server=self.server_var.get())
+            actions.i_seeding_ratio(frame=frame,
+                                    plot_hst_var=self.check_seed_plot.get(),
+                                    server=self.server_var.get())
 
         self.textbox_seed.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
