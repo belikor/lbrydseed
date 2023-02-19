@@ -393,7 +393,7 @@ class ListSubsPeersPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="List subscribed channels peers",
-                                b_command=self.list_subs_peers,
+                                b_command=self.list_ch_subs_peers,
                                 l_text=("List peers for claims belonging to "
                                         "our subscribed channels,\n"
                                         "starting from the newest claims, "
@@ -404,7 +404,7 @@ class ListSubsPeersPage:
                               frm=0, to=100E3, incr=1,
                               default=50,
                               s_text_var=self.spin_ch_peers_num,
-                              s_command=self.list_subs_peers,
+                              s_command=self.list_ch_subs_peers,
                               l_text=("Number of claims to search "
                                       "for peers in each subscribed "
                                       "channel"),
@@ -414,7 +414,7 @@ class ListSubsPeersPage:
                               frm=0, to=512, incr=1,
                               default=32,
                               s_text_var=self.spin_subs_ch_threads,
-                              s_command=self.list_subs_peers,
+                              s_command=self.list_ch_subs_peers,
                               l_text=("Number of threads to process "
                                       "channels in parallel; "
                                       "use 0 to avoid threads"),
@@ -424,7 +424,7 @@ class ListSubsPeersPage:
                               frm=0, to=512, incr=1,
                               default=16,
                               s_text_var=self.spin_subs_cl_threads,
-                              s_command=self.list_subs_peers,
+                              s_command=self.list_ch_subs_peers,
                               l_text=("Number of threads to process "
                                       "claims in parallel "
                                       "and find peers; "

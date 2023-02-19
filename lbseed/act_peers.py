@@ -126,10 +126,10 @@ def i_list_chs_peers(resolved_chs,
             "lines": lines}
 
 
-def list_subs_peers(number=2,
-                    shared="shared", show="show_all",
-                    ch_threads=32, c_threads=16,
-                    server="http://localhost:5279"):
+def i_list_subs_peers(number=2,
+                      shared="shared", show="show_all",
+                      ch_thrs=32, c_thrs=16,
+                      server="http://localhost:5279"):
     """Print peers for claims from subscribed channels."""
     if shared in ("shared"):
         database = True
@@ -145,8 +145,8 @@ def list_subs_peers(number=2,
         ch_peers_info = lbryt.list_ch_subs_peers(number=number, shuffle=False,
                                                  start=1, end=0,
                                                  shared=database, valid=valid,
-                                                 ch_threads=ch_threads,
-                                                 claim_threads=c_threads,
+                                                 ch_threads=ch_thrs,
+                                                 claim_threads=c_thrs,
                                                  file=fp.name, fdate=False,
                                                  sep=";",
                                                  server=server)

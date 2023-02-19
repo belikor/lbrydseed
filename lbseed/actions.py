@@ -45,7 +45,7 @@ from lbseed.act_comments import i_act_comment
 from lbseed.act_peers import i_list_m_peers
 from lbseed.act_peers import i_list_ch_peers
 from lbseed.act_peers import i_list_chs_peers
-from lbseed.act_peers import list_subs_peers
+from lbseed.act_peers import i_list_subs_peers
 from lbseed.act_peers import seeding_ratio
 
 from lbseed.act_delete import i_delete_claims
@@ -78,7 +78,7 @@ True if i_act_comment else False
 True if i_list_m_peers else False
 True if i_list_ch_peers else False
 True if i_list_chs_peers else False
-True if list_subs_peers else False
+True if i_list_subs_peers else False
 True if seeding_ratio else False
 
 True if i_delete_claims else False

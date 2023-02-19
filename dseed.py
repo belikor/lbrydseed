@@ -839,7 +839,7 @@ class Application(ttk.Frame,
         self.textbox_chs_peers_out.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
-    def list_subs_peers(self):
+    def list_ch_subs_peers(self):
         """Print peers from our list of subscribed channels."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
@@ -849,12 +849,12 @@ class Application(ttk.Frame,
             print("Number of claims set to: 1")
 
         output = \
-            actions.list_subs_peers(number=self.spin_ch_peers_num.get(),
-                                    shared=self.rad_subs_pr_shared.get(),
-                                    show=self.rad_subs_pr_show.get(),
-                                    ch_threads=self.spin_subs_ch_threads.get(),
-                                    c_threads=self.spin_subs_cl_threads.get(),
-                                    server=self.server_var.get())
+            actions.i_list_subs_peers(number=self.spin_ch_peers_num.get(),
+                                      shared=self.rad_subs_pr_shared.get(),
+                                      show=self.rad_subs_pr_show.get(),
+                                      ch_thrs=self.spin_subs_ch_threads.get(),
+                                      c_thrs=self.spin_subs_cl_threads.get(),
+                                      server=self.server_var.get())
 
         content = output["summary"] + "\n"
         content += 80 * "-" + "\n"
