@@ -29,17 +29,17 @@ import tempfile
 import lbrytools as lbryt
 
 
-def list_trending(threads=32,
-                  page=0,
-                  claim_type=None,
-                  video_stream=False, audio_stream=False,
-                  doc_stream=False, img_stream=False,
-                  bin_stream=False, model_stream=False,
-                  create=False, height=False, release=True,
-                  claim_id=False, typ=True, ch_name=True,
-                  sizes=True, supports=False, fees=True,
-                  title=False, sanitize=True,
-                  server="http://localhost:5279"):
+def i_list_trending(threads=32,
+                    page=0,
+                    claim_type=None,
+                    video_stream=False, audio_stream=False,
+                    doc_stream=False, img_stream=False,
+                    bin_stream=False, model_stream=False,
+                    create=False, height=False, release=True,
+                    claim_id=False, typ=True, ch_name=True,
+                    sizes=True, supports=False, fees=True,
+                    title=False, sanitize=True,
+                    server="http://localhost:5279"):
     """Print trending claims in the network with different options."""
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         claims_info = \
