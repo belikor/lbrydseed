@@ -1036,34 +1036,34 @@ class Application(ttk.Frame,
         self.textbox_trend.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
 
-    def list_search(self):
+    def list_search_claims(self):
         """Show the results of a search."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        output = actions.list_search(threads=self.spin_sr_threads.get(),
-                                     page=self.spin_sr_page.get(),
-                                     text=self.sr_entry.get(),
-                                     tags=self.sr_entry_tags.get(),
-                                     claim_type=self.rad_sr_claim.get(),
-                                     video_stream=self.chck_sr_vid.get(),
-                                     audio_stream=self.chck_sr_audio.get(),
-                                     doc_stream=self.chck_sr_doc.get(),
-                                     img_stream=self.chck_sr_img.get(),
-                                     bin_stream=self.chck_sr_bin.get(),
-                                     model_stream=self.chck_sr_model.get(),
-                                     create=self.chck_sr_create.get(),
-                                     height=self.chck_sr_height.get(),
-                                     release=self.chck_sr_release.get(),
-                                     claim_id=self.chck_sr_cid.get(),
-                                     typ=self.chck_sr_typ.get(),
-                                     ch_name=self.chck_sr_chname.get(),
-                                     sizes=self.chck_sr_sizes.get(),
-                                     supports=self.chck_sr_supp.get(),
-                                     fees=self.chck_sr_fees.get(),
-                                     title=self.chck_sr_title.get(),
-                                     sanitize=True,
-                                     server=self.server_var.get())
+        output = actions.i_list_search(threads=self.spin_sr_threads.get(),
+                                       page=self.spin_sr_page.get(),
+                                       text=self.sr_entry.get(),
+                                       tags=self.sr_entry_tags.get(),
+                                       claim_type=self.rad_sr_claim.get(),
+                                       video_stream=self.chck_sr_vid.get(),
+                                       audio_stream=self.chck_sr_audio.get(),
+                                       doc_stream=self.chck_sr_doc.get(),
+                                       img_stream=self.chck_sr_img.get(),
+                                       bin_stream=self.chck_sr_bin.get(),
+                                       model_stream=self.chck_sr_model.get(),
+                                       create=self.chck_sr_create.get(),
+                                       height=self.chck_sr_height.get(),
+                                       release=self.chck_sr_release.get(),
+                                       claim_id=self.chck_sr_cid.get(),
+                                       typ=self.chck_sr_typ.get(),
+                                       ch_name=self.chck_sr_chname.get(),
+                                       sizes=self.chck_sr_sizes.get(),
+                                       supports=self.chck_sr_supp.get(),
+                                       fees=self.chck_sr_fees.get(),
+                                       title=self.chck_sr_title.get(),
+                                       sanitize=True,
+                                       server=self.server_var.get())
 
         content = output["searched"] + "\n"
         content += 40 * "-" + "\n"

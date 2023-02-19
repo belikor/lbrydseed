@@ -224,7 +224,7 @@ class SearchPage(BaseSearch):
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="Search",
-                                b_command=self.list_search,
+                                b_command=self.list_search_claims,
                                 l_text=("Search claims in the network.\n"
                                         "These results are obtained from "
                                         "the 'claim_search' method\n"
@@ -236,7 +236,7 @@ class SearchPage(BaseSearch):
                                          frm=0, to=20, incr=1,
                                          default=0,
                                          s_text_var=self.spin_sr_page,
-                                         s_command=self.list_search,
+                                         s_command=self.list_search_claims,
                                          l_text=("Page to search; "
                                                  "use 0 to display all pages\n"
                                                  "(1000 claims maximum)"),
@@ -249,7 +249,7 @@ class SearchPage(BaseSearch):
                                        frm=0, to=512, incr=1,
                                        default=32,
                                        s_text_var=self.spin_sr_threads,
-                                       s_command=self.list_search,
+                                       s_command=self.list_search_claims,
                                        l_text=("Number of threads to resolve "
                                                "pages in parallel; "
                                                "use 0 to avoid threads"),
@@ -269,7 +269,8 @@ class SearchPage(BaseSearch):
                           textvariable=self.sr_entry,
                           font=None)
 
-        entry.bind("<<Activate>>", blocks.f_with_event(self.list_search))
+        entry.bind("<<Activate>>",
+                   blocks.f_with_event(self.list_search_claims))
 
         lb1r = ttk.Label(frame1, text=("String to search. "
                                        "Use a small number of terms, "
@@ -294,7 +295,8 @@ class SearchPage(BaseSearch):
                          textvariable=self.sr_entry_tags,
                          font=None)
 
-        tags.bind("<<Activate>>", blocks.f_with_event(self.list_search))
+        tags.bind("<<Activate>>",
+                  blocks.f_with_event(self.list_search_claims))
 
         lb2r = ttk.Label(frame2, text=("Tags to search separated by commas "
                                        "(food, nature, music, etc.)."))

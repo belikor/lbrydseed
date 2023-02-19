@@ -77,19 +77,19 @@ def i_list_trending(threads=32,
             "lines": lines}
 
 
-def list_search(threads=32,
-                page=0,
-                text="lbry",
-                tags=None,
-                claim_type=None,
-                video_stream=False, audio_stream=False,
-                doc_stream=False, img_stream=False,
-                bin_stream=False, model_stream=False,
-                create=False, height=False, release=True,
-                claim_id=False, typ=True, ch_name=True,
-                sizes=True, supports=False, fees=True,
-                title=False, sanitize=True,
-                server="http://localhost:5279"):
+def i_list_search(threads=32,
+                  page=0,
+                  text="lbry",
+                  tags=None,
+                  claim_type=None,
+                  video_stream=False, audio_stream=False,
+                  doc_stream=False, img_stream=False,
+                  bin_stream=False, model_stream=False,
+                  create=False, height=False, release=True,
+                  claim_id=False, typ=True, ch_name=True,
+                  sizes=True, supports=False, fees=True,
+                  title=False, sanitize=True,
+                  server="http://localhost:5279"):
     """Print the result of the claim search in the network."""
     if tags:
         tags = tags.split(",")
