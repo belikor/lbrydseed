@@ -75,7 +75,7 @@ class ListClsPeersPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="List claim peers",
-                                b_command=self.list_cls_peers,
+                                b_command=self.list_m_peers,
                                 l_text="List peers for the claims",
                                 start=start+1)
 
@@ -83,7 +83,7 @@ class ListClsPeersPage:
                               frm=0, to=512, incr=1,
                               default=32,
                               s_text_var=self.spin_cls_peers_threads,
-                              s_command=self.list_cls_peers,
+                              s_command=self.list_m_peers,
                               l_text=("Number of threads to process "
                                       "claims in parallel "
                                       "and find peers; "

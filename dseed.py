@@ -767,21 +767,22 @@ class Application(ttk.Frame,
         self.rad_rep_opt.set("create")
         self.activate_rep(show=False)  # Already shown by list_comments
 
-    def list_cls_peers(self):
+    def list_m_peers(self):
         """Print the peers of the claims in the textbox."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        claims = self.resolve_claims(print_msg=False)
+        resolved_claims = self.resolve_claims(print_msg=False)
+
         output = \
-            actions.list_m_peers(claims=claims,
-                                 threads=self.spin_cls_peers_threads.get(),
-                                 claim_id=self.chck_cls_peers_cid.get(),
-                                 typ=self.chck_cls_peers_type.get(),
-                                 title=self.chck_cls_peers_title.get(),
-                                 pars=self.chck_peers_pars.get(),
-                                 sanitize=True,
-                                 server=self.server_var.get())
+            actions.i_list_m_peers(resolved_claims,
+                                   threads=self.spin_cls_peers_threads.get(),
+                                   claim_id=self.chck_cls_peers_cid.get(),
+                                   typ=self.chck_cls_peers_type.get(),
+                                   title=self.chck_cls_peers_title.get(),
+                                   pars=self.chck_peers_pars.get(),
+                                   sanitize=True,
+                                   server=self.server_var.get())
 
         content = output["summary"] + "\n"
         content += 80 * "-" + "\n"
