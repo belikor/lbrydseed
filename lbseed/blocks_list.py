@@ -90,6 +90,7 @@ def setup_check_ch_list(parent,
                         type_var=None,
                         chname_var=None,
                         sizes_var=None,
+                        supp_var=None,
                         fees_var=None,
                         title_var=None,
                         reverse_var=None,
@@ -135,20 +136,26 @@ def setup_check_ch_list(parent,
                                       "if applicable"))
     chck_size.grid(row=start+1, column=1, sticky=tk.W)
 
+    chck_supp = ttk.Checkbutton(parent,
+                                variable=supp_var,
+                                text=("Show the total LBC support "
+                                      "on the claim"))
+    chck_supp.grid(row=start+2, column=1, sticky=tk.W)
+
     chck_fees = ttk.Checkbutton(parent,
                                 variable=fees_var,
                                 text=("Show the fee to access the claim, "
                                       "if applicable"))
-    chck_fees.grid(row=start+2, column=1, sticky=tk.W)
+    chck_fees.grid(row=start+3, column=1, sticky=tk.W)
 
     chck_title = ttk.Checkbutton(parent,
                                  variable=title_var,
                                  text=("Show the claim 'title' "
                                        "instead of the claim 'name'"))
-    chck_title.grid(row=start+3, column=1, sticky=tk.W)
+    chck_title.grid(row=start+4, column=1, sticky=tk.W)
 
     chck_reverse = ttk.Checkbutton(parent,
                                    variable=reverse_var,
                                    text=("Show in descending order "
                                          "(newer items first, older last)"))
-    chck_reverse.grid(row=start+4, column=1, sticky=tk.W)
+    chck_reverse.grid(row=start+5, column=1, sticky=tk.W)

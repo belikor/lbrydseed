@@ -92,6 +92,7 @@ class VarsListChClaims:
         self.chck_chl_type = tk.BooleanVar(value=True)
         self.chck_chl_chname = tk.BooleanVar(value=False)
         self.chck_chl_sizes = tk.BooleanVar(value=True)
+        self.chck_chl_supp = tk.BooleanVar(value=False)
         self.chck_chl_fees = tk.BooleanVar(value=True)
         self.chck_chl_title = tk.BooleanVar(value=False)
         self.chck_chl_reverse = tk.BooleanVar(value=True)

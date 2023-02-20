@@ -236,7 +236,7 @@ class ListChClaimsPage:
         frame.pack(padx=4, pady=4)
         self.setup_grid_top_ch_list(frame, start=0)
         self.setup_grid_check_ch_list(frame, start=4)
-        self.setup_info_ch_list(frame, start=9)
+        self.setup_info_ch_list(frame, start=10)
 
     def setup_grid_top_ch_list(self, parent, start=0):
         entry, label = \
@@ -291,6 +291,7 @@ class ListChClaimsPage:
                                    type_var=self.chck_chl_type,
                                    chname_var=self.chck_chl_chname,
                                    sizes_var=self.chck_chl_sizes,
+                                   supp_var=self.chck_chl_supp,
                                    fees_var=self.chck_chl_fees,
                                    title_var=self.chck_chl_title,
                                    reverse_var=self.chck_chl_reverse,
