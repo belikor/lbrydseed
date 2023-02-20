@@ -36,6 +36,7 @@ def setup_check_trend_fields(parent,
                              type_var=None,
                              chname_var=None,
                              sizes_var=None,
+                             supp_var=None,
                              fees_var=None,
                              title_var=None,
                              start=0):
@@ -81,17 +82,23 @@ def setup_check_trend_fields(parent,
                                       "if applicable"))
     chck_size.grid(row=start+1, column=1, sticky=tk.W)
 
+    chck_supp = ttk.Checkbutton(parent,
+                                variable=supp_var,
+                                text=("Show the total LBC support "
+                                      "on the claim"))
+    chck_supp.grid(row=start+2, column=1, sticky=tk.W)
+
     chck_fees = ttk.Checkbutton(parent,
                                 variable=fees_var,
                                 text=("Show the fee to access the claim, "
                                       "if applicable"))
-    chck_fees.grid(row=start+2, column=1, sticky=tk.W)
+    chck_fees.grid(row=start+3, column=1, sticky=tk.W)
 
     chck_title = ttk.Checkbutton(parent,
                                  variable=title_var,
                                  text=("Show the claim 'title' "
                                        "instead of the claim 'name'"))
-    chck_title.grid(row=start+3, column=1, sticky=tk.W)
+    chck_title.grid(row=start+4, column=1, sticky=tk.W)
 
 
 def setup_radio_trend_claims(parent,

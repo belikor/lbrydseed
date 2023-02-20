@@ -147,6 +147,7 @@ class TrendPage(BaseSearch):
                                         type_var=self.chck_sr_typ,
                                         chname_var=self.chck_sr_chname,
                                         sizes_var=self.chck_sr_sizes,
+                                        supp_var=self.chck_sr_supp,
                                         fees_var=self.chck_sr_fees,
                                         title_var=self.chck_sr_title,
                                         start=start)
@@ -311,6 +312,7 @@ class SearchPage(BaseSearch):
                                         type_var=self.chck_sr_typ,
                                         chname_var=self.chck_sr_chname,
                                         sizes_var=self.chck_sr_sizes,
+                                        supp_var=self.chck_sr_supp,
                                         fees_var=self.chck_sr_fees,
                                         title_var=self.chck_sr_title,
                                         start=start)

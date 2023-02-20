@@ -232,6 +232,7 @@ class VarsSearching:
         self.chck_sr_typ = tk.BooleanVar(value=True)
         self.chck_sr_chname = tk.BooleanVar(value=True)
         self.chck_sr_sizes = tk.BooleanVar(value=True)
+        self.chck_sr_supp = tk.BooleanVar(value=False)
         self.chck_sr_fees = tk.BooleanVar(value=True)
         self.chck_sr_title = tk.BooleanVar(value=False)
 
