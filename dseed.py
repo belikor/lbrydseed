@@ -426,22 +426,22 @@ class Application(ttk.Frame,
             return False
 
         output = \
-            actions.list_ch_claims(channel,
-                                   number=self.spin_chl_num.get(),
-                                   create=self.chck_chl_create.get(),
-                                   height=self.chck_chl_height.get(),
-                                   release=self.chck_chl_rels.get(),
-                                   claim_id=self.chck_chl_cid.get(),
-                                   typ=self.chck_chl_type.get(),
-                                   ch_name=self.chck_chl_chname.get(),
-                                   sizes=self.chck_chl_sizes.get(),
-                                   supports=self.chck_chl_supp.get(),
-                                   fees=self.chck_chl_fees.get(),
-                                   title=self.chck_chl_title.get(),
-                                   sanitize=True,
-                                   start=1, end=0,
-                                   reverse=self.chck_chl_reverse.get(),
-                                   server=self.server_var.get())
+            actions.i_list_ch_claims(channel,
+                                     number=self.spin_chl_num.get(),
+                                     create=self.chck_chl_create.get(),
+                                     height=self.chck_chl_height.get(),
+                                     release=self.chck_chl_rels.get(),
+                                     claim_id=self.chck_chl_cid.get(),
+                                     typ=self.chck_chl_type.get(),
+                                     ch_name=self.chck_chl_chname.get(),
+                                     sizes=self.chck_chl_sizes.get(),
+                                     supports=self.chck_chl_supp.get(),
+                                     fees=self.chck_chl_fees.get(),
+                                     title=self.chck_chl_title.get(),
+                                     sanitize=True,
+                                     start=1, end=0,
+                                     reverse=self.chck_chl_reverse.get(),
+                                     server=self.server_var.get())
 
         if not output["lines"]:
             output["lines"] = "No claims found"

@@ -75,16 +75,16 @@ def i_list_d_claims(blocks=False, cid=False, blobs=True, size=True,
             "lines": lines}
 
 
-def list_ch_claims(channel,
-                   number=0,
-                   create=False, height=False, release=True,
-                   claim_id=False, typ=True, ch_name=False,
-                   sizes=True, supports=False, fees=True,
-                   title=False, sanitize=True,
-                   start=1, end=0,
-                   reverse=False,
-                   last_height=99_000_900,
-                   server="http://localhost:5279"):
+def i_list_ch_claims(channel,
+                     number=0,
+                     create=False, height=False, release=True,
+                     claim_id=False, typ=True, ch_name=False,
+                     sizes=True, supports=False, fees=True,
+                     title=False, sanitize=True,
+                     start=1, end=0,
+                     reverse=False,
+                     last_height=99_000_900,
+                     server="http://localhost:5279"):
     """Print all or a certain number of claims for a specified channel."""
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         claims_info = \
