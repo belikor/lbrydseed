@@ -459,11 +459,11 @@ class Application(ttk.Frame,
             return False
 
         content = \
-            actions.list_ch_subs(action="subscriptions",
-                                 shared=self.rad_subs_shared.get(),
-                                 show=self.rad_subs_show.get(),
-                                 threads=self.spin_subs_threads.get(),
-                                 claim_id=self.check_subs_claim_id.get())
+            actions.i_list_ch_subs(action="subscriptions",
+                                   shared=self.rad_subs_shared.get(),
+                                   show=self.rad_subs_show.get(),
+                                   threads=self.spin_subs_threads.get(),
+                                   claim_id=self.check_subs_claim_id.get())
 
         self.textbox_ch_subs_list.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)
@@ -478,13 +478,13 @@ class Application(ttk.Frame,
             print("Number of claims set to: 1")
 
         content = \
-            actions.list_ch_subs(action="latest_claims",
-                                 number=self.spin_subs_claim_num.get(),
-                                 shared=self.rad_subs_shared.get(),
-                                 show=self.rad_subs_show.get(),
-                                 threads=self.spin_subs_threads.get(),
-                                 claim_id=self.check_subs_claim_id.get(),
-                                 title=self.check_subs_title.get())
+            actions.i_list_ch_subs(action="latest_claims",
+                                   number=self.spin_subs_claim_num.get(),
+                                   shared=self.rad_subs_shared.get(),
+                                   show=self.rad_subs_show.get(),
+                                   threads=self.spin_subs_threads.get(),
+                                   claim_id=self.check_subs_claim_id.get(),
+                                   title=self.check_subs_title.get())
 
         self.textbox_ch_subs_list.replace("1.0", tk.END, content)
         self.print_done(print_msg=True)

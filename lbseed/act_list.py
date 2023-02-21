@@ -115,14 +115,14 @@ def i_list_ch_claims(channel,
             "lines": lines}
 
 
-def list_ch_subs(action="subscriptions",
-                 number=4,
-                 shared="shared",
-                 show="show_all", filtering="valid",
-                 notifications=True,
-                 threads=32,
-                 claim_id=False, title=False,
-                 server="http://localhost:5279"):
+def i_list_ch_subs(action="subscriptions",
+                   number=4,
+                   shared="shared",
+                   show="show_all", filtering="valid",
+                   notifications=True,
+                   threads=32,
+                   claim_id=False, title=False,
+                   server="http://localhost:5279"):
     """Print all subscribed channels to a temporary file and read that file."""
     if shared in ("shared"):
         database = True
