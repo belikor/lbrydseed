@@ -523,6 +523,7 @@ class Application(ttk.Frame,
         channels = self.list_pub_chs(print_msg=False)
 
         combo_values = ["All", "Anonymous"]
+
         for ch in channels:
             ch_name = ch["canonical_url"].split("lbry://")[1]
             combo_values.append(ch_name)
@@ -537,18 +538,19 @@ class Application(ttk.Frame,
 
         self.fill_ch_list(print_msg=False)
 
-        output = actions.list_pub_claims(is_spent=self.chck_ch_spent.get(),
-                                         select=self.chck_pub_ch.get(),
-                                         updates=self.chck_ch_upd.get(),
-                                         claim_id=self.chck_ch_cid.get(),
-                                         addresses=self.chck_ch_addr.get(),
-                                         typ=self.chck_pub_types.get(),
-                                         amounts=self.chck_ch_amount.get(),
-                                         title=self.chck_pub_title.get(),
-                                         reverse=self.chck_pub_rev.get(),
-                                         server=self.server_var.get())
+        output = actions.i_list_pub_claims(is_spent=self.chck_ch_spent.get(),
+                                           select=self.chck_pub_ch.get(),
+                                           updates=self.chck_ch_upd.get(),
+                                           claim_id=self.chck_ch_cid.get(),
+                                           addresses=self.chck_ch_addr.get(),
+                                           typ=self.chck_pub_types.get(),
+                                           amounts=self.chck_ch_amount.get(),
+                                           title=self.chck_pub_title.get(),
+                                           reverse=self.chck_pub_rev.get(),
+                                           server=self.server_var.get())
 
         summary = output["summary"]
+
         if summary:
             content = summary + "\n" + output["content"]
         else:

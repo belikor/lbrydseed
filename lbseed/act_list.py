@@ -201,13 +201,13 @@ def i_list_pub_chs(wallet_id="default_wallet", is_spent=False,
     return output
 
 
-def list_pub_claims(wallet_id="default_wallet", is_spent=False,
-                    select=None,
-                    updates=False, claim_id=False, addresses=False,
-                    typ=False, amounts=True,
-                    title=False,
-                    reverse=False,
-                    server="http://localhost:5279"):
+def i_list_pub_claims(wallet_id="default_wallet", is_spent=False,
+                      select=None,
+                      updates=False, claim_id=False, addresses=False,
+                      typ=False, amounts=True,
+                      title=False,
+                      reverse=False,
+                      server="http://localhost:5279"):
     """Print created claims in the wallet."""
     if select in ("All", "Anonymous"):
         if select in "All":
@@ -278,9 +278,9 @@ def list_pub_claims(wallet_id="default_wallet", is_spent=False,
     if out:
         out += [80 * "-"]
 
-    text = "\n".join(out)
+    summary = "\n".join(out)
 
-    output = {"summary": text,
+    output = {"summary": summary,
               "content": content,
               "ch_claims": output["ch_claims"]}
 
