@@ -29,14 +29,14 @@ import tempfile
 import lbrytools as lbryt
 
 
-def list_d_claims(blocks=False, cid=False, blobs=True, size=True,
-                  show_channel=False,
-                  show_out="name", channel=None,
-                  invalid=False,
-                  reverse=False,
-                  threads=32,
-                  sanitize=True,
-                  server="http://localhost:5279"):
+def i_list_d_claims(blocks=False, cid=False, blobs=True, size=True,
+                    show_channel=False,
+                    show_out="name", channel=None,
+                    invalid=False,
+                    reverse=False,
+                    threads=32,
+                    sanitize=True,
+                    server="http://localhost:5279"):
     """Print all downloaded claims to a temporary file and read that file."""
     if show_out in ("name"):
         name = True

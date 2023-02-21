@@ -355,17 +355,17 @@ class Application(ttk.Frame,
             self.check_lst_show_ch.set(True)
 
         output = \
-            actions.list_d_claims(blocks=self.check_lst_blks.get(),
-                                  cid=self.check_lst_cid.get(),
-                                  blobs=self.check_lst_blobs.get(),
-                                  size=self.check_lst_size.get(),
-                                  show_channel=self.check_lst_show_ch.get(),
-                                  show_out=self.rad_lst_name.get(),
-                                  channel=self.entry_chan.get(),
-                                  invalid=invalid,
-                                  reverse=self.check_lst_reverse.get(),
-                                  threads=self.spin_lst_threads.get(),
-                                  server=self.server_var.get())
+            actions.i_list_d_claims(blocks=self.check_lst_blks.get(),
+                                    cid=self.check_lst_cid.get(),
+                                    blobs=self.check_lst_blobs.get(),
+                                    size=self.check_lst_size.get(),
+                                    show_channel=self.check_lst_show_ch.get(),
+                                    show_out=self.rad_lst_name.get(),
+                                    channel=self.entry_chan.get(),
+                                    invalid=invalid,
+                                    reverse=self.check_lst_reverse.get(),
+                                    threads=self.spin_lst_threads.get(),
+                                    server=self.server_var.get())
 
         if not output["lines"]:
             output["lines"] = "No claims found"
