@@ -287,16 +287,16 @@ def i_list_pub_claims(wallet_id="default_wallet", is_spent=False,
     return output
 
 
-def ctrl_claims(show_contr=False,
-                show_non_contr=True,
-                skip_repost=False,
-                channels_only=False,
-                show_claim_id=False,
-                show_repost_st=True,
-                show_competing=True,
-                show_reposts=True,
-                compact=False,
-                server="http://localhost:5279"):
+def i_ctrl_claims(show_contr=False,
+                  show_non_contr=True,
+                  skip_repost=False,
+                  channels_only=False,
+                  show_claim_id=False,
+                  show_repost_st=True,
+                  show_competing=True,
+                  show_reposts=True,
+                  compact=False,
+                  server="http://localhost:5279"):
     """List the claims that we have and share a name with others.
 
     See if we have the controlling claim with the highest bid.
