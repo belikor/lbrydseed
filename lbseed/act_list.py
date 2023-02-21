@@ -166,11 +166,11 @@ def i_list_ch_subs(action="subscriptions",
     return content
 
 
-def list_pub_chs(wallet_id="default_wallet", is_spent=False,
-                 updates=False, claim_id=False, addresses=True,
-                 accounts=False, amounts=True,
-                 reverse=False,
-                 server="http://localhost:5279"):
+def i_list_pub_chs(wallet_id="default_wallet", is_spent=False,
+                   updates=False, claim_id=False, addresses=True,
+                   accounts=False, amounts=True,
+                   reverse=False,
+                   server="http://localhost:5279"):
     """Print all created channels in the wallet."""
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         output = lbryt.list_channels(wallet_id=wallet_id,
@@ -192,9 +192,9 @@ def list_pub_chs(wallet_id="default_wallet", is_spent=False,
            f"Total base stake on all channels: {t_base_amount:14.8f}",
            f"Total stake on all channels:      {total_amount:14.8f}",
            80 * "-"]
-    text = "\n".join(out)
+    summary = "\n".join(out)
 
-    output = {"summary": text,
+    output = {"summary": summary,
               "content": content,
               "channels": output["channels"]}
 

@@ -33,7 +33,7 @@ from lbseed.act_download import i_download_claims
 from lbseed.act_list import i_list_d_claims
 from lbseed.act_list import i_list_ch_claims
 from lbseed.act_list import i_list_ch_subs
-from lbseed.act_list import list_pub_chs
+from lbseed.act_list import i_list_pub_chs
 from lbseed.act_list import list_pub_claims
 from lbseed.act_list import ctrl_claims
 
@@ -66,7 +66,7 @@ True if i_download_claims else False
 True if i_list_d_claims else False
 True if i_list_ch_claims else False
 True if i_list_ch_subs else False
-True if list_pub_chs else False
+True if i_list_pub_chs else False
 True if list_pub_claims else False
 True if ctrl_claims else False
 

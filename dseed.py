@@ -494,16 +494,17 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        output = actions.list_pub_chs(is_spent=self.chck_ch_spent.get(),
-                                      updates=self.chck_ch_upd.get(),
-                                      claim_id=self.chck_ch_cid.get(),
-                                      addresses=self.chck_ch_addr.get(),
-                                      accounts=self.chck_ch_acc.get(),
-                                      amounts=self.chck_ch_amount.get(),
-                                      reverse=self.chck_pub_rev.get(),
-                                      server=self.server_var.get())
+        output = actions.i_list_pub_chs(is_spent=self.chck_ch_spent.get(),
+                                        updates=self.chck_ch_upd.get(),
+                                        claim_id=self.chck_ch_cid.get(),
+                                        addresses=self.chck_ch_addr.get(),
+                                        accounts=self.chck_ch_acc.get(),
+                                        amounts=self.chck_ch_amount.get(),
+                                        reverse=self.chck_pub_rev.get(),
+                                        server=self.server_var.get())
 
         summary = output["summary"]
+
         if summary:
             content = summary + "\n" + output["content"]
         else:
