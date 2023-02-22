@@ -47,15 +47,24 @@ def f_with_event(function):
 
 def set_up_default_channels(clean_up=False):
     """Block of text to populate a Text widget."""
-    channels = ["@my-favorite-channel, 5",
-                "@OdyseeHelp#b, 4",
-                "@lbry:3f, 6"]
+    sep = ","
+
+    channels = ["@OdyseeHelp#b" + f"{sep}" + " 4",
+                "@my-favorite-channel" + f"{sep}" + " 5",
+                "@Odysee" + f"{sep}" + " 5",
+                "@lbrytech" + f"{sep}" + " 3",
+                "@ch-doesnt-exist" + f"{sep}" + " 2",
+                "@samtime:1" + f"{sep}" + " 2",
+                "@lbry:3f" + f"{sep}" + " 6"]
 
     if clean_up:
-        channels = ["@OdyseeHelp, 2",
-                    "@my-favorite-channel-vmv, 15",
-                    "@lbry, 1",
-                    "@The-Best-Channel-ABC, 5"]
+        channels = ["@OdyseeHelp:b" + f"{sep}" + " 2",
+                    "@lbrytech" + f"{sep}" + " 3",
+                    "@my-favorite-channel" + f"{sep}" + " 15",
+                    "@lbry#3f" + f"{sep}" + " 1",
+                    "@Odysee" + f"{sep}" + " 2",
+                    "@samtime:1" + f"{sep}" + " 0",
+                    "@ch-doesnt-exist" + f"{sep}" + " 5"]
 
     channels = "\n".join(channels)
     return channels
