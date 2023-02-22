@@ -102,10 +102,10 @@ class StatusPage:
     def setup_grid_top_st(self, parent, start=0):
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
-                                b_text="Get LBRY status",
-                                b_command=self.get_lbry_status,
-                                l_text=("Get information "
-                                        "on the running 'lbrynet' daemon"),
+                                b_text="Display LBRY status",
+                                b_command=self.list_lbrynet_status,
+                                l_text=("Display status information "
+                                        "for the running 'lbrynet' daemon"),
                                 start=start)
 
     def setup_info_status(self, parent, start=0):

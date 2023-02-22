@@ -44,8 +44,8 @@ def i_list_lbrynet_settings(server="http://localhost:5279"):
     return content
 
 
-def list_lbrynet_status(server="http://localhost:5279"):
-    """Get lbrynet status."""
+def i_list_lbrynet_status(server="http://localhost:5279"):
+    """Display the status of the currently running lbrynet daemon."""
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         output = lbryt.list_lbrynet_status(file=fp.name, fdate=False,
                                            server=server)

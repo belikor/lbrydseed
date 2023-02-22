@@ -223,12 +223,12 @@ class Application(ttk.Frame,
         self.textbox_settings["state"] = "disabled"
         self.print_done(print_msg=True)
 
-    def get_lbry_status(self):
+    def list_lbrynet_status(self):
         """Get the status of the currently running daemon."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        content = actions.list_lbrynet_status(server=self.server_var.get())
+        content = actions.i_list_lbrynet_status(server=self.server_var.get())
 
         self.textbox_status["state"] = "normal"
         self.textbox_status.replace("1.0", tk.END, content)
