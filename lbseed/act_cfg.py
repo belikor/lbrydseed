@@ -29,7 +29,7 @@ import tempfile
 import lbrytools as lbryt
 
 
-def list_lbrynet_settings(server="http://localhost:5279"):
+def i_list_lbrynet_settings(server="http://localhost:5279"):
     """Get the settings for the lbrynet daemon."""
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         output = lbryt.list_lbrynet_settings(file=fp.name, fdate=False,

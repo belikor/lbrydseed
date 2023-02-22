@@ -69,10 +69,10 @@ class SettingsPage:
 
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
-                                b_text="Get LBRY settings",
-                                b_command=self.get_lbry_settings,
-                                l_text=("Get the settings for "
-                                        "the 'lbrynet' daemon"),
+                                b_text="Display LBRY settings",
+                                b_command=self.list_lbrynet_settings,
+                                l_text=("Display the settings "
+                                        "for the running 'lbrynet' daemon"),
                                 start=start+1)
 
     def setup_info_settings(self, parent, start=0):

@@ -211,12 +211,12 @@ class Application(ttk.Frame,
             print(40 * "-")
             print("Done")
 
-    def get_lbry_settings(self):
+    def list_lbrynet_settings(self):
         """Get the settings of the current lbrynet daemon."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        content = actions.list_lbrynet_settings(server=self.server_var.get())
+        content = actions.i_list_lbrynet_settings(server=self.server_var.get())
 
         self.textbox_settings["state"] = "normal"
         self.textbox_settings.replace("1.0", tk.END, content)
