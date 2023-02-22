@@ -188,12 +188,17 @@ class SupportAddPage:
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_add_support(self, parent):
-        claims = ["mass-psychosis-how-an-entire-population, 100",
-                  "@lbry:3f, 50",
-                  "@my-favorite-channel, 5.1234",
-                  "abcd0000efgh0000ijkl0000mopq0000rstu0000, 3.33",
-                  "livestream-tutorial:b, 10.00005678",
-                  "8e16d91185aa4f1cd797f93d7714de2a22622759, 4.4405"]
+        sep = ","
+
+        claims = ["mass-psychosis-how-an-entire-population"
+                  + f"{sep}" + " 100",
+                  "@lbry:3f" + f"{sep}" + " 50",
+                  "@my-favorite-channel" + f"{sep}" + " 5.1234",
+                  "abcd0000efgh0000ijkl0000mopq0000rstu0000"
+                  + f"{sep}" + " 3.33",
+                  "livestream-tutorial:b" + f"{sep}" + " 10.00005678",
+                  "8e16d91185aa4f1cd797f93d7714de2a22622759"
+                  + f"{sep}" + " 4.4405"]
 
         claims = "\n".join(claims)
         self.textbox_add_support = blocks.setup_textbox(parent)
