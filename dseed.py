@@ -31,10 +31,11 @@ import tkinter as tk
 import tkinter.font
 import tkinter.ttk as ttk
 
-import lbseed.pages as pages
 import lbseed.variables as var
-import lbseed.resolve as res
+import lbseed.pages as pages
+import lbseed.helper as hlp
 import lbseed.validate as val
+import lbseed.resolve as res
 import lbseed.actions as actions
 
 
@@ -212,7 +213,7 @@ class Application(ttk.Frame,
 
     def get_lbry_settings(self):
         """Get the settings of the current lbrynet daemon."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         content = actions.list_lbrynet_settings(server=self.server_var.get())
@@ -224,7 +225,7 @@ class Application(ttk.Frame,
 
     def get_lbry_status(self):
         """Get the status of the currently running daemon."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         content = actions.list_lbrynet_status(server=self.server_var.get())
@@ -270,12 +271,12 @@ class Application(ttk.Frame,
 
     def resolve_ch(self, print_msg=True):
         """Resolve the channels in the textbox online."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         validated_chs = self.validate_ch(print_msg=False)
 
-        ddir = res.get_download_dir(ddir=self.entry_d_dir.get(),
+        ddir = hlp.get_download_dir(ddir=self.entry_d_dir.get(),
                                     server=self.server_var.get())
         self.entry_d_dir.set(ddir)
 
@@ -288,7 +289,7 @@ class Application(ttk.Frame,
 
     def download_ch(self):
         """Download the claims from the channels in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         resolved_chs = self.resolve_ch(print_msg=False)
@@ -303,13 +304,13 @@ class Application(ttk.Frame,
 
     def resolve_claims(self, print_msg=True):
         """Resolve the claims in the textbox online."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         page = self.note.tab(self.note.select())["text"]
 
         if page == "Download":
-            ddir = res.get_download_dir(ddir=self.entry_d_dir.get(),
+            ddir = hlp.get_download_dir(ddir=self.entry_d_dir.get(),
                                         server=self.server_var.get())
             self.entry_d_dir.set(ddir)
             text = self.textbox_d.get("1.0", tk.END)
@@ -329,7 +330,7 @@ class Application(ttk.Frame,
 
     def download_claims(self):
         """Download the claims in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         claims = self.resolve_claims(print_msg=False)
@@ -344,7 +345,7 @@ class Application(ttk.Frame,
 
     def list_d_claims(self, invalid=False):
         """Print the downloaded claims in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         if self.entry_chan.get():
@@ -410,7 +411,7 @@ class Application(ttk.Frame,
 
     def list_ch_claims(self):
         """Print the channel claims in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         channel = self.resolve_ch_list(print_msg=True)
@@ -446,7 +447,7 @@ class Application(ttk.Frame,
 
     def list_subscr_chs(self):
         """Print the subscribed channels in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         content = \
@@ -461,7 +462,7 @@ class Application(ttk.Frame,
 
     def list_subscr_chs_claims(self):
         """Print the subscribed channels' latest claims in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         if self.spin_subs_claim_num.get() <= 0:
@@ -482,7 +483,7 @@ class Application(ttk.Frame,
 
     def list_pub_chs(self, print_msg=True):
         """Print the channels defined in the wallet in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         output = actions.list_pub_chs(is_spent=self.chck_ch_spent.get(),
@@ -507,7 +508,7 @@ class Application(ttk.Frame,
 
     def fill_ch_list(self, print_msg=True):
         """Print the claims defined in the wallet in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         channels = self.list_pub_chs(print_msg=False)
@@ -522,7 +523,7 @@ class Application(ttk.Frame,
 
     def list_pub_claims(self):
         """Print the claims defined in the wallet in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         self.fill_ch_list(print_msg=False)
@@ -570,7 +571,7 @@ class Application(ttk.Frame,
 
     def resolve_clm_cmnt(self, print_msg=True):
         """Resolve the claim in order to create a comment for it."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         text = self.textbox_cmnt_claim.get("1.0", tk.END)
@@ -586,7 +587,7 @@ class Application(ttk.Frame,
 
     def list_comments(self):
         """Print the existing comments below a claim."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         claims = self.resolve_clm_cmnt(print_msg=False)
@@ -678,7 +679,7 @@ class Application(ttk.Frame,
 
     def fill_ch_comment(self):
         """Fill the list of channels to use for creating comments."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         channels = self.list_pub_chs(print_msg=False)
@@ -755,7 +756,7 @@ class Application(ttk.Frame,
 
     def list_cls_peers(self):
         """Print the peers of the claims in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         claims = self.resolve_claims(print_msg=False)
@@ -777,7 +778,7 @@ class Application(ttk.Frame,
 
     def list_ch_peers(self):
         """Print the peers of the claims of a channel."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         channel = self.resolve_ch_list(print_msg=True)
@@ -806,7 +807,7 @@ class Application(ttk.Frame,
 
     def list_chs_peers(self):
         """Print the peers from the channels listed in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         resolved_chs = self.resolve_ch(print_msg=False)
@@ -825,7 +826,7 @@ class Application(ttk.Frame,
 
     def list_subs_peers(self):
         """Print peers from our list of subscribed channels."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         if self.spin_ch_peers_num.get() <= 0:
@@ -875,7 +876,7 @@ class Application(ttk.Frame,
 
     def delete_claims(self):
         """Delete the claims in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         claims = self.resolve_claims(print_msg=False)
@@ -887,7 +888,7 @@ class Application(ttk.Frame,
 
     def delete_ch(self):
         """Delete the claims from the channels in the textbox."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         resolved_chs = self.resolve_ch(print_msg=False)
@@ -899,7 +900,7 @@ class Application(ttk.Frame,
 
     def list_supports(self):
         """List supported claims, either channels or streams."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         content = \
@@ -928,7 +929,7 @@ class Application(ttk.Frame,
 
     def resolve_g_claims(self, print_msg=True):
         """Resolve the claims in the textbox online."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         if self.check_s_supp_inv.get():
@@ -950,7 +951,7 @@ class Application(ttk.Frame,
 
     def add_supports(self):
         """Add supports to claims, either channels or streams."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         resolved_claims = self.resolve_g_claims(print_msg=False)
@@ -984,7 +985,7 @@ class Application(ttk.Frame,
 
     def list_trending_claims(self):
         """Get the trending claims."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         output = actions.list_trending(threads=self.spin_sr_threads.get(),
@@ -1018,7 +1019,7 @@ class Application(ttk.Frame,
 
     def list_search(self):
         """Show the results of a search."""
-        if not res.server_exists(server=self.server_var.get()):
+        if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         output = actions.list_search(threads=self.spin_sr_threads.get(),

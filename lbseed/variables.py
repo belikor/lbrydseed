@@ -37,7 +37,7 @@ graphical elements like entry fields, checkboxes, radiobuttons, etc.
 """
 import tkinter as tk
 
-import lbseed.resolve as res
+import lbseed.helper as hlp
 
 
 class VarsWidgets:
@@ -58,7 +58,7 @@ class VarsSettings:
 class VarsDownload:
     """Mixin class to provide variables for the download page."""
     def setup_download_vars(self):
-        server = res.get_download_dir(ddir=None,
+        server = hlp.get_download_dir(ddir=None,
                                       server=self.server_var.get())
         self.entry_d_dir = tk.StringVar(value=server)
         self.check_d_own_dir = tk.BooleanVar(value=True)

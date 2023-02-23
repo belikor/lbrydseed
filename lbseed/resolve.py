@@ -27,12 +27,6 @@
 import requests
 
 import lbrytools as lbryt
-from lbrytools import server_exists
-from lbrytools import get_download_dir
-
-# Use of the method so that code checkers don't complain (flake)
-True if server_exists else False
-True if get_download_dir else False
 
 
 def resolve_ch(validated_chs, print_msg=True,
