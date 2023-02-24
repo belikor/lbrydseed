@@ -126,10 +126,11 @@ def i_resolve_claims(text,
     return resolved_claims
 
 
-def resolve_claims_supports(validated_claims,
-                            show_support=False,
-                            print_msg=True,
-                            server="http://localhost:5279"):
+def i_resolve_claims_supp(validated_claims,
+                          show_support=False,
+                          print_msg=True,
+                          sep=";",
+                          server="http://localhost:5279"):
     """Resolve claims to see if they actually exist and return a new vector."""
     resolved_claims = []
     out = []
@@ -149,20 +150,25 @@ def resolve_claims_supports(validated_claims,
             info = "<-- claim not found"
         else:
             info = result["canonical_url"]
+
             resolved_claims.append({"claim": claim,
                                     "number": number,
                                     "resolved": result})
 
             if show_support:
                 supp = lbryt.get_base_support(info)
+
                 existing = supp["existing_support"]
                 base = supp["base_support"]
                 old = supp["old_support"]
-                info += (f" ; curr: {existing:.8f}"
-                         f" ; base: {base:.8f}"
-                         f" ; old: {old:.8f}")
+
+                info += (f" {sep} "
+                         f"curr: {existing:.8f}{sep} "
+                         f"base: {base:.8f}{sep} "
+                         f"old: {old:.8f}")
 
         claim = f'"{claim}"'
+
         out += [f'{num:2d}: item={claim:58s}  {info}']
 
     if print_msg:

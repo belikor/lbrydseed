@@ -949,11 +949,12 @@ class Application(ttk.Frame,
                   "so they won't be resolved online.")
         else:
             validated_claims = self.validate_g_claims(print_msg=False)
+
             resolved_claims = \
-                res.resolve_claims_supports(validated_claims,
-                                            show_support=True,
-                                            print_msg=print_msg,
-                                            server=self.server_var.get())
+                res.i_resolve_claims_supp(validated_claims,
+                                          show_support=True,
+                                          print_msg=print_msg,
+                                          server=self.server_var.get())
 
         self.print_done(print_msg=print_msg)
 
