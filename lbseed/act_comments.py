@@ -78,11 +78,11 @@ def get_r_list(comments, cmnt_info=None, indent=0, sanitize=False):
     return cmnt_info
 
 
-def list_comments(claim=None,
+def list_comments(resolved_claim,
                   comm_server="https://comments.odysee.com/api/v2",
                   server="http://localhost:5279"):
     """Get all comments from a specific claim."""
-    cid = claim["claim_id"]
+    cid = resolved_claim["claim_id"]
 
     with tempfile.NamedTemporaryFile(mode="w+") as fp:
         output = lbryt.list_comments(uri=None, cid=cid, name=None,
@@ -111,15 +111,20 @@ def list_comments(claim=None,
         output["root_comments"] = []
         output["replies"] = []
 
-    text = ("Total comments: " + str(len(comments)) + "; "
-            "root comments: " + str(len(output["root_comments"])) + "; "
-            "replies: " + str(len(output["replies"])))
+    sep = ";"
+    n_cmnts = str(len(comments))
+    n_root_cmnts = str(len(output["root_comments"]))
+    n_reps = str(len(output["replies"]))
 
-    return {"claim": claim,
+    summary = (f"Total comments: {n_cmnts}{sep} "
+               f"root comments: {n_root_cmnts}{sep} "
+               f"replies: {n_reps}")
+
+    return {"claim": resolved_claim,
             "lines": lines,
             "comments": comments,
             "content": content,
-            "text": text}
+            "summary": summary}
 
 
 def show_comment(cmnt_data, sanitize=True):

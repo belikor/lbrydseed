@@ -571,7 +571,7 @@ class Application(ttk.Frame,
         """Set up default comment server."""
         self.cmnt_server.set(self.cmnt_server_def.get())
 
-    def resolve_clm_cmnt(self, print_msg=True):
+    def resolve_claim_cmnt(self, print_msg=True):
         """Resolve the claim in order to create a comment for it."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
@@ -579,7 +579,7 @@ class Application(ttk.Frame,
         text = self.textbox_cmnt_claim.get("1.0", tk.END)
 
         claims = res.resolve_claims(text,
-                                    repost=self.check_d_repost.get(),
+                                    repost=True,
                                     print_msg=print_msg,
                                     server=self.server_var.get())
 
@@ -592,14 +592,16 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        claims = self.resolve_clm_cmnt(print_msg=False)
+        claims = self.resolve_claim_cmnt(print_msg=False)
 
-        if not claims[0]:
+        active_claim = claims[0]
+
+        if not active_claim:
             print("No valid claim")
             self.print_done(print_msg=True)
             return {"error_no_claim": True}
 
-        result = actions.list_comments(claim=claims[0],
+        result = actions.list_comments(active_claim,
                                        comm_server=self.cmnt_server.get(),
                                        server=self.server_var.get())
 
@@ -608,7 +610,7 @@ class Application(ttk.Frame,
         self.comment_id = None
 
         self.cmnt_list.set(result["lines"])
-        self.lab_cmnt_num["text"] = result["text"]
+        self.lab_cmnt_num["text"] = result["summary"]
 
         self.lstbox_cmnt.selection_clear(0, tk.END)
         self.lstbox_cmnt.selection_set(0)

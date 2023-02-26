@@ -245,7 +245,7 @@ class CommentsPage(CommentsReplyPage):
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="Resolve online",
-                                b_command=self.resolve_clm_cmnt,
+                                b_command=self.resolve_claim_cmnt,
                                 l_text="Confirm that the claim exists",
                                 start=start)
 
@@ -283,11 +283,12 @@ class CommentsPage(CommentsReplyPage):
                          command=self.reply_actions)
         btn.grid(row=0, column=0, sticky=tk.W)
 
-        text = ("Total comments: 0; "
-                "root comments: 0; "
-                "replies: 0")
+        sep = ";"
+        summary = (f"Total comments: 0{sep} "
+                   f"root comments: 0{sep} "
+                   "replies: 0")
 
-        self.lab_cmnt_num = ttk.Label(parent, text=text)
+        self.lab_cmnt_num = ttk.Label(parent, text=summary)
         self.lab_cmnt_num.grid(row=1, column=0, sticky=tk.W)
 
     def setup_listbox_cmnt(self, parent):
