@@ -269,7 +269,7 @@ class Application(ttk.Frame,
 
         return validated_chs
 
-    def resolve_ch(self, print_msg=True):
+    def resolve_chs(self, print_msg=True):
         """Resolve the channels in the textbox online."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
@@ -280,9 +280,9 @@ class Application(ttk.Frame,
                                     server=self.server_var.get())
         self.entry_d_dir.set(ddir)
 
-        resolved_chs = res.i_resolve_ch(validated_chs,
-                                        print_msg=print_msg,
-                                        server=self.server_var.get())
+        resolved_chs = res.i_resolve_chs(validated_chs,
+                                         print_msg=print_msg,
+                                         server=self.server_var.get())
 
         self.print_done(print_msg=print_msg)
 
@@ -293,7 +293,8 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        resolved_chs = self.resolve_ch(print_msg=False)
+        resolved_chs = self.resolve_chs(print_msg=False)
+
         actions.download_ch(resolved_chs,
                             ddir=self.entry_d_dir.get(),
                             own_dir=self.check_d_own_dir.get(),
@@ -398,9 +399,9 @@ class Application(ttk.Frame,
         validated_chs = [{"claim": channel,
                           "number": None}]
 
-        resolved_chs = res.i_resolve_ch(validated_chs,
-                                        print_msg=print_msg,
-                                        server=self.server_var.get())
+        resolved_chs = res.i_resolve_chs(validated_chs,
+                                         print_msg=print_msg,
+                                         server=self.server_var.get())
 
         resolved_ch = resolved_chs[0]
 
@@ -820,7 +821,7 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        resolved_chs = self.resolve_ch(print_msg=False)
+        resolved_chs = self.resolve_chs(print_msg=False)
 
         output = \
             actions.list_chs_peers(resolved_chs,
@@ -901,7 +902,8 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        resolved_chs = self.resolve_ch(print_msg=False)
+        resolved_chs = self.resolve_chs(print_msg=False)
+
         actions.clean_ch(resolved_chs,
                          what=self.rad_delete_what.get(),
                          server=self.server_var.get())
