@@ -249,7 +249,7 @@ class Application(ttk.Frame,
         elif page == "Channel peers":
             self.peers_ch_enable()
 
-    def validate_ch(self, print_msg=True):
+    def validate_chs(self, print_msg=True):
         """Validate the textbox with channels and numbers."""
         page = self.note.tab(self.note.select())["text"]
 
@@ -274,7 +274,7 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        validated_chs = self.validate_ch(print_msg=False)
+        validated_chs = self.validate_chs(print_msg=False)
 
         ddir = hlp.get_download_dir(ddir=self.entry_d_dir.get(),
                                     server=self.server_var.get())

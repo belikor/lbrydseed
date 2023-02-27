@@ -72,7 +72,7 @@ class DownloadChPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="Validate input",
-                                b_command=self.validate_ch,
+                                b_command=self.validate_chs,
                                 l_text=("Verify that the input "
                                         "can be read correctly"),
                                 start=start)
