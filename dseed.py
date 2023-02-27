@@ -384,7 +384,7 @@ class Application(ttk.Frame,
         """Print the invalid downloaded claims in the textbox."""
         self.list_d_claims(invalid=True)
 
-    def resolve_ch_list(self, print_msg=True):
+    def resolve_sg_ch(self, print_msg=True):
         """Resolve the channel to make sure it exists."""
         channel = self.entry_chl_chan.get()
 
@@ -419,7 +419,8 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        channel = self.resolve_ch_list(print_msg=True)
+        channel = self.resolve_sg_ch(print_msg=True)
+
         if not channel:
             return False
 
@@ -792,7 +793,8 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        channel = self.resolve_ch_list(print_msg=True)
+        channel = self.resolve_sg_ch(print_msg=True)
+
         if not channel:
             return False
 

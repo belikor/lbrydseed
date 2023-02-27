@@ -187,7 +187,7 @@ class ListChPeersPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="Resolve online",
-                                b_command=self.resolve_ch_list,
+                                b_command=self.resolve_sg_ch,
                                 l_text="Confirm that the channel exists",
                                 start=start+1)
 
