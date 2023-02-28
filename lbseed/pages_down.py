@@ -113,7 +113,9 @@ class DownloadChsPage:
 
     def setup_info_dch(self, parent, start=0):
         info = ttk.Label(parent,
-                         text=("Add a channel, a semicolon, "
+                         text=("Add a channel name or the claim ID "
+                               "of the channel (40-character string), "
+                               "a semicolon,\n"
                                "and the number of items to download "
                                "from this channel."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)

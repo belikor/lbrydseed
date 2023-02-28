@@ -261,7 +261,7 @@ class Application(ttk.Frame,
             text = self.textbox_chs_peers.get("1.0", tk.END)
 
         validated_chs = val.validate_input(text,
-                                           assume_channel=True,
+                                           assume_channel=False,
                                            number_float=False,
                                            print_msg=print_msg)
 

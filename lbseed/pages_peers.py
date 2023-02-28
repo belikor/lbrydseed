@@ -348,11 +348,13 @@ class ListChsPeersPage:
 
     def setup_info_chs_peers(self, parent, start=0):
         info = ttk.Label(parent,
-                         text=("Add a channel, a semicolon, "
+                         text=("Add a channel name or the claim ID "
+                               "of the channel (40-character string), "
+                               "a semicolon,\n"
                                "and the number of claims to get "
-                               "peer information about.\n"
+                               "peer information from. "
                                "Use 0 to process all claims "
-                               "in the channel.\n\n"
+                               "from the channel.\n\n"
                                "Only downloadable claims (streams) "
                                "can be shared in the network, "
                                "and are able to have peers.\n"

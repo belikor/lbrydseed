@@ -54,7 +54,8 @@ def set_up_default_channels(clean_up=False):
                 "@Odysee" + f"{sep}" + " 5",
                 "@lbrytech" + f"{sep}" + " 3",
                 "@ch-doesnt-exist" + f"{sep}" + " 2",
-                "@samtime:1" + f"{sep}" + " 2",
+                "1487afc813124abbeb0629d2172be0f01ccec3bf"
+                + f"{sep}" + " 2",
                 "@lbry:3f" + f"{sep}" + " 6"]
 
     if clean_up:
@@ -63,7 +64,8 @@ def set_up_default_channels(clean_up=False):
                     "@my-favorite-channel" + f"{sep}" + " 15",
                     "@lbry#3f" + f"{sep}" + " 1",
                     "@Odysee" + f"{sep}" + " 2",
-                    "@samtime:1" + f"{sep}" + " 0",
+                    "1487afc813124abbeb0629d2172be0f01ccec3bf"
+                    + f"{sep}" + " 0",
                     "@ch-doesnt-exist" + f"{sep}" + " 5"]
 
     channels = "\n".join(channels)
