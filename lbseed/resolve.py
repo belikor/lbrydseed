@@ -58,10 +58,11 @@ def resolve_ch(validated_chs, print_msg=True,
                 info = item["canonical_url"]
 
         chan = f"'{channel}'"
-        if number:
-            out += [f"{num:2d}: name={chan:58s} number={number}  {info}"]
-        else:
+
+        if number is None:
             out += [f"{num:2d}: name={chan:58s}  {info}"]
+        else:
+            out += [f"{num:2d}: name={chan:58s} number={number}  {info}"]
 
         resolved_chs.append({"claim": channel,
                              "number": number,

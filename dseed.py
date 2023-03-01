@@ -395,7 +395,8 @@ class Application(ttk.Frame,
             self.entry_chl_chan.set(channel)
 
         validated_chs = [{"claim": channel,
-                          "number": False}]
+                          "number": None}]
+
         resolved_chs = res.resolve_ch(validated_chs, print_msg=print_msg,
                                       server=self.server_var.get())
 
