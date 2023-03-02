@@ -350,7 +350,9 @@ class ListChsPeersPage:
         info = ttk.Label(parent,
                          text=("Add a channel, a semicolon, "
                                "and the number of claims to get "
-                               "peer information about.\n\n"
+                               "peer information about.\n"
+                               "Use 0 to process all claims "
+                               "in the channel.\n\n"
                                "Only downloadable claims (streams) "
                                "can be shared in the network, "
                                "and are able to have peers.\n"
@@ -359,7 +361,9 @@ class ListChsPeersPage:
                                "will not count toward total number of peers\n"
                                "nor size nor duration.\n"
                                "When listing the unique peers, the + 1 "
-                               "indicates that we are one of those peers."))
+                               "indicates that we are one of those peers.\n"
+                               "If a channel doesn't exist in the network "
+                               "it will appear surrounded by '[brackets]'."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_chs_peers(self, parent):

@@ -95,15 +95,27 @@ def i_list_chs_peers(resolved_chs,
     """Print peers for claims into a temporary file and read that file."""
     in_channels = []
 
-    for resolved_ch in resolved_chs:
-        # claim_input = resolved_ch["claim_input"]
+    n_channels = len(resolved_chs)
+
+    for num, resolved_ch in enumerate(resolved_chs, start=1):
+        claim_input = resolved_ch["claim_input"]
         number = resolved_ch["number"]
         claim = resolved_ch["claim"]
 
         if not claim:
-            continue
+            info = claim_input[:]
+        else:
+            info = claim["canonical_url"]
+            channel = claim["canonical_url"].split("lbry://")[1]
 
-        channel = claim["canonical_url"].split("lbry://")[1]
+        if num > 1:
+            print(80 * "-")
+
+        print(f"Channel {num}/{n_channels}, {info}")
+
+        if not claim:
+            print("Not a valid channel, no peers will be found")
+            channel = "[" + claim_input + "]"
 
         in_channels.append([channel, number])
 

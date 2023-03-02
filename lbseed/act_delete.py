@@ -66,22 +66,28 @@ def i_delete_chs(resolved_chs,
     n_channels = len(resolved_chs)
 
     for num, resolved_ch in enumerate(resolved_chs, start=1):
-        # claim_input = resolved_ch["claim_input"]
+        claim_input = resolved_ch["claim_input"]
         number = resolved_ch["number"]
         claim = resolved_ch["claim"]
 
         if not claim:
-            continue
+            info = claim_input[:]
+        else:
+            info = claim["canonical_url"]
+            channel = claim["name"]
 
-        info = claim["canonical_url"]
-        channel = claim["name"]
+        if num > 1:
+            print(80 * "-")
 
         print(f"Channel {num}/{n_channels}, {info}")
 
-        lbryt.ch_cleanup(channel=channel,
-                         number=number,
-                         what=what,
-                         server=server)
+        if claim:
+            lbryt.ch_cleanup(channel=channel,
+                             number=number,
+                             what=what,
+                             server=server)
+        else:
+            print("Not a valid channel, skipping")
 
         if num < n_channels:
             print()
