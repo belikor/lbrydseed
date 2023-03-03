@@ -30,17 +30,17 @@ in a multiple inheritance, or mixin pattern, to provide the necessary
 building command to build the specific page in the main interface.
 
 ::
-    class DownloadSinglePage:
+    class DownloadClaimsPage:
         def setup_page_dch(self, parent):
             ...
 
-    class Application(ttk.Frame, DownloadSinglePage):
+    class Application(ttk.Frame, DownloadClaimsPage):
         def __init__(self, root):
             page_dch = ttk.Frame(root)
             self.setup_page_dch(page_dch)
 """
 from lbseed.pages_base import SettingsPage, StatusPage
-from lbseed.pages_down import DownloadChPage, DownloadSinglePage
+from lbseed.pages_down import DownloadChsPage, DownloadClaimsPage
 from lbseed.pages_lists import (ListDownPage, ListDownInvalidPage,
                                 ListChClaimsPage, SubscribedChsPage,
                                 ListPubChsPage, ListPubClaimsPage,
@@ -49,7 +49,7 @@ from lbseed.pages_comments import CommentsPage
 from lbseed.pages_peers import (ListClsPeersPage,
                                 ListChPeersPage, ListChsPeersPage,
                                 ListSubsPeersPage, SeedPage)
-from lbseed.pages_del import DeleteSinglePage, DeleteChPage
+from lbseed.pages_del import DeleteClaimsPage, DeleteChsPage
 from lbseed.pages_support import SupportListPage, SupportUpdatePage
 from lbseed.pages_search import TrendPage, SearchPage
 
@@ -57,8 +57,8 @@ from lbseed.pages_search import TrendPage, SearchPage
 True if SettingsPage else False
 True if StatusPage else False
 
-True if DownloadChPage else False
-True if DownloadSinglePage else False
+True if DownloadChsPage else False
+True if DownloadClaimsPage else False
 
 True if ListDownPage else False
 True if ListDownInvalidPage else False
@@ -76,8 +76,8 @@ True if ListChsPeersPage else False
 True if ListSubsPeersPage else False
 True if SeedPage else False
 
-True if DeleteSinglePage else False
-True if DeleteChPage else False
+True if DeleteClaimsPage else False
+True if DeleteChsPage else False
 
 True if SupportListPage else False
 True if SupportUpdatePage else False

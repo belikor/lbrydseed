@@ -30,11 +30,11 @@ in a multiple inheritance, or mixin pattern, to provide the necessary
 building command to build the specific page in the main interface.
 
 ::
-    class DownloadSinglePage:
+    class DownloadClaimsPage:
         def setup_page_dch(self, parent):
             ...
 
-    class Application(ttk.Frame, DownloadSinglePage):
+    class Application(ttk.Frame, DownloadClaimsPage):
         def __init__(self, root):
             page_dch = ttk.Frame(root)
             self.setup_page_dch(page_dch)

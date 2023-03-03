@@ -30,11 +30,11 @@ in a multiple inheritance, or mixin pattern, to provide the necessary
 building command to build the specific page in the main interface.
 
 ::
-    class DownloadChPage:
+    class DownloadChsPage:
         def setup_page_dch(self, parent):
             ...
 
-    class Application(ttk.Frame, DownloadChPage):
+    class Application(ttk.Frame, DownloadChsPage):
         def __init__(self, root):
             page_dch = ttk.Frame(root)
             self.setup_page_dch(page_dch)
@@ -46,7 +46,7 @@ import tkinter.ttk as ttk
 import lbseed.blocks as blocks
 
 
-class DownloadChPage:
+class DownloadChsPage:
     """Mixin class to provide the download channel page to the application."""
     def setup_page_dch(self, parent):
         self.setup_top_dch(parent)
@@ -86,8 +86,8 @@ class DownloadChPage:
 
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
-                                b_text="Download channel claims",
-                                b_command=self.download_ch,
+                                b_text="Download claims from channels",
+                                b_command=self.download_chs,
                                 l_text=("Start downloading the newest claims "
                                         "from the channels"),
                                 start=start+2)
@@ -124,7 +124,7 @@ class DownloadChPage:
         self.textbox_dch.insert("1.0", channels)
 
 
-class DownloadSinglePage:
+class DownloadClaimsPage:
     """Mixin class to provide the download single page to the application."""
     def setup_page_d(self, parent):
         self.setup_top_d(parent)

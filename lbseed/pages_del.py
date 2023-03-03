@@ -30,11 +30,11 @@ in a multiple inheritance, or mixin pattern, to provide the necessary
 building command to build the specific page in the main interface.
 
 ::
-    class DeleteSinglePage:
+    class DeleteClaimsPage:
         def setup_page_del(self, parent):
             ...
 
-    class Application(ttk.Frame, DeleteSinglePage):
+    class Application(ttk.Frame, DeleteClaimsPage):
         def __init__(self, root):
             page_del = ttk.Frame(root)
             self.setup_page_del(page_del)
@@ -46,7 +46,7 @@ import tkinter.ttk as ttk
 import lbseed.blocks as blocks
 
 
-class DeleteSinglePage:
+class DeleteClaimsPage:
     """Mixin class to provide the delete page to the application."""
     def setup_page_del(self, parent):
         self.setup_top_del(parent)
@@ -88,7 +88,7 @@ class DeleteSinglePage:
         self.textbox_del.insert("1.0", claims)
 
 
-class DeleteChPage:
+class DeleteChsPage:
     """Mixin class to provide the list page to the application."""
     def setup_page_delch(self, parent):
         self.setup_top_delch(parent)
@@ -120,7 +120,7 @@ class DeleteChPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="Clean up claims",
-                                b_command=self.delete_ch,
+                                b_command=self.delete_chs,
                                 l_text=("Start deleting claims "
                                         "from the oldest to the newest"),
                                 start=start+2)

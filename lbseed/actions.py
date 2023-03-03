@@ -27,7 +27,7 @@
 from lbseed.act_cfg import i_list_lbrynet_settings
 from lbseed.act_cfg import i_list_lbrynet_status
 
-from lbseed.act_download import i_download_ch
+from lbseed.act_download import i_download_chs
 from lbseed.act_download import i_download_claims
 
 from lbseed.act_list import i_list_d_claims
@@ -49,7 +49,7 @@ from lbseed.act_peers import i_list_subs_peers
 from lbseed.act_peers import i_seeding_ratio
 
 from lbseed.act_delete import i_delete_claims
-from lbseed.act_delete import i_ch_cleanup
+from lbseed.act_delete import i_delete_chs
 
 from lbseed.act_supports import i_list_supports
 from lbseed.act_supports import i_update_supports
@@ -60,7 +60,7 @@ from lbseed.act_search import i_list_search
 True if i_list_lbrynet_settings else False
 True if i_list_lbrynet_status else False
 
-True if i_download_ch else False
+True if i_download_chs else False
 True if i_download_claims else False
 
 True if i_list_d_claims else False
@@ -82,7 +82,7 @@ True if i_list_subs_peers else False
 True if i_seeding_ratio else False
 
 True if i_delete_claims else False
-True if i_ch_cleanup else False
+True if i_delete_chs else False
 
 True if i_list_supports else False
 True if i_update_supports else False

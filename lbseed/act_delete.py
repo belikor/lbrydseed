@@ -54,7 +54,7 @@ def i_delete_claims(resolved_claims,
             print()
 
 
-def i_ch_cleanup(resolved_chs,
+def i_delete_chs(resolved_chs,
                  what="media",
                  print_msg=True,
                  server="http://localhost:5279"):

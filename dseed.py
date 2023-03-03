@@ -42,7 +42,7 @@ import lbseed.actions as actions
 class Application(ttk.Frame,
                   var.Variables,
                   pages.SettingsPage, pages.StatusPage,
-                  pages.DownloadChPage, pages.DownloadSinglePage,
+                  pages.DownloadChsPage, pages.DownloadClaimsPage,
                   pages.ListDownPage, pages.ListDownInvalidPage,
                   pages.ListChClaimsPage, pages.SubscribedChsPage,
                   pages.ListPubChsPage, pages.ListPubClaimsPage,
@@ -51,7 +51,7 @@ class Application(ttk.Frame,
                   pages.ListClsPeersPage,
                   pages.ListChPeersPage, pages.ListChsPeersPage,
                   pages.ListSubsPeersPage, pages.SeedPage,
-                  pages.DeleteSinglePage, pages.DeleteChPage,
+                  pages.DeleteClaimsPage, pages.DeleteChsPage,
                   pages.SupportListPage, pages.SupportUpdatePage,
                   pages.TrendPage, pages.SearchPage):
     def __init__(self, root):
@@ -85,7 +85,7 @@ class Application(ttk.Frame,
         self.note_sub_d = ttk.Notebook(page_s_d)
         page_dch = ttk.Frame(self.note_sub_d)
         page_d = ttk.Frame(self.note_sub_d)
-        self.note_sub_d.add(page_dch, text="Download channel")
+        self.note_sub_d.add(page_dch, text="Download channels")
         self.note_sub_d.add(page_d, text="Download claims")
         self.note_sub_d.pack(fill="both", expand=True)
         self.note_sub_d.bind("<<NotebookTabChanged>>",
@@ -139,7 +139,7 @@ class Application(ttk.Frame,
         page_del = ttk.Frame(note_sub_del)
         page_delch = ttk.Frame(note_sub_del)
         note_sub_del.add(page_del, text="Delete claims")
-        note_sub_del.add(page_delch, text="Clean up channel")
+        note_sub_del.add(page_delch, text="Clean up channels")
         note_sub_del.pack(fill="both", expand=True)
 
         page_s_sup = ttk.Frame(self.note)
@@ -237,7 +237,7 @@ class Application(ttk.Frame,
 
     def update_d_checkbox(self, event):
         page = self.note_sub_d.tab(self.note_sub_d.select())["text"]
-        if page == "Download channel":
+        if page == "Download channels":
             self.chck_enable_dch(force_second_var=False)
         elif page == "Download claims":
             self.chck_enable_d(force_second_var=False)
@@ -288,19 +288,19 @@ class Application(ttk.Frame,
 
         return resolved_chs
 
-    def download_ch(self):
+    def download_chs(self):
         """Download the claims from the channels in the textbox."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         resolved_chs = self.resolve_chs(print_msg=False)
 
-        actions.i_download_ch(resolved_chs,
-                              ddir=self.entry_d_dir.get(),
-                              own_dir=self.check_d_own_dir.get(),
-                              save_file=self.check_d_save.get(),
-                              repost=self.check_d_repost.get(),
-                              server=self.server_var.get())
+        actions.i_download_chs(resolved_chs,
+                               ddir=self.entry_d_dir.get(),
+                               own_dir=self.check_d_own_dir.get(),
+                               save_file=self.check_d_save.get(),
+                               repost=self.check_d_repost.get(),
+                               server=self.server_var.get())
 
         self.print_done(print_msg=True)
 
@@ -909,14 +909,14 @@ class Application(ttk.Frame,
 
         self.print_done(print_msg=True)
 
-    def delete_ch(self):
+    def delete_chs(self):
         """Delete the claims from the channels in the textbox."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
         resolved_chs = self.resolve_chs(print_msg=False)
 
-        actions.i_ch_cleanup(resolved_chs,
+        actions.i_delete_chs(resolved_chs,
                              what=self.rad_delete_what.get(),
                              server=self.server_var.get())
 
