@@ -410,23 +410,23 @@ class Application(ttk.Frame,
             self.print_done(print_msg=True)
             return False
 
-        channel = resolved_ch["info"].split("lbry://")[1]
+        ch_name = resolved_ch["info"].split("lbry://")[1]
         self.print_done(print_msg=print_msg)
 
-        return channel
+        return ch_name
 
     def list_ch_claims(self):
         """Print the channel claims in the textbox."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        channel = self.resolve_sg_ch(print_msg=True)
+        ch_name_str = self.resolve_sg_ch(print_msg=True)
 
-        if not channel:
+        if not ch_name_str:
             return False
 
         output = \
-            actions.i_list_ch_claims(channel,
+            actions.i_list_ch_claims(ch_name_str,
                                      number=self.spin_chl_num.get(),
                                      create=self.chck_chl_create.get(),
                                      height=self.chck_chl_height.get(),
@@ -701,6 +701,7 @@ class Application(ttk.Frame,
         channels = self.list_pub_chs(print_msg=False)
 
         combo_values = []
+
         for ch in channels:
             ch_name = ch["canonical_url"].split("lbry://")[1]
             combo_values.append(ch_name)
@@ -728,6 +729,7 @@ class Application(ttk.Frame,
             return {"error_no_claim": True}
 
         channels = self.fill_ch_comment()
+
         if not channels:
             print("No channels defined.\n"
                   "At least one channel must be available.")
@@ -735,6 +737,7 @@ class Application(ttk.Frame,
             return False
 
         frame = None
+
         if not hasattr(self, "top_reply"):
             # This is normally not called because the toplevel
             # is already set up by `CommentsPage.setup_page_cmnt`
@@ -798,13 +801,13 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        channel = self.resolve_sg_ch(print_msg=True)
+        ch_name = self.resolve_sg_ch(print_msg=True)
 
-        if not channel:
+        if not ch_name:
             return False
 
         output = \
-            actions.i_list_ch_peers(channel,
+            actions.i_list_ch_peers(ch_name,
                                     number=self.spin_ch_peers_num.get(),
                                     threads=self.spin_cls_peers_threads.get(),
                                     claim_id=self.chck_cls_peers_cid.get(),
