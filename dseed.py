@@ -804,7 +804,7 @@ class Application(ttk.Frame,
             return False
 
         output = \
-            actions.i_list_ch_peers(channel=channel,
+            actions.i_list_ch_peers(channel,
                                     number=self.spin_ch_peers_num.get(),
                                     threads=self.spin_cls_peers_threads.get(),
                                     claim_id=self.chck_cls_peers_cid.get(),

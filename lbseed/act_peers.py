@@ -66,7 +66,7 @@ def i_list_m_peers(resolved_claims,
             "lines": lines}
 
 
-def i_list_ch_peers(channel=None, number=2, threads=32,
+def i_list_ch_peers(channel, number=2, threads=32,
                     claim_id=False, typ=True, title=False,
                     pars=False, sanitize=True,
                     server="http://localhost:5279"):
