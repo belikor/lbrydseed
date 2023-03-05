@@ -60,7 +60,7 @@ def i_download_ch(resolved_chs,
             print()
 
 
-def i_download_claims(claims,
+def i_download_claims(resolved_claims,
                       ddir=None, own_dir=False, save_file=True,
                       repost=True,
                       print_msg=True,
@@ -70,17 +70,17 @@ def i_download_claims(claims,
         print("Download claims")
         print(80 * "-")
 
-    n_claims = len(claims)
+    n_claims = len(resolved_claims)
 
-    for num, claim in enumerate(claims, start=1):
-        if not claim:
+    for num, resolved_claim in enumerate(resolved_claims, start=1):
+        if not resolved_claim:
             continue
 
-        name = claim["name"]
+        name = resolved_claim["name"]
 
         print(f"Claim {num}/{n_claims}, {name}")
 
-        lbryt.download_single(cid=claim["claim_id"],
+        lbryt.download_single(cid=resolved_claim["claim_id"],
                               repost=repost,
                               ddir=ddir, own_dir=own_dir,
                               save_file=save_file,

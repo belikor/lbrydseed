@@ -86,7 +86,7 @@ class Application(ttk.Frame,
         page_dch = ttk.Frame(self.note_sub_d)
         page_d = ttk.Frame(self.note_sub_d)
         self.note_sub_d.add(page_dch, text="Download channel")
-        self.note_sub_d.add(page_d, text="Download single")
+        self.note_sub_d.add(page_d, text="Download claims")
         self.note_sub_d.pack(fill="both", expand=True)
         self.note_sub_d.bind("<<NotebookTabChanged>>",
                              self.update_d_checkbox)
@@ -138,7 +138,7 @@ class Application(ttk.Frame,
         note_sub_del = ttk.Notebook(page_s_del)
         page_del = ttk.Frame(note_sub_del)
         page_delch = ttk.Frame(note_sub_del)
-        note_sub_del.add(page_del, text="Delete single")
+        note_sub_del.add(page_del, text="Delete claims")
         note_sub_del.add(page_delch, text="Clean up channel")
         note_sub_del.pack(fill="both", expand=True)
 
@@ -239,7 +239,7 @@ class Application(ttk.Frame,
         page = self.note_sub_d.tab(self.note_sub_d.select())["text"]
         if page == "Download channel":
             self.chck_enable_dch(force_second_var=False)
-        elif page == "Download single":
+        elif page == "Download claims":
             self.chck_enable_d(force_second_var=False)
 
     def update_peers_checkbox(self, event):
@@ -321,23 +321,24 @@ class Application(ttk.Frame,
         elif page == "Peers":
             text = self.textbox_cls_peers.get("1.0", tk.END)
 
-        claims = res.i_resolve_claims(text,
-                                      repost=self.check_d_repost.get(),
-                                      print_msg=print_msg,
-                                      server=self.server_var.get())
+        resolved_claims = \
+            res.i_resolve_claims(text,
+                                 repost=self.check_d_repost.get(),
+                                 print_msg=print_msg,
+                                 server=self.server_var.get())
 
         self.print_done(print_msg=print_msg)
 
-        return claims
+        return resolved_claims
 
     def download_claims(self):
         """Download the claims in the textbox."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        claims = self.resolve_claims(print_msg=False)
+        resolved_claims = self.resolve_claims(print_msg=False)
 
-        actions.i_download_claims(claims,
+        actions.i_download_claims(resolved_claims,
                                   ddir=self.entry_d_dir.get(),
                                   own_dir=self.check_d_own_dir.get(),
                                   save_file=self.check_d_save.get(),
@@ -587,23 +588,23 @@ class Application(ttk.Frame,
 
         text = self.textbox_cmnt_claim.get("1.0", tk.END)
 
-        claims = res.i_resolve_claims(text,
-                                      repost=True,
-                                      print_msg=print_msg,
-                                      server=self.server_var.get())
+        resolved_claims = res.i_resolve_claims(text,
+                                               repost=True,
+                                               print_msg=print_msg,
+                                               server=self.server_var.get())
 
         self.print_done(print_msg=print_msg)
 
-        return claims
+        return resolved_claims
 
     def list_comments(self):
         """Print the existing comments below a claim."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        claims = self.resolve_claim_cmnt(print_msg=False)
+        resolved_claims = self.resolve_claim_cmnt(print_msg=False)
 
-        active_claim = claims[0]
+        active_claim = resolved_claims[0]
 
         if not active_claim:
             print("No valid claim")
@@ -900,9 +901,9 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        claims = self.resolve_claims(print_msg=False)
+        resolved_claims = self.resolve_claims(print_msg=False)
 
-        actions.i_delete_claims(claims,
+        actions.i_delete_claims(resolved_claims,
                                 what=self.rad_delete_what.get(),
                                 server=self.server_var.get())
 
@@ -941,6 +942,7 @@ class Application(ttk.Frame,
     def validate_g_claims(self, print_msg=True):
         """Validate the textbox with claims and numbers."""
         text = self.textbox_add_support.get("1.0", tk.END)
+
         validated_claims = val.validate_input(text,
                                               assume_channel=False,
                                               number_float=True,

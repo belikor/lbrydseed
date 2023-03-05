@@ -27,7 +27,7 @@
 import lbrytools as lbryt
 
 
-def i_delete_claims(claims,
+def i_delete_claims(resolved_claims,
                     what="media",
                     print_msg=True,
                     server="http://localhost:5279"):
@@ -36,17 +36,17 @@ def i_delete_claims(claims,
         print("Delete claims")
         print(80 * "-")
 
-    n_claims = len(claims)
+    n_claims = len(resolved_claims)
 
-    for num, claim in enumerate(claims, start=1):
-        if not claim:
+    for num, resolved_claim in enumerate(resolved_claims, start=1):
+        if not resolved_claim:
             continue
 
-        name = claim["name"]
+        name = resolved_claim["name"]
 
         print(f"Claim {num}/{n_claims}, {name}")
 
-        lbryt.delete_single(cid=claim["claim_id"],
+        lbryt.delete_single(cid=resolved_claim["claim_id"],
                             what=what,
                             server=server)
 
