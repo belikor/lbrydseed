@@ -520,12 +520,12 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        channels = self.list_pub_chs(print_msg=False)
+        resolved_chs = self.list_pub_chs(print_msg=False)
 
         combo_values = ["All", "Anonymous"]
 
-        for ch in channels:
-            ch_name = ch["canonical_url"].split("lbry://")[1]
+        for resolved_ch in resolved_chs:
+            ch_name = resolved_ch["canonical_url"].split("lbry://")[1]
             combo_values.append(ch_name)
 
         self.combo_pub_ch["values"] = combo_values
@@ -698,12 +698,12 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        channels = self.list_pub_chs(print_msg=False)
+        resolved_chs = self.list_pub_chs(print_msg=False)
 
         combo_values = []
 
-        for ch in channels:
-            ch_name = ch["canonical_url"].split("lbry://")[1]
+        for resolved_ch in resolved_chs:
+            ch_name = resolved_ch["canonical_url"].split("lbry://")[1]
             combo_values.append(ch_name)
 
         if not combo_values:
@@ -716,7 +716,7 @@ class Application(ttk.Frame,
         else:
             self.cmb_rep_author.set(combo_values[0])
 
-        return channels
+        return resolved_chs
 
     def cmb_cmnt_deselect(self, *args):
         self.last_cmnt_author.set(self.cmb_rep_author.get())
@@ -728,9 +728,9 @@ class Application(ttk.Frame,
             self.print_done(print_msg=True)
             return {"error_no_claim": True}
 
-        channels = self.fill_ch_comment()
+        resolved_chs = self.fill_ch_comment()
 
-        if not channels:
+        if not resolved_chs:
             print("No channels defined.\n"
                   "At least one channel must be available.")
             self.print_done(print_msg=True)
