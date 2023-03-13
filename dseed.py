@@ -211,6 +211,12 @@ class Application(ttk.Frame,
             print(40 * "-")
             print("Done")
 
+    def write_text(self, textbox, content):
+        """Fill in the information on the textbox."""
+        textbox["state"] = "normal"
+        textbox.replace("1.0", tk.END, content)
+        textbox["state"] = "disabled"
+
     def list_lbrynet_settings(self):
         """Get the settings of the current lbrynet daemon."""
         if not hlp.server_exists(server=self.server_var.get()):
@@ -218,9 +224,7 @@ class Application(ttk.Frame,
 
         content = actions.i_list_lbrynet_settings(server=self.server_var.get())
 
-        self.textbox_settings["state"] = "normal"
-        self.textbox_settings.replace("1.0", tk.END, content)
-        self.textbox_settings["state"] = "disabled"
+        self.write_text(self.textbox_settings, content)
         self.print_done(print_msg=True)
 
     def list_lbrynet_status(self):
@@ -230,9 +234,7 @@ class Application(ttk.Frame,
 
         content = actions.i_list_lbrynet_status(server=self.server_var.get())
 
-        self.textbox_status["state"] = "normal"
-        self.textbox_status.replace("1.0", tk.END, content)
-        self.textbox_status["state"] = "disabled"
+        self.write_text(self.textbox_status, content)
         self.print_done(print_msg=True)
 
     def update_d_checkbox(self, event):
@@ -376,9 +378,9 @@ class Application(ttk.Frame,
         content += output["lines"]
 
         if not invalid:
-            self.textbox_list_d.replace("1.0", tk.END, content)
+            self.write_text(self.textbox_list_d, content)
         else:
-            self.textbox_list_d_inv.replace("1.0", tk.END, content)
+            self.write_text(self.textbox_list_d_inv, content)
 
         self.print_done(print_msg=True)
 
@@ -451,7 +453,7 @@ class Application(ttk.Frame,
         content += 80 * "-" + "\n"
         content += output["lines"]
 
-        self.textbox_ch_list.replace("1.0", tk.END, content)
+        self.write_text(self.textbox_ch_list, content)
         self.print_done(print_msg=True)
 
     def list_subscr_chs(self):
@@ -466,7 +468,7 @@ class Application(ttk.Frame,
                                    threads=self.spin_subs_threads.get(),
                                    claim_id=self.check_subs_claim_id.get())
 
-        self.textbox_ch_subs_list.replace("1.0", tk.END, content)
+        self.write_text(self.textbox_ch_subs_list, content)
         self.print_done(print_msg=True)
 
     def list_subscr_chs_claims(self):
@@ -487,7 +489,7 @@ class Application(ttk.Frame,
                                    claim_id=self.check_subs_claim_id.get(),
                                    title=self.check_subs_title.get())
 
-        self.textbox_ch_subs_list.replace("1.0", tk.END, content)
+        self.write_text(self.textbox_ch_subs_list, content)
         self.print_done(print_msg=True)
 
     def list_pub_chs(self, print_msg=True):
@@ -511,7 +513,7 @@ class Application(ttk.Frame,
         else:
             content = output["content"]
 
-        self.textbox_p_chs.replace("1.0", tk.END, content)
+        self.write_text(self.textbox_p_chs, content)
         self.print_done(print_msg=print_msg)
 
         return output["channels"]
@@ -557,7 +559,7 @@ class Application(ttk.Frame,
         else:
             content = output["content"]
 
-        self.textbox_p_claims.replace("1.0", tk.END, content)
+        self.write_text(self.textbox_p_claims, content)
         self.print_done(print_msg=True)
 
     def controlling_claims(self):
@@ -574,7 +576,7 @@ class Application(ttk.Frame,
                                   compact=self.check_c_compact.get(),
                                   server=self.server_var.get())
 
-        self.textbox_controlling.replace("1.0", tk.END, content)
+        self.write_text(self.textbox_controlling, content)
         self.print_done(print_msg=True)
 
     def default_comm_server(self):
@@ -685,8 +687,8 @@ class Application(ttk.Frame,
         else:
             content = actions.i_show_no_comment(self.comment_claim)
 
-        self.textbox_cmnt.replace("1.0", tk.END, content)
-        self.textbox_cmnt2.replace("1.0", tk.END, content)
+        self.write_text(self.textbox_cmnt, content)
+        self.write_text(self.textbox_cmnt2, content)
 
         self.print_done(print_msg=print_msg)
 
@@ -794,7 +796,8 @@ class Application(ttk.Frame,
         content = output["summary"] + "\n"
         content += 80 * "-" + "\n"
         content += output["lines"]
-        self.textbox_cls_peers_out.replace("1.0", tk.END, content)
+
+        self.write_text(self.textbox_cls_peers_out, content)
         self.print_done(print_msg=True)
 
     def list_ch_peers(self):
@@ -824,7 +827,8 @@ class Application(ttk.Frame,
         content = output["summary"] + "\n"
         content += 80 * "-" + "\n"
         content += output["lines"]
-        self.textbox_ch_peers.replace("1.0", tk.END, content)
+
+        self.write_text(self.textbox_ch_peers, content)
         self.print_done(print_msg=True)
 
     def list_chs_peers(self):
@@ -843,7 +847,8 @@ class Application(ttk.Frame,
         content = output["summary"] + "\n"
         content += 80 * "-" + "\n"
         content += output["lines"]
-        self.textbox_chs_peers_out.replace("1.0", tk.END, content)
+
+        self.write_text(self.textbox_chs_peers_out, content)
         self.print_done(print_msg=True)
 
     def list_ch_subs_peers(self):
@@ -866,7 +871,8 @@ class Application(ttk.Frame,
         content = output["summary"] + "\n"
         content += 80 * "-" + "\n"
         content += output["lines"]
-        self.textbox_subs_peers.replace("1.0", tk.END, content)
+
+        self.write_text(self.textbox_subs_peers, content)
         self.print_done(print_msg=True)
 
     def seeding_ratio(self):
@@ -893,7 +899,7 @@ class Application(ttk.Frame,
                                     plot_hst_var=self.check_seed_plot.get(),
                                     server=self.server_var.get())
 
-        self.textbox_seed.replace("1.0", tk.END, content)
+        self.write_text(self.textbox_seed, content)
         self.print_done(print_msg=True)
 
     def delete_claims(self):
@@ -936,7 +942,7 @@ class Application(ttk.Frame,
                                     threads=self.spin_s_threads.get(),
                                     server=self.server_var.get())
 
-        self.textbox_supports.replace("1.0", tk.END, content)
+        self.write_text(self.textbox_supports, content)
         self.print_done(print_msg=True)
 
     def validate_g_claims(self, print_msg=True):
@@ -1046,7 +1052,8 @@ class Application(ttk.Frame,
         content += output["summary"] + "\n"
         content += 80 * "-" + "\n"
         content += output["lines"]
-        self.textbox_trend.replace("1.0", tk.END, content)
+
+        self.write_text(self.textbox_trend, content)
         self.print_done(print_msg=True)
 
     def list_search_claims(self):
@@ -1083,7 +1090,8 @@ class Application(ttk.Frame,
         content += output["summary"] + "\n"
         content += 80 * "-" + "\n"
         content += output["lines"]
-        self.textbox_search.replace("1.0", tk.END, content)
+
+        self.write_text(self.textbox_search, content)
         self.print_done(print_msg=True)
 
 

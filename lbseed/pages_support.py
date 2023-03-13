@@ -107,6 +107,7 @@ class SupportListPage:
     def setup_textbox_support(self, parent):
         self.textbox_supports = blocks.setup_textbox(parent,
                                                      font=self.txt_lst_font)
+        self.textbox_supports["state"] = "disabled"
 
 
 class SupportUpdatePage:

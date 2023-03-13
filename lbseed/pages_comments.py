@@ -85,6 +85,7 @@ class CommentsReplyPage:
 
         content = "(no claim loaded)"
         self.textbox_cmnt2.replace("1.0", tk.END, content)
+        self.textbox_cmnt2["state"] = "disabled"
 
     def setup_rep_cmnt(self, parent):
         lb = ttk.Label(parent, text="Comment as")
@@ -313,3 +314,4 @@ class CommentsPage(CommentsReplyPage):
 
         content = "(no claim loaded)"
         self.textbox_cmnt.replace("1.0", tk.END, content)
+        self.textbox_cmnt["state"] = "disabled"

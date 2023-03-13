@@ -160,6 +160,7 @@ class ListClsPeersPage:
             blocks.setup_textbox(parent,
                                  font=self.txt_lst_font)
         self.textbox_cls_peers_out.insert("1.0", "(peer information)")
+        self.textbox_cls_peers_out["state"] = "disabled"
 
 
 class ListChPeersPage:
@@ -280,6 +281,7 @@ class ListChPeersPage:
     def setup_textbox_ch_peers(self, parent):
         self.textbox_ch_peers = blocks.setup_textbox(parent,
                                                      font=self.txt_lst_font)
+        self.textbox_ch_peers["state"] = "disabled"
 
 
 class ListChsPeersPage:
@@ -377,9 +379,9 @@ class ListChsPeersPage:
 
     def setup_textbox_chs_peers_out(self, parent):
         self.textbox_chs_peers_out = \
-            blocks.setup_textbox(parent,
-                                 font=self.txt_lst_font)
+            blocks.setup_textbox(parent, font=self.txt_lst_font)
         self.textbox_chs_peers_out.insert("1.0", "(peer information)")
+        self.textbox_chs_peers_out["state"] = "disabled"
 
 
 class ListSubsPeersPage:
@@ -473,6 +475,7 @@ class ListSubsPeersPage:
     def setup_textbox_subs_peers(self, parent):
         self.textbox_subs_peers = blocks.setup_textbox(parent,
                                                        font=self.txt_lst_font)
+        self.textbox_subs_peers["state"] = "disabled"
 
 
 class SeedPage:
@@ -517,6 +520,7 @@ class SeedPage:
     def setup_textbox_seed(self, parent):
         self.textbox_seed = blocks.setup_textbox(parent,
                                                  font=self.txt_lst_font)
+        self.textbox_seed["state"] = "disabled"
 
     def setup_plot(self):
         self.top_plot = tk.Toplevel()

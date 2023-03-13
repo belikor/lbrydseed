@@ -117,6 +117,7 @@ class ListDownPage:
     def setup_textbox_list_d(self, parent):
         self.textbox_list_d = blocks.setup_textbox(parent,
                                                    font=self.txt_lst_font)
+        self.textbox_list_d["state"] = "disabled"
 
 
 class ListDownInvalidPage:
@@ -223,6 +224,7 @@ class ListDownInvalidPage:
     def setup_textbox_list_d_inv(self, parent):
         self.textbox_list_d_inv = blocks.setup_textbox(parent,
                                                        font=self.txt_lst_font)
+        self.textbox_list_d_inv["state"] = "disabled"
 
 
 class ListChClaimsPage:
@@ -322,6 +324,7 @@ class ListChClaimsPage:
     def setup_textbox_ch_list(self, parent):
         self.textbox_ch_list = blocks.setup_textbox(parent,
                                                     font=self.txt_lst_font)
+        self.textbox_ch_list["state"] = "disabled"
 
 
 class SubscribedChsPage:
@@ -421,8 +424,8 @@ class SubscribedChsPage:
 
     def setup_textbox_ch_subs_list(self, parent):
         self.textbox_ch_subs_list = \
-            blocks.setup_textbox(parent,
-                                 font=self.txt_lst_font)
+            blocks.setup_textbox(parent, font=self.txt_lst_font)
+        self.textbox_ch_subs_list["state"] = "disabled"
 
 
 class ListPubChsPage:
@@ -459,6 +462,7 @@ class ListPubChsPage:
     def setup_textbox_p_chs(self, parent):
         self.textbox_p_chs = blocks.setup_textbox(parent,
                                                   font=self.txt_lst_font)
+        self.textbox_p_chs["state"] = "disabled"
 
 
 class ListPubClaimsPage:
@@ -516,6 +520,7 @@ class ListPubClaimsPage:
     def setup_textbox_p_claims(self, parent):
         self.textbox_p_claims = blocks.setup_textbox(parent,
                                                      font=self.txt_lst_font)
+        self.textbox_p_claims["state"] = "disabled"
 
 
 class ControllingClaimsPage:
@@ -596,3 +601,4 @@ class ControllingClaimsPage:
     def setup_textbox_controlling(self, parent):
         self.textbox_controlling = blocks.setup_textbox(parent,
                                                         font=self.txt_lst_font)
+        self.textbox_controlling["state"] = "disabled"

@@ -203,6 +203,7 @@ class TrendPage(BaseSearch):
     def setup_textbox_trend(self, parent):
         self.textbox_trend = blocks.setup_textbox(parent,
                                                   font=self.txt_lst_font)
+        self.textbox_trend["state"] = "disabled"
 
 
 class SearchPage(BaseSearch):
@@ -370,3 +371,4 @@ class SearchPage(BaseSearch):
     def setup_textbox_search(self, parent):
         self.textbox_search = blocks.setup_textbox(parent,
                                                    font=self.txt_lst_font)
+        self.textbox_search["state"] = "disabled"

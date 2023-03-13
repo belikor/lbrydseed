@@ -86,6 +86,7 @@ class SettingsPage:
         self.textbox_settings = blocks.setup_textbox(parent,
                                                      font=self.txt_font)
         self.textbox_settings.insert("1.0", "(settings)")
+        self.textbox_settings["state"] = "disabled"
 
 
 class StatusPage:
@@ -111,3 +112,4 @@ class StatusPage:
     def setup_info_status(self, parent, start=0):
         self.textbox_status = blocks.setup_textbox(parent, font=self.txt_font)
         self.textbox_status.insert("1.0", "(status)")
+        self.textbox_status["state"] = "disabled"
