@@ -48,20 +48,20 @@ import lbseed.blocks as blocks
 
 class ListDownPage:
     """Mixin class to provide the list page to the application."""
-    def setup_page_down_list(self, parent):
-        self.setup_top_list(parent)
-        self.setup_textbox_list(parent)
+    def setup_page_list_down(self, parent):
+        self.setup_top_list_d(parent)
+        self.setup_textbox_list_d(parent)
 
-    def setup_top_list(self, parent):
+    def setup_top_list_d(self, parent):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
-        self.setup_grid_top_list(frame, start=0)
-        self.setup_grid_check_list(frame, start=2)
-        self.setup_grid_radio_list(frame, start=7)
+        self.setup_grid_top_list_d(frame, start=0)
+        self.setup_grid_check_list_d(frame, start=2)
+        self.setup_grid_radio_list_d(frame, start=7)
         self.setup_grid_check_reverse(frame, start=8)
-        self.setup_info_list(frame, start=9)
+        self.setup_info_list_d(frame, start=9)
 
-    def setup_grid_top_list(self, parent, start=0):
+    def setup_grid_top_list_d(self, parent, start=0):
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="List downloaded claims",
@@ -77,7 +77,7 @@ class ListDownPage:
                                    start=start+1)
         entry.bind("<<Activate>>", blocks.f_with_event(self.list_d_claims))
 
-    def setup_grid_check_list(self, parent, start=0):
+    def setup_grid_check_list_d(self, parent, start=0):
         blocks.setup_check_list(parent,
                                 blocks_var=self.check_lst_blks,
                                 cid_var=self.check_lst_cid,
@@ -86,7 +86,7 @@ class ListDownPage:
                                 show_ch_var=self.check_lst_show_ch,
                                 start=start)
 
-    def setup_grid_radio_list(self, parent, start=0):
+    def setup_grid_radio_list_d(self, parent, start=0):
         frame = ttk.Frame(parent, relief="groove", borderwidth=2)
         frame.grid(row=start, column=1, sticky=tk.W + tk.E + tk.N)
 
@@ -102,7 +102,7 @@ class ListDownPage:
                                   "(newer items first, older last)"))
         chk_reverse.grid(row=start, column=1, sticky=tk.W, pady=2)
 
-    def setup_info_list(self, parent, start=0):
+    def setup_info_list_d(self, parent, start=0):
         desc = ttk.Label(parent,
                          text=("The 'size' corresponds to the size "
                                "of the downloaded blobs; "
@@ -114,29 +114,29 @@ class ListDownPage:
                                "video and audio files."))
         desc.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
-    def setup_textbox_list(self, parent):
-        self.textbox_list = blocks.setup_textbox(parent,
-                                                 font=self.txt_lst_font)
+    def setup_textbox_list_d(self, parent):
+        self.textbox_list_d = blocks.setup_textbox(parent,
+                                                   font=self.txt_lst_font)
 
 
 class ListDownInvalidPage:
     """Mixin class to provide the list of invalid claims page."""
-    def setup_page_down_list_inv(self, parent):
-        self.setup_top_list_inv(parent)
-        self.setup_textbox_list_inv(parent)
+    def setup_page_list_down_inv(self, parent):
+        self.setup_top_list_d_inv(parent)
+        self.setup_textbox_list_d_inv(parent)
 
-    def setup_top_list_inv(self, parent):
+    def setup_top_list_d_inv(self, parent):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
-        self.setup_grid_top_list_inv(frame, start=0)
-        self.setup_grid_check_list_inv(frame, start=2)
-        self.setup_grid_radio_list_inv(frame, start=7)
+        self.setup_grid_top_list_d_inv(frame, start=0)
+        self.setup_grid_check_list_d_inv(frame, start=2)
+        self.setup_grid_radio_list_d_inv(frame, start=7)
         self.setup_grid_check_inv_reverse(frame, start=8)
-        self.setup_grid_threads_list(frame, start=9)
-        self.setup_grid_info_list_inv(frame, start=10)
-        self.setup_info_list_inv(frame, start=11)
+        self.setup_grid_threads_list_d(frame, start=9)
+        self.setup_grid_info_list_d_inv(frame, start=10)
+        self.setup_info_list_d_inv(frame, start=11)
 
-    def setup_grid_top_list_inv(self, parent, start=0):
+    def setup_grid_top_list_d_inv(self, parent, start=0):
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="List invalid claims",
@@ -157,7 +157,7 @@ class ListDownInvalidPage:
                                    start=start+1)
         entry.bind("<<Activate>>", blocks.f_with_event(self.list_d_claims_inv))
 
-    def setup_grid_check_list_inv(self, parent, start=0):
+    def setup_grid_check_list_d_inv(self, parent, start=0):
         blocks.setup_check_list(parent,
                                 blocks_var=self.check_lst_blks,
                                 cid_var=self.check_lst_cid,
@@ -166,7 +166,7 @@ class ListDownInvalidPage:
                                 show_ch_var=self.check_lst_show_ch,
                                 start=start)
 
-    def setup_grid_radio_list_inv(self, parent, start=0):
+    def setup_grid_radio_list_d_inv(self, parent, start=0):
         frame = ttk.Frame(parent, relief="groove", borderwidth=2)
         frame.grid(row=start, column=1, sticky=tk.W + tk.E + tk.N)
 
@@ -182,7 +182,7 @@ class ListDownInvalidPage:
                                   "(newer items first, older last)"))
         chk_reverse.grid(row=start, column=1, sticky=tk.W, pady=2)
 
-    def setup_grid_threads_list(self, parent, start=0):
+    def setup_grid_threads_list_d(self, parent, start=0):
         blocks.setup_spin_gen(parent,
                               frm=0, to=512, incr=1,
                               default=32,
@@ -193,7 +193,7 @@ class ListDownInvalidPage:
                                       "use 0 to avoid threads"),
                               start=start)
 
-    def setup_grid_info_list_inv(self, parent, start=0):
+    def setup_grid_info_list_d_inv(self, parent, start=0):
         info = ttk.Label(parent,
                          text=("'Invalid' claims are those which "
                                "were downloaded at one point "
@@ -208,7 +208,7 @@ class ListDownInvalidPage:
                                "to free space in the hard drive."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
-    def setup_info_list_inv(self, parent, start=0):
+    def setup_info_list_d_inv(self, parent, start=0):
         desc = ttk.Label(parent,
                          text=("The 'size' corresponds to the size "
                                "of the downloaded blobs; "
@@ -220,9 +220,9 @@ class ListDownInvalidPage:
                                "video and audio files."))
         desc.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
-    def setup_textbox_list_inv(self, parent):
-        self.textbox_list_inv = blocks.setup_textbox(parent,
-                                                     font=self.txt_lst_font)
+    def setup_textbox_list_d_inv(self, parent):
+        self.textbox_list_d_inv = blocks.setup_textbox(parent,
+                                                       font=self.txt_lst_font)
 
 
 class ListChClaimsPage:

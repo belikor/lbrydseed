@@ -95,15 +95,15 @@ class Application(ttk.Frame,
         self.note.add(page_s_list, text="List claims")
 
         self.note_sub_list = ttk.Notebook(page_s_list)
-        page_down_list = ttk.Frame(self.note_sub_list)
-        page_down_list_inv = ttk.Frame(self.note_sub_list)
+        page_list_down = ttk.Frame(self.note_sub_list)
+        page_list_down_inv = ttk.Frame(self.note_sub_list)
         page_ch_claims = ttk.Frame(self.note_sub_list)
         page_subscr_chs = ttk.Frame(self.note_sub_list)
         page_pub_chs = ttk.Frame(self.note_sub_list)
         page_pub_claims = ttk.Frame(self.note_sub_list)
         page_ctr_claims = ttk.Frame(self.note_sub_list)
-        self.note_sub_list.add(page_down_list, text="Downloaded claims")
-        self.note_sub_list.add(page_down_list_inv, text="Invalid claims")
+        self.note_sub_list.add(page_list_down, text="Downloaded claims")
+        self.note_sub_list.add(page_list_down_inv, text="Invalid claims")
         self.note_sub_list.add(page_ch_claims, text="Channel claims")
         self.note_sub_list.add(page_subscr_chs, text="Subscribed channels")
         self.note_sub_list.add(page_pub_chs, text="Created channels")
@@ -180,8 +180,8 @@ class Application(ttk.Frame,
         self.setup_page_dch(page_dch)
         self.setup_page_d(page_d)
 
-        self.setup_page_down_list(page_down_list)
-        self.setup_page_down_list_inv(page_down_list_inv)
+        self.setup_page_list_down(page_list_down)
+        self.setup_page_list_down_inv(page_list_down_inv)
         self.setup_page_ch_claims(page_ch_claims)
         self.setup_page_subscr_chs(page_subscr_chs)
         self.setup_page_pub_chs(page_pub_chs)
@@ -376,9 +376,9 @@ class Application(ttk.Frame,
         content += output["lines"]
 
         if not invalid:
-            self.textbox_list.replace("1.0", tk.END, content)
+            self.textbox_list_d.replace("1.0", tk.END, content)
         else:
-            self.textbox_list_inv.replace("1.0", tk.END, content)
+            self.textbox_list_d_inv.replace("1.0", tk.END, content)
 
         self.print_done(print_msg=True)
 
