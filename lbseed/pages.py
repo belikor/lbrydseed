@@ -50,7 +50,7 @@ from lbseed.pages_peers import (ListClsPeersPage,
                                 ListChPeersPage, ListChsPeersPage,
                                 ListSubsPeersPage, SeedPage)
 from lbseed.pages_del import DeleteSinglePage, DeleteChPage
-from lbseed.pages_support import SupportListPage, SupportAddPage
+from lbseed.pages_support import SupportListPage, SupportUpdatePage
 from lbseed.pages_search import TrendPage, SearchPage
 
 # Use the classes to prevent warnings by code checkers (flake8)
@@ -80,7 +80,7 @@ True if DeleteSinglePage else False
 True if DeleteChPage else False
 
 True if SupportListPage else False
-True if SupportAddPage else False
+True if SupportUpdatePage else False
 
 True if TrendPage else False
 True if SearchPage else False

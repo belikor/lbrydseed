@@ -109,20 +109,20 @@ class SupportListPage:
                                                      font=self.txt_lst_font)
 
 
-class SupportAddPage:
-    """Mixin class to provide methods to create supports."""
-    def setup_page_add_supports(self, parent):
-        self.setup_top_add_support(parent)
-        self.setup_textbox_add_support(parent)
+class SupportUpdatePage:
+    """Mixin class to provide methods to create or modify supports."""
+    def setup_page_upd_supports(self, parent):
+        self.setup_top_upd_support(parent)
+        self.setup_textbox_upd_support(parent)
 
-    def setup_top_add_support(self, parent):
+    def setup_top_upd_support(self, parent):
         frame = ttk.Frame(parent)
         frame.pack(padx=4, pady=4)
-        self.setup_grid_button_add_sup(frame, start=0)
+        self.setup_grid_button_upd_sup(frame, start=0)
         self.setup_grid_radio_support(frame, start=3)
-        self.setup_info_support_add(frame, start=7)
+        self.setup_info_support_upd(frame, start=7)
 
-    def setup_grid_button_add_sup(self, parent, start=0):
+    def setup_grid_button_upd_sup(self, parent, start=0):
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="Validate input",
@@ -168,7 +168,7 @@ class SupportAddPage:
             self.r_s_abandon["state"] = "normal"
             self.r_s_target["state"] = "normal"
 
-    def setup_info_support_add(self, parent, start=0):
+    def setup_info_support_upd(self, parent, start=0):
         info = ttk.Label(parent,
                          text=("Each claim has a 'base' support "
                                "that is provided by the author, "
@@ -187,7 +187,7 @@ class SupportAddPage:
                                "have been confirmed in the blockchain."))
         info.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
-    def setup_textbox_add_support(self, parent):
+    def setup_textbox_upd_support(self, parent):
         sep = ";"
 
         claims = ["mass-psychosis-how-an-entire-population"
@@ -201,5 +201,5 @@ class SupportAddPage:
                   + f"{sep}" + " 4.4405"]
 
         claims = "\n".join(claims)
-        self.textbox_add_support = blocks.setup_textbox(parent)
-        self.textbox_add_support.insert("1.0", claims)
+        self.textbox_upd_support = blocks.setup_textbox(parent)
+        self.textbox_upd_support.insert("1.0", claims)

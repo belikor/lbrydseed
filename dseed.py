@@ -52,7 +52,7 @@ class Application(ttk.Frame,
                   pages.ListChPeersPage, pages.ListChsPeersPage,
                   pages.ListSubsPeersPage, pages.SeedPage,
                   pages.DeleteSinglePage, pages.DeleteChPage,
-                  pages.SupportListPage, pages.SupportAddPage,
+                  pages.SupportListPage, pages.SupportUpdatePage,
                   pages.TrendPage, pages.SearchPage):
     def __init__(self, root):
         # Initialize and show the main frame
@@ -147,9 +147,9 @@ class Application(ttk.Frame,
 
         note_sub_sup = ttk.Notebook(page_s_sup)
         page_supports = ttk.Frame(note_sub_sup)
-        page_add_supports = ttk.Frame(note_sub_sup)
+        page_upd_supports = ttk.Frame(note_sub_sup)
         note_sub_sup.add(page_supports, text="List supports")
-        note_sub_sup.add(page_add_supports, text="Add or remove support")
+        note_sub_sup.add(page_upd_supports, text="Add or remove support")
         note_sub_sup.pack(fill="both", expand=True)
 
         page_s_search = ttk.Frame(self.note)
@@ -201,7 +201,7 @@ class Application(ttk.Frame,
         self.setup_page_delch(page_delch)
 
         self.setup_page_supports(page_supports)
-        self.setup_page_add_supports(page_add_supports)
+        self.setup_page_upd_supports(page_upd_supports)
 
         self.setup_page_trend(page_trend)
         self.setup_page_search(page_search)
@@ -941,7 +941,7 @@ class Application(ttk.Frame,
 
     def validate_g_claims(self, print_msg=True):
         """Validate the textbox with claims and numbers."""
-        text = self.textbox_add_support.get("1.0", tk.END)
+        text = self.textbox_upd_support.get("1.0", tk.END)
 
         validated_claims = val.validate_input(text,
                                               assume_channel=False,
