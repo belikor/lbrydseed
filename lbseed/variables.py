@@ -96,6 +96,8 @@ class VarsListChClaims:
         self.chck_chl_fees = tk.BooleanVar(value=True)
         self.chck_chl_title = tk.BooleanVar(value=False)
         self.chck_chl_reverse = tk.BooleanVar(value=True)
+        self.lab_ch_claims_status = \
+            tk.StringVar(value="No claim")
 
 
 class VarsSubscribedChs:
@@ -172,6 +174,7 @@ class VarsPeers:
 
         # self.entry_chl_chan = tk.StringVar(value="@lbry:3f")
         self.spin_ch_peers_num = tk.IntVar(value=50)
+        self.lab_ch_peers_status = tk.StringVar(value="No claim")
 
         self.spin_chs_ch_threads = tk.IntVar(value=16)
         self.spin_chs_cl_threads = tk.IntVar(value=32)

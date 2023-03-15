@@ -167,7 +167,12 @@ class ListChPeersPage:
     """Mixing class to provide the list of peers for a channel."""
     def setup_page_ch_peers(self, parent):
         self.setup_top_ch_peers(parent)
-        self.setup_textbox_ch_peers(parent)
+        frame1 = ttk.Frame(parent)
+        frame1.pack(padx=4, pady=4, fill="both", expand=True)
+        frame2 = ttk.Frame(parent)
+        frame2.pack(padx=4, pady=4, fill="x")
+        self.setup_textbox_ch_peers(frame1)
+        self.setup_ch_peers_status(frame2)
 
     def setup_top_ch_peers(self, parent):
         frame = ttk.Frame(parent)
@@ -282,6 +287,12 @@ class ListChPeersPage:
         self.textbox_ch_peers = blocks.setup_textbox(parent,
                                                      font=self.txt_lst_font)
         self.textbox_ch_peers["state"] = "disabled"
+
+    def setup_ch_peers_status(self, parent):
+        label = ttk.Label(parent,
+                          text="No claim",
+                          textvariable=self.lab_ch_peers_status)
+        label.pack(side="left")
 
 
 class ListChsPeersPage:

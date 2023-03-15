@@ -423,12 +423,24 @@ class Application(ttk.Frame,
         if resolved_ch["claim"]:
             content = resolved_ch["summary"]
 
+            uri = resolved_ch["claim"]["canonical_url"]
+            claim_str = uri.split("lbry://")[1]
+            claim_str = hlp.sanitize_text(claim_str)
+
             if page == "List claims":
+                self.lab_ch_claims_status.set(f"Claim: {claim_str}")
                 self.write_text(self.textbox_ch_list, content)
             elif page == "Peers":
+                self.lab_ch_peers_status.set(f"Claim: {claim_str}")
                 self.write_text(self.textbox_ch_peers, content)
         else:
             print_msg = True
+            claim_input = "Claim not found: " + resolved_ch["claim_input"]
+
+            if page == "List claims":
+                self.lab_ch_claims_status.set(claim_input)
+            elif page == "Peers":
+                self.lab_ch_peers_status.set(claim_input)
 
         self.print_done(print_msg=print_msg)
 
