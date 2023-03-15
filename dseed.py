@@ -409,24 +409,33 @@ class Application(ttk.Frame,
 
         resolved_ch = resolved_chs[0]
 
-        if not resolved_ch["claim"]:
-            self.print_done(print_msg=True)
-            return False
+        page = self.note.tab(self.note.select())["text"]
 
-        ch_name = resolved_ch["claim"]["canonical_url"].split("lbry://")[1]
+        if resolved_ch["claim"]:
+            content = resolved_ch["summary"]
+
+            if page == "List claims":
+                self.write_text(self.textbox_ch_list, content)
+            elif page == "Peers":
+                self.write_text(self.textbox_ch_peers, content)
+        else:
+            print_msg = True
+
         self.print_done(print_msg=print_msg)
 
-        return ch_name
+        return resolved_ch
 
     def list_ch_claims(self):
         """Print the channel claims in the textbox."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        ch_name_str = self.resolve_sg_ch(print_msg=True)
+        resolved_ch = self.resolve_sg_ch(print_msg=True)
 
-        if not ch_name_str:
+        if not resolved_ch["claim"]:
             return False
+
+        ch_name_str = resolved_ch["claim"]["canonical_url"].split("lbry://")[1]
 
         output = \
             actions.i_list_ch_claims(ch_name_str,
@@ -449,7 +458,9 @@ class Application(ttk.Frame,
         if not output["lines"]:
             output["lines"] = "No claims found"
 
-        content = output["summary"] + "\n"
+        content = resolved_ch["summary"] + "\n"
+        content += 80 * "-" + "\n"
+        content += output["summary"] + "\n"
         content += 80 * "-" + "\n"
         content += output["lines"]
 
@@ -805,10 +816,12 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        ch_name = self.resolve_sg_ch(print_msg=True)
+        resolved_ch = self.resolve_sg_ch(print_msg=True)
 
-        if not ch_name:
+        if not resolved_ch["claim"]:
             return False
+
+        ch_name = resolved_ch["claim"]["canonical_url"].split("lbry://")[1]
 
         output = \
             actions.i_list_ch_peers(ch_name,
@@ -824,7 +837,9 @@ class Application(ttk.Frame,
         if not output["lines"]:
             output["lines"] = "No claims found"
 
-        content = output["summary"] + "\n"
+        content = resolved_ch["summary"] + "\n"
+        content += 80 * "-" + "\n"
+        content += output["summary"] + "\n"
         content += 80 * "-" + "\n"
         content += output["lines"]
 
