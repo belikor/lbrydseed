@@ -54,8 +54,17 @@ class ListClsPeersPage:
         frame1.pack(padx=4, pady=4, fill="both", expand=False)
         frame2 = ttk.Frame(parent)
         frame2.pack(padx=4, pady=4, fill="both", expand=True)
+
         self.setup_textbox_cls_peers(frame1)
-        self.setup_textbox_cls_peers_out(frame2)
+
+        note = ttk.Notebook(frame2)
+        p1 = ttk.Frame(note)
+        p2 = ttk.Frame(note)
+        note.add(p1, text="Peer information")
+        note.add(p2, text="Resolve information")
+        note.pack(fill="both", expand=True)
+        self.setup_textbox_cls_peers_out(p1)
+        self.setup_textbox_cls_peers_summ(p2)
 
     def setup_top_cls_peers(self, parent):
         frame = ttk.Frame(parent)
@@ -161,6 +170,13 @@ class ListClsPeersPage:
                                  font=self.txt_lst_font)
         self.textbox_cls_peers_out.insert("1.0", "(peer information)")
         self.textbox_cls_peers_out["state"] = "disabled"
+
+    def setup_textbox_cls_peers_summ(self, parent):
+        self.textbox_cls_peers_summ = \
+            blocks.setup_textbox(parent, font=self.txt_lst_font)
+        self.textbox_cls_peers_summ.insert("1.0",
+                                           "(information about the claims)")
+        self.textbox_cls_peers_summ["state"] = "disabled"
 
 
 class ListChPeersPage:
@@ -303,8 +319,17 @@ class ListChsPeersPage:
         frame1.pack(padx=4, pady=4, fill="both", expand=False)
         frame2 = ttk.Frame(parent)
         frame2.pack(padx=4, pady=4, fill="both", expand=True)
+
         self.setup_textbox_chs_peers(frame1)
-        self.setup_textbox_chs_peers_out(frame2)
+
+        note = ttk.Notebook(frame2)
+        p1 = ttk.Frame(note)
+        p2 = ttk.Frame(note)
+        note.add(p1, text="Peer information")
+        note.add(p2, text="Resolve information")
+        note.pack(fill="both", expand=True)
+        self.setup_textbox_chs_peers_out(p1)
+        self.setup_textbox_chs_peers_summ(p2)
 
     def setup_top_chs_peers(self, parent):
         frame = ttk.Frame(parent)
@@ -393,6 +418,13 @@ class ListChsPeersPage:
             blocks.setup_textbox(parent, font=self.txt_lst_font)
         self.textbox_chs_peers_out.insert("1.0", "(peer information)")
         self.textbox_chs_peers_out["state"] = "disabled"
+
+    def setup_textbox_chs_peers_summ(self, parent):
+        self.textbox_chs_peers_summ = \
+            blocks.setup_textbox(parent, font=self.txt_lst_font)
+        self.textbox_chs_peers_summ.insert("1.0",
+                                           "(information about the claims)")
+        self.textbox_chs_peers_summ["state"] = "disabled"
 
 
 class ListSubsPeersPage:

@@ -307,6 +307,8 @@ class Application(ttk.Frame,
             textbox = self.textbox_dch_summ
         elif page == "Delete":
             textbox = self.textbox_delch_summ
+        elif page == "Peers":
+            textbox = self.textbox_chs_peers_summ
 
         try:
             self.write_text(textbox, summaries)
@@ -375,6 +377,8 @@ class Application(ttk.Frame,
             textbox = self.textbox_d_summ
         elif page == "Delete":
             textbox = self.textbox_del_summ
+        elif page == "Peers":
+            textbox = self.textbox_cls_peers_summ
 
         try:
             self.write_text(textbox, summaries)
