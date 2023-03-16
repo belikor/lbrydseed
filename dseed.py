@@ -305,6 +305,8 @@ class Application(ttk.Frame,
 
         if page == "Download":
             textbox = self.textbox_dch_summ
+        elif page == "Delete":
+            textbox = self.textbox_delch_summ
 
         try:
             self.write_text(textbox, summaries)
@@ -371,6 +373,8 @@ class Application(ttk.Frame,
 
         if page == "Download":
             textbox = self.textbox_d_summ
+        elif page == "Delete":
+            textbox = self.textbox_del_summ
 
         try:
             self.write_text(textbox, summaries)

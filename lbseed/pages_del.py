@@ -50,7 +50,12 @@ class DeleteClaimsPage:
     """Mixin class to provide the delete page to the application."""
     def setup_page_del(self, parent):
         self.setup_top_del(parent)
-        self.setup_textbox_del(parent)
+        frame1 = ttk.Frame(parent)
+        frame1.pack(padx=4, pady=4, fill="both", expand=False)
+        frame2 = ttk.Frame(parent)
+        frame2.pack(padx=4, pady=4, fill="both", expand=True)
+        self.setup_textbox_del(frame1)
+        self.setup_textbox_del_summ(frame2)
 
     def setup_top_del(self, parent):
         frame = ttk.Frame(parent)
@@ -87,12 +92,23 @@ class DeleteClaimsPage:
         self.textbox_del = blocks.setup_textbox(parent, font=self.txt_font)
         self.textbox_del.insert("1.0", claims)
 
+    def setup_textbox_del_summ(self, parent):
+        self.textbox_del_summ = \
+            blocks.setup_textbox(parent, font=self.txt_lst_font)
+        self.textbox_del_summ.insert("1.0", "(information about the claims)")
+        self.textbox_del_summ["state"] = "disabled"
+
 
 class DeleteChsPage:
     """Mixin class to provide the list page to the application."""
     def setup_page_delch(self, parent):
         self.setup_top_delch(parent)
-        self.setup_textbox_delch(parent)
+        frame1 = ttk.Frame(parent)
+        frame1.pack(padx=4, pady=4, fill="both", expand=False)
+        frame2 = ttk.Frame(parent)
+        frame2.pack(padx=4, pady=4, fill="both", expand=True)
+        self.setup_textbox_delch(frame1)
+        self.setup_textbox_delch_summ(frame2)
 
     def setup_top_delch(self, parent):
         frame = ttk.Frame(parent)
@@ -148,3 +164,9 @@ class DeleteChsPage:
         channels = blocks.set_up_default_channels(clean_up=True)
         self.textbox_delch = blocks.setup_textbox(parent, font=self.txt_font)
         self.textbox_delch.insert("1.0", channels)
+
+    def setup_textbox_delch_summ(self, parent):
+        self.textbox_delch_summ = \
+            blocks.setup_textbox(parent, font=self.txt_lst_font)
+        self.textbox_delch_summ.insert("1.0", "(information about the claims)")
+        self.textbox_delch_summ["state"] = "disabled"
