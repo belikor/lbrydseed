@@ -50,7 +50,12 @@ class DownloadChsPage:
     """Mixin class to provide the download channel page to the application."""
     def setup_page_dch(self, parent):
         self.setup_top_dch(parent)
-        self.setup_textbox_dch(parent)
+        frame1 = ttk.Frame(parent)
+        frame1.pack(padx=4, pady=4, fill="both", expand=False)
+        frame2 = ttk.Frame(parent)
+        frame2.pack(padx=4, pady=4, fill="both", expand=True)
+        self.setup_textbox_dch(frame1)
+        self.setup_textbox_dch_summ(frame2)
 
     def setup_top_dch(self, parent):
         frame = ttk.Frame(parent)
@@ -125,12 +130,23 @@ class DownloadChsPage:
         self.textbox_dch = blocks.setup_textbox(parent, font=self.txt_font)
         self.textbox_dch.insert("1.0", channels)
 
+    def setup_textbox_dch_summ(self, parent):
+        self.textbox_dch_summ = \
+            blocks.setup_textbox(parent, font=self.txt_lst_font)
+        self.textbox_dch_summ.insert("1.0", "(information about the claims)")
+        self.textbox_dch_summ["state"] = "disabled"
+
 
 class DownloadClaimsPage:
     """Mixin class to provide the download single page to the application."""
     def setup_page_d(self, parent):
         self.setup_top_d(parent)
-        self.setup_textbox_d(parent)
+        frame1 = ttk.Frame(parent)
+        frame1.pack(padx=4, pady=4, fill="both", expand=False)
+        frame2 = ttk.Frame(parent)
+        frame2.pack(padx=4, pady=4, fill="both", expand=True)
+        self.setup_textbox_d(frame1)
+        self.setup_textbox_d_summ(frame2)
 
     def setup_top_d(self, parent):
         frame = ttk.Frame(parent)
@@ -189,3 +205,9 @@ class DownloadClaimsPage:
         claims = blocks.set_up_default_claims()
         self.textbox_d = blocks.setup_textbox(parent, font=self.txt_font)
         self.textbox_d.insert("1.0", claims)
+
+    def setup_textbox_d_summ(self, parent):
+        self.textbox_d_summ = \
+            blocks.setup_textbox(parent, font=self.txt_lst_font)
+        self.textbox_d_summ.insert("1.0", "(information about the claims)")
+        self.textbox_d_summ["state"] = "disabled"

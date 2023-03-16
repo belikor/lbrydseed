@@ -286,6 +286,31 @@ class Application(ttk.Frame,
                                          print_msg=print_msg,
                                          server=self.server_var.get())
 
+        out = []
+        n_chs = len(resolved_chs)
+
+        for num, resolved_ch in enumerate(resolved_chs, start=1):
+            head = f"Claim {num}/{n_chs}" + "\n"
+
+            if resolved_ch["claim"]:
+                out.append(head + resolved_ch["summary"])
+            else:
+                out.append(head + "Claim not found: "
+                           + resolved_ch["claim_input"])
+
+        sep = "\n" + 80 * "-" + "\n"
+        summaries = sep.join(out)
+
+        page = self.note.tab(self.note.select())["text"]
+
+        if page == "Download":
+            textbox = self.textbox_dch_summ
+
+        try:
+            self.write_text(textbox, summaries)
+        except NameError:
+            pass
+
         self.print_done(print_msg=print_msg)
 
         return resolved_chs
@@ -328,6 +353,29 @@ class Application(ttk.Frame,
                                  repost=repost,
                                  print_msg=print_msg,
                                  server=self.server_var.get())
+
+        out = []
+        n_claims = len(resolved_claims)
+
+        for num, resolved_claim in enumerate(resolved_claims, start=1):
+            head = f"Claim {num}/{n_claims}" + "\n"
+
+            if resolved_claim["claim"]:
+                out.append(head + resolved_claim["summary"])
+            else:
+                out.append(head + "Claim not found: "
+                           + resolved_claim["claim_input"])
+
+        sep = "\n" + 80 * "-" + "\n"
+        summaries = sep.join(out)
+
+        if page == "Download":
+            textbox = self.textbox_d_summ
+
+        try:
+            self.write_text(textbox, summaries)
+        except NameError:
+            pass
 
         self.print_done(print_msg=print_msg)
 
