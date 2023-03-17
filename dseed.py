@@ -306,7 +306,7 @@ class Application(ttk.Frame,
 
         self.print_done(print_msg=True)
 
-    def resolve_claims(self, print_msg=True):
+    def resolve_claims(self, repost=True, print_msg=True):
         """Resolve the claims in the textbox online."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
@@ -325,11 +325,20 @@ class Application(ttk.Frame,
 
         resolved_claims = \
             res.i_resolve_claims(text,
-                                 repost=self.check_d_repost.get(),
+                                 repost=repost,
                                  print_msg=print_msg,
                                  server=self.server_var.get())
 
         self.print_done(print_msg=print_msg)
+
+        return resolved_claims
+
+    def resolve_claims_d(self, print_msg=True):
+        """Resolve the claims in the download textbox."""
+        repost = self.check_d_repost.get()
+
+        resolved_claims = self.resolve_claims(repost=repost,
+                                              print_msg=print_msg)
 
         return resolved_claims
 
@@ -338,7 +347,7 @@ class Application(ttk.Frame,
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        resolved_claims = self.resolve_claims(print_msg=False)
+        resolved_claims = self.resolve_claims_d(print_msg=False)
 
         actions.i_download_claims(resolved_claims,
                                   ddir=self.entry_d_dir.get(),

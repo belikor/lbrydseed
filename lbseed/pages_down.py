@@ -152,7 +152,7 @@ class DownloadClaimsPage:
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="Resolve online",
-                                b_command=self.resolve_claims,
+                                b_command=self.resolve_claims_d,
                                 l_text="Confirm that the claims exist",
                                 start=start)
 
