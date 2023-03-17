@@ -215,7 +215,16 @@ class CommentsPage(CommentsReplyPage):
         frame4.pack(padx=4, pady=4, fill="both", expand=True)
         frame5 = ttk.Frame(parent)
         frame5.pack(padx=4, pady=4, fill="x")
-        self.setup_textbox_cmnt_claim(frame1)
+
+        note = ttk.Notebook(frame1)
+        p1 = ttk.Frame(note)
+        p2 = ttk.Frame(note)
+        note.add(p1, text="Claims")
+        note.add(p2, text="Resolve information")
+        note.pack(fill="both", expand=True)
+        self.setup_textbox_cmnt_claim(p1)
+        self.setup_textbox_cmnt_claim_summ(p2)
+
         self.setup_rep_btn(frame2)
         self.setup_listbox_cmnt(frame3)
         self.setup_textbox_cmnt(frame4)
@@ -246,7 +255,7 @@ class CommentsPage(CommentsReplyPage):
         blocks.setup_button_gen(parent,
                                 width=self.b_width,
                                 b_text="Resolve online",
-                                b_command=self.resolve_claim_cmnt,
+                                b_command=self.resolve_claims,
                                 l_text="Confirm that the claim exists",
                                 start=start)
 
@@ -264,7 +273,7 @@ class CommentsPage(CommentsReplyPage):
                              "this should be a claim name, "
                              "channel name, "
                              "or claim ID (40-character string).\n"
-                             "Only the first line will be considered."))
+                             "Only the first item will be considered."))
         lb.grid(row=start, column=0, columnspan=2, sticky=tk.W)
 
     def setup_textbox_cmnt_claim(self, parent):
@@ -276,6 +285,14 @@ class CommentsPage(CommentsReplyPage):
                    "83a23b2e2f20bf9af0d46ad38132e745c35d9ff4\n"
                    "vim-alchemy-with-macros")
         self.textbox_cmnt_claim.replace("1.0", tk.END, content)
+
+    def setup_textbox_cmnt_claim_summ(self, parent):
+        self.textbox_cmnt_claim_summ = \
+            blocks.setup_textbox(parent, font=self.txt_lst_font,
+                                 height=6)
+        self.textbox_cmnt_claim_summ.insert("1.0",
+                                            "(information about the claims)")
+        self.textbox_cmnt_claim_summ["state"] = "disabled"
 
     def setup_rep_btn(self, parent):
         btn = ttk.Button(parent,

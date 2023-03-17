@@ -351,6 +351,8 @@ class Application(ttk.Frame,
             text = self.textbox_del.get("1.0", tk.END)
         elif page == "Peers":
             text = self.textbox_cls_peers.get("1.0", tk.END)
+        elif page == "Comments":
+            text = self.textbox_cmnt_claim.get("1.0", tk.END)
 
         resolved_claims = \
             res.i_resolve_claims(text,
@@ -379,6 +381,8 @@ class Application(ttk.Frame,
             textbox = self.textbox_del_summ
         elif page == "Peers":
             textbox = self.textbox_cls_peers_summ
+        elif page == "Comments":
+            textbox = self.textbox_cmnt_claim_summ
 
         try:
             self.write_text(textbox, summaries)
@@ -671,28 +675,12 @@ class Application(ttk.Frame,
         """Set up default comment server."""
         self.cmnt_server.set(self.cmnt_server_def.get())
 
-    def resolve_claim_cmnt(self, print_msg=True):
-        """Resolve the claim in order to create a comment for it."""
-        if not hlp.server_exists(server=self.server_var.get()):
-            return False
-
-        text = self.textbox_cmnt_claim.get("1.0", tk.END)
-
-        resolved_claims = res.i_resolve_claims(text,
-                                               repost=True,
-                                               print_msg=print_msg,
-                                               server=self.server_var.get())
-
-        self.print_done(print_msg=print_msg)
-
-        return resolved_claims
-
     def list_comments(self):
         """Print the existing comments below a claim."""
         if not hlp.server_exists(server=self.server_var.get()):
             return False
 
-        resolved_claims = self.resolve_claim_cmnt(print_msg=False)
+        resolved_claims = self.resolve_claims(print_msg=False)
 
         active_claim = resolved_claims[0]["claim"]
 
