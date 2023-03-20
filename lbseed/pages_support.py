@@ -114,7 +114,15 @@ class SupportUpdatePage:
     """Mixin class to provide methods to create or modify supports."""
     def setup_page_upd_supports(self, parent):
         self.setup_top_upd_support(parent)
-        self.setup_textbox_upd_support(parent)
+
+        note = ttk.Notebook(parent)
+        p1 = ttk.Frame(note)
+        p2 = ttk.Frame(note)
+        note.add(p1, text="Claims")
+        note.add(p2, text="Resolve information")
+        note.pack(fill="both", expand=True)
+        self.setup_textbox_upd_support(p1)
+        self.setup_textbox_upd_summ(p2)
 
     def setup_top_upd_support(self, parent):
         frame = ttk.Frame(parent)
@@ -204,3 +212,10 @@ class SupportUpdatePage:
         claims = "\n".join(claims)
         self.textbox_upd_support = blocks.setup_textbox(parent)
         self.textbox_upd_support.insert("1.0", claims)
+
+    def setup_textbox_upd_summ(self, parent):
+        self.textbox_upd_support_summ = \
+            blocks.setup_textbox(parent, font=self.txt_lst_font)
+        self.textbox_upd_support_summ.insert("1.0",
+                                             "(information about the claims)")
+        self.textbox_upd_support_summ["state"] = "disabled"

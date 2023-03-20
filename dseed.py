@@ -1062,6 +1062,22 @@ class Application(ttk.Frame,
                                           print_msg=print_msg,
                                           server=self.server_var.get())
 
+            out = []
+            n_claims = len(resolved_claims)
+
+            for num, resolved_claim in enumerate(resolved_claims, start=1):
+                head = f"Claim {num}/{n_claims}" + "\n"
+
+                if resolved_claim["claim"]:
+                    out.append(head + resolved_claim["summary"])
+                else:
+                    out.append(head + "Claim not found: "
+                               + resolved_claim["claim_input"])
+            sep = "\n" + 80 * "-" + "\n"
+            summaries = sep.join(out)
+
+            self.write_text(self.textbox_upd_support_summ, summaries)
+
         self.print_done(print_msg=print_msg)
 
         return resolved_claims
