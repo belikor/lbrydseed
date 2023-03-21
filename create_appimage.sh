@@ -5,7 +5,7 @@ OPWD=$(pwd)
 APPD=appimgtools
 
 # Change manually as needed
-VER=0.95-v0.113
+VER=0.96-v0.113
 
 # Version of Python; it depends on the plugin
 PYVER=3.8
