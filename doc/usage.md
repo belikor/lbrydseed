@@ -15,14 +15,14 @@ Go back to the [_README_](../README.md).
 ## Downloading
 
 Enter the name of the channels, and a number of claims to download for each,
-then press `"Download channel claims"`.
+then press `"Download claims from channels"`.
 
-![lbrydseed_download_channel](../img/g_lbrydseed_download_channel.png)
+![lbrydseed_download_channels](../img/g_lbrydseed_download_channels.png)
 
 Enter the name or claim ID of various claims,
 and then press `"Download claims"`.
 
-![lbrydseed_download_single](../img/g_lbrydseed_download_single.png)
+![lbrydseed_download_claims](../img/g_lbrydseed_download_claims.png)
 
 [Go back to _Content_](#content)
 
@@ -109,12 +109,12 @@ and downloaded.
 
 Enter the name or claim ID of various claims, then press `"Delete claims"`.
 
-![lbrydseed_delete_single](../img/g_lbrydseed_delete_single.png)
+![lbrydseed_delete_claims](../img/g_lbrydseed_delete_claims.png)
 
 Enter the name of the channels, and a number of claims to keep for each,
 then press `"Clean up claims"`.
 
-![lbrydseed_cleanup_channel](../img/g_lbrydseed_cleanup_channel.png)
+![lbrydseed_cleanup_channels](../img/g_lbrydseed_cleanup_channels.png)
 
 [Go back to _Content_](#content)
 
@@ -128,7 +128,7 @@ Enter the name or claim ID of various claims (it can be any type of claim
 such as videos and channels), a number,
 and then press `"Add or remove support"`.
 
-![lbrydseed_supports_add](../img/g_lbrydseed_supports_add.png)
+![lbrydseed_supports_update](../img/g_lbrydseed_supports_update.png)
 
 [Go back to _Content_](#content)
 
